@@ -589,17 +589,20 @@
 
         .course-body h3 {
             color: var(--text-primary);
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 19px;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
             margin-bottom: 8px;
             line-height: 1.3;
+            letter-spacing: 0.3px;
         }
 
         .course-body p {
             color: var(--text-muted);
             font-size: 13px;
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 16px;
+            font-family: 'Inter', sans-serif;
         }
 
         .course-meta {
@@ -612,8 +615,10 @@
 
         .course-price {
             color: var(--seafoam-light);
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
         }
 
         .course-price .old {
@@ -622,23 +627,41 @@
             font-size: 13px;
             font-weight: 400;
             margin-left: 6px;
+            font-family: 'Inter', sans-serif;
         }
 
         .course-btn {
-            padding: 8px 16px;
+            padding: 12px 24px;
             background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
             color: white;
             border: none;
             border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(107, 164, 159, 0.4);
         }
 
-        .course-btn:hover {
-            transform: translateX(3px);
-            box-shadow: 0 4px 12px rgba(107, 164, 159, 0.4);
+        .course-btn::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-light), var(--seafoam-primary));
+            background-size: 200% 200%;
+            z-index: -1;
+            opacity: 0.6;
+            filter: blur(8px);
+            animation: borderRotate 3s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         /* ===== AI TOOLS GRID ===== */
