@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLOMIMIN - Galaxy UI Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/galaxy.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .demo-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .demo-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #B2D6D1, #6BA49F, #46827E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .demo-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            margin-bottom: 48px;
+        }
+
+        .demo-section h2 {
+            color: var(--text-secondary);
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-section h2 i {
+            color: var(--seafoam-primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
+            box-shadow: 0 4px 16px rgba(107, 164, 159, 0.4);
+        }
+
+        .stat-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--seafoam-white);
+            margin: 0;
+        }
+
+        .stat-info p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 4px 0 0;
+        }
+
+        .product-card {
+            text-align: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, rgba(107, 164, 159, 0.3), rgba(70, 130, 126, 0.2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--seafoam-light);
+            margin-bottom: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(107, 164, 159, 0.2));
+            animation: shimmer 3s infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .product-card h4 {
+            color: var(--text-primary);
+            font-size: 16px;
+            margin: 0 0 6px;
+        }
+
+        .product-price {
+            color: var(--seafoam-light);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(107, 164, 159, 0.1);
+        }
+
+        .feature-list li:last-child { border: none; }
+
+        .feature-list li i {
+            color: var(--seafoam-primary);
+            font-size: 14px;
+            width: 20px;
+        }
+
+        .form-card input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(107, 164, 159, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-family: inherit;
+        }
+
+        .form-card input::placeholder { color: var(--text-muted); }
+
+        .form-card input:focus {
+            outline: none;
+            border-color: var(--seafoam-primary);
+            box-shadow: 0 0 0 4px rgba(107, 164, 159, 0.15);
+        }
+
+        .glow-btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .demo-footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>POLOMIMIN Galaxy UI</h1>
+            <p>Trải nghiệm giao diện kính trong suốt với viền chạy animation trên nền galaxy tuyệt đẹp</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="demo-section">
+            <h2><i class="fas fa-chart-line"></i> Thống kê</h2>
+            <div class="grid">
+                <div class="glass-card animate-in">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="stat-info">
+                            <h3>1,248</h3>
+                            <p>Đơn hàng hôm nay</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card animate-in">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #B2D6D1, #6BA49F);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>15,632</h3>
+                            <p>Khách hàng</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card animate-in">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #E6F2F0, #B2D6D1); color: #1a4d49;">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>₫2.4B</h3>
+                            <p>Doanh thu tháng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Cards -->
+        <div class="demo-section">
+            <h2><i class="fas fa-tshirt"></i> Sản phẩm nổi bật</h2>
+            <div class="grid">
+                <div class="glass-card animate-in product-card">
+                    <div class="product-image">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h4>Áo Polo Premium</h4>
+                    <p class="product-price">₫350,000</p>
+                </div>
+                <div class="glass-card animate-in product-card">
+                    <div class="product-image">
+                        <i class="fas fa-vest"></i>
+                    </div>
+                    <h4>Áo Sơ Mi Công Sở</h4>
+                    <p class="product-price">₫450,000</p>
+                </div>
+                <div class="glass-card animate-in product-card">
+                    <div class="product-image">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h4>Bộ Thể Thao Nam</h4>
+                    <p class="product-price">₫580,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features & Form -->
+        <div class="demo-section">
+            <h2><i class="fas fa-magic"></i> Tính năng & Form</h2>
+            <div class="grid">
+                <div class="glass-card animate-in">
+                    <h3 style="color: var(--seafoam-light); margin: 0 0 12px;">
+                        <i class="fas fa-star" style="color: var(--seafoam-primary);"></i> 
+                        Tính năng nổi bật
+                    </h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Glassmorphism cao cấp</li>
+                        <li><i class="fas fa-check-circle"></i> Viền chạy animation</li>
+                        <li><i class="fas fa-check-circle"></i> Background galaxy động</li>
+                        <li><i class="fas fa-check-circle"></i> Hiệu ứng nổi 3D</li>
+                        <li><i class="fas fa-check-circle"></i> Hover glow effect</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card animate-in form-card">
+                    <h3 style="color: var(--seafoam-light); margin: 0 0 16px;">
+                        <i class="fas fa-user-plus" style="color: var(--seafoam-primary);"></i>
+                        Đăng ký nhận ưu đãi
+                    </h3>
+                    <input type="text" placeholder="Họ tên của bạn">
+                    <input type="email" placeholder="Email">
+                    <input type="tel" placeholder="Số điện thoại">
+                    <button class="glow-btn">
+                        <span>Đăng ký ngay</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-footer">
+            <p>© 2025 POLOMIMIN - Dệt May Giàu Sang | Galaxy UI v1.0</p>
+        </div>
+    </div>
+</body>
+</html>
