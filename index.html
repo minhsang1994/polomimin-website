@@ -3,321 +3,829 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POLOMIMIN ERP - Hệ thống Quản lý Bán hàng</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23e94560' rx='15' width='100' height='100'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-size='50' font-weight='bold' fill='white'>P</text></svg>">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>POLOMIMIN - Dệt May Giàu Sang | Thời trang nam cao cấp</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236BA49F' rx='15' width='100' height='100'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-size='50' font-weight='bold' fill='white'>P</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/galaxy.css">
     <style>
-        /* POLOMIMIN ERP Complete Styles */
-        :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #e94560;
-            --accent-light: rgba(233,69,96,0.1);
-            --success: #10b981;
-            --success-light: rgba(16,185,129,0.1);
-            --warning: #f59e0b;
-            --warning-light: rgba(245,158,11,0.1);
-            --danger: #ef4444;
-            --danger-light: rgba(239,68,68,0.1);
-            --info: #3b82f6;
-            --info-light: rgba(59,130,246,0.1);
-            --text-dark: #1a1a2e;
-            --text-muted: #6b7280;
-            --text-light: #9ca3af;
-            --bg-light: #f3f4f6;
-            --bg-white: #ffffff;
-            --border: #e5e7eb;
-            --shadow: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
-            --radius: 8px;
-            --radius-lg: 12px;
-            --sidebar-width: 260px;
-            --header-height: 64px;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-light); }
-        a { text-decoration: none; color: inherit; }
-        button { cursor: pointer; border: none; outline: none; font-family: inherit; }
-        input, select, textarea { font-family: inherit; }
         
-        /* Layout */
-        .app-container { display: flex; min-height: 100vh; }
-        .sidebar { width: var(--sidebar-width); background: var(--primary); color: white; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100; display: flex; flex-direction: column; overflow-y: auto; }
-        .sidebar-header { padding: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .sidebar-logo { display: flex; align-items: center; gap: 0.75rem; }
-        .sidebar-logo-icon { width: 40px; height: 40px; background: var(--accent); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.25rem; }
-        .sidebar-logo-text { font-size: 1.25rem; font-weight: 700; }
-        .sidebar-logo-sub { font-size: 0.65rem; opacity: 0.7; text-transform: uppercase; }
-        .sidebar-nav { flex: 1; padding: 1rem 0; }
-        .nav-section { margin-bottom: 1.25rem; }
-        .nav-section-title { padding: 0.5rem 1.25rem; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); }
-        .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1.25rem; color: rgba(255,255,255,0.8); transition: all 0.2s; cursor: pointer; border-left: 3px solid transparent; }
-        .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
-        .nav-item.active { background: rgba(233,69,96,0.2); color: white; border-left-color: var(--accent); }
-        .nav-item .icon { font-size: 1.1rem; width: 20px; text-align: center; }
-        .nav-item .badge { margin-left: auto; background: var(--accent); color: white; font-size: 0.6rem; padding: 0.15rem 0.4rem; border-radius: 50px; font-weight: 600; }
-        
-        .main-content { flex: 1; margin-left: var(--sidebar-width); min-height: 100vh; }
-        .header { background: var(--bg-white); height: var(--header-height); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; }
-        .header-left { display: flex; align-items: center; gap: 1rem; }
-        .page-title { font-size: 1.25rem; font-weight: 600; }
-        .header-right { display: flex; align-items: center; gap: 1rem; }
-        .header-actions { display: flex; gap: 0.5rem; }
-        .header-action { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s; font-size: 1.1rem; }
-        .header-action:hover { background: var(--bg-light); }
-        .user-menu { display: flex; align-items: center; gap: 0.75rem; padding: 0.4rem; border-radius: var(--radius); cursor: pointer; }
-        .user-menu:hover { background: var(--bg-light); }
-        .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; }
-        .user-info { text-align: left; }
-        .user-name { font-size: 0.85rem; font-weight: 600; }
-        .user-role { font-size: 0.7rem; color: var(--text-muted); }
-        
-        .page-content { padding: 1.5rem; }
-        
-        /* Stats Cards */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
-        .stat-card { background: var(--bg-white); padding: 1.25rem; border-radius: var(--radius-lg); box-shadow: var(--shadow); display: flex; align-items: flex-start; gap: 1rem; }
-        .stat-icon { width: 50px; height: 50px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
-        .stat-icon.pink { background: linear-gradient(135deg, var(--accent), #ff6b6b); color: white; }
-        .stat-icon.green { background: linear-gradient(135deg, var(--success), #34d399); color: white; }
-        .stat-icon.orange { background: linear-gradient(135deg, var(--warning), #fbbf24); color: white; }
-        .stat-icon.blue { background: linear-gradient(135deg, var(--info), #60a5fa); color: white; }
-        .stat-content { flex: 1; }
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.2rem; }
-        .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--text-dark); }
-        .stat-change { font-size: 0.7rem; margin-top: 0.2rem; }
-        .stat-change.up { color: var(--success); }
-        .stat-change.down { color: var(--danger); }
-        .stat-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
-        
-        /* Grid Layout */
-        .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; }
-        @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
-        
-        /* Card */
-        .card { background: var(--bg-white); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
-        .card-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-        .card-header h3 { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
-        .card-body { padding: 1.25rem; }
-        
-        /* Table */
-        .table-container { overflow-x: auto; }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th, .table td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
-        .table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; background: var(--bg-light); white-space: nowrap; }
-        .table tbody tr:hover { background: var(--bg-light); }
-        .table td { font-size: 0.9rem; }
-        .table .actions { display: flex; gap: 0.35rem; }
-        
-        /* Buttons */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.55rem 1rem; font-size: 0.85rem; font-weight: 600; border-radius: var(--radius); transition: all 0.2s; border: none; cursor: pointer; }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { background: #d63c54; transform: translateY(-1px); }
-        .btn-secondary { background: var(--bg-light); color: var(--text-dark); }
-        .btn-secondary:hover { background: #e5e7eb; }
-        .btn-success { background: var(--success); color: white; }
-        .btn-success:hover { background: #059669; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-danger:hover { background: #dc2626; }
-        .btn-sm { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
-        .btn-icon { width: 30px; height: 30px; padding: 0; border-radius: 6px; font-size: 0.9rem; }
-        
-        /* Badge */
-        .badge { display: inline-flex; align-items: center; padding: 0.2rem 0.6rem; border-radius: 50px; font-size: 0.7rem; font-weight: 600; }
-        .badge-success { background: var(--success-light); color: var(--success); }
-        .badge-warning { background: var(--warning-light); color: var(--warning); }
-        .badge-danger { background: var(--danger-light); color: var(--danger); }
-        .badge-info { background: var(--info-light); color: var(--info); }
-        .badge-primary { background: var(--accent-light); color: var(--accent); }
-        
-        /* Forms */
-        .page-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
-        .search-filter { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-        .search-box { position: relative; }
-        .search-box input { padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.9rem; width: 280px; }
-        .search-box input:focus { border-color: var(--accent); outline: none; }
-        .search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 0.9rem; }
-        .filter-group select { padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.9rem; background: white; cursor: pointer; }
-        .filter-group select:focus { border-color: var(--accent); outline: none; }
-        .action-buttons { display: flex; gap: 0.5rem; }
-        
-        .table-card { background: var(--bg-white); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; background: var(--bg-light); padding: 0.85rem 1rem; text-align: left; white-space: nowrap; cursor: pointer; }
-        .data-table th:hover { color: var(--accent); }
-        .data-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-        .data-table tbody tr:hover { background: var(--bg-light); }
-        .data-table .actions-cell { display: flex; gap: 0.3rem; }
-        
-        .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--bg-white); border-radius: var(--radius-lg); box-shadow: var(--shadow); margin-top: 1rem; }
-        .pagination-info { font-size: 0.85rem; color: var(--text-muted); }
-        .pagination { display: flex; gap: 0.35rem; }
-        .pagination button { width: 32px; height: 32px; border-radius: var(--radius); border: 1px solid var(--border); background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; }
-        .pagination button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-        .pagination button.active { background: var(--accent); border-color: var(--accent); color: white; }
-        .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal { background: var(--bg-white); border-radius: var(--radius-lg); width: 90%; max-width: 700px; max-height: 90vh; overflow: hidden; transform: scale(0.95); transition: all 0.3s; }
-        .modal-overlay.active .modal { transform: scale(1); }
-        .modal-header { padding: 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-        .modal-title { font-size: 1.1rem; font-weight: 600; }
-        .modal-close { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; }
-        .modal-close:hover { background: var(--bg-light); }
-        .modal-body { padding: 1.25rem; overflow-y: auto; max-height: calc(90vh - 130px); }
-        .modal-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.75rem; }
-        
-        .form-group { margin-bottom: 1.15rem; }
-        .form-label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-dark); }
-        .form-label .required { color: var(--danger); }
-        .form-control { width: 100%; padding: 0.7rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; transition: all 0.2s; }
-        .form-control:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-light); }
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        textarea.form-control { min-height: 80px; resize: vertical; }
-        
-        /* Toast */
-        .toast-container { position: fixed; top: 80px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 0.5rem; }
-        .toast { background: var(--bg-white); padding: 1rem 1.25rem; border-radius: var(--radius); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 0.75rem; animation: slideIn 0.3s ease; min-width: 280px; }
-        .toast.success { border-left: 4px solid var(--success); }
-        .toast.error { border-left: 4px solid var(--danger); }
-        .toast.warning { border-left: 4px solid var(--warning); }
-        .toast-icon { font-size: 1.25rem; }
-        .toast-content { flex: 1; }
-        .toast-title { font-weight: 600; margin-bottom: 0.15rem; }
-        .toast-message { font-size: 0.85rem; color: var(--text-muted); }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        
-        /* Utilities */
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
-        .text-muted { color: var(--text-muted); }
-        .text-success { color: var(--success); }
-        .text-danger { color: var(--danger); }
-        .text-warning { color: var(--warning); }
-        .text-primary { color: var(--accent); }
-        .font-bold { font-weight: 700; }
-        .p-4 { padding: 1.5rem; }
-        .mb-2 { margin-bottom: 0.75rem; }
-        
-        /* Page Sections */
-        .page-section { display: none; }
-        .page-section.active { display: block; }
-        
-        /* Auto save indicator */
-        .autosave-indicator { position: fixed; bottom: 20px; right: 20px; background: var(--bg-white); padding: 0.5rem 1rem; border-radius: var(--radius); font-size: 0.75rem; color: var(--text-muted); box-shadow: var(--shadow); }
-        
-        /* Tasks */
-        .task-list { display: flex; flex-direction: column; gap: 0.75rem; }
-        .task-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-light); border-radius: var(--radius); }
-        .task-item.urgent { background: var(--danger-light); border-left: 3px solid var(--danger); }
-        .task-icon { font-size: 1.25rem; }
-        .task-text { font-size: 0.9rem; }
-        
-        /* Notifications */
-        .notification-list { display: flex; flex-direction: column; }
-        .notification-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); }
-        .notification-item:last-child { border-bottom: none; }
-        .notification-icon { font-size: 1.1rem; }
-        .notification-content { flex: 1; }
-        .notification-text { font-size: 0.85rem; }
-        .notification-time { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; }
-        
-        /* Color Swatch */
-        .color-swatch { display: inline-block; width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--border); vertical-align: middle; margin-right: 0.4rem; }
-        
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.active { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-            .page-header-bar { flex-direction: column; align-items: stretch; }
-            .search-filter, .action-buttons { width: 100%; }
-            .search-box input { width: 100%; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background: var(--galaxy-deep);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: rgba(15, 23, 41, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(107, 164, 159, 0.2);
+            border-radius: 100px;
+            width: calc(100% - 40px);
+            max-width: 720px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            color: white;
+            font-size: 18px;
+        }
+
+        .nav-logo span {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            color: var(--seafoam-light);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 8px 18px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--seafoam-primary);
+            color: white;
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-btn-outline {
+            background: transparent;
+            color: var(--seafoam-light);
+            border: 1px solid var(--seafoam-primary);
+        }
+
+        .nav-btn-primary {
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 164, 159, 0.4);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(107, 164, 159, 0.15);
+            border: 1px solid rgba(107, 164, 159, 0.3);
+            border-radius: 100px;
+            color: var(--seafoam-light);
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .hero-badge i {
+            color: var(--seafoam-primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 7vw, 80px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--seafoam-light) 50%, var(--seafoam-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 36px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 16px rgba(107, 164, 159, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(107, 164, 159, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--seafoam-light);
+            border: 1px solid var(--seafoam-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(107, 164, 159, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat h3 {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--seafoam-light), var(--seafoam-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stat p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            padding: 80px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(107, 164, 159, 0.15);
+            color: var(--seafoam-light);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* ===== SERVICES GRID ===== */
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            padding: 32px 28px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-icon.image { background: linear-gradient(135deg, #6BA49F, #46827E); }
+        .service-icon.video { background: linear-gradient(135deg, #B2D6D1, #6BA49F); color: #1a4d49; }
+        .service-icon.product { background: linear-gradient(135deg, #46827E, #1a4d49); }
+        .service-icon.app { background: linear-gradient(135deg, #E6F2F0, #B2D6D1); color: #1a4d49; }
+        .service-icon.ai { background: linear-gradient(135deg, #6BA49F, #B2D6D1); color: #1a4d49; }
+        .service-icon.design { background: linear-gradient(135deg, #1a4d49, #0a2e2c); }
+
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card .features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .service-card .features li {
+            padding: 6px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-card .features li i {
+            color: var(--seafoam-primary);
+            font-size: 10px;
+        }
+
+        .service-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-btn:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(107, 164, 159, 0.4);
+        }
+
+        /* ===== PRODUCTS SECTION ===== */
+        .products-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            background: rgba(15, 23, 41, 0.5);
+            border: 1px solid rgba(107, 164, 159, 0.2);
+            color: var(--text-secondary);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
+            color: white;
+            border-color: transparent;
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(107, 164, 159, 0.3), rgba(70, 130, 126, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: var(--seafoam-light);
+            position: relative;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(15, 23, 41, 0.8) 100%);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 12px;
+            background: rgba(233, 69, 96, 0.9);
+            color: white;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            z-index: 3;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h4 {
+            color: var(--text-primary);
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .product-info .price {
+            color: var(--seafoam-light);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .product-info .old-price {
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-size: 14px;
+            font-weight: 400;
+            margin-left: 8px;
+        }
+
+        .product-info .add-cart {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .product-info .add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 164, 159, 0.4);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 60px 20px 30px;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(107, 164, 159, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--seafoam-light);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .footer-col p, .footer-col a {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-col a:hover {
+            color: var(--seafoam-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(107, 164, 159, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .header-search { display: none; }
-            .user-info { display: none; }
-            .form-row { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .navbar { padding: 10px 16px; }
+            .nav-auth { gap: 4px; }
+            .nav-btn { padding: 6px 12px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo">
-                    <div class="sidebar-logo-icon">P</div>
-                    <div>
-                        <div class="sidebar-logo-text">POLOMIMIN</div>
-                        <div class="sidebar-logo-sub">ERP System v2.0</div>
-                    </div>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon">P</div>
+            <span>POLOMIMIN</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Trang chủ</a></li>
+            <li><a href="#dich-vu">Dịch vụ</a></li>
+            <li><a href="#san-pham">Sản phẩm</a></li>
+            <li><a href="#ung-dung">Ứng dụng</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="auth.html" class="nav-btn nav-btn-outline">Đăng nhập</a>
+            <a href="auth.html" class="nav-btn nav-btn-primary">Đăng ký</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-sparkles"></i>
+                <span>Thời trang nam cao cấp - Dệt may tận gốc</span>
+            </div>
+            <h1>Dệt May <span class="highlight">Giàu Sang</span> Cho Mọi Nhà</h1>
+            <p>Xưởng dệt may tận gốc, không qua trung gian. Sản xuất & phân phối áo Polo, áo thun, sơ mi, quần short, bộ thể thao chất lượng cao với giá tốt nhất cho cửa hàng và đại lý toàn quốc.</p>
+            <div class="hero-buttons">
+                <a href="#san-pham" class="btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Xem sản phẩm
+                </a>
+                <a href="#dich-vu" class="btn-secondary">
+                    <i class="fas fa-magic"></i> Khám phá dịch vụ
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <h3>10+</h3>
+                    <p>Năm kinh nghiệm</p>
                 </div>
-            </div>
-            <nav class="sidebar-nav" id="sidebar-nav">
-                <!-- Rendered by JS -->
-            </nav>
-        </aside>
-        
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
-                <div class="header-left">
-                    <h1 class="page-title" id="page-title">Dashboard</h1>
+                <div class="hero-stat">
+                    <h3>500+</h3>
+                    <p>Đại lý toàn quốc</p>
                 </div>
-                <div class="header-right">
-                    <div class="header-actions">
-                        <button class="header-action" onclick="app.exportData()" title="Xuất JSON">📤</button>
-                        <button class="header-action" onclick="document.getElementById('import-file').click()" title="Nhập JSON">📥</button>
-                        <input type="file" id="import-file" accept=".json" style="display:none" onchange="app.importData(event)">
-                        <button class="header-action" onclick="app.exportAllData()" title="Xuất tất cả">📦</button>
-                        <button class="header-action" onclick="app.showNotifications()" title="Thông báo">🔔</button>
-                        <button class="header-action" onclick="app.showHelp()" title="Trợ giúp">❓</button>
-                    </div>
-                    <div class="user-menu">
-                        <div class="user-avatar">NV</div>
-                        <div class="user-info">
-                            <div class="user-name">Nhân viên</div>
-                            <div class="user-role">Admin</div>
-                        </div>
-                    </div>
+                <div class="hero-stat">
+                    <h3>1M+</h3>
+                    <p>Sản phẩm / năm</p>
                 </div>
-            </header>
-            
-            <div class="page-content" id="main-content">
-                <!-- Rendered by JS -->
-            </div>
-        </main>
-    </div>
-    
-    <!-- CRUD Modal -->
-    <div class="modal-overlay" id="crud-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Thêm mới</h3>
-                <button class="modal-close" onclick="app.closeModal()">×</button>
-            </div>
-            <div class="modal-body">
-                <form id="crud-form">
-                    <!-- Rendered by JS -->
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="app.closeModal()">Hủy</button>
-                <button class="btn btn-primary" onclick="app.saveItem()">Lưu</button>
             </div>
         </div>
-    </div>
-    
-    <!-- Toast Container -->
-    <div class="toast-container" id="toast-container"></div>
-    
-    <!-- Auto Save Indicator -->
-    <div class="autosave-indicator" id="autosave-indicator">Đã lưu tự động</div>
-    
-    <script src="js/app.js"></script>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="dich-vu">
+        <div class="section-header">
+            <span class="section-tag">Dịch vụ & Công cụ</span>
+            <h2>Công cụ AI & Dịch vụ sản xuất</h2>
+            <p class="section-subtitle">Bộ công cụ toàn diện giúp bạn thiết kế, sản xuất và kinh doanh hiệu quả</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="glass-card service-card animate-in">
+                <div class="service-icon image">
+                    <i class="fas fa-image"></i>
+                </div>
+                <h3>Tạo hình ảnh AI</h3>
+                <p>Sinh hình ảnh sản phẩm chuyên nghiệp với AI. Tối ưu cho quảng cáo và mạng xã hội.</p>
+                <ul class="features">
+                    <li><i class="fas fa-circle"></i> Ảnh sản phẩm 4K</li>
+                    <li><i class="fas fa-circle"></i> Background thông minh</li>
+                    <li><i class="fas fa-circle"></i> 50+ mẫu thiết kế</li>
+                </ul>
+                <a href="service-image-ai.html" class="service-btn">
+                    Sử dụng ngay <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="glass-card service-card animate-in">
+                <div class="service-icon video">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>Tạo video AI</h3>
+                <p>Biến ý tưởng thành video quảng cáo chuyên nghiệp. Tự động lồng tiếng và nhạc nền.</p>
+                <ul class="features">
+                    <li><i class="fas fa-circle"></i> Video 1080p HD</li>
+                    <li><i class="fas fa-circle"></i> Lồng tiếng AI</li>
+                    <li><i class="fas fa-circle"></i> Nhạc nền tự chọn</li>
+                </ul>
+                <a href="service-video-ai.html" class="service-btn">
+                    Sử dụng ngay <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="glass-card service-card animate-in">
+                <div class="service-icon product">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3>Danh mục sản phẩm</h3>
+                <p>Khám phá hơn 100+ mẫu thiết kế áo Polo, áo thun, sơ mi, quần short chất lượng cao.</p>
+                <ul class="features">
+                    <li><i class="fas fa-circle"></i> Áo Polo, Thun, Sơ mi</li>
+                    <li><i class="fas fa-circle"></i> Quần short, Bộ thể thao</li>
+                    <li><i class="fas fa-circle"></i> Đồng phục công ty</li>
+                </ul>
+                <a href="#san-pham" class="service-btn">
+                    Xem sản phẩm <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="glass-card service-card animate-in">
+                <div class="service-icon app">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <h3>Ứng dụng sản xuất</h3>
+                <p>Quản lý đơn hàng, sản xuất, kho hàng, vận chuyển từ A-Z trên một nền tảng.</p>
+                <ul class="features">
+                    <li><i class="fas fa-circle"></i> ERP quản lý sản xuất</li>
+                    <li><i class="fas fa-circle"></i> Theo dõi đơn hàng</li>
+                    <li><i class="fas fa-circle"></i> Báo cáo doanh thu</li>
+                </ul>
+                <a href="index.html#ung-dung" class="service-btn">
+                    Khám phá <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="glass-card service-card animate-in">
+                <div class="service-icon ai">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Chatbot AI tư vấn</h3>
+                <p>Trợ lý AI 24/7 hỗ trợ khách hàng chọn size, màu sắc, kiểu dáng phù hợp.</p>
+                <ul class="features">
+                    <li><i class="fas fa-circle"></i> Tư vấn thông minh</li>
+                    <li><i class="fas fa-circle"></i> Hỗ trợ đa ngôn ngữ</li>
+                    <li><i class="fas fa-circle"></i> Phản hồi tức thì</li>
+                </ul>
+                <a href="service-chatbot.html" class="service-btn">
+                    Dùng thử <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="glass-card service-card animate-in">
+                <div class="service-icon design">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Thiết kế theo yêu cầu</h3>
+                <p>Đội ngũ designer chuyên nghiệp nhận thiết kế riêng cho thương hiệu của bạn.</p>
+                <ul class="features">
+                    <li><i class="fas fa-circle"></i> Designer 5+ năm KN</li>
+                    <li><i class="fas fa-circle"></i> Chỉnh sửa miễn phí</li>
+                    <li><i class="fas fa-circle"></i> Giao file nguồn</li>
+                </ul>
+                <a href="service-design.html" class="service-btn">
+                    Yêu cầu thiết kế <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="section" id="san-pham">
+        <div class="section-header">
+            <span class="section-tag">Danh mục sản phẩm</span>
+            <h2>Sản phẩm nổi bật</h2>
+            <p class="section-subtitle">Bộ sưu tập mới nhất với chất liệu cao cấp, giá xưởng</p>
+        </div>
+
+        <div class="products-tabs">
+            <button class="tab-btn active">Tất cả</button>
+            <button class="tab-btn">Áo Polo</button>
+            <button class="tab-btn">Áo Thun</button>
+            <button class="tab-btn">Sơ Mi</button>
+            <button class="tab-btn">Quần Short</button>
+            <button class="tab-btn">Bộ Thể Thao</button>
+        </div>
+
+        <div class="products-grid">
+            <div class="glass-card product-card animate-in">
+                <div class="product-image">
+                    <i class="fas fa-tshirt"></i>
+                    <span class="product-badge">-30%</span>
+                </div>
+                <div class="product-info">
+                    <h4>Áo Polo Premium Cotton</h4>
+                    <div class="price">₫350,000 <span class="old-price">₫500,000</span></div>
+                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+
+            <div class="glass-card product-card animate-in">
+                <div class="product-image">
+                    <i class="fas fa-vest"></i>
+                    <span class="product-badge">Hot</span>
+                </div>
+                <div class="product-info">
+                    <h4>Áo Sơ Mi Công Sở</h4>
+                    <div class="price">₫450,000</div>
+                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+
+            <div class="glass-card product-card animate-in">
+                <div class="product-image">
+                    <i class="fas fa-male"></i>
+                </div>
+                <div class="product-info">
+                    <h4>Bộ Thể Thao Nam</h4>
+                    <div class="price">₫580,000 <span class="old-price">₫750,000</span></div>
+                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+
+            <div class="glass-card product-card animate-in">
+                <div class="product-image">
+                    <i class="fas fa-tshirt"></i>
+                    <span class="product-badge">Mới</span>
+                </div>
+                <div class="product-info">
+                    <h4>Áo Thun Basic 100% Cotton</h4>
+                    <div class="price">₫180,000</div>
+                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>POLOMIMIN</h4>
+                <p>Dệt May Giàu Sang - Xưởng sản xuất tận gốc, không qua trung gian. Bán sỉ cho cửa hàng và đại lý toàn quốc.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Liên hệ</h4>
+                <a href="tel:0774480916"><i class="fas fa-phone"></i> 0774 480 916</a>
+                <a href="mailto:contact@polomimin.vn"><i class="fas fa-envelope"></i> contact@polomimin.vn</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> 12/39 Xuân Thới Thượng 58C, HCM</a>
+            </div>
+            <div class="footer-col">
+                <h4>Sản phẩm</h4>
+                <a href="#">Áo Polo</a>
+                <a href="#">Áo Thun</a>
+                <a href="#">Áo Sơ Mi</a>
+                <a href="#">Quần Short</a>
+                <a href="#">Bộ Thể Thao</a>
+            </div>
+            <div class="footer-col">
+                <h4>Theo dõi</h4>
+                <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 POLOMIMIN - CÔNG TY TNHH DỆT MAY GIÀU SANG | MST: 0318507560
+        </div>
+    </footer>
 </body>
 </html>
