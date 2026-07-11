@@ -299,13 +299,37 @@
         .btn-primary {
             background: linear-gradient(135deg, #d4a373, #c97a7a);
             color: white;
-            border: none;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
             box-shadow: 0 4px 20px rgba(212, 163, 115, 0.4);
         }
 
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 100px;
+            background: linear-gradient(135deg, #d4a373, #6BA49F, #d4a373);
+            background-size: 200% 200%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: borderRotate 3s linear infinite;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(212, 163, 115, 0.6);
+            /* No transform, no scale - just border */
+            background: linear-gradient(135deg, #c97a7a, #d4a373);
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         .btn-secondary {
@@ -313,6 +337,27 @@
             color: var(--seafoam-light);
             border: 1px solid rgba(107, 164, 159, 0.3);
             backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 100px;
+            background: linear-gradient(135deg, transparent, rgba(107, 164, 159, 0.2), transparent);
+            background-size: 200% 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: shimmer 2s linear infinite;
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--seafoam-primary);
         }
 
         .social-icons {
@@ -338,7 +383,7 @@
         .social-icon:hover {
             background: var(--seafoam-primary);
             color: white;
-            transform: translateY(-3px);
+            border-color: var(--seafoam-light);
         }
 
         /* Right side cards */
