@@ -701,6 +701,17 @@
             opacity: 0 !important;
         }
 
+        /* Remove click/active effects on cards */
+        .glass-card:active, .course-card:active, .ai-card:active, .info-card:active {
+            transform: none !important;
+            box-shadow: var(--shadow-md) !important;
+        }
+
+        /* Remove cursor pointer on cards (no click feel) */
+        .course-card, .ai-card, .info-card {
+            cursor: default !important;
+        }
+
         .ai-card-icon {
             width: 60px;
             height: 60px;
