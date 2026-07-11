@@ -517,6 +517,12 @@
             padding: 0;
             overflow: hidden;
             cursor: pointer;
+            transition: none;
+        }
+
+        .course-card:hover {
+            transform: none;
+            box-shadow: var(--shadow-md);
         }
 
         .course-thumb {
@@ -655,6 +661,25 @@
             padding: 24px;
             text-align: center;
             cursor: pointer;
+            transition: none;
+        }
+
+        .ai-card:hover {
+            transform: none;
+        }
+
+        /* Remove all card hover effects */
+        .glass-card, .course-card, .ai-card, .info-card {
+            transition: none !important;
+        }
+
+        .glass-card:hover, .course-card:hover, .ai-card:hover, .info-card:hover {
+            transform: none !important;
+            box-shadow: var(--shadow-md) !important;
+        }
+
+        .glass-card::after {
+            display: none;
         }
 
         .ai-card-icon {
