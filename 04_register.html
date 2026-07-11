@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MIMIN · Đăng ký</title>
+    <title>POLOMIMIN · Đăng ký</title>
 
     <!-- ========================================== -->
     <!-- 1. FONT: Inter (Google Fonts)             -->
@@ -618,14 +618,14 @@
 
             <!-- Logo -->
             <div class="register-logo" aria-hidden="true">
-                <div class="logo-icon">M</div>
-                <div class="logo-text">MIMIN<span>.</span></div>
+                <div class="logo-icon" aria-hidden="true">P</div>
+                <div class="logo-text">POLOMIMIN<span>.</span></div>
             </div>
 
             <!-- Header -->
             <header class="register-header">
                 <h1>🚀 Tạo tài khoản</h1>
-                <p>Bắt đầu hành trình với MIMIN Platform</p>
+                <p>Bắt đầu hành trình với POLOMIMIN Platform</p>
             </header>
 
             <!-- Form -->
@@ -658,7 +658,7 @@
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="name@mimin.com"
+                        placeholder="name@POLOMIMIN.com"
                         required
                         autocomplete="email"
                         aria-describedby="email-error"
@@ -756,7 +756,7 @@
 
             <!-- Footer -->
             <footer class="register-footer">
-                MIMIN Platform v1.0 · Bảo mật &amp; An toàn
+                POLOMIMIN Platform v1.0 · Bảo mật &amp; An toàn
             </footer>
         </div>
     </div>
@@ -799,7 +799,7 @@
             const confirmError = document.getElementById('confirm-error');
 
             // ====== THEME ======
-            const THEME_KEY = 'mimin-theme';
+            const THEME_KEY = 'POLOMIMIN-theme';
 
             function getTheme() {
                 return localStorage.getItem(THEME_KEY) || 'light';
@@ -963,7 +963,7 @@
                 setTimeout(() => {
                     registerBtn.disabled = false;
                     registerBtn.classList.remove('loading');
-                    showToast('✅ Đăng ký thành công! Chào mừng bạn đến với MIMIN.', 'success', '🎉');
+                    showToast('✅ Đăng ký thành công! Chào mừng bạn đến với POLOMIMIN.', 'success', '🎉');
                     // Reset form
                     form.reset();
                     strengthBars.forEach(bar => bar.className = 'bar');
@@ -1009,12 +1009,12 @@
 
             termsLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                showToast('📋 Điều khoản dịch vụ MIMIN', 'info', '📄');
+                showToast('📋 Điều khoản dịch vụ POLOMIMIN', 'info', '📄');
             });
 
             privacyLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                showToast('🔒 Chính sách bảo mật MIMIN', 'info', '🔒');
+                showToast('🔒 Chính sách bảo mật POLOMIMIN', 'info', '🔒');
             });
 
             // ====== THEME TOGGLE ======
@@ -1039,7 +1039,7 @@
                 fullnameInput.focus();
             }
 
-            console.log('✅ MIMIN Register (MIMIN HTML STANDARD v1.0) initialized.');
+            console.log('✅ POLOMIMIN Register (POLOMIMIN HTML STANDARD v1.0) initialized.');
         })();
     </script>
 

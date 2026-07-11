@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MIMIN · Factory Dashboard</title>
+    <title>POLOMIMIN · Factory Dashboard</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,8 +22,8 @@
 <body>
     <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
         <div class="m-sidebar-brand">
-            <div class="logo-icon" aria-hidden="true">M</div>
-            <div class="logo-text">MIMIN<span>.</span></div>
+            <div class="logo-icon" aria-hidden="true">P</div>
+            <div class="logo-text">POLOMIMIN<span>.</span></div>
         </div>
         <ul class="m-sidebar-nav" id="navMenu"></ul>
         <div class="m-sidebar-footer">
@@ -102,7 +102,7 @@
         </div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
-            MIMIN Platform v1.0 · Factory OS · © 2026
+            POLOMIMIN Platform v1.0 · Factory OS · © 2026
         </footer>
     </main>
 
@@ -117,7 +117,7 @@
             <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">TV</div>
             <div class="drawer-name" id="drawerName">Trần Văn Bình</div>
-            <div class="drawer-role" id="drawerRole">Giám đốc Nhà máy · MIMIN Factory</div>
+            <div class="drawer-role" id="drawerRole">Giám đốc Nhà máy · POLOMIMIN Factory</div>
             <div class="drawer-info"><span class="label">Nhà máy</span><span class="value" id="drawerCompany">Xưởng May 1 - Bình Dương</span></div>
             <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
             <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">08/07/2026</span></div>
@@ -211,8 +211,8 @@
             const PAGE_SIZE = 4;
 
             function renderOrders() {
-                const pageRows = MiminFac.paginateRows(ORDERS, orderPage, PAGE_SIZE);
-                MiminFac.renderTable({
+                const pageRows = POLOMIMINFac.paginateRows(ORDERS, orderPage, PAGE_SIZE);
+                POLOMIMINFac.renderTable({
                     container: document.querySelector('#orderTable'),
                     columns: [
                         { key: 'code', label: 'Mã lệnh', render: r => `<span class="cell-primary">${r.code}</span>` },
@@ -223,7 +223,7 @@
                     ],
                     rows: pageRows,
                     onRowClick: (row) => {
-                        MiminFac.openModal({
+                        POLOMIMINFac.openModal({
                             title: `📦 ${row.code}`,
                             subtitle: row.product,
                             rows: [
@@ -236,7 +236,7 @@
                         });
                     }
                 });
-                MiminFac.renderPagination({
+                POLOMIMINFac.renderPagination({
                     container: 'orderPagination', total: ORDERS.length, pageSize: PAGE_SIZE, page: orderPage,
                     onChange: (p) => { orderPage = p; renderOrders(); }
                 });
@@ -252,15 +252,15 @@
                     btn.addEventListener('click', () => {
                         container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
-                        MiminShell.showToast(`📅 Xem theo: ${o}`, 'info', '📅');
+                        POLOMIMINShell.showToast(`📅 Xem theo: ${o}`, 'info', '📅');
                     });
                     container.appendChild(btn);
                 });
             }
 
-            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('➕ Tạo lệnh sản xuất mới (demo)', 'info', '📦'));
+            document.getElementById('quickAddBtn').addEventListener('click', () => POLOMIMINShell.showToast('➕ Tạo lệnh sản xuất mới (demo)', 'info', '📦'));
 
-            MiminShell.init({
+            POLOMIMINShell.init({
                 user: USER,
                 navItems: NAV_ITEMS,
                 notifications: NOTIFICATIONS,
@@ -269,15 +269,15 @@
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    POLOMIMINShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
                 }
             });
 
             renderFilters();
-            MiminFac.renderStatCards(STATS);
+            POLOMIMINFac.renderStatCards(STATS);
             renderOrders();
-            MiminFac.renderTimeline({ container: 'alertTimeline', items: ALERTS });
-            MiminFac.renderBarChart({
+            POLOMIMINFac.renderTimeline({ container: 'alertTimeline', items: ALERTS });
+            POLOMIMINFac.renderBarChart({
                 container: 'productivityChart',
                 data: [
                     { label: 'T2', value: 88 }, { label: 'T3', value: 92 }, { label: 'T4', value: 85 },
@@ -285,7 +285,7 @@
                 ]
             });
 
-            console.log('✅ MIMIN Factory Dashboard (MIMIN HTML STANDARD v1.0) initialized.');
+            console.log('✅ POLOMIMIN Factory Dashboard (POLOMIMIN HTML STANDARD v1.0) initialized.');
         })();
     </script>
 </body>

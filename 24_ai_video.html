@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MIMIN · AI Video</title>
+    <title>POLOMIMIN · AI Video</title>
 
     <!-- ========================================== -->
     <!-- 1. FONT: Inter (Google Fonts)             -->
@@ -1162,8 +1162,8 @@
     <!-- ========================================== -->
     <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
         <div class="m-sidebar-brand">
-            <div class="logo-icon" aria-hidden="true">M</div>
-            <div class="logo-text">MIMIN<span>.</span></div>
+            <div class="logo-icon" aria-hidden="true">P</div>
+            <div class="logo-text">POLOMIMIN<span>.</span></div>
         </div>
         <ul class="m-sidebar-nav" id="navMenu">
             <!-- Render by JS -->
@@ -1228,7 +1228,7 @@
                 <!-- Prompt -->
                 <div class="input-card">
                     <h3>✏️ Kịch bản / Prompt</h3>
-                    <textarea class="prompt-textarea" id="promptInput" placeholder="Nhập kịch bản hoặc mô tả video bạn muốn tạo..." rows="4">Một video giới thiệu sản phẩm mới của MIMIN với phong cách hiện đại, năng động.</textarea>
+                    <textarea class="prompt-textarea" id="promptInput" placeholder="Nhập kịch bản hoặc mô tả video bạn muốn tạo..." rows="4">Một video giới thiệu sản phẩm mới của POLOMIMIN với phong cách hiện đại, năng động.</textarea>
                 </div>
 
                 <!-- Avatar -->
@@ -1354,7 +1354,7 @@
 
         <!-- Footer -->
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
-            MIMIN Platform v1.0 · Enterprise Core Architecture · © 2026
+            POLOMIMIN Platform v1.0 · Enterprise Core Architecture · © 2026
         </footer>
     </main>
 
@@ -1370,8 +1370,8 @@
             <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
             <div class="drawer-avatar" aria-hidden="true">HS</div>
             <div class="drawer-name">Hồ Minh Sang</div>
-            <div class="drawer-role">Founder &amp; CEO · MIMIN Group</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value">MIMIN JSC</span></div>
+            <div class="drawer-role">Founder &amp; CEO · POLOMIMIN Group</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value">POLOMIMIN JSC</span></div>
             <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value">Enterprise</span></div>
             <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value">06/07/2026</span></div>
             <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
@@ -1396,7 +1396,7 @@
                 name: 'Hồ Minh Sang',
                 initials: 'HS',
                 role: 'Founder & CEO',
-                company: 'MIMIN JSC',
+                company: 'POLOMIMIN JSC',
                 plan: 'Enterprise',
                 loginDate: '06/07/2026'
             };
@@ -1448,7 +1448,7 @@
             let videoGenerated = false;
 
             // ====== THEME ======
-            const THEME_KEY = 'mimin-theme';
+            const THEME_KEY = 'POLOMIMIN-theme';
 
             function getTheme() {
                 return localStorage.getItem(THEME_KEY) || 'light';
@@ -1607,7 +1607,7 @@
                         <circle cx="320" cy="180" r="50" fill="#3B82F6" opacity="0.4"/>
                         <text x="320" y="170" font-family="Inter, sans-serif" font-size="24" fill="white" text-anchor="middle" font-weight="600">🎬 AI Video</text>
                         <text x="320" y="200" font-family="Inter, sans-serif" font-size="14" fill="rgba(255,255,255,0.7)" text-anchor="middle">${prompt.substring(0, 40)}${prompt.length > 40 ? '...' : ''}</text>
-                        <text x="320" y="340" font-family="Inter, sans-serif" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">MIMIN AI · Generated</text>
+                        <text x="320" y="340" font-family="Inter, sans-serif" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">POLOMIMIN AI · Generated</text>
                     </svg>`;
                     const dataUrl = 'data:image/svg+xml;base64,' + btoa(svg);
 
@@ -1789,7 +1789,7 @@
             initAvatarSelector();
             renderTimeline();
 
-            console.log('✅ MIMIN AI Video (MIMIN HTML STANDARD v1.0) initialized.');
+            console.log('✅ POLOMIMIN AI Video (POLOMIMIN HTML STANDARD v1.0) initialized.');
         })();
     </script>
 
