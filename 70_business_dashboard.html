@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN · Business Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/business-layout.css" />
+    <style>
+        .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        @media (max-width: 900px) { .quick-grid { grid-template-columns: 1fr; } }
+        .quick-card {
+            background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+            padding: 20px; display: flex; flex-direction: column; gap: 10px;
+        }
+        .quick-card h4 { font-size: 15px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .quick-card .qc-links { display: flex; flex-direction: column; gap: 2px; }
+        .quick-card .qc-links a {
+            display: flex; justify-content: space-between; align-items: center; padding: 9px 10px; border-radius: var(--radius-md);
+            color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: all 0.2s ease;
+        }
+        .quick-card .qc-links a:hover { background: var(--bg-hover); color: var(--primary); }
+    </style>
+</head>
+
+<body>
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true">M</div>
+            <div class="logo-text">MIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main" id="mainContent">
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm mọi thứ..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+            </div>
+        </header>
+
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="current">🏢 Business Dashboard</span>
+        </nav>
+
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">🏢 Business Dashboard</div>
+                <div class="bph-subtitle">Tổng quan hoạt động kinh doanh — Bán hàng, Mua hàng, CRM</div>
+            </div>
+            <div class="bph-actions">
+                <div class="biz-filters" id="dateFilters"></div>
+            </div>
+        </div>
+
+        <div class="biz-stat-grid" id="statGrid"></div>
+
+        <div class="quick-grid">
+            <div class="quick-card">
+                <h4>💼 Business CRM</h4>
+                <div class="qc-links">
+                    <a href="71_customer_management.html">👥 Khách hàng <span>›</span></a>
+                    <a href="73_supplier_management.html">🏭 Nhà cung cấp <span>›</span></a>
+                    <a href="75_product_management.html">📦 Sản phẩm <span>›</span></a>
+                    <a href="78_price_management.html">💰 Bảng giá <span>›</span></a>
+                    <a href="80_sales_order.html">🛒 Đơn bán hàng <span>›</span></a>
+                </div>
+            </div>
+            <div class="quick-card">
+                <h4>📥 Purchase</h4>
+                <div class="qc-links">
+                    <a href="82_purchase_order.html">📥 Đơn mua hàng <span>›</span></a>
+                    <a href="84_goods_receipt.html">📦 Nhập kho <span>›</span></a>
+                    <a href="85_goods_issue.html">📤 Xuất kho <span>›</span></a>
+                    <a href="86_contract_management.html">📄 Hợp đồng <span>›</span></a>
+                    <a href="87_invoice_management.html">🧾 Hoá đơn <span>›</span></a>
+                </div>
+            </div>
+            <div class="quick-card">
+                <h4>🎯 CRM</h4>
+                <div class="qc-links">
+                    <a href="90_lead_management.html">🎯 Lead <span>›</span></a>
+                    <a href="91_opportunity_management.html">💼 Cơ hội <span>›</span></a>
+                    <a href="92_pipeline_management.html">🔄 Pipeline <span>›</span></a>
+                    <a href="93_customer_service.html">🤝 CSKH <span>›</span></a>
+                    <a href="96_calendar.html">📅 Lịch <span>›</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="biz-page-header">
+            <div class="bph-title" style="font-size:18px;">🕰️ Hoạt động gần đây</div>
+        </div>
+
+        <div class="data-table-wrap">
+            <table class="data-table" id="activityTable">
+                <thead><tr></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="biz-empty" id="activityEmpty">
+            <div class="be-icon">📭</div>
+            <h3>Chưa có hoạt động nào</h3>
+            <p>Hoạt động bán hàng, mua hàng và CRM sẽ xuất hiện tại đây.</p>
+        </div>
+        <div class="pagination" id="activityPagination"></div>
+
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
+            MIMIN Platform v1.0 · Enterprise Core Architecture · © 2026
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI Gợi ý hôm nay · <strong>3 việc cần xử lý</strong></span>
+    </button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tạo mới nhanh" title="Tạo mới nhanh">+</button>
+
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
+            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · MIMIN Group</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">MIMIN JSC</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/business-layout.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'MIMIN JSC', plan: 'Enterprise', loginDate: '07/07/2026' };
+
+            const NAV_ITEMS = [
+                { icon: '🏢', label: 'Business Dashboard', href: '70_business_dashboard.html', active: true, badge: '' },
+                { icon: '👥', label: 'Khách hàng', href: '71_customer_management.html', active: false, badge: '' },
+                { icon: '🏭', label: 'Nhà cung cấp', href: '73_supplier_management.html', active: false, badge: '' },
+                { icon: '📦', label: 'Sản phẩm', href: '75_product_management.html', active: false, badge: '' },
+                { icon: '🎨', label: 'Biến thể sản phẩm', href: '77_variant_management.html', active: false, badge: '' },
+                { icon: '💰', label: 'Bảng giá', href: '78_price_management.html', active: false, badge: '' },
+                { icon: '📋', label: 'Danh mục giá', href: '79_price_list.html', active: false, badge: '' },
+                { icon: '🛒', label: 'Đơn bán hàng', href: '80_sales_order.html', active: false, badge: '' },
+                { icon: '📥', label: 'Đơn mua hàng', href: '82_purchase_order.html', active: false, badge: '' },
+                { icon: '📦', label: 'Nhập kho', href: '84_goods_receipt.html', active: false, badge: '' },
+                { icon: '📤', label: 'Xuất kho', href: '85_goods_issue.html', active: false, badge: '' },
+                { icon: '📄', label: 'Hợp đồng', href: '86_contract_management.html', active: false, badge: '' },
+                { icon: '🧾', label: 'Hoá đơn', href: '87_invoice_management.html', active: false, badge: '' },
+                { icon: '💳', label: 'Thanh toán', href: '88_payment_management.html', active: false, badge: '' },
+                { icon: '🧾', label: 'Phiếu thu', href: '89_receipt_management.html', active: false, badge: '' },
+                { icon: '🎯', label: 'Lead', href: '90_lead_management.html', active: false, badge: '' },
+                { icon: '💼', label: 'Cơ hội', href: '91_opportunity_management.html', active: false, badge: '' },
+                { icon: '🔄', label: 'Pipeline', href: '92_pipeline_management.html', active: false, badge: '' },
+                { icon: '🤝', label: 'Chăm sóc khách hàng', href: '93_customer_service.html', active: false, badge: '' },
+                { icon: '🎫', label: 'Ticket', href: '94_ticket_management.html', active: false, badge: '' },
+                { icon: '📞', label: 'Follow-up', href: '95_follow_up.html', active: false, badge: '' },
+                { icon: '📅', label: 'Lịch', href: '96_calendar.html', active: false, badge: '' },
+                { icon: '✅', label: 'Công việc', href: '97_task_management.html', active: false, badge: '' },
+                { icon: '📊', label: 'Báo cáo', href: '98_business_report.html', active: false, badge: '' },
+                { icon: '📈', label: 'Phân tích', href: '101_business_analytics.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'Cài đặt Business', href: '100_business_settings.html', active: false, badge: '' }
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '🛒', title: 'Đơn hàng #SO-2291 vừa được tạo', time: '10 phút trước' },
+                { icon: '🧾', title: '3 hoá đơn sắp đến hạn thanh toán', time: '2 giờ trước' },
+                { icon: '🎯', title: '5 lead mới cần được liên hệ', time: '5 giờ trước' }
+            ];
+
+            const STATS = [
+                { icon: '💰', label: 'Doanh thu tháng', value: '2.4 tỷ', change: '+12%', up: true },
+                { icon: '🛒', label: 'Đơn bán hàng', value: '186', change: '+24', up: true },
+                { icon: '📥', label: 'Đơn mua hàng', value: '42', change: '+6', up: true },
+                { icon: '👥', label: 'Khách hàng mới', value: '38', change: '+15%', up: true },
+                { icon: '💼', label: 'Cơ hội đang mở', value: '27', change: '+4', up: true },
+                { icon: '🧾', label: 'Hoá đơn chưa thanh toán', value: '14', change: '-3', up: true },
+                { icon: '🎫', label: 'Ticket đang xử lý', value: '9', change: '-5', up: true },
+                { icon: '🎯', label: 'Tỷ lệ chốt deal', value: '34%', change: '+2%', up: true }
+            ];
+
+            const ACTIVITY = [
+                { id: 1, type: 'Đơn bán hàng', ref: 'SO-2291', entity: 'Cửa hàng Minh Anh', amount: '42,000,000', status: 'Mới', color: 'blue', time: '10 phút trước' },
+                { id: 2, type: 'Hoá đơn', ref: 'INV-1188', entity: 'Công ty ABC', amount: '85,000,000', status: 'Chưa thanh toán', color: 'amber', time: '1 giờ trước' },
+                { id: 3, type: 'Đơn mua hàng', ref: 'PO-0456', entity: 'NCC Vải Sài Gòn', amount: '120,000,000', status: 'Đã duyệt', color: 'green', time: '2 giờ trước' },
+                { id: 4, type: 'Lead mới', ref: 'LD-0891', entity: 'Nguyễn Văn Hùng', amount: '—', status: 'Mới', color: 'blue', time: '3 giờ trước' },
+                { id: 5, type: 'Thanh toán', ref: 'PM-0332', entity: 'Đại lý Thành Phát', amount: '30,000,000', status: 'Hoàn tất', color: 'green', time: '4 giờ trước' },
+                { id: 6, type: 'Ticket', ref: 'TK-0219', entity: 'Trần Thị Bình', amount: '—', status: 'Đang xử lý', color: 'amber', time: '5 giờ trước' },
+                { id: 7, type: 'Nhập kho', ref: 'GR-0177', entity: 'NCC Cotton Việt', amount: '65,000,000', status: 'Hoàn tất', color: 'green', time: 'Hôm qua' },
+                { id: 8, type: 'Cơ hội', ref: 'OP-0344', entity: 'Chuỗi cửa hàng Sao Mai', amount: '210,000,000', status: 'Đàm phán', color: 'purple', time: 'Hôm qua' },
+                { id: 9, type: 'Đơn bán hàng', ref: 'SO-2290', entity: 'Khách lẻ Online', amount: '3,200,000', status: 'Hoàn tất', color: 'green', time: 'Hôm qua' },
+                { id: 10, type: 'Hợp đồng', ref: 'CT-0088', entity: 'Đại lý Bình Minh', amount: '500,000,000', status: 'Chờ ký', color: 'amber', time: '2 ngày trước' },
+                { id: 11, type: 'Xuất kho', ref: 'GI-0203', entity: 'Chi nhánh Quận 7', amount: '18,000,000', status: 'Hoàn tất', color: 'green', time: '2 ngày trước' },
+                { id: 12, type: 'Phiếu thu', ref: 'RC-0510', entity: 'Cửa hàng Minh Anh', amount: '42,000,000', status: 'Hoàn tất', color: 'green', time: '3 ngày trước' }
+            ];
+
+            let currentPage = 1;
+            const PAGE_SIZE = 5;
+
+            function renderActivity() {
+                const pageRows = MiminBiz.paginateRows(ACTIVITY, currentPage, PAGE_SIZE);
+                MiminBiz.renderTable({
+                    container: document.querySelector('#activityTable'),
+                    emptyEl: 'activityEmpty',
+                    columns: [
+                        { key: 'type', label: 'Loại', render: r => `<span class="cell-primary">${r.type}</span>` },
+                        { key: 'ref', label: 'Mã', render: r => r.ref },
+                        { key: 'entity', label: 'Đối tượng', cls: 'wrap', render: r => r.entity },
+                        { key: 'amount', label: 'Giá trị', cls: 'num', render: r => r.amount === '—' ? '—' : r.amount + ' đ' },
+                        { key: 'status', label: 'Trạng thái', render: r => `<span class="status-badge ${r.color}">${r.status}</span>` },
+                        { key: 'time', label: 'Thời gian', render: r => `<span class="cell-sub">${r.time}</span>` }
+                    ],
+                    rows: pageRows,
+                    onRowClick: (row) => {
+                        MiminBiz.openModal({
+                            title: `${row.type} · ${row.ref}`,
+                            subtitle: row.entity,
+                            rows: [
+                                { label: 'Giá trị', value: row.amount === '—' ? '—' : row.amount + ' đ' },
+                                { label: 'Trạng thái', value: row.status },
+                                { label: 'Thời gian', value: row.time }
+                            ],
+                            actions: [
+                                { label: 'Đóng', type: 'secondary' },
+                                { label: 'Mở chi tiết', type: 'primary', onClick: () => MiminShell.showToast(`↗ Mở chi tiết ${row.ref} (demo)`, 'info', '↗') }
+                            ]
+                        });
+                    }
+                });
+                MiminBiz.renderPagination({
+                    container: 'activityPagination',
+                    total: ACTIVITY.length,
+                    pageSize: PAGE_SIZE,
+                    page: currentPage,
+                    onChange: (p) => { currentPage = p; renderActivity(); }
+                });
+            }
+
+            function renderDateFilters() {
+                const options = ['Hôm nay', 'Tuần này', 'Tháng này', 'Quý này'];
+                const container = document.getElementById('dateFilters');
+                options.forEach((label, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn' + (i === 2 ? ' active' : '');
+                    btn.textContent = label;
+                    btn.addEventListener('click', () => {
+                        container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        MiminShell.showToast(`📅 Xem theo: ${label}`, 'info', '📅');
+                    });
+                    container.appendChild(btn);
+                });
+            }
+
+            document.getElementById('quickAddBtn').addEventListener('click', () => {
+                MiminBiz.openModal({
+                    title: '+ Tạo mới nhanh',
+                    subtitle: 'Chọn loại bản ghi muốn tạo',
+                    bodyHtml: `
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <a href="71_customer_management.html" class="btn-biz-outline" style="justify-content:flex-start;">👥 Khách hàng mới</a>
+                            <a href="80_sales_order.html" class="btn-biz-outline" style="justify-content:flex-start;">🛒 Đơn bán hàng mới</a>
+                            <a href="82_purchase_order.html" class="btn-biz-outline" style="justify-content:flex-start;">📥 Đơn mua hàng mới</a>
+                            <a href="90_lead_management.html" class="btn-biz-outline" style="justify-content:flex-start;">🎯 Lead mới</a>
+                        </div>
+                    `,
+                    actions: [{ label: 'Đóng', type: 'secondary' }]
+                });
+            });
+
+            MiminShell.init({
+                user: USER,
+                navItems: NAV_ITEMS,
+                notifications: NOTIFICATIONS,
+                aiFloatMessage: '🧠 AI Gợi ý hôm nay:\n1. 3 hoá đơn sắp đến hạn thanh toán\n2. 5 lead mới cần được liên hệ\n3. Hợp đồng CT-0088 đang chờ ký',
+                onNavClick: (item, el) => {
+                    if (item.href && item.href !== '#') return;
+                    document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                }
+            });
+
+            renderDateFilters();
+            MiminBiz.renderStatCards(STATS);
+            renderActivity();
+
+            console.log('✅ MIMIN Business Dashboard (MIMIN HTML STANDARD v1.0) initialized.');
+        })();
+    </script>
+</body>
+</html>

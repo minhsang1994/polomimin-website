@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN Platform · Home</title>
+
+    <!-- ========================================== -->
+    <!-- 1. FONT: Inter (Google Fonts)             -->
+    <!-- ========================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <!-- ========================================== -->
+    <!-- 2. DESIGN TOKENS (Soft Light - Dark Blue)  -->
+    <!-- ========================================== -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            /* Brand - Dark Blue & Teal (giữ nguyên yêu cầu) */
+            --primary: #1E3A8A;
+            --primary-dark: #172554;
+            --primary-light: #3B82F6;
+            --primary-gradient: linear-gradient(135deg, #1E3A8A 0%, #0D9488 100%);
+            --teal: #14B8A6;
+            --teal-light: #5EEAD4;
+            
+            /* Backgrounds - Sáng nhưng không quáng */
+            --bg-body: #F1F5F9;          /* Xám xanh nhạt, dịu mắt */
+            --bg-surface: #FFFFFF;        /* Trắng cho card, nhưng có shadow mềm */
+            --bg-sidebar: #FFFFFF;        /* Sidebar trắng, sạch */
+            --bg-card: #FFFFFF;
+            --bg-input: #F8FAFC;          /* Nền ô input siêu nhạt */
+            --bg-hover: #F1F5F9;
+            
+            /* Text - Tương phản tốt nhưng không gắt */
+            --text-primary: #0F172A;      /* Xám đậm */
+            --text-secondary: #475569;    /* Xám trung bình */
+            --text-light: #94A3B8;        /* Xám nhạt */
+            --text-white: #FFFFFF;
+            
+            /* Borders - Nhẹ nhàng */
+            --border-color: #E2E8F0;
+            
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+            
+            /* Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+            
+            /* Shadows - Rất mềm, không bị cứng */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.10);
+            
+            /* Transitions */
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Layout */
+            --sidebar-width: 280px;
+            --header-height: 72px;
+        }
+
+        body {
+            background: var(--bg-body);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ========================================== */
+        /* 2. SCROLLBAR STYLING                       */
+        /* ========================================== */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: var(--radius-full); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
+
+        /* ========================================== */
+        /* 3. COMPONENT: M-Sidebar                    */
+        /* ========================================== */
+        .m-sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            border-right: 1px solid var(--border-color);
+            transition: var(--transition);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 100;
+        }
+
+        .m-sidebar-brand {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            min-height: var(--header-height);
+        }
+
+        .m-sidebar-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .m-sidebar-brand .logo-text {
+            color: var(--text-primary);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .m-sidebar-brand .logo-text span { color: var(--teal); }
+
+        .m-sidebar-nav {
+            flex: 1;
+            padding: var(--spacing-md) var(--spacing-sm);
+            list-style: none;
+        }
+
+        .m-sidebar-nav li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .m-sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .m-sidebar-nav a:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .m-sidebar-nav a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+        }
+
+        .m-sidebar-nav a .nav-icon { font-size: 20px; width: 24px; text-align: center; }
+        .m-sidebar-nav a .nav-badge {
+            margin-left: auto;
+            background: var(--bg-hover);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .m-sidebar-nav a.active .nav-badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .m-sidebar-nav .nav-section-label {
+            padding: var(--spacing-xs) var(--spacing-md);
+            margin-top: var(--spacing-sm);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+        .m-sidebar-nav .nav-section-label:first-child { margin-top: 0; }
+
+        .m-role-sim {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .m-role-sim label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+        .m-role-sim select {
+            flex: 1;
+            min-width: 0;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .m-sidebar-footer {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .m-sidebar-footer .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .m-sidebar-footer .user-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .m-sidebar-footer .user-info .name {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .user-info .role {
+            color: var(--text-light);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .logout-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 18px;
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        .m-sidebar-footer .logout-btn:hover { background: var(--bg-hover); color: #EF4444; }
+
+        /* ========================================== */
+        /* 4. COMPONENT: M-Header                     */
+        /* ========================================== */
+        .m-header {
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.80);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-xl);
+            gap: var(--spacing-lg);
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .m-header .search-box {
+            flex: 1;
+            max-width: 560px;
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            border-radius: var(--radius-full);
+            padding: 0 var(--spacing-lg);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .m-header .search-box:focus-within {
+            border-color: var(--primary-light);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+        }
+        .m-header .search-box input {
+            border: none;
+            background: transparent;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            color: var(--text-primary);
+        }
+        .m-header .search-box input::placeholder { color: var(--text-light); }
+        .m-header .search-box .search-icon { color: var(--text-light); font-size: 18px; margin-right: var(--spacing-md); }
+
+        .m-header .actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-left: auto;
+        }
+
+        .m-header .actions .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--text-secondary);
+        }
+        .m-header .actions .action-btn:hover { background: var(--bg-hover); color: var(--primary); }
+        .m-header .actions .action-btn .dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: #EF4444;
+            border-radius: var(--radius-full);
+            border: 2px solid white;
+        }
+        .m-header .actions .divider {
+            width: 1px;
+            height: 30px;
+            background: var(--border-color);
+        }
+        .m-header .actions .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        .m-header .actions .user-avatar:hover { border-color: var(--teal); transform: scale(1.05); }
+
+        /* ========================================== */
+        /* 5. COMPONENT: Notification Popover         */
+        /* ========================================== */
+        .notif-popover {
+            position: absolute;
+            top: calc(var(--header-height) + 8px);
+            right: 80px;
+            width: 360px;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            max-height: 400px;
+            overflow: hidden;
+            z-index: 200;
+        }
+        .notif-popover.open { display: flex; }
+        .notif-popover .head {
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-primary);
+        }
+        .notif-popover .head .mark-read {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .notif-popover .head .mark-read:hover { color: var(--teal); }
+        .notif-popover .list { flex: 1; overflow-y: auto; padding: var(--spacing-sm) 0; }
+        .notif-popover .list .item {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .notif-popover .list .item:hover { background: var(--bg-hover); }
+        .notif-popover .list .item .icon { font-size: 20px; }
+        .notif-popover .list .item .content { flex: 1; }
+        .notif-popover .list .item .content .title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+        .notif-popover .list .item .content .time { font-size: 12px; color: var(--text-light); }
+        .notif-popover .foot {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 13px;
+            color: var(--teal);
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .notif-popover .foot:hover { background: var(--bg-hover); }
+
+        /* ========================================== */
+        /* 6. MAIN CONTENT AREA                       */
+        /* ========================================== */
+        .m-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            background: var(--bg-body);
+            padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+            gap: var(--spacing-xl);
+        }
+
+        /* Hero */
+        .hero-section {
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.20);
+        }
+        .hero-section .greeting h1 { font-size: 28px; font-weight: 700; margin-bottom: var(--spacing-xs); }
+        .hero-section .greeting p { opacity: 0.85; font-size: 15px; }
+        .hero-section .stats {
+            display: flex;
+            gap: var(--spacing-xl);
+            background: rgba(255,255,255,0.12);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-md);
+            backdrop-filter: blur(4px);
+        }
+        .hero-section .stats .stat-item { text-align: center; }
+        .hero-section .stats .stat-item .num { font-size: 24px; font-weight: 700; display: block; }
+        .hero-section .stats .stat-item .label { font-size: 13px; opacity: 0.85; }
+
+        /* Quick Access */
+        .quick-access {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            background: var(--bg-surface);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        .quick-access .qa-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            background: var(--bg-input);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .quick-access .qa-item:hover {
+            background: white;
+            border-color: var(--teal);
+            color: var(--teal);
+            box-shadow: var(--shadow-sm);
+        }
+        .quick-access .qa-item .icon { font-size: 18px; }
+
+        /* Ecosystem Grid */
+        .eco-groups {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+        .eco-group-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-sm);
+        }
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .m-ecocard {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .m-ecocard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--card-color, var(--teal));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .m-ecocard:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--card-color, var(--teal));
+        }
+        .m-ecocard:hover::before { opacity: 1; }
+        .m-ecocard .card-icon {
+            font-size: 32px;
+            margin-bottom: var(--spacing-sm);
+        }
+        .m-ecocard .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        .m-ecocard .card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            flex: 1;
+            margin-bottom: var(--spacing-md);
+        }
+        .m-ecocard .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        .m-ecocard .card-footer .count {
+            font-size: 12px;
+            color: var(--text-light);
+            background: var(--bg-input);
+            padding: 2px 12px;
+            border-radius: var(--radius-full);
+        }
+        .m-ecocard .card-footer .action-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--card-color, var(--teal));
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .m-ecocard .card-footer .action-link:hover { text-decoration: underline; }
+
+        /* AI Floating */
+        .m-ai-float {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 14px 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.30);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 300;
+            font-size: 14px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .m-ai-float:hover { transform: scale(1.04); box-shadow: 0 12px 40px rgba(30, 58, 138, 0.40); }
+        .m-ai-float .ai-icon { font-size: 24px; }
+
+        /* Drawer (User Profile) */
+        .m-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.30);
+            backdrop-filter: blur(4px);
+            z-index: 400;
+            display: none;
+            justify-content: flex-end;
+        }
+        .m-drawer-overlay.open { display: flex; }
+        .m-drawer {
+            width: 420px;
+            background: white;
+            height: 100%;
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideIn 0.3s ease;
+            border-left: 1px solid var(--border-color);
+        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .m-drawer .drawer-close {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            float: right;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .m-drawer .drawer-close:hover { color: var(--text-primary); transform: rotate(90deg); }
+        .m-drawer .drawer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: 700;
+            margin: 20px auto;
+        }
+        .m-drawer .drawer-name { text-align: center; font-size: 20px; font-weight: 700; color: var(--text-primary); }
+        .m-drawer .drawer-role { text-align: center; color: var(--text-secondary); margin-bottom: var(--spacing-lg); }
+        .m-drawer .drawer-info {
+            background: var(--bg-input);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+        .m-drawer .drawer-info .label { font-size: 13px; }
+        .m-drawer .drawer-info .value { font-weight: 600; color: var(--text-primary); }
+
+        .m-drawer .drawer-btn {
+            width: 100%;
+            margin-top: var(--spacing-lg);
+            padding: 12px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .m-drawer .drawer-btn:hover { opacity: 0.9; transform: scale(1.01); }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+            :root { --sidebar-width: 0px; }
+            .m-sidebar { transform: translateX(-100%); position: fixed; box-shadow: var(--shadow-lg); }
+            .m-sidebar.open { transform: translateX(0); }
+            .hero-section { flex-direction: column; align-items: flex-start; gap: var(--spacing-md); }
+            .hero-section .stats { width: 100%; justify-content: space-around; }
+            .ecosystem-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .m-header .search-box { max-width: 180px; }
+            .notif-popover { right: 20px; width: 320px; }
+            .m-drawer { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- 7. SIDEBAR                                 -->
+    <!-- ========================================== -->
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon">M</div>
+            <div class="logo-text">MIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu">
+            <!-- Render by JS -->
+        </ul>
+        <div class="m-role-sim">
+            <label for="roleSimulator">🎭 Xem như</label>
+            <select id="roleSimulator">
+                <option value="owner">Chủ sở hữu</option>
+                <option value="manager">Quản lý</option>
+                <option value="staff">Nhân viên</option>
+            </select>
+        </div>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder & CEO</div>
+            </div>
+            <button class="logout-btn" title="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <!-- ========================================== -->
+    <!-- 8. MAIN LAYOUT                             -->
+    <!-- ========================================== -->
+    <div class="m-main">
+
+        <!-- Header -->
+        <header class="m-header">
+            <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                <button id="menuToggle" style="background:none;border:none;font-size:24px;cursor:pointer;display:none;color:var(--text-secondary);">☰</button>
+            </div>
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Tìm kiếm module, chức năng..." id="globalSearch">
+            </div>
+            <div class="actions">
+                <button class="action-btn" title="Trợ giúp">❓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo">
+                    🔔
+                    <span class="dot"></span>
+                </button>
+                <div class="divider"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang">HS</div>
+            </div>
+        </header>
+
+        <!-- Notification Popover -->
+        <div class="notif-popover" id="notifPopover">
+            <div class="head">
+                <span>Thông báo mới</span>
+                <span class="mark-read" id="markAllRead">Đánh dấu đã đọc</span>
+            </div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs">Xem tất cả thông báo →</div>
+        </div>
+
+        <!-- Hero -->
+        <section class="hero-section">
+            <div class="greeting">
+                <h1>👋 Chào mừng trở lại, Hồ Minh Sang</h1>
+                <p>Hôm nay là ngày tuyệt vời để xây dựng hệ sinh thái MIMIN.</p>
+            </div>
+            <div class="stats">
+                <div class="stat-item"><span class="num" id="statTasks">5</span><span class="label">Việc hôm nay</span></div>
+                <div class="stat-item"><span class="num" id="statModules">16</span><span class="label">Trung tâm</span></div>
+                <div class="stat-item"><span class="num" id="statNotifs">3</span><span class="label">Tin chưa đọc</span></div>
+            </div>
+        </section>
+
+        <!-- Quick Access -->
+        <div class="quick-access" id="quickAccess">
+            <!-- Render by JS -->
+        </div>
+
+        <!-- Ecosystem Grid -->
+        <h2 style="font-size:20px; font-weight:700; margin-bottom: -8px; color:var(--text-primary);" id="ecoHeading">🌐 16 Trung tâm chiến lược</h2>
+        <div class="eco-groups" id="ecoGrid">
+            <!-- Render by JS -->
+        </div>
+
+        <!-- Footer note -->
+        <div style="text-align:center; font-size:13px; color:var(--text-light); padding-top: var(--spacing-lg); border-top:1px solid var(--border-color); margin-top: var(--spacing-sm);">
+            MIMIN Platform v1.0 · Enterprise Core Architecture · © 2026
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 9. AI FLOATING BUTTON                      -->
+    <!-- ========================================== -->
+    <button class="m-ai-float" id="aiFloatBtn">
+        <span class="ai-icon">🧠</span> 
+        <span>AI Gợi ý hôm nay · <strong>5 việc cần xử lý</strong></span>
+    </button>
+
+    <!-- ========================================== -->
+    <!-- 10. DRAWER (User Profile)                  -->
+    <!-- ========================================== -->
+    <div class="m-drawer-overlay" id="drawerOverlay">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose">✕</button>
+            <div class="drawer-avatar">HS</div>
+            <div class="drawer-name">Hồ Minh Sang</div>
+            <div class="drawer-role">Founder & CEO · MIMIN Group</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value">MIMIN JSC</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value">06/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value" id="drawerRoleValue">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 11. JAVASCRIPT ENGINE                      -->
+    <!-- ========================================== -->
+    <script>
+        (function(){
+            "use strict";
+
+            // ---------- DATA ----------
+            const USER = {
+                name: 'Hồ Minh Sang',
+                initials: 'HS',
+                role: 'Founder & CEO',
+                company: 'MIMIN JSC',
+                plan: 'Enterprise',
+                loginDate: '06/07/2026'
+            };
+
+            const QUICK_ITEMS = [
+                { icon: '📝', label: 'Tạo đơn hàng' },
+                { icon: '💬', label: 'Chat AI' },
+                { icon: '📦', label: 'Nhập kho' },
+                { icon: '📅', label: 'Lên lịch' },
+                { icon: '👤', label: 'Khách hàng' },
+                { icon: '📊', label: 'Báo cáo' }
+            ];
+
+            // Nguon du lieu 16 module duy nhat cho ca Sidebar Nav lan Ecosystem Grid -
+            // dung dung 16 slug/mau/nhom Hosting nhu packages/core/src/constants/modules.ts
+            // va docs/HOSTING_STRUCTURE.md muc 3 (app hop nhat / academy / factory / admin rieng).
+            const MODULES = [
+                { slug: 'dashboard', icon: '📊', name: 'Dashboard', desc: 'Tổng quan điều hành, số liệu tổng hợp toàn nền tảng', total: 5, route: 'dashboard.html', color: '#4F46E5', group: 'app' },
+                { slug: 'business-os', icon: '💼', name: 'Business OS', desc: 'Hệ điều hành vận hành doanh nghiệp: quy trình, tổ chức, chỉ số', total: 45, route: 'business/dashboard.html', color: '#06B6D4', group: 'app' },
+                { slug: 'crm', icon: '📇', name: 'CRM', desc: 'Quản lý khách hàng, pipeline bán hàng, chăm sóc khách hàng', total: 20, route: 'business/crm.html', color: '#0EA5E9', group: 'app' },
+                { slug: 'warehouse', icon: '📦', name: 'Kho', desc: 'Quản lý tồn kho, nhập xuất, điều chuyển hàng hoá', total: 30, route: 'warehouse/inventory.html', color: '#84CC16', group: 'app' },
+                { slug: 'production', icon: '🏗️', name: 'Sản xuất', desc: 'Lập kế hoạch, theo dõi và điều phối sản xuất', total: 39, route: 'production/planning.html', color: '#F97316', group: 'app' },
+                { slug: 'finance', icon: '💰', name: 'Tài chính', desc: 'Kế toán, thu chi, báo cáo và hoạch định tài chính', total: 30, route: 'finance/income.html', color: '#65A30D', group: 'app' },
+                { slug: 'marketing', icon: '📢', name: 'Marketing', desc: 'Chiến dịch, nội dung, kênh truyền thông, đo lường hiệu quả', total: 18, route: 'marketing/campaign.html', color: '#F472B6', group: 'app' },
+                { slug: 'marketplace', icon: '🛒', name: 'Marketplace', desc: 'Chợ giao dịch sản phẩm/dịch vụ giữa các bên', total: 25, route: 'marketplace/product.html', color: '#EC4899', group: 'app' },
+                { slug: 'ai-center', icon: '🤖', name: 'Trung tâm AI', desc: 'Quản lý mô hình AI, agent, prompt, tài nguyên AI dùng chung', total: 15, route: 'ai/chat.html', color: '#10B981', group: 'app' },
+                { slug: 'affiliate', icon: '🤝', name: 'Affiliate', desc: 'Chương trình tiếp thị liên kết, theo dõi hoa hồng', total: 10, route: 'affiliate/dashboard.html', color: '#FCD34D', group: 'app' },
+                { slug: 'automation', icon: '⚙️', name: 'Automation', desc: 'Xây dựng và vận hành quy trình tự động hoá', total: 8, route: 'automation/workflow.html', color: '#64748B', group: 'app' },
+                { slug: 'community', icon: '👥', name: 'Community', desc: 'Cộng đồng người dùng, diễn đàn, trao đổi kiến thức', total: 14, route: 'community/forum.html', color: '#D946EF', group: 'app' },
+                { slug: 'documents', icon: '📂', name: 'Documents', desc: 'Quản lý tài liệu, hợp đồng, biểu mẫu dùng chung', total: 22, route: 'documents/index.html', color: '#38BDF8', group: 'app' },
+                { slug: 'training-center', icon: '🎓', name: 'Trung tâm Đào tạo', desc: 'Khoá học, tài liệu đào tạo nội bộ và cho khách hàng/đối tác', total: 40, route: 'academy/index.html', color: '#8B5CF6', group: 'academy' },
+                { slug: 'factory-os', icon: '🏭', name: 'Factory OS', desc: 'Hệ điều hành nhà máy/sản xuất: thiết bị, quy trình, giám sát', total: 120, route: 'factory/planning.html', color: '#F59E0B', group: 'factory' },
+                { slug: 'admin', icon: '🛡️', name: 'Admin', desc: 'Quản trị hệ thống: phân quyền, cấu hình toàn nền tảng', total: 35, route: 'admin/organization.html', color: '#EF4444', group: 'admin' }
+            ];
+
+            const GROUP_LABELS = { app: 'Ứng dụng', academy: 'Đào tạo', factory: 'Nhà máy', admin: 'Quản trị' };
+            const GROUP_ORDER = ['app', 'academy', 'factory', 'admin'];
+
+            // Mo phong RBAC (docs/AUTHENTICATION.md muc 2) - khong doi that, chi minh hoa
+            // 3 muc dai dien de xem hanh vi an/hien module theo quyen ngay tren prototype tinh.
+            const ROLES = {
+                owner:   { label: 'Chủ sở hữu', match: () => true },
+                manager: { label: 'Quản lý',    match: (mod) => mod.group !== 'admin' },
+                staff:   { label: 'Nhân viên',  match: (mod) => ['dashboard', 'crm', 'warehouse', 'production', 'finance'].includes(mod.slug) }
+            };
+            let currentRole = 'owner';
+
+            const NOTIFICATIONS = [
+                { icon: '📦', title: 'Đơn hàng #M0123 đã giao thành công', time: '5 phút trước' },
+                { icon: '🧠', title: 'AI đề xuất tối ưu sản xuất cho tuần sau', time: '1 giờ trước' },
+                { icon: '🎓', title: 'Khóa học "Factory OS" đạt 500 học viên', time: '3 giờ trước' },
+                { icon: '💰', title: 'Hóa đơn tháng 6 đã sẵn sàng để thanh toán', time: 'Hôm qua' },
+                { icon: '👤', title: 'Nguyễn Văn A đã cập nhật thông tin dự án', time: 'Hôm qua' }
+            ];
+
+            // ---------- RENDER FUNCTIONS ----------
+            function renderNav() {
+                const container = document.getElementById('navMenu');
+                container.innerHTML = '';
+                const visible = MODULES.filter(mod => ROLES[currentRole].match(mod));
+                GROUP_ORDER.forEach(group => {
+                    const modsInGroup = visible.filter(mod => mod.group === group);
+                    if (modsInGroup.length === 0) return;
+
+                    const label = document.createElement('li');
+                    label.className = 'nav-section-label';
+                    label.textContent = GROUP_LABELS[group];
+                    container.appendChild(label);
+
+                    modsInGroup.forEach(mod => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.className = mod.slug === 'dashboard' ? 'active' : '';
+                        a.innerHTML = `
+                            <span class="nav-icon">${mod.icon}</span>
+                            ${mod.name}
+                        `;
+                        a.href = '#';
+                        a.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            document.querySelectorAll('.m-sidebar-nav a').forEach(el => el.classList.remove('active'));
+                            a.classList.add('active');
+                            alert(`🚀 Điều hướng đến: ${mod.name}`);
+                        });
+                        li.appendChild(a);
+                        container.appendChild(li);
+                    });
+                });
+            }
+
+            function renderQuickAccess() {
+                const container = document.getElementById('quickAccess');
+                container.innerHTML = '';
+                QUICK_ITEMS.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'qa-item';
+                    div.innerHTML = `<span class="icon">${item.icon}</span> ${item.label}`;
+                    div.addEventListener('click', () => {
+                        alert(`⚡ Truy cập nhanh: ${item.label}`);
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            function renderEcoCards() {
+                const container = document.getElementById('ecoGrid');
+                container.innerHTML = '';
+                const visible = MODULES.filter(mod => ROLES[currentRole].match(mod));
+                document.getElementById('ecoHeading').textContent = `🌐 ${visible.length} Trung tâm chiến lược`;
+
+                GROUP_ORDER.forEach(group => {
+                    const modsInGroup = visible.filter(mod => mod.group === group);
+                    if (modsInGroup.length === 0) return;
+
+                    const section = document.createElement('div');
+                    section.className = 'eco-group';
+
+                    const title = document.createElement('h3');
+                    title.className = 'eco-group-title';
+                    title.textContent = GROUP_LABELS[group];
+                    section.appendChild(title);
+
+                    const grid = document.createElement('div');
+                    grid.className = 'ecosystem-grid';
+
+                    modsInGroup.forEach(card => {
+                        const div = document.createElement('div');
+                        div.className = 'm-ecocard';
+                        div.style.setProperty('--card-color', card.color);
+                        div.innerHTML = `
+                            <div class="card-icon">${card.icon}</div>
+                            <div class="card-title">${card.name}</div>
+                            <div class="card-desc">${card.desc}</div>
+                            <div class="card-footer">
+                                <span class="count">${card.total} màn hình</span>
+                                <a href="#" class="action-link" data-route="${card.route}">Mở →</a>
+                            </div>
+                        `;
+                        const link = div.querySelector('.action-link');
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const route = link.dataset.route;
+                            alert(`🚀 Mở Trung tâm: ${card.name} (${route})`);
+                        });
+                        grid.appendChild(div);
+                    });
+
+                    section.appendChild(grid);
+                    container.appendChild(section);
+                });
+            }
+
+            function renderNotifications() {
+                const container = document.getElementById('notifList');
+                container.innerHTML = '';
+                NOTIFICATIONS.forEach(notif => {
+                    const div = document.createElement('div');
+                    div.className = 'item';
+                    div.innerHTML = `
+                        <span class="icon">${notif.icon}</span>
+                        <div class="content">
+                            <div class="title">${notif.title}</div>
+                            <div class="time">${notif.time}</div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            function updateUserUI() {
+                document.getElementById('sidebarAvatar').textContent = USER.initials;
+                document.getElementById('sidebarUserName').textContent = USER.name;
+                document.getElementById('sidebarUserRole').textContent = USER.role;
+                document.getElementById('headerAvatar').textContent = USER.initials;
+                document.getElementById('statTasks').textContent = '5';
+                document.getElementById('statModules').textContent = MODULES.filter(mod => ROLES[currentRole].match(mod)).length;
+                document.getElementById('statNotifs').textContent = NOTIFICATIONS.length;
+                document.getElementById('drawerRoleValue').textContent = ROLES[currentRole].label;
+            }
+
+            // ---------- INTERACTIONS ----------
+            const notifBtn = document.getElementById('notifBtn');
+            const notifPopover = document.getElementById('notifPopover');
+            notifBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifPopover.classList.toggle('open');
+            });
+            document.addEventListener('click', () => { notifPopover.classList.remove('open'); });
+            notifPopover.addEventListener('click', (e) => e.stopPropagation());
+
+            document.getElementById('markAllRead').addEventListener('click', (e) => {
+                e.stopPropagation();
+                alert('✅ Đã đánh dấu tất cả đã đọc');
+                notifPopover.classList.remove('open');
+            });
+            document.getElementById('viewAllNotifs').addEventListener('click', () => {
+                alert('📋 Xem tất cả thông báo');
+                notifPopover.classList.remove('open');
+            });
+
+            const headerAvatar = document.getElementById('headerAvatar');
+            const drawerOverlay = document.getElementById('drawerOverlay');
+            const drawerClose = document.getElementById('drawerClose');
+            headerAvatar.addEventListener('click', () => { drawerOverlay.classList.add('open'); });
+            drawerClose.addEventListener('click', () => { drawerOverlay.classList.remove('open'); });
+            drawerOverlay.addEventListener('click', (e) => {
+                if (e.target === drawerOverlay) drawerOverlay.classList.remove('open');
+            });
+            document.getElementById('manageAccountBtn').addEventListener('click', () => {
+                alert('🔐 Quản lý tài khoản');
+                drawerOverlay.classList.remove('open');
+            });
+
+            document.getElementById('aiFloatBtn').addEventListener('click', () => {
+                alert('🧠 AI Gợi ý hôm nay:\n1. Kiểm tra đơn hàng tồn đọng\n2. Cập nhật tiến độ sản xuất\n3. Phê duyệt yêu cầu nghỉ phép\n4. Xem báo cáo tài chính tháng\n5. Họp team lúc 14:00');
+            });
+
+            // Mo phong RBAC: doi vai tro se ve lai Sidebar Nav + Ecosystem Grid theo quyen tuong ung
+            document.getElementById('roleSimulator').addEventListener('change', (e) => {
+                currentRole = e.target.value;
+                renderNav();
+                renderEcoCards();
+                updateUserUI();
+            });
+
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+            function checkMobile() {
+                if (window.innerWidth <= 768) {
+                    menuToggle.style.display = 'block';
+                } else {
+                    menuToggle.style.display = 'none';
+                    sidebar.classList.remove('open');
+                }
+            }
+            window.addEventListener('resize', checkMobile);
+            checkMobile();
+
+            document.getElementById('globalSearch').addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase().trim();
+                const cards = document.querySelectorAll('.m-ecocard');
+                cards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+                    if (title.includes(query) || desc.includes(query)) {
+                        card.style.display = '';
+                        card.style.borderColor = 'var(--primary-light)';
+                        if (query.length > 0) {
+                            card.style.boxShadow = '0 0 0 2px var(--primary-light)';
+                        } else {
+                            card.style.borderColor = 'var(--border-color)';
+                            card.style.boxShadow = 'none';
+                        }
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                if (query === '') {
+                    cards.forEach(c => {
+                        c.style.display = '';
+                        c.style.borderColor = 'var(--border-color)';
+                        c.style.boxShadow = 'none';
+                    });
+                }
+                document.querySelectorAll('.eco-group').forEach(section => {
+                    const hasVisibleCard = Array.from(section.querySelectorAll('.m-ecocard')).some(c => c.style.display !== 'none');
+                    section.style.display = hasVisibleCard ? '' : 'none';
+                });
+            });
+
+            // ---------- INIT ----------
+            renderNav();
+            renderQuickAccess();
+            renderEcoCards();
+            renderNotifications();
+            updateUserUI();
+
+            console.log('✅ MIMIN Platform Home (Soft Light) initialized.');
+        })();
+    </script>
+</body>
+</html>

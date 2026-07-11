@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN · Đăng nhập</title>
+
+    <!-- ========================================== -->
+    <!-- 1. FONT: Inter (Google Fonts)             -->
+    <!-- ========================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <!-- ========================================== -->
+    <!-- 4. CUSTOM CSS (Design Tokens)             -->
+    <!-- ========================================== -->
+    <style>
+        /* ====== CSS VARIABLES ====== */
+        :root {
+            /* Brand */
+            --primary: #1E3A8A;
+            --primary-dark: #172554;
+            --primary-light: #3B82F6;
+            --primary-gradient: linear-gradient(135deg, #1E3A8A 0%, #0D9488 100%);
+            --teal: #14B8A6;
+
+            /* Backgrounds - Soft Light */
+            --bg-body: #F1F5F9;
+            --bg-surface: #FFFFFF;
+            --bg-input: #F8FAFC;
+            --bg-hover: #F1F5F9;
+
+            /* Text */
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-light: #94A3B8;
+            --text-white: #FFFFFF;
+
+            /* Border */
+            --border-color: #E2E8F0;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.10);
+            --shadow-card: 0 8px 48px rgba(0, 0, 0, 0.06), 0 2px 12px rgba(0, 0, 0, 0.02);
+
+            /* Radius */
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+
+            /* Spacing */
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+        }
+
+        /* ====== BASE ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --bg-body: #0F172A;
+            --bg-surface: #1E293B;
+            --bg-input: #1E293B;
+            --bg-hover: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-light: #64748B;
+            --border-color: #1E293B;
+            --shadow-card: 0 8px 48px rgba(0, 0, 0, 0.4), 0 2px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ====== SCROLLBAR ====== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-light);
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* ====== LOGIN CONTAINER ====== */
+        .login-wrapper {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            animation: fadeUp 0.5s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ====== LOGIN CARD ====== */
+        .login-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            padding: 48px 40px 40px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* ====== LOGO ====== */
+        .login-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .login-logo .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+        }
+        .login-logo .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+        .login-logo .logo-text span {
+            color: var(--teal);
+        }
+
+        /* ====== HEADER ====== */
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .login-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .login-header p {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        /* ====== FORM ====== */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .form-group .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+        .form-group .input-wrapper:focus-within {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+            background: var(--bg-surface);
+        }
+        [data-theme="dark"] .form-group .input-wrapper:focus-within {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+        .form-group .input-wrapper .input-icon {
+            padding: 0 14px 0 16px;
+            color: var(--text-light);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .form-group .input-wrapper input {
+            border: none;
+            background: transparent;
+            padding: 14px 16px 14px 0;
+            font-size: 15px;
+            width: 100%;
+            outline: none;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+        .form-group .input-wrapper input::placeholder {
+            color: var(--text-light);
+        }
+        .form-group .input-wrapper .toggle-password {
+            padding: 0 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+        .form-group .input-wrapper .toggle-password:hover {
+            color: var(--text-secondary);
+        }
+
+        /* ====== OPTIONS ====== */
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
+        .login-options .remember {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .login-options .remember input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-options .forgot-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .login-options .forgot-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* ====== BUTTONS ====== */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover {
+            transform: scale(1.01);
+            box-shadow: 0 8px 24px rgba(30, 58, 138, 0.25);
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-primary .btn-loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+        .btn-primary.loading .btn-text {
+            display: none;
+        }
+        .btn-primary.loading .btn-loader {
+            display: block;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn-google {
+            width: 100%;
+            padding: 14px;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .btn-google:hover {
+            background: var(--bg-hover);
+            border-color: var(--text-light);
+            transform: scale(1.01);
+        }
+        .btn-google:active {
+            transform: scale(0.98);
+        }
+        .btn-google .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+        .btn-google .google-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ====== DIVIDER ====== */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        /* ====== REGISTER LINK ====== */
+        .register-link {
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+        .register-link a {
+            font-weight: 600;
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .register-link a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* ====== FOOTER ====== */
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        /* ====== THEME TOGGLE (floating) ====== */
+        .theme-toggle-float {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            z-index: 50;
+            color: var(--text-secondary);
+        }
+        .theme-toggle-float:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        /* ====== TOAST ====== */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 100%;
+            max-width: 480px;
+            padding: 0 16px;
+        }
+        .toast {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            pointer-events: auto;
+            animation: toastIn 0.4s ease forwards;
+            width: 100%;
+        }
+        .toast.error {
+            border-left: 4px solid #EF4444;
+        }
+        .toast.success {
+            border-left: 4px solid #10B981;
+        }
+        .toast.info {
+            border-left: 4px solid var(--primary-light);
+        }
+        .toast.hide {
+            animation: toastOut 0.3s ease forwards;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+            .login-card {
+                padding: 32px 24px 28px;
+            }
+            .login-logo .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .login-logo .logo-text {
+                font-size: 24px;
+            }
+            .login-header h1 {
+                font-size: 22px;
+            }
+            .login-header p {
+                font-size: 14px;
+            }
+            .login-options {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            .theme-toggle-float {
+                top: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            .toast-container {
+                top: 16px;
+                padding: 0 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .login-card {
+                padding: 24px 16px 20px;
+            }
+            .login-logo .logo-text {
+                font-size: 20px;
+            }
+            .login-header h1 {
+                font-size: 20px;
+            }
+            .form-group .input-wrapper input {
+                font-size: 14px;
+                padding: 12px 12px 12px 0;
+            }
+            .btn-primary,
+            .btn-google {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- TOAST CONTAINER                            -->
+    <!-- ========================================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========================================== -->
+    <!-- THEME TOGGLE (floating)                    -->
+    <!-- ========================================== -->
+    <button class="theme-toggle-float" id="themeToggle" aria-label="Chuyển đổi giao diện sáng/tối" title="Chuyển đổi theme">
+        🌓
+    </button>
+
+    <!-- ========================================== -->
+    <!-- LOGIN WRAPPER                              -->
+    <!-- ========================================== -->
+    <div class="login-wrapper">
+
+        <div class="login-card" role="main" aria-label="Đăng nhập">
+
+            <!-- Logo -->
+            <div class="login-logo" aria-hidden="true">
+                <div class="logo-icon">M</div>
+                <div class="logo-text">MIMIN<span>.</span></div>
+            </div>
+
+            <!-- Header -->
+            <header class="login-header">
+                <h1>👋 Chào mừng trở lại</h1>
+                <p>Đăng nhập để tiếp tục quản lý hệ sinh thái MIMIN</p>
+            </header>
+
+            <!-- Form -->
+            <form class="login-form" id="loginForm" novalidate aria-label="Form đăng nhập">
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">📧</span>
+                        <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="name@mimin.com"
+                        required
+                        autocomplete="email"
+                        aria-describedby="email-error"
+                        />
+                    </div>
+                    <span id="email-error" class="text-sm text-red-500 hidden" style="color:#EF4444;font-size:13px;"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">🔒</span>
+                        <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="••••••••"
+                        required
+                        autocomplete="current-password"
+                        aria-describedby="password-error"
+                        minlength="6"
+                        />
+                        <button type="button" class="toggle-password" id="togglePassword" aria-label="Hiển thị mật khẩu" tabindex="-1">
+                            👁️
+                        </button>
+                    </div>
+                    <span id="password-error" class="text-sm text-red-500 hidden" style="color:#EF4444;font-size:13px;"></span>
+                </div>
+
+                <!-- Options -->
+                <div class="login-options">
+                    <label class="remember">
+                        <input type="checkbox" id="remember" />
+                        Ghi nhớ tôi
+                    </label>
+                    <a href="05_forgot_password.html" class="forgot-link" id="forgotLink">Quên mật khẩu?</a>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span class="btn-text">Đăng nhập</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+
+                <!-- Divider -->
+                <div class="divider">Hoặc tiếp tục với</div>
+
+                <!-- Google Button -->
+                <button type="button" class="btn-google" id="googleBtn">
+                    <span class="google-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                    </span>
+                    Đăng nhập với Google
+                </button>
+
+            </form>
+
+            <!-- Register Link -->
+            <div class="register-link">
+                Chưa có tài khoản? <a href="04_register.html" id="registerLink">Đăng ký ngay</a>
+            </div>
+
+            <!-- Footer -->
+            <footer class="login-footer">
+                MIMIN Platform v1.0 · Bảo mật &amp; An toàn
+            </footer>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT ENGINE                          -->
+    <!-- ========================================== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ====== DOM REFS ======
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const loginBtn = document.getElementById('loginBtn');
+            const togglePassword = document.getElementById('togglePassword');
+            const googleBtn = document.getElementById('googleBtn');
+            const themeToggle = document.getElementById('themeToggle');
+            const toastContainer = document.getElementById('toastContainer');
+
+            // ====== THEME ======
+            const THEME_KEY = 'mimin-theme';
+
+            function getTheme() {
+                return localStorage.getItem(THEME_KEY) || 'light';
+            }
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem(THEME_KEY, theme);
+                // Update toggle button icon
+                themeToggle.textContent = theme === 'light' ? '🌓' : '☀️';
+            }
+
+            function toggleTheme() {
+                const current = getTheme();
+                const next = current === 'light' ? 'dark' : 'light';
+                setTheme(next);
+            }
+
+            // ====== TOAST ======
+            function showToast(message, type = 'info', icon = '💡') {
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+                toastContainer.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('hide');
+                    setTimeout(() => toast.remove(), 350);
+                }, 3000);
+            }
+
+            // ====== PASSWORD TOGGLE ======
+            let passwordVisible = false;
+            togglePassword.addEventListener('click', function() {
+                passwordVisible = !passwordVisible;
+                passwordInput.type = passwordVisible ? 'text' : 'password';
+                this.textContent = passwordVisible ? '🙈' : '👁️';
+                this.setAttribute('aria-label', passwordVisible ? 'Ẩn mật khẩu' : 'Hiển thị mật khẩu');
+            });
+
+            // ====== FORM VALIDATION ======
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            function validatePassword(password) {
+                return password.length >= 6;
+            }
+
+            function showFieldError(inputId, message) {
+                const input = document.getElementById(inputId);
+                const errorEl = document.getElementById(`${inputId}-error`);
+                if (errorEl) {
+                    if (message) {
+                        errorEl.textContent = message;
+                        errorEl.classList.remove('hidden');
+                        input.setAttribute('aria-invalid', 'true');
+                    } else {
+                        errorEl.classList.add('hidden');
+                        input.removeAttribute('aria-invalid');
+                    }
+                }
+            }
+
+            // ====== FORM SUBMIT ======
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Reset errors
+                showFieldError('email', '');
+                showFieldError('password', '');
+
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+                let isValid = true;
+
+                // Validate email
+                if (!email) {
+                    showFieldError('email', 'Vui lòng nhập email');
+                    isValid = false;
+                } else if (!validateEmail(email)) {
+                    showFieldError('email', 'Email không hợp lệ');
+                    isValid = false;
+                }
+
+                // Validate password
+                if (!password) {
+                    showFieldError('password', 'Vui lòng nhập mật khẩu');
+                    isValid = false;
+                } else if (!validatePassword(password)) {
+                    showFieldError('password', 'Mật khẩu phải có ít nhất 6 ký tự');
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    showToast('Vui lòng kiểm tra lại thông tin đăng nhập', 'error', '⚠️');
+                    return;
+                }
+
+                // Simulate login
+                loginBtn.disabled = true;
+                loginBtn.classList.add('loading');
+
+                setTimeout(() => {
+                    loginBtn.disabled = false;
+                    loginBtn.classList.remove('loading');
+                    showToast('✅ Đăng nhập thành công! Chào mừng trở lại.', 'success', '🎉');
+                    // Redirect simulation
+                    console.log('🚀 Redirect to home.html');
+                }, 1500);
+            });
+
+            // ====== REAL-TIME VALIDATION ======
+            emailInput.addEventListener('blur', function() {
+                const email = this.value.trim();
+                if (email && !validateEmail(email)) {
+                    showFieldError('email', 'Email không hợp lệ');
+                } else {
+                    showFieldError('email', '');
+                }
+            });
+
+            emailInput.addEventListener('input', function() {
+                const email = this.value.trim();
+                if (email && !validateEmail(email)) {
+                    showFieldError('email', 'Email không hợp lệ');
+                } else {
+                    showFieldError('email', '');
+                }
+            });
+
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                if (password && !validatePassword(password)) {
+                    showFieldError('password', 'Mật khẩu phải có ít nhất 6 ký tự');
+                } else {
+                    showFieldError('password', '');
+                }
+            });
+
+            // ====== GOOGLE LOGIN ======
+            googleBtn.addEventListener('click', function() {
+                showToast('🔑 Đang chuyển hướng đến Google...', 'info', '🌐');
+                setTimeout(() => {
+                    showToast('✅ Đăng nhập Google thành công!', 'success', '🎉');
+                }, 1200);
+            });
+
+            // ====== THEME TOGGLE ======
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // ====== KEYBOARD SHORTCUTS ======
+            document.addEventListener('keydown', (e) => {
+                // Escape to clear focus
+                if (e.key === 'Escape') {
+                    document.activeElement?.blur();
+                }
+                // Ctrl+D for dark mode toggle
+                if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+            });
+
+            // ====== INIT ======
+            setTheme(getTheme());
+
+            // Auto-focus email on load (desktop only)
+            if (window.innerWidth > 640) {
+                emailInput.focus();
+            }
+
+            console.log('✅ MIMIN Login (MIMIN HTML STANDARD v1.0) initialized.');
+        })();
+    </script>
+
+</body>
+</html>

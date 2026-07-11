@@ -1,0 +1,2454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN · Tìm kiếm toàn hệ thống</title>
+
+    <!-- ========================================== -->
+    <!-- 1. FONT: Inter (Google Fonts)             -->
+    <!-- ========================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <!-- ========================================== -->
+    <!-- 3. CUSTOM CSS (Design Tokens)             -->
+    <!-- ========================================== -->
+    <style>
+        /* ====== CSS VARIABLES ====== */
+        :root {
+            --primary: #1E3A8A;
+            --primary-dark: #172554;
+            --primary-light: #3B82F6;
+            --primary-gradient: linear-gradient(135deg, #1E3A8A 0%, #0D9488 100%);
+            --teal: #14B8A6;
+
+            --bg-body: #F1F5F9;
+            --bg-surface: #FFFFFF;
+            --bg-input: #F8FAFC;
+            --bg-hover: #F1F5F9;
+
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-light: #94A3B8;
+            --text-white: #FFFFFF;
+
+            --border-color: #E2E8F0;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.10);
+            --shadow-card: 0 8px 48px rgba(0, 0, 0, 0.06), 0 2px 12px rgba(0, 0, 0, 0.02);
+
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+
+            --sidebar-width: 280px;
+            --header-height: 72px;
+        }
+
+        /* ====== BASE ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --bg-body: #0F172A;
+            --bg-surface: #1E293B;
+            --bg-input: #1E293B;
+            --bg-hover: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-light: #64748B;
+            --border-color: #1E293B;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.6);
+            --shadow-card: 0 8px 48px rgba(0, 0, 0, 0.4), 0 2px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ====== SCROLLBAR ====== */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-light);
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* ====== SIDEBAR ====== */
+        .m-sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            border-right: 1px solid var(--border-color);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 100;
+        }
+        [data-theme="dark"] .m-sidebar {
+            background: #0F172A;
+        }
+
+        .m-sidebar-brand {
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            min-height: var(--header-height);
+        }
+        .m-sidebar-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        .m-sidebar-brand .logo-text {
+            color: var(--text-primary);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .m-sidebar-brand .logo-text span {
+            color: var(--teal);
+        }
+
+        .m-sidebar-nav {
+            flex: 1;
+            padding: 16px 8px;
+            list-style: none;
+        }
+        .m-sidebar-nav li {
+            margin-bottom: 4px;
+        }
+        .m-sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .m-sidebar-nav a:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .m-sidebar-nav a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+        }
+        .m-sidebar-nav a .nav-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .m-sidebar-nav a .nav-badge {
+            margin-left: auto;
+            background: var(--bg-hover);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .m-sidebar-nav a.active .nav-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .m-sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .m-sidebar-footer .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .m-sidebar-footer .user-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .m-sidebar-footer .user-info .name {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .user-info .role {
+            color: var(--text-light);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .logout-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+        .m-sidebar-footer .logout-btn:hover {
+            background: var(--bg-hover);
+            color: #EF4444;
+        }
+
+        /* ====== HEADER ====== */
+        .m-header {
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.80);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 32px;
+            gap: 20px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: background 0.3s ease;
+        }
+        [data-theme="dark"] .m-header {
+            background: rgba(15, 23, 42, 0.85);
+        }
+
+        .m-header .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .m-header .search-box {
+            flex: 1;
+            max-width: 560px;
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            border-radius: var(--radius-full);
+            padding: 0 18px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .m-header .search-box:focus-within {
+            border-color: var(--primary-light);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+        }
+        [data-theme="dark"] .m-header .search-box:focus-within {
+            background: #1E293B;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+        .m-header .search-box input {
+            border: none;
+            background: transparent;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            color: var(--text-primary);
+        }
+        .m-header .search-box input::placeholder {
+            color: var(--text-light);
+        }
+        .m-header .search-box .search-icon {
+            color: var(--text-light);
+            font-size: 18px;
+            margin-right: 12px;
+        }
+        .m-header .search-box .shortcut {
+            font-size: 11px;
+            color: var(--text-light);
+            background: var(--bg-hover);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .m-header .actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+        }
+        .m-header .actions .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+        }
+        .m-header .actions .action-btn:hover {
+            background: var(--bg-hover);
+            color: var(--primary);
+        }
+        .m-header .actions .action-btn .dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: #EF4444;
+            border-radius: var(--radius-full);
+            border: 2px solid white;
+        }
+        [data-theme="dark"] .m-header .actions .action-btn .dot {
+            border-color: var(--bg-surface);
+        }
+        .m-header .actions .divider {
+            width: 1px;
+            height: 30px;
+            background: var(--border-color);
+        }
+        .m-header .actions .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+        .m-header .actions .user-avatar:hover {
+            border-color: var(--teal);
+            transform: scale(1.05);
+        }
+
+        /* ====== NOTIFICATION POPOVER ====== */
+        .notif-popover {
+            position: absolute;
+            top: calc(var(--header-height) + 8px);
+            right: 80px;
+            width: 360px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            max-height: 400px;
+            overflow: hidden;
+            z-index: 200;
+            animation: fadeIn 0.2s ease;
+        }
+        .notif-popover.open {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .notif-popover .head {
+            padding: 16px 24px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-primary);
+        }
+        .notif-popover .head .mark-read {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .notif-popover .head .mark-read:hover {
+            color: var(--teal);
+        }
+        .notif-popover .list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .notif-popover .list .item {
+            padding: 8px 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .notif-popover .list .item:hover {
+            background: var(--bg-hover);
+        }
+        .notif-popover .list .item .icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .notif-popover .list .item .content {
+            flex: 1;
+            min-width: 0;
+        }
+        .notif-popover .list .item .content .title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .notif-popover .list .item .content .time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        .notif-popover .foot {
+            padding: 8px 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 13px;
+            color: var(--teal);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .notif-popover .foot:hover {
+            background: var(--bg-hover);
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .m-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            background: var(--bg-body);
+            padding: 24px 32px 48px;
+            gap: 24px;
+            transition: background 0.3s ease;
+        }
+
+        /* ====== SEARCH SPECIFIC ====== */
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+        }
+
+        /* ====== SEARCH HERO ====== */
+        .search-hero {
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            padding: 32px 40px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.20);
+        }
+        .search-hero .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-full);
+            padding: 4px 4px 4px 24px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.25s ease;
+            max-width: 100%;
+        }
+        .search-hero .search-wrapper:focus-within {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+        }
+        .search-hero .search-wrapper .search-icon {
+            font-size: 20px;
+            margin-right: 12px;
+            opacity: 0.8;
+        }
+        .search-hero .search-wrapper input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 14px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: white;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .search-hero .search-wrapper input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+        }
+        .search-hero .search-wrapper .search-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .search-hero .search-wrapper .search-actions button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .search-hero .search-wrapper .search-actions button:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .search-hero .search-wrapper .search-actions .btn-ai {
+            background: white;
+            color: var(--primary);
+        }
+        .search-hero .search-wrapper .search-actions .btn-ai:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+        .search-hero .search-wrapper .search-actions .btn-clear {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 8px 12px;
+        }
+        .search-hero .search-wrapper .search-actions .btn-clear:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-hero .search-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .search-hero .search-stats .ai-suggestion {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 16px;
+            border-radius: var(--radius-full);
+            font-size: 13px;
+        }
+        .search-hero .search-stats .ai-suggestion strong {
+            color: white;
+        }
+        .search-hero .search-stats .ai-suggestion .sparkle {
+            display: inline-block;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* ====== SEARCH LAYOUT ====== */
+        .search-layout {
+            display: flex;
+            gap: 24px;
+            flex: 1;
+        }
+
+        /* ====== FILTERS SIDEBAR ====== */
+        .filters-sidebar {
+            width: 240px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .filters-sidebar .filter-section {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .filters-sidebar .filter-section h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 12px;
+        }
+        .filters-sidebar .filter-section .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .filters-sidebar .filter-section .filter-item:hover {
+            color: var(--text-primary);
+        }
+        .filters-sidebar .filter-section .filter-item .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: var(--bg-input);
+        }
+        .filters-sidebar .filter-section .filter-item .checkbox.checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .filters-sidebar .filter-section .filter-item .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .filters-sidebar .filter-section .filter-item .count {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--text-light);
+            background: var(--bg-hover);
+            padding: 0 8px;
+            border-radius: var(--radius-full);
+        }
+        .filters-sidebar .filter-section .filter-item.active {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .filters-sidebar .filter-section .filter-item.active .count {
+            background: #DBEAFE;
+            color: var(--primary);
+        }
+        [data-theme="dark"] .filters-sidebar .filter-section .filter-item.active .count {
+            background: #172554;
+            color: var(--primary-light);
+        }
+
+        /* ====== HISTORY SIDEBAR ====== */
+        .history-sidebar {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .history-sidebar h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .history-sidebar h4 .clear-btn {
+            font-size: 12px;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: none;
+            transition: all 0.2s ease;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .history-sidebar h4 .clear-btn:hover {
+            color: #EF4444;
+        }
+        .history-sidebar .history-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .history-sidebar .history-item:last-child {
+            border-bottom: none;
+        }
+        .history-sidebar .history-item:hover {
+            color: var(--text-primary);
+            padding-left: 4px;
+        }
+        .history-sidebar .history-item .h-icon {
+            font-size: 14px;
+            opacity: 0.6;
+        }
+        .history-sidebar .history-item .h-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .history-sidebar .history-item .h-time {
+            font-size: 11px;
+            color: var(--text-light);
+            flex-shrink: 0;
+        }
+        .history-sidebar .history-item .h-delete {
+            opacity: 0;
+            transition: all 0.2s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-light);
+            padding: 2px 4px;
+            border-radius: var(--radius-sm);
+        }
+        .history-sidebar .history-item:hover .h-delete {
+            opacity: 1;
+        }
+        .history-sidebar .history-item .h-delete:hover {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        /* ====== RESULTS ====== */
+        .results-area {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .results-area .result-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            flex-wrap: nowrap;
+        }
+        .results-area .result-tabs .tab-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+        .results-area .result-tabs .tab-btn:hover {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+        .results-area .result-tabs .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            font-weight: 600;
+        }
+        .results-area .result-tabs .tab-btn .tab-badge {
+            font-size: 11px;
+            background: var(--bg-hover);
+            padding: 0 8px;
+            border-radius: var(--radius-full);
+            margin-left: 6px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        .results-area .result-tabs .tab-btn.active .tab-badge {
+            background: #DBEAFE;
+            color: var(--primary);
+        }
+        [data-theme="dark"] .results-area .result-tabs .tab-btn.active .tab-badge {
+            background: #172554;
+            color: var(--primary-light);
+        }
+
+        .result-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .result-item:hover {
+            background: var(--bg-hover);
+            border-color: var(--text-light);
+            transform: translateX(4px);
+        }
+        .result-item .r-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            background: var(--bg-hover);
+        }
+        .result-item .r-icon.module {
+            background: #DBEAFE;
+        }
+        .result-item .r-icon.data {
+            background: #D1FAE5;
+        }
+        .result-item .r-icon.ai {
+            background: #EDE9FE;
+        }
+        .result-item .r-icon.doc {
+            background: #FEF3C7;
+        }
+        [data-theme="dark"] .result-item .r-icon.module {
+            background: #172554;
+        }
+        [data-theme="dark"] .result-item .r-icon.data {
+            background: #064E3B;
+        }
+        [data-theme="dark"] .result-item .r-icon.ai {
+            background: #2E1065;
+        }
+        [data-theme="dark"] .result-item .r-icon.doc {
+            background: #451A03;
+        }
+
+        .result-item .r-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .result-item .r-content .r-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .result-item .r-content .r-title .highlight {
+            background: #FEF08A;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        [data-theme="dark"] .result-item .r-content .r-title .highlight {
+            background: #78350F;
+            color: #FDE68A;
+        }
+        .result-item .r-content .r-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            line-height: 1.5;
+        }
+        .result-item .r-content .r-desc .highlight {
+            background: #FEF08A;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        [data-theme="dark"] .result-item .r-content .r-desc .highlight {
+            background: #78350F;
+            color: #FDE68A;
+        }
+        .result-item .r-content .r-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+        .result-item .r-content .r-meta .tag {
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+        }
+        .result-item .r-content .r-meta .tag.module-tag {
+            background: #DBEAFE;
+            color: var(--primary);
+        }
+        .result-item .r-content .r-meta .tag.data-tag {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        .result-item .r-content .r-meta .tag.ai-tag {
+            background: #EDE9FE;
+            color: #5B21B6;
+        }
+        .result-item .r-content .r-meta .tag.doc-tag {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        [data-theme="dark"] .result-item .r-content .r-meta .tag.module-tag {
+            background: #172554;
+            color: var(--primary-light);
+        }
+        [data-theme="dark"] .result-item .r-content .r-meta .tag.data-tag {
+            background: #064E3B;
+            color: #6EE7B7;
+        }
+        [data-theme="dark"] .result-item .r-content .r-meta .tag.ai-tag {
+            background: #2E1065;
+            color: #A78BFA;
+        }
+        [data-theme="dark"] .result-item .r-content .r-meta .tag.doc-tag {
+            background: #451A03;
+            color: #FCD34D;
+        }
+        .result-item .r-content .r-meta .path {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .result-item .r-arrow {
+            font-size: 18px;
+            color: var(--text-light);
+            flex-shrink: 0;
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+        .result-item:hover .r-arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        /* ====== AI SUGGESTIONS ====== */
+        .ai-suggestions {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 16px;
+        }
+        .ai-suggestions .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .ai-suggestions .ai-header .ai-badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0 12px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .ai-suggestions .ai-suggestion-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .ai-suggestions .ai-suggestion-item:last-child {
+            border-bottom: none;
+        }
+        .ai-suggestions .ai-suggestion-item:hover {
+            color: var(--text-primary);
+            padding-left: 4px;
+        }
+        .ai-suggestions .ai-suggestion-item .s-icon {
+            font-size: 16px;
+            opacity: 0.7;
+        }
+        .ai-suggestions .ai-suggestion-item .s-text {
+            flex: 1;
+        }
+        .ai-suggestions .ai-suggestion-item .s-action {
+            font-size: 12px;
+            color: var(--primary-light);
+            font-weight: 500;
+        }
+
+        /* ====== EMPTY STATE ====== */
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .empty-state .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .empty-state p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            max-width: 420px;
+            margin-top: 6px;
+        }
+
+        /* ====== DRAWER ====== */
+        .m-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.30);
+            backdrop-filter: blur(4px);
+            z-index: 400;
+            display: none;
+            justify-content: flex-end;
+        }
+        [data-theme="dark"] .m-drawer-overlay {
+            background: rgba(0, 0, 0, 0.50);
+        }
+        .m-drawer-overlay.open {
+            display: flex;
+        }
+        .m-drawer {
+            width: 420px;
+            background: var(--bg-surface);
+            height: 100%;
+            padding: 32px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideIn 0.3s ease;
+            border-left: 1px solid var(--border-color);
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .m-drawer .drawer-close {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            float: right;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+        .m-drawer .drawer-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+        .m-drawer .drawer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: 700;
+            margin: 20px auto;
+        }
+        .m-drawer .drawer-name {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .m-drawer .drawer-role {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .m-drawer .drawer-info {
+            background: var(--bg-input);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+        .m-drawer .drawer-info .label {
+            font-size: 13px;
+        }
+        .m-drawer .drawer-info .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .m-drawer .drawer-btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .m-drawer .drawer-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        /* ====== TOAST ====== */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 100%;
+            max-width: 480px;
+            padding: 0 16px;
+        }
+        .toast {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            pointer-events: auto;
+            animation: toastIn 0.4s ease forwards;
+            width: 100%;
+        }
+        .toast.error {
+            border-left: 4px solid #EF4444;
+        }
+        .toast.success {
+            border-left: 4px solid #10B981;
+        }
+        .toast.info {
+            border-left: 4px solid var(--primary-light);
+        }
+        .toast.hide {
+            animation: toastOut 0.3s ease forwards;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+        }
+
+        /* ====== AI FLOAT ====== */
+        .m-ai-float {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 14px 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.30);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            z-index: 300;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .m-ai-float:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 40px rgba(30, 58, 138, 0.40);
+        }
+        .m-ai-float .ai-icon {
+            font-size: 24px;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 1024px) {
+            .filters-sidebar {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 0px;
+            }
+            .m-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 280px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .m-sidebar.open {
+                transform: translateX(0);
+            }
+            .m-header .menu-toggle {
+                display: block;
+            }
+            .m-header {
+                padding: 0 16px;
+            }
+            .m-header .search-box {
+                max-width: 140px;
+            }
+            .m-header .search-box .shortcut {
+                display: none;
+            }
+            .m-main {
+                padding: 16px;
+                gap: 16px;
+            }
+            .page-title {
+                font-size: 22px;
+            }
+            .search-hero {
+                padding: 24px;
+            }
+            .search-hero .search-wrapper input {
+                font-size: 16px;
+                padding: 10px 0;
+            }
+            .search-hero .search-wrapper .search-actions .btn-ai span {
+                display: none;
+            }
+            .search-hero .search-wrapper .search-actions .btn-ai {
+                padding: 8px 14px;
+            }
+            .search-hero .search-stats {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .search-layout {
+                flex-direction: column;
+            }
+            .filters-sidebar {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .filters-sidebar .filter-section {
+                flex: 1;
+                min-width: 150px;
+            }
+            .history-sidebar {
+                display: none;
+            }
+            .results-area .result-tabs .tab-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+            .result-item {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+            .result-item .r-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+            .result-item .r-content .r-title {
+                font-size: 14px;
+            }
+            .result-item .r-content .r-desc {
+                font-size: 13px;
+            }
+            .result-item .r-arrow {
+                opacity: 1;
+            }
+            .notif-popover {
+                right: 12px;
+                width: 320px;
+            }
+            .m-drawer {
+                width: 100%;
+            }
+            .ai-suggestions .ai-suggestion-item {
+                font-size: 13px;
+            }
+            .m-ai-float {
+                padding: 12px 18px;
+                font-size: 13px;
+                bottom: 16px;
+                right: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-hero .search-wrapper {
+                flex-wrap: wrap;
+                padding: 8px 12px;
+                border-radius: var(--radius-md);
+            }
+            .search-hero .search-wrapper input {
+                width: 100%;
+                font-size: 15px;
+                padding: 8px 0;
+            }
+            .search-hero .search-wrapper .search-actions {
+                width: 100%;
+                justify-content: flex-end;
+                padding-top: 4px;
+            }
+            .filters-sidebar .filter-section {
+                min-width: 120px;
+                padding: 12px 16px;
+            }
+            .result-item {
+                flex-wrap: wrap;
+            }
+            .result-item .r-arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- SIDEBAR                                    -->
+    <!-- ========================================== -->
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true">M</div>
+            <div class="logo-text">MIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu">
+            <!-- Render by JS -->
+        </ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT                               -->
+    <!-- ========================================== -->
+    <main class="m-main" id="mainContent">
+
+        <!-- Header -->
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm mọi thứ..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">
+                    🔔
+                    <span class="dot" aria-hidden="true"></span>
+                </button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+            </div>
+        </header>
+
+        <!-- Notification Popover -->
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head">
+                <span>Thông báo mới</span>
+                <span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span>
+            </div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <!-- ====== SEARCH CONTENT ====== -->
+        <h1 class="page-title">🔍 Tìm kiếm toàn hệ thống</h1>
+
+        <!-- Search Hero -->
+        <div class="search-hero">
+            <div class="search-wrapper">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input
+                type="text"
+                id="searchInput"
+                placeholder="Tìm kiếm module, dữ liệu, tài liệu..."
+                aria-label="Tìm kiếm toàn hệ thống"
+                autofocus
+                />
+                <div class="search-actions">
+                    <button class="btn-ai" id="aiSearchBtn" title="Tìm kiếm với AI">🧠 <span>AI Search</span></button>
+                    <button class="btn-clear" id="clearSearchBtn" title="Xóa tìm kiếm" style="display:none;">✕</button>
+                </div>
+            </div>
+            <div class="search-stats">
+                <span id="searchStats">🔍 Nhập từ khóa để bắt đầu tìm kiếm</span>
+                <span class="ai-suggestion" id="aiSuggestion">
+                    <span class="sparkle">✨</span> Gợi ý: <strong id="suggestionText">"báo cáo doanh thu"</strong>
+                </span>
+            </div>
+        </div>
+
+        <!-- Search Layout -->
+        <div class="search-layout">
+
+            <!-- Filters & History -->
+            <div class="filters-sidebar">
+
+                <!-- Filters -->
+                <div class="filter-section">
+                    <h4>📂 Loại</h4>
+                    <div class="filter-item active" data-filter="all">
+                        <span class="checkbox checked"></span>
+                        Tất cả
+                        <span class="count">12</span>
+                    </div>
+                    <div class="filter-item" data-filter="module">
+                        <span class="checkbox"></span>
+                        Module
+                        <span class="count">5</span>
+                    </div>
+                    <div class="filter-item" data-filter="data">
+                        <span class="checkbox"></span>
+                        Dữ liệu
+                        <span class="count">4</span>
+                    </div>
+                    <div class="filter-item" data-filter="ai">
+                        <span class="checkbox"></span>
+                        AI
+                        <span class="count">2</span>
+                    </div>
+                    <div class="filter-item" data-filter="doc">
+                        <span class="checkbox"></span>
+                        Tài liệu
+                        <span class="count">1</span>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h4>🏷️ Module</h4>
+                    <div class="filter-item" data-module="all">
+                        <span class="checkbox checked"></span>
+                        Tất cả
+                        <span class="count">12</span>
+                    </div>
+                    <div class="filter-item" data-module="factory">
+                        <span class="checkbox"></span>
+                        Factory OS
+                        <span class="count">3</span>
+                    </div>
+                    <div class="filter-item" data-module="business">
+                        <span class="checkbox"></span>
+                        Business
+                        <span class="count">2</span>
+                    </div>
+                    <div class="filter-item" data-module="ai">
+                        <span class="checkbox"></span>
+                        AI Studio
+                        <span class="count">2</span>
+                    </div>
+                    <div class="filter-item" data-module="academy">
+                        <span class="checkbox"></span>
+                        Academy
+                        <span class="count">2</span>
+                    </div>
+                    <div class="filter-item" data-module="finance">
+                        <span class="checkbox"></span>
+                        Finance
+                        <span class="count">2</span>
+                    </div>
+                    <div class="filter-item" data-module="marketing">
+                        <span class="checkbox"></span>
+                        Marketing
+                        <span class="count">1</span>
+                    </div>
+                </div>
+
+                <!-- History (desktop only) -->
+                <div class="history-sidebar" id="historySidebar">
+                    <h4>
+                        📋 Lịch sử tìm kiếm
+                        <button class="clear-btn" id="clearHistoryBtn">Xóa tất cả</button>
+                    </h4>
+                    <div id="historyList">
+                        <!-- Render by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="results-area">
+
+                <!-- AI Suggestions -->
+                <div class="ai-suggestions" id="aiSuggestions">
+                    <div class="ai-header">
+                        <span>🧠</span> AI gợi ý
+                        <span class="ai-badge">Thông minh</span>
+                    </div>
+                    <div id="aiSuggestionList">
+                        <div class="ai-suggestion-item" data-query="phân tích bán hàng tháng 6">
+                            <span class="s-icon">📊</span>
+                            <span class="s-text">Phân tích bán hàng tháng 6</span>
+                            <span class="s-action">Tìm kiếm →</span>
+                        </div>
+                        <div class="ai-suggestion-item" data-query="tạo báo cáo sản xuất">
+                            <span class="s-icon">🏭</span>
+                            <span class="s-text">Tạo báo cáo sản xuất tuần qua</span>
+                            <span class="s-action">Tìm kiếm →</span>
+                        </div>
+                        <div class="ai-suggestion-item" data-query="hướng dẫn sử dụng factory os">
+                            <span class="s-icon">📖</span>
+                            <span class="s-text">Hướng dẫn sử dụng Factory OS</span>
+                            <span class="s-action">Tìm kiếm →</span>
+                        </div>
+                        <div class="ai-suggestion-item" data-query="tối ưu chiến dịch marketing">
+                            <span class="s-icon">📢</span>
+                            <span class="s-text">Tối ưu chiến dịch Marketing</span>
+                            <span class="s-action">Tìm kiếm →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Tabs -->
+                <div class="result-tabs" id="resultTabs">
+                    <button class="tab-btn active" data-tab="all">📋 Tất cả <span class="tab-badge">12</span></button>
+                    <button class="tab-btn" data-tab="module">📦 Module <span class="tab-badge">5</span></button>
+                    <button class="tab-btn" data-tab="data">📊 Dữ liệu <span class="tab-badge">4</span></button>
+                    <button class="tab-btn" data-tab="ai">🧠 AI <span class="tab-badge">2</span></button>
+                    <button class="tab-btn" data-tab="doc">📄 Tài liệu <span class="tab-badge">1</span></button>
+                </div>
+
+                <!-- Results Container -->
+                <div id="resultsContainer">
+                    <!-- Render by JS -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon" aria-hidden="true">🔍</div>
+                    <h3>Không tìm thấy kết quả</h3>
+                    <p>Hãy thử từ khóa khác hoặc sử dụng AI Search để tìm kiếm thông minh hơn.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
+            MIMIN Platform v1.0 · Enterprise Core Architecture · © 2026
+        </footer>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- AI FLOATING BUTTON                         -->
+    <!-- ========================================== -->
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI Gợi ý hôm nay · <strong>5 việc cần xử lý</strong></span>
+    </button>
+
+    <!-- ========================================== -->
+    <!-- DRAWER (User Profile)                      -->
+    <!-- ========================================== -->
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" aria-hidden="true">HS</div>
+            <div class="drawer-name">Hồ Minh Sang</div>
+            <div class="drawer-role">Founder &amp; CEO · MIMIN Group</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value">MIMIN JSC</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value">06/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TOAST CONTAINER                            -->
+    <!-- ========================================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT ENGINE                          -->
+    <!-- ========================================== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ====== DATA ======
+            const USER = {
+                name: 'Hồ Minh Sang',
+                initials: 'HS',
+                role: 'Founder & CEO',
+                company: 'MIMIN JSC',
+                plan: 'Enterprise',
+                loginDate: '06/07/2026'
+            };
+
+            const NAV_ITEMS = [
+                { icon: '🏠', label: 'Dashboard', active: false, badge: '' },
+                { icon: '📊', label: 'Tổng quan', active: false, badge: '' },
+                { icon: '🎓', label: 'Academy', active: false, badge: '12' },
+                { icon: '🤖', label: 'AI Studio', active: false, badge: 'New' },
+                { icon: '💼', label: 'Business', active: false, badge: '' },
+                { icon: '🏭', label: 'Factory OS', active: false, badge: '99+' },
+                { icon: '🛒', label: 'Marketplace', active: false, badge: '' },
+                { icon: '📢', label: 'Marketing', active: false, badge: '' },
+                { icon: '🎬', label: 'Media', active: false, badge: '' },
+                { icon: '💰', label: 'Finance', active: false, badge: '' },
+                { icon: '🤝', label: 'Affiliate', active: false, badge: '' },
+                { icon: '⚙️', label: 'Automation', active: false, badge: '' },
+                { icon: '👥', label: 'Community', active: false, badge: '' },
+                { icon: '📂', label: 'Documents', active: false, badge: '' },
+                { icon: '🔔', label: 'Thông báo', active: false, badge: '3' },
+                { icon: '🔍', label: 'Tìm kiếm', active: true, badge: '' },
+                { icon: '⚙️', label: 'Admin', active: false, badge: '' }
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '📦', title: 'Đơn hàng #M0123 đã giao thành công', time: '5 phút trước' },
+                { icon: '🧠', title: 'AI đề xuất tối ưu sản xuất cho tuần sau', time: '1 giờ trước' },
+                { icon: '🎓', title: 'Khóa học "Factory OS" đạt 500 học viên', time: '3 giờ trước' },
+                { icon: '💰', title: 'Hóa đơn tháng 6 đã sẵn sàng để thanh toán', time: 'Hôm qua' },
+                { icon: '👤', title: 'Nguyễn Văn A đã cập nhật thông tin dự án', time: 'Hôm qua' }
+            ];
+
+            // ====== SEARCH DATA ======
+            const SEARCH_DATA = [{
+                id: 1,
+                type: 'module',
+                module: 'factory',
+                icon: '🏭',
+                title: 'Factory OS - Quản lý sản xuất',
+                desc: 'Quản lý toàn bộ quy trình sản xuất từ Planning đến Packing',
+                tags: ['sản xuất', 'dệt may', 'quy trình'],
+                path: '/factory'
+            }, {
+                id: 2,
+                type: 'module',
+                module: 'business',
+                icon: '💼',
+                title: 'Quản trị Doanh nghiệp',
+                desc: 'CRM, Bán hàng, Quotation, Order, Invoice, HRM',
+                tags: ['crm', 'bán hàng', 'quản trị'],
+                path: '/business'
+            }, {
+                id: 3,
+                type: 'module',
+                module: 'ai',
+                icon: '🤖',
+                title: 'AI Studio - Trung tâm AI',
+                desc: 'AI Chat, Image, Video, Voice, SEO, Marketing, Coding',
+                tags: ['ai', 'trí tuệ nhân tạo', 'machine learning'],
+                path: '/ai'
+            }, {
+                id: 4,
+                type: 'module',
+                module: 'academy',
+                icon: '🎓',
+                title: 'Trung tâm Đào tạo',
+                desc: 'Khóa học, Bài giảng, Quiz, Chứng chỉ, Mentor, Live',
+                tags: ['học tập', 'đào tạo', 'khóa học'],
+                path: '/academy'
+            }, {
+                id: 5,
+                type: 'module',
+                module: 'finance',
+                icon: '💰',
+                title: 'Tài chính Kế toán',
+                desc: 'Thu chi, Báo cáo, Hóa đơn, Đối soát, Phân tích tài chính',
+                tags: ['tài chính', 'kế toán', 'báo cáo'],
+                path: '/finance'
+            }, {
+                id: 6,
+                type: 'data',
+                module: 'factory',
+                icon: '📊',
+                title: 'Báo cáo sản xuất tháng 6/2026',
+                desc: 'Tổng hợp sản lượng, tỷ lệ lỗi, hiệu suất máy móc',
+                tags: ['báo cáo', 'sản xuất', 'thống kê'],
+                path: '/factory/reports'
+            }, {
+                id: 7,
+                type: 'data',
+                module: 'finance',
+                icon: '📈',
+                title: 'Báo cáo doanh thu Q2/2026',
+                desc: 'Phân tích doanh thu theo sản phẩm, kênh bán hàng, khu vực',
+                tags: ['doanh thu', 'tài chính', 'phân tích'],
+                path: '/finance/reports'
+            }, {
+                id: 8,
+                type: 'data',
+                module: 'business',
+                icon: '👥',
+                title: 'Danh sách khách hàng tiềm năng',
+                desc: '128 khách hàng tiềm năng đã được AI phân loại và đánh giá',
+                tags: ['khách hàng', 'crm', 'lead'],
+                path: '/business/crm'
+            }, {
+                id: 9,
+                type: 'data',
+                module: 'factory',
+                icon: '📦',
+                title: 'Tồn kho nguyên liệu tháng 6',
+                desc: 'Chi tiết tồn kho vải, chỉ, phụ liệu theo từng loại',
+                tags: ['tồn kho', 'nguyên liệu', 'warehouse'],
+                path: '/factory/inventory'
+            }, {
+                id: 10,
+                type: 'ai',
+                module: 'ai',
+                icon: '🧠',
+                title: 'AI Phân tích dữ liệu bán hàng',
+                desc: 'Dự báo doanh thu, phát hiện xu hướng, đề xuất chiến lược',
+                tags: ['ai', 'phân tích', 'dự báo'],
+                path: '/ai/analytics'
+            }, {
+                id: 11,
+                type: 'ai',
+                module: 'marketing',
+                icon: '📢',
+                title: 'AI Tối ưu chiến dịch Facebook',
+                desc: 'Gợi ý ngân sách, đối tượng, nội dung quảng cáo tối ưu',
+                tags: ['marketing', 'facebook', 'quảng cáo'],
+                path: '/marketing/ai'
+            }, {
+                id: 12,
+                type: 'doc',
+                module: 'academy',
+                icon: '📄',
+                title: 'Hướng dẫn sử dụng Factory OS v2.0',
+                desc: 'Tài liệu hướng dẫn chi tiết toàn bộ tính năng Factory OS',
+                tags: ['hướng dẫn', 'tài liệu', 'user guide'],
+                path: '/academy/docs'
+            }];
+
+            // ====== SEARCH HISTORY ======
+            let searchHistory = [
+                { query: 'báo cáo sản xuất', time: '10 phút trước' },
+                { query: 'AI marketing', time: '1 giờ trước' },
+                { query: 'factory os', time: '3 giờ trước' },
+                { query: 'khách hàng tiềm năng', time: 'Hôm qua' }
+            ];
+
+            // ====== STATE ======
+            let currentFilter = 'all';
+            let currentModule = 'all';
+            let currentTab = 'all';
+            let currentQuery = '';
+
+            // ====== THEME ======
+            const THEME_KEY = 'mimin-theme';
+
+            function getTheme() {
+                return localStorage.getItem(THEME_KEY) || 'light';
+            }
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem(THEME_KEY, theme);
+                document.getElementById('themeToggle').textContent = theme === 'light' ? '🌓' : '☀️';
+            }
+
+            function toggleTheme() {
+                const current = getTheme();
+                setTheme(current === 'light' ? 'dark' : 'light');
+            }
+
+            // ====== TOAST ======
+            function showToast(message, type = 'info', icon = '💡') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('hide');
+                    setTimeout(() => toast.remove(), 350);
+                }, 3000);
+            }
+
+            // ====== RENDER FUNCTIONS ======
+            function renderNav() {
+                const container = document.getElementById('navMenu');
+                container.innerHTML = '';
+                NAV_ITEMS.forEach(item => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.className = item.active ? 'active' : '';
+                    a.innerHTML = `
+                        <span class="nav-icon">${item.icon}</span>
+                        ${item.label}
+                        ${item.badge ? `<span class="nav-badge">${item.badge}</span>` : ''}
+                    `;
+                    a.href = '#';
+                    a.setAttribute('role', 'menuitem');
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        document.querySelectorAll('.m-sidebar-nav a').forEach(el => el.classList.remove(
+                        'active'));
+                        a.classList.add('active');
+                        showToast(`🚀 Điều hướng đến: ${item.label}`, 'info', '🧭');
+                    });
+                    li.appendChild(a);
+                    container.appendChild(li);
+                });
+            }
+
+            function renderNotificationsPopover() {
+                const container = document.getElementById('notifList');
+                container.innerHTML = '';
+                NOTIFICATIONS.slice(0, 5).forEach(notif => {
+                    const div = document.createElement('div');
+                    div.className = 'item';
+                    div.innerHTML = `
+                        <span class="icon">${notif.icon}</span>
+                        <div class="content">
+                            <div class="title">${notif.title}</div>
+                            <div class="time">${notif.time}</div>
+                        </div>
+                    `;
+                    div.addEventListener('click', () => {
+                        showToast(`📬 ${notif.title}`, 'info', '🔔');
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            function updateUserUI() {
+                document.getElementById('sidebarAvatar').textContent = USER.initials;
+                document.getElementById('sidebarUserName').textContent = USER.name;
+                document.getElementById('sidebarUserRole').textContent = USER.role;
+                document.getElementById('headerAvatar').textContent = USER.initials;
+            }
+
+            // ====== SEARCH HISTORY ======
+            function renderHistory() {
+                const container = document.getElementById('historyList');
+                container.innerHTML = '';
+                if (searchHistory.length === 0) {
+                    container.innerHTML =
+                        '<div style="color:var(--text-light);font-size:13px;padding:4px 0;">Chưa có lịch sử tìm kiếm</div>';
+                    return;
+                }
+                searchHistory.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'history-item';
+                    div.innerHTML = `
+                        <span class="h-icon">🔍</span>
+                        <span class="h-text">${item.query}</span>
+                        <span class="h-time">${item.time}</span>
+                        <button class="h-delete" data-index="${index}" title="Xóa">✕</button>
+                    `;
+                    div.addEventListener('click', function(e) {
+                        if (e.target.closest('.h-delete')) return;
+                        document.getElementById('searchInput').value = item.query;
+                        performSearch(item.query);
+                    });
+                    const deleteBtn = div.querySelector('.h-delete');
+                    deleteBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        searchHistory.splice(index, 1);
+                        renderHistory();
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            function addToHistory(query) {
+                if (!query.trim()) return;
+                // Remove duplicate
+                searchHistory = searchHistory.filter(item => item.query.toLowerCase() !== query.toLowerCase());
+                searchHistory.unshift({
+                    query: query.trim(),
+                    time: 'Vừa xong'
+                });
+                // Keep max 10 items
+                if (searchHistory.length > 10) searchHistory.pop();
+                renderHistory();
+            }
+
+            function clearHistory() {
+                if (searchHistory.length === 0) {
+                    showToast('📭 Lịch sử tìm kiếm trống', 'info', '📭');
+                    return;
+                }
+                if (confirm('Xóa tất cả lịch sử tìm kiếm?')) {
+                    searchHistory = [];
+                    renderHistory();
+                    showToast('🗑️ Đã xóa lịch sử tìm kiếm', 'info', '🗑️');
+                }
+            }
+
+            // ====== FILTERS ======
+            function initFilters() {
+                // Category filters
+                document.querySelectorAll('.filter-section .filter-item[data-filter]').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const filter = this.dataset.filter;
+                        // Toggle checkbox
+                        const checkbox = this.querySelector('.checkbox');
+                        const isActive = this.classList.contains('active');
+
+                        // Deselect all in this group
+                        document.querySelectorAll('.filter-section .filter-item[data-filter]').forEach(el => {
+                            el.classList.remove('active');
+                            el.querySelector('.checkbox').classList.remove('checked');
+                        });
+
+                        if (!isActive) {
+                            this.classList.add('active');
+                            checkbox.classList.add('checked');
+                            currentFilter = filter;
+                        } else {
+                            // If deselecting, fallback to 'all'
+                            const allFilter = document.querySelector(
+                                '.filter-section .filter-item[data-filter="all"]');
+                            if (allFilter) {
+                                allFilter.classList.add('active');
+                                allFilter.querySelector('.checkbox').classList.add('checked');
+                                currentFilter = 'all';
+                            }
+                        }
+                        renderResults();
+                    });
+                });
+
+                // Module filters
+                document.querySelectorAll('.filter-section .filter-item[data-module]').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const module = this.dataset.module;
+                        const checkbox = this.querySelector('.checkbox');
+                        const isActive = this.classList.contains('active');
+
+                        document.querySelectorAll('.filter-section .filter-item[data-module]').forEach(el => {
+                            el.classList.remove('active');
+                            el.querySelector('.checkbox').classList.remove('checked');
+                        });
+
+                        if (!isActive) {
+                            this.classList.add('active');
+                            checkbox.classList.add('checked');
+                            currentModule = module;
+                        } else {
+                            const allModule = document.querySelector(
+                                '.filter-section .filter-item[data-module="all"]');
+                            if (allModule) {
+                                allModule.classList.add('active');
+                                allModule.querySelector('.checkbox').classList.add('checked');
+                                currentModule = 'all';
+                            }
+                        }
+                        renderResults();
+                    });
+                });
+            }
+
+            // ====== TABS ======
+            function initTabs() {
+                document.querySelectorAll('.result-tabs .tab-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.result-tabs .tab-btn').forEach(b => b.classList.remove(
+                            'active'));
+                        this.classList.add('active');
+                        currentTab = this.dataset.tab;
+                        renderResults();
+                    });
+                });
+            }
+
+            // ====== SEARCH ======
+            function performSearch(query) {
+                currentQuery = query.trim();
+                const searchInput = document.getElementById('searchInput');
+                const clearBtn = document.getElementById('clearSearchBtn');
+
+                if (currentQuery) {
+                    clearBtn.style.display = 'inline-block';
+                    addToHistory(currentQuery);
+                } else {
+                    clearBtn.style.display = 'none';
+                }
+
+                // Update stats
+                updateStats(currentQuery);
+                renderResults();
+
+                // Update AI suggestion
+                if (currentQuery) {
+                    document.getElementById('suggestionText').textContent = `"${currentQuery}"`;
+                } else {
+                    document.getElementById('suggestionText').textContent = '"báo cáo doanh thu"';
+                }
+            }
+
+            function updateStats(query) {
+                const stats = document.getElementById('searchStats');
+                if (!query) {
+                    stats.textContent = '🔍 Nhập từ khóa để bắt đầu tìm kiếm';
+                    return;
+                }
+                const results = getFilteredResults();
+                stats.textContent = `🔍 Tìm thấy ${results.length} kết quả cho "${query}"`;
+            }
+
+            function getFilteredResults() {
+                let results = SEARCH_DATA;
+
+                // Search query
+                if (currentQuery) {
+                    const q = currentQuery.toLowerCase();
+                    results = results.filter(item =>
+                        item.title.toLowerCase().includes(q) ||
+                        item.desc.toLowerCase().includes(q) ||
+                        item.tags.some(t => t.toLowerCase().includes(q))
+                    );
+                }
+
+                // Filter by type
+                if (currentFilter !== 'all') {
+                    results = results.filter(item => item.type === currentFilter);
+                }
+
+                // Filter by module
+                if (currentModule !== 'all') {
+                    results = results.filter(item => item.module === currentModule);
+                }
+
+                // Tab filter
+                if (currentTab !== 'all') {
+                    results = results.filter(item => item.type === currentTab);
+                }
+
+                return results;
+            }
+
+            function renderResults() {
+                const container = document.getElementById('resultsContainer');
+                const emptyState = document.getElementById('emptyState');
+                const results = getFilteredResults();
+
+                // Update tab badges
+                updateTabBadges();
+
+                if (results.length === 0) {
+                    container.innerHTML = '';
+                    if (currentQuery) {
+                        emptyState.style.display = 'flex';
+                        emptyState.querySelector('h3').textContent = 'Không tìm thấy kết quả';
+                        emptyState.querySelector('p').textContent =
+                            `Không có kết quả nào cho "${currentQuery}". Hãy thử từ khóa khác hoặc sử dụng AI Search.`;
+                    } else {
+                        emptyState.style.display = 'flex';
+                        emptyState.querySelector('h3').textContent = 'Bắt đầu tìm kiếm';
+                        emptyState.querySelector('p').textContent =
+                            'Nhập từ khóa vào thanh tìm kiếm để tìm kiếm toàn bộ hệ thống.';
+                    }
+                    return;
+                }
+                emptyState.style.display = 'none';
+
+                container.innerHTML = '';
+                results.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    const iconClass = item.type;
+                    div.innerHTML = `
+                        <div class="r-icon ${iconClass}">${item.icon}</div>
+                        <div class="r-content">
+                            <div class="r-title">${highlightText(item.title, currentQuery)}</div>
+                            <div class="r-desc">${highlightText(item.desc, currentQuery)}</div>
+                            <div class="r-meta">
+                                <span class="tag ${item.type}-tag">${item.type}</span>
+                                <span class="tag">${item.module}</span>
+                                <span class="path">${item.path}</span>
+                                ${item.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
+                            </div>
+                        </div>
+                        <span class="r-arrow">→</span>
+                    `;
+                    div.addEventListener('click', function() {
+                        showToast(`🚀 Mở: ${item.title} (${item.path})`, 'info', '📂');
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            function highlightText(text, query) {
+                if (!query) return text;
+                const q = query.toLowerCase();
+                const words = q.split(/\s+/).filter(w => w.length > 0);
+                let result = text;
+                words.forEach(word => {
+                    const regex = new RegExp(`(${word})`, 'gi');
+                    result = result.replace(regex, '<span class="highlight">$1</span>');
+                });
+                return result;
+            }
+
+            function updateTabBadges() {
+                const tabs = ['all', 'module', 'data', 'ai', 'doc'];
+                tabs.forEach(tab => {
+                    const count = SEARCH_DATA.filter(item => {
+                        if (tab === 'all') return true;
+                        return item.type === tab;
+                    }).length;
+                    const btn = document.querySelector(`.result-tabs .tab-btn[data-tab="${tab}"]`);
+                    if (btn) {
+                        const badge = btn.querySelector('.tab-badge');
+                        if (badge) badge.textContent = count;
+                    }
+                });
+            }
+
+            // ====== AI SUGGESTIONS ======
+            function initAISuggestions() {
+                document.querySelectorAll('.ai-suggestion-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const query = this.dataset.query;
+                        document.getElementById('searchInput').value = query;
+                        performSearch(query);
+                        showToast(`🧠 AI gợi ý: "${query}"`, 'info', '🧠');
+                    });
+                });
+            }
+
+            // ====== AI SEARCH ======
+            function aiSearch() {
+                const query = document.getElementById('searchInput').value.trim();
+                if (!query) {
+                    showToast('Vui lòng nhập từ khóa để tìm kiếm với AI', 'error', '⚠️');
+                    return;
+                }
+                showToast(`🧠 AI đang phân tích "${query}"...`, 'info', '🧠');
+                // Simulate AI processing
+                setTimeout(() => {
+                    const results = getFilteredResults();
+                    if (results.length > 0) {
+                        showToast(`✅ AI tìm thấy ${results.length} kết quả liên quan`, 'success', '🎯');
+                    } else {
+                        showToast(`🔍 AI đề xuất: Hãy thử từ khóa "báo cáo" hoặc "phân tích"`, 'info', '💡');
+                    }
+                    performSearch(query);
+                }, 1200);
+            }
+
+            // ====== INTERACTIONS ======
+            // Notification
+            const notifBtn = document.getElementById('notifBtn');
+            const notifPopover = document.getElementById('notifPopover');
+            notifBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifPopover.classList.toggle('open');
+                notifBtn.setAttribute('aria-expanded', notifPopover.classList.contains('open'));
+            });
+            document.addEventListener('click', () => {
+                notifPopover.classList.remove('open');
+                notifBtn.setAttribute('aria-expanded', 'false');
+            });
+            notifPopover.addEventListener('click', (e) => e.stopPropagation());
+
+            document.getElementById('markAllRead').addEventListener('click', (e) => {
+                e.stopPropagation();
+                showToast('✅ Đã đánh dấu tất cả đã đọc', 'success', '📬');
+                notifPopover.classList.remove('open');
+            });
+            document.getElementById('viewAllNotifs').addEventListener('click', () => {
+                notifPopover.classList.remove('open');
+                showToast('📋 Xem tất cả thông báo', 'info', '📬');
+            });
+
+            // Drawer
+            const headerAvatar = document.getElementById('headerAvatar');
+            const drawerOverlay = document.getElementById('drawerOverlay');
+            const drawerClose = document.getElementById('drawerClose');
+            headerAvatar.addEventListener('click', () => drawerOverlay.classList.add('open'));
+            headerAvatar.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    drawerOverlay.classList.add('open');
+                }
+            });
+            drawerClose.addEventListener('click', () => drawerOverlay.classList.remove('open'));
+            drawerOverlay.addEventListener('click', (e) => {
+                if (e.target === drawerOverlay) drawerOverlay.classList.remove('open');
+            });
+            document.getElementById('manageAccountBtn').addEventListener('click', () => {
+                showToast('🔐 Quản lý tài khoản', 'info', '⚙️');
+                drawerOverlay.classList.remove('open');
+            });
+
+            // AI Float
+            document.getElementById('aiFloatBtn').addEventListener('click', () => {
+                showToast('🧠 AI Gợi ý hôm nay:\n1. Kiểm tra đơn hàng tồn đọng\n2. Cập nhật tiến độ sản xuất\n3. Phê duyệt yêu cầu nghỉ phép\n4. Xem báo cáo tài chính tháng\n5. Họp team lúc 14:00', 'info', '🤖');
+            });
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                showToast('👋 Đăng xuất', 'warning', '⏻');
+            });
+
+            // Theme
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // Search Input
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim();
+                if (query.length === 0) {
+                    document.getElementById('clearSearchBtn').style.display = 'none';
+                    performSearch('');
+                } else {
+                    document.getElementById('clearSearchBtn').style.display = 'inline-block';
+                    performSearch(query);
+                }
+            });
+
+            // Clear Search
+            document.getElementById('clearSearchBtn').addEventListener('click', function() {
+                document.getElementById('searchInput').value = '';
+                this.style.display = 'none';
+                performSearch('');
+                document.getElementById('searchInput').focus();
+            });
+
+            // AI Search
+            document.getElementById('aiSearchBtn').addEventListener('click', aiSearch);
+
+            // Enter key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const query = this.value.trim();
+                    if (query) {
+                        performSearch(query);
+                        // Auto AI suggestion
+                        if (query.length > 3) {
+                            showToast(`🔍 Đã tìm kiếm: "${query}"`, 'info', '🔍');
+                        }
+                    }
+                }
+            });
+
+            // Clear History
+            document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
+
+            // Mobile menu toggles
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+
+            menuToggle.addEventListener('click', () => {
+                const isOpen = sidebar.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    const isSidebar = sidebar.contains(e.target);
+                    const isToggle = menuToggle.contains(e.target);
+                    if (!isSidebar && !isToggle) {
+                        sidebar.classList.remove('open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Global Search (Ctrl+K)
+            document.getElementById('globalSearch').addEventListener('input', function(e) {
+                const query = this.value.trim();
+                if (query.length > 0) {
+                    document.getElementById('searchInput').value = query;
+                    performSearch(query);
+                    this.value = '';
+                }
+            });
+
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                    document.getElementById('searchInput').select();
+                }
+                if (e.key === 'Escape') {
+                    notifPopover.classList.remove('open');
+                    notifBtn.setAttribute('aria-expanded', 'false');
+                    drawerOverlay.classList.remove('open');
+                    sidebar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    document.getElementById('searchInput').blur();
+                }
+                // Ctrl+/ to clear search
+                if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+                    e.preventDefault();
+                    document.getElementById('searchInput').value = '';
+                    document.getElementById('clearSearchBtn').style.display = 'none';
+                    performSearch('');
+                    document.getElementById('searchInput').focus();
+                }
+            });
+
+            // ====== INIT ======
+            setTheme(getTheme());
+            renderNav();
+            renderNotificationsPopover();
+            updateUserUI();
+            renderHistory();
+            initFilters();
+            initTabs();
+            initAISuggestions();
+            renderResults();
+            updateTabBadges();
+
+            // Auto focus search input
+            setTimeout(() => {
+                document.getElementById('searchInput').focus();
+            }, 300);
+
+            console.log('✅ MIMIN Global Search (MIMIN HTML STANDARD v1.0) initialized.');
+            console.log(`🔍 ${SEARCH_DATA.length} searchable items loaded.`);
+        })();
+    </script>
+
+</body>
+</html>
