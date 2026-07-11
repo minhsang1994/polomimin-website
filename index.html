@@ -3,264 +3,742 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POLOMIMIN - Dệt May Giàu Sang | Thời trang nam cao cấp</title>
+    <title>POLOMIMIN - Thời trang & AI</title>
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/galaxy.css">
-    <link rel="stylesheet" href="css/components.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .hero { min-height: 100vh; padding: 120px 20px 60px; }
-        .hero-content { max-width: 1200px; margin: 0 auto; text-align: center; animation: fadeInUp 1s ease-out; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(107, 164, 159, 0.15); border: 1px solid rgba(107, 164, 159, 0.3); border-radius: 100px; color: var(--seafoam-light); font-size: 13px; margin-bottom: 24px; }
-        .hero-badge i { color: var(--seafoam-primary); animation: pulse 2s ease-in-out infinite; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 7vw, 80px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; background: linear-gradient(135deg, #ffffff 0%, var(--seafoam-light) 50%, var(--seafoam-primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero p { font-size: 18px; color: var(--text-muted); line-height: 1.7; margin: 0 auto 36px; max-width: 600px; }
-        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
-        .hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
-        .hero-stat h3 { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, var(--seafoam-light), var(--seafoam-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-stat p { font-size: 13px; color: var(--text-muted); margin: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            background: #050810;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-        .service-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; margin-bottom: 20px; position: relative; z-index: 2; }
-        .service-icon.image { background: linear-gradient(135deg, #6BA49F, #46827E); }
-        .service-icon.video { background: linear-gradient(135deg, #B2D6D1, #6BA49F); color: #1a4d49; }
-        .service-icon.product { background: linear-gradient(135deg, #46827E, #1a4d49); }
-        .service-icon.app { background: linear-gradient(135deg, #E6F2F0, #B2D6D1); color: #1a4d49; }
-        .service-icon.ai { background: linear-gradient(135deg, #6BA49F, #B2D6D1); color: #1a4d49; }
-        .service-icon.design { background: linear-gradient(135deg, #1a4d49, #0a2e2c); }
-        .service-card { padding: 32px 28px; }
-        .service-card h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; position: relative; z-index: 2; }
-        .service-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 20px; position: relative; z-index: 2; }
-        .service-card .features { list-style: none; margin-bottom: 24px; }
-        .service-card .features li { padding: 6px 0; color: var(--text-secondary); font-size: 13px; display: flex; align-items: center; gap: 8px; }
-        .service-card .features li i { color: var(--seafoam-primary); font-size: 10px; }
-        .service-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark)); color: white; text-decoration: none; border-radius: 100px; font-size: 14px; font-weight: 600; transition: all 0.3s; position: relative; z-index: 2; }
+        /* Background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(20, 60, 120, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(30, 40, 80, 0.3) 0%, transparent 50%),
+                linear-gradient(180deg, #050810 0%, #0a1228 50%, #050810 100%);
+            z-index: -2;
+        }
 
-        .products-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
-        .tab-btn { padding: 10px 24px; background: rgba(15, 23, 41, 0.5); border: 1px solid rgba(107, 164, 159, 0.2); color: var(--text-secondary); border-radius: 100px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s; }
-        .tab-btn.active { background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark)); color: white; border-color: transparent; }
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            background: rgba(5, 8, 16, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(100, 180, 255, 0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #fff;
+            font-size: 20px;
+        }
+        .logo-text { color: #fff; }
+        .logo-text h1 { font-size: 16px; font-weight: 700; letter-spacing: 1px; }
+        .logo-text p { font-size: 10px; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
+        .nav { display: flex; gap: 8px; align-items: center; }
+        .nav a {
+            padding: 8px 16px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 100px;
+            transition: all 0.3s;
+        }
+        .nav a:hover, .nav a.active {
+            color: #fff;
+            background: rgba(100, 180, 255, 0.15);
+        }
+        .header-actions { display: flex; gap: 12px; align-items: center; }
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .icon-btn:hover { background: rgba(100, 180, 255, 0.2); }
 
-        .product-card { padding: 0; overflow: hidden; }
-        .product-image { width: 100%; height: 220px; background: linear-gradient(135deg, rgba(107, 164, 159, 0.3), rgba(70, 130, 126, 0.2)); display: flex; align-items: center; justify-content: center; font-size: 64px; color: var(--seafoam-light); position: relative; }
-        .product-badge { position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: rgba(233, 69, 96, 0.9); color: white; border-radius: 100px; font-size: 11px; font-weight: 600; z-index: 3; }
-        .product-info { padding: 20px; }
-        .product-info h4 { color: var(--text-primary); font-size: 16px; margin-bottom: 6px; }
-        .product-info .price { color: var(--seafoam-light); font-size: 18px; font-weight: 700; margin-bottom: 12px; }
-        .product-info .old-price { color: var(--text-muted); text-decoration: line-through; font-size: 14px; font-weight: 400; margin-left: 8px; }
-        .add-cart { width: 100%; padding: 10px; background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark)); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            padding: 120px 40px 60px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .hero-text h2 {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+        .hero-text h2 .highlight {
+            background: linear-gradient(135deg, #64b5f6, #90caf9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text p {
+            color: rgba(255,255,255,0.7);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+        .hero-buttons { display: flex; gap: 12px; margin-bottom: 40px; }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1976d2, #42a5f5);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(25, 118, 210, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn:hover { transform: translateY(-2px); }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 500px;
+        }
+        .stat {
+            text-align: left;
+        }
+        .stat i {
+            font-size: 24px;
+            color: #64b5f6;
+            margin-bottom: 8px;
+        }
+        .stat h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .stat p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin: 0;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-visual img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+        .visual-placeholder {
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(100, 180, 255, 0.3) 0%, transparent 40%),
+                linear-gradient(135deg, #1a2a4a 0%, #0a1228 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            color: rgba(100, 180, 255, 0.3);
+        }
+        .hero-m-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(100, 180, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 800;
+            color: rgba(100, 180, 255, 0.6);
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            padding: 80px 40px;
+            position: relative;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(100, 180, 255, 0.1);
+            border: 1px solid rgba(100, 180, 255, 0.3);
+            border-radius: 100px;
+            color: #64b5f6;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        .section h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .section p { color: rgba(255,255,255,0.6); font-size: 15px; }
+
+        /* ===== TOOLS GRID (3 video tools) ===== */
+        .tools-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .tool-card {
+            background: linear-gradient(180deg, rgba(20, 30, 50, 0.6) 0%, rgba(10, 18, 40, 0.8) 100%);
+            border: 1px solid rgba(100, 180, 255, 0.15);
+            border-radius: 20px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        .tool-num {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #5e35b1, #7e57c2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .tool-card h3 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .tool-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .tool-preview {
+            background: linear-gradient(135deg, rgba(100, 180, 255, 0.1), rgba(100, 100, 200, 0.1));
+            border-radius: 12px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: rgba(100, 180, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .play-icon {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        /* ===== SERVICES GRID (3 main services) ===== */
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .service-card {
+            background: linear-gradient(180deg, rgba(20, 30, 50, 0.6) 0%, rgba(10, 18, 40, 0.8) 100%);
+            border: 1px solid rgba(100, 180, 255, 0.15);
+            border-radius: 20px;
+            padding: 32px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .service-icon.brand { background: linear-gradient(135deg, #c2185b, #e91e63); }
+        .service-icon.order { background: linear-gradient(135deg, #1976d2, #42a5f5); }
+        .service-icon.ai { background: linear-gradient(135deg, #f57c00, #ffb74d); }
+        .service-card h3 {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .service-card > p {
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .features { list-style: none; margin-bottom: 24px; }
+        .features li {
+            padding: 6px 0;
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #64b5f6;
+            font-size: 12px;
+        }
+        .service-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 100px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .service-card:nth-child(1) .service-btn { background: linear-gradient(135deg, #c2185b, #e91e63); }
+        .service-card:nth-child(2) .service-btn { background: linear-gradient(135deg, #00897b, #26a69a); }
+        .service-card:nth-child(3) .service-btn { background: linear-gradient(135deg, #f57c00, #ffb74d); }
+
+        /* ===== FEATURES BAR ===== */
+        .features-bar {
+            max-width: 1200px;
+            margin: 60px auto;
+            background: linear-gradient(180deg, rgba(20, 30, 50, 0.6) 0%, rgba(10, 18, 40, 0.8) 100%);
+            border: 1px solid rgba(100, 180, 255, 0.15);
+            border-radius: 20px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+        }
+        .feature-item {
+            text-align: center;
+            padding: 12px;
+        }
+        .feature-item i {
+            font-size: 28px;
+            color: #64b5f6;
+            margin-bottom: 8px;
+        }
+        .feature-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        /* ===== PARTNERS ===== */
+        .partners {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .partners h3 {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        .partners-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 30px;
+            align-items: center;
+        }
+        .partner {
+            color: rgba(255,255,255,0.5);
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            transition: color 0.3s;
+        }
+        .partner:hover { color: #fff; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(180deg, transparent 0%, rgba(5, 8, 16, 0.8) 100%);
+            padding: 60px 40px 30px;
+            border-top: 1px solid rgba(100, 180, 255, 0.1);
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .logo { margin-bottom: 16px; }
+        .footer-brand p { color: rgba(255,255,255,0.6); font-size: 13px; line-height: 1.6; }
+        .footer-col h4 {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .footer-col a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            display: block;
+            padding: 4px 0;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: #64b5f6; }
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(100, 180, 255, 0.1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 968px) {
+            .hero-container { grid-template-columns: 1fr; }
+            .tools-grid, .services-grid { grid-template-columns: 1fr; }
+            .tool-card { grid-template-columns: 1fr; }
+            .features-bar { grid-template-columns: repeat(2, 1fr); }
+            .partners-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+            .nav { display: none; }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="nav-logo">
-            <img src="assets/logo.svg" alt="POLOMIMIN">
-            <span>POLOMIMIN</span>
+    <!-- HEADER -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">M</div>
+            <div class="logo-text">
+                <h1>POLOMIMIN</h1>
+                <p>Thời trang &amp; AI</p>
+            </div>
         </a>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">Trang chủ</a></li>
-            <li><a href="#dich-vu">Dịch vụ</a></li>
-            <li><a href="#san-pham">Sản phẩm</a></li>
-            <li><a href="learn-ai.html">AI</a></li>
-        </ul>
-        <div class="nav-auth">
-            <a href="auth.html" class="nav-btn nav-btn-outline">Đăng nhập</a>
-            <a href="auth.html" class="nav-btn nav-btn-primary">Đăng ký</a>
+        <nav class="nav">
+            <a href="index.html" class="active">Trang chủ</a>
+            <a href="#gioi-thieu">Giới thiệu</a>
+            <a href="#dich-vu">Dịch vụ</a>
+            <a href="#san-pham">Sản phẩm</a>
+            <a href="learn-ai.html">Khóa học AI</a>
+            <a href="#tin-tuc">Tin tức</a>
+            <a href="#lien-he">Liên hệ</a>
+            <a href="#chinh-sach">Chính sách</a>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-btn"><i class="fas fa-search"></i></button>
+            <button class="icon-btn"><i class="fas fa-bars"></i></button>
         </div>
-    </nav>
+    </header>
 
+    <!-- HERO -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-sparkles"></i>
-                <span>Thời trang nam cao cấp - Dệt may tận gốc</span>
+        <div class="hero-container">
+            <div class="hero-text">
+                <h2>POLOMIMIN<br>THỜI TRANG<br>DẪN ĐẦU<br><span class="highlight">CÔNG NGHỆ</span></h2>
+                <p>Kết hợp tinh hoa thời trang với sức mạnh AI để tạo nên trải nghiệm đột phá cho khách hàng và đối tác.</p>
+                <div class="hero-buttons">
+                    <a href="#dich-vu" class="btn btn-primary">Khám phá ngay <i class="fas fa-arrow-right"></i></a>
+                    <a href="#gioi-thieu" class="btn btn-outline">Tìm hiểu thêm</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <i class="fas fa-tshirt"></i>
+                        <h3>1000+</h3>
+                        <p>Sản phẩm</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <h3>500+</h3>
+                        <p>Học viên</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-award"></i>
+                        <h3>50+</h3>
+                        <p>Đối tác</p>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-smile"></i>
+                        <h3>96%</h3>
+                        <p>Hài lòng</p>
+                    </div>
+                </div>
             </div>
-            <h1>Dệt May <span class="text-gradient">Giàu Sang</span> Cho Mọi Nhà</h1>
-            <p>Xưởng dệt may tận gốc, không qua trung gian. Sản xuất &amp; phân phối áo Polo, áo thun, sơ mi, quần short, bộ thể thao chất lượng cao.</p>
-            <div class="hero-buttons">
-                <a href="#san-pham" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Xem sản phẩm</a>
-                <a href="#dich-vu" class="btn btn-secondary"><i class="fas fa-magic"></i> Khám phá dịch vụ</a>
-            </div>
-            <div class="hero-stats">
-                <div class="hero-stat"><h3>10+</h3><p>Năm kinh nghiệm</p></div>
-                <div class="hero-stat"><h3>500+</h3><p>Đại lý toàn quốc</p></div>
-                <div class="hero-stat"><h3>1M+</h3><p>Sản phẩm / năm</p></div>
+            <div class="hero-visual">
+                <div class="visual-placeholder">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="hero-m-icon">M</div>
             </div>
         </div>
     </section>
 
+    <!-- TOOLS -->
     <section class="section" id="dich-vu">
         <div class="section-header">
-            <span class="section-tag">Dịch vụ &amp; Công cụ</span>
-            <h2>Công cụ AI &amp; Dịch vụ sản xuất</h2>
-            <p class="section-subtitle">Bộ công cụ toàn diện giúp bạn thiết kế, sản xuất và kinh doanh hiệu quả</p>
+            <span class="section-tag">3 TOOL LÀM VIDEO BÁN HÀNG ✦</span>
+            <h2>Tạo video chuyên nghiệp - Dễ dàng - Hiệu quả</h2>
         </div>
-        <div class="grid grid-2">
-            <div class="card card-animated-border fade-in service-card">
-                <div class="service-icon image"><i class="fas fa-image"></i></div>
-                <h3>Tạo hình ảnh AI</h3>
-                <p>Sinh hình ảnh sản phẩm chuyên nghiệp với AI. Tối ưu cho quảng cáo và mạng xã hội.</p>
-                <ul class="features">
-                    <li><i class="fas fa-circle"></i> Ảnh sản phẩm 4K</li>
-                    <li><i class="fas fa-circle"></i> Background thông minh</li>
-                    <li><i class="fas fa-circle"></i> 50+ mẫu thiết kế</li>
-                </ul>
-                <a href="learn-ai.html" class="service-btn">Sử dụng ngay <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="card card-animated-border fade-in service-card">
-                <div class="service-icon video"><i class="fas fa-video"></i></div>
-                <h3>Tạo video AI</h3>
-                <p>Biến ý tưởng thành video quảng cáo chuyên nghiệp. Tự động lồng tiếng và nhạc nền.</p>
-                <ul class="features">
-                    <li><i class="fas fa-circle"></i> Video 1080p HD</li>
-                    <li><i class="fas fa-circle"></i> Lồng tiếng AI</li>
-                    <li><i class="fas fa-circle"></i> Nhạc nền tự chọn</li>
-                </ul>
-                <a href="learn-ai.html" class="service-btn">Sử dụng ngay <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="card card-animated-border fade-in service-card">
-                <div class="service-icon product"><i class="fas fa-tshirt"></i></div>
-                <h3>Danh mục sản phẩm</h3>
-                <p>Khám phá hơn 100+ mẫu thiết kế áo Polo, áo thun, sơ mi, quần short chất lượng cao.</p>
-                <ul class="features">
-                    <li><i class="fas fa-circle"></i> Áo Polo, Thun, Sơ mi</li>
-                    <li><i class="fas fa-circle"></i> Quần short, Bộ thể thao</li>
-                    <li><i class="fas fa-circle"></i> Đồng phục công ty</li>
-                </ul>
-                <a href="#san-pham" class="service-btn">Xem sản phẩm <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="card card-animated-border fade-in service-card">
-                <div class="service-icon app"><i class="fas fa-industry"></i></div>
-                <h3>Ứng dụng sản xuất</h3>
-                <p>Quản lý đơn hàng, sản xuất, kho hàng, vận chuyển từ A-Z trên một nền tảng.</p>
-                <ul class="features">
-                    <li><i class="fas fa-circle"></i> ERP quản lý sản xuất</li>
-                    <li><i class="fas fa-circle"></i> Theo dõi đơn hàng</li>
-                    <li><i class="fas fa-circle"></i> Báo cáo doanh thu</li>
-                </ul>
-                <a href="learn-ai.html" class="service-btn">Khám phá <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="card card-animated-border fade-in service-card">
-                <div class="service-icon ai"><i class="fas fa-robot"></i></div>
-                <h3>Chatbot AI tư vấn</h3>
-                <p>Trợ lý AI 24/7 hỗ trợ khách hàng chọn size, màu sắc, kiểu dáng phù hợp.</p>
-                <ul class="features">
-                    <li><i class="fas fa-circle"></i> Tư vấn thông minh</li>
-                    <li><i class="fas fa-circle"></i> Hỗ trợ đa ngôn ngữ</li>
-                    <li><i class="fas fa-circle"></i> Phản hồi tức thì</li>
-                </ul>
-                <a href="learn-ai.html" class="service-btn">Dùng thử <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="card card-animated-border fade-in service-card">
-                <div class="service-icon design"><i class="fas fa-palette"></i></div>
-                <h3>Thiết kế theo yêu cầu</h3>
-                <p>Đội ngũ designer chuyên nghiệp nhận thiết kế riêng cho thương hiệu của bạn.</p>
-                <ul class="features">
-                    <li><i class="fas fa-circle"></i> Designer 5+ năm KN</li>
-                    <li><i class="fas fa-circle"></i> Chỉnh sửa miễn phí</li>
-                    <li><i class="fas fa-circle"></i> Giao file nguồn</li>
-                </ul>
-                <a href="learn-ai.html" class="service-btn">Yêu cầu thiết kế <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="san-pham">
-        <div class="section-header">
-            <span class="section-tag">Danh mục sản phẩm</span>
-            <h2>Sản phẩm nổi bật</h2>
-            <p class="section-subtitle">Bộ sưu tập mới nhất với chất liệu cao cấp, giá xưởng</p>
-        </div>
-
-        <div class="products-tabs">
-            <button class="tab-btn active">Tất cả</button>
-            <button class="tab-btn">Áo Polo</button>
-            <button class="tab-btn">Áo Thun</button>
-            <button class="tab-btn">Sơ Mi</button>
-            <button class="tab-btn">Quần Short</button>
-            <button class="tab-btn">Bộ Thể Thao</button>
-        </div>
-
-        <div class="grid grid-4">
-            <div class="card card-animated-border fade-in product-card">
-                <div class="product-image">
-                    <i class="fas fa-tshirt"></i>
-                    <span class="product-badge">-30%</span>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div>
+                    <span class="tool-num">01</span>
+                    <h3>AI Video Script</h3>
+                    <p>Tạo kịch bản video bán hàng tự động bằng AI chỉ với 1 click.</p>
+                    <a href="#" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;">Dùng ngay <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="product-info">
-                    <h4>Áo Polo Premium Cotton</h4>
-                    <div class="price">₫350,000 <span class="old-price">₫500,000</span></div>
-                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                <div class="tool-preview">
+                    <i class="fas fa-pen-fancy"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
                 </div>
             </div>
 
-            <div class="card card-animated-border fade-in product-card">
-                <div class="product-image">
-                    <i class="fas fa-vest"></i>
-                    <span class="product-badge">Hot</span>
+            <div class="tool-card">
+                <div>
+                    <span class="tool-num">02</span>
+                    <h3>AI Voice &amp; Avatar</h3>
+                    <p>Chuyển văn bản thành giọng nói và video với avatar AI sống động.</p>
+                    <a href="#" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;">Dùng ngay <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="product-info">
-                    <h4>Áo Sơ Mi Công Sở</h4>
-                    <div class="price">₫450,000</div>
-                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
-                </div>
-            </div>
-
-            <div class="card card-animated-border fade-in product-card">
-                <div class="product-image">
-                    <i class="fas fa-male"></i>
-                </div>
-                <div class="product-info">
-                    <h4>Bộ Thể Thao Nam</h4>
-                    <div class="price">₫580,000 <span class="old-price">₫750,000</span></div>
-                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                <div class="tool-preview">
+                    <i class="fas fa-microphone"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
                 </div>
             </div>
 
-            <div class="card card-animated-border fade-in product-card">
-                <div class="product-image">
-                    <i class="fas fa-tshirt"></i>
-                    <span class="product-badge">Mới</span>
+            <div class="tool-card">
+                <div>
+                    <span class="tool-num">03</span>
+                    <h3>AI Video Editor</h3>
+                    <p>Chỉnh sửa video nhanh chóng, thêm hiệu ứng, phụ đề, âm nhạc.</p>
+                    <a href="#" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;">Dùng ngay <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="product-info">
-                    <h4>Áo Thun Basic 100% Cotton</h4>
-                    <div class="price">₫180,000</div>
-                    <button class="add-cart"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ</button>
+                <div class="tool-preview">
+                    <i class="fas fa-video"></i>
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- SERVICES -->
+    <section class="section" id="gioi-thieu">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon brand"><i class="fas fa-crown"></i></div>
+                <h3>XÂY DỰNG<br>THƯƠNG HIỆU</h3>
+                <p>Đồng hành cùng bạn từ tư vấn đến trùng hiệu thời trang chuyên nghiệp.</p>
+                <ul class="features">
+                    <li>Tư vấn chiến lược thương hiệu</li>
+                    <li>Thiết kế logo &amp; nhận diện</li>
+                    <li>Xây dựng hình ảnh &amp; truyền thông</li>
+                    <li>Định vị thương hiệu bền vững</li>
+                </ul>
+                <a href="#" class="service-btn">Tư vấn ngay <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon order"><i class="fas fa-box"></i></div>
+                <h3>ĐẶT HÀNG<br>SẢN XUẤT</h3>
+                <p>Đặt hàng sản xuất thời trang để dùng qua ứng dụng POLOMIMIN.</p>
+                <ul class="features">
+                    <li>Quản lý đơn hàng mọi lúc, mọi nơi</li>
+                    <li>Theo dõi tiến độ sản xuất</li>
+                    <li>Kiểm soát chất lượng</li>
+                    <li>Giao hàng đúng hẹn</li>
+                </ul>
+                <a href="#" class="service-btn">Đặt hàng ngay <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon ai"><i class="fas fa-rocket"></i></div>
+                <h3>ĐỘT PHÁ CÙNG<br>AI</h3>
+                <p>Ứng dụng AI vào mọi hoạt động để tối ưu hiệu suất và bứt phá.</p>
+                <ul class="features">
+                    <li>Phân tích xu hướng thị trường</li>
+                    <li>Dự đoán nhu cầu thị trường</li>
+                    <li>Tối ưu chuỗi cung ứng</li>
+                    <li>Cá nhân hóa trải nghiệm</li>
+                </ul>
+                <a href="learn-ai.html" class="service-btn">Khám phá AI <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES BAR -->
+    <section class="section">
+        <div class="features-bar">
+            <div class="feature-item">
+                <i class="fas fa-piggy-bank"></i>
+                <p>Tiết kiệm<br>chi phí</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <p>Chất lượng<br>đảm bảo</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-truck"></i>
+                <p>Giao hàng<br>đúng hẹn</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-headset"></i>
+                <p>Hỗ trợ 24/7<br>tận tâm</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-lock"></i>
+                <p>Bảo mật<br>thông tin</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <p>Phát triển<br>bền vững</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERS -->
+    <section class="section partners">
+        <h3>ĐỐI TÁC CỦA POLOMIMIN</h3>
+        <div class="partners-grid">
+            <div class="partner">Google Cloud</div>
+            <div class="partner">Meta</div>
+            <div class="partner">TikTok</div>
+            <div class="partner">Shopify</div>
+            <div class="partner">VNPay</div>
+            <div class="partner">Zalo</div>
+            <div class="partner">YouTube</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-col">
-                <h4>POLOMIMIN</h4>
-                <p>Dệt May Giàu Sang - Xưởng sản xuất tận gốc, không qua trung gian. Bán sỉ cho cửa hàng và đại lý toàn quốc.</p>
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">M</div>
+                    <div class="logo-text">
+                        <h1>POLOMIMIN</h1>
+                        <p>Thời trang &amp; AI</p>
+                    </div>
+                </a>
+                <p>Kết nối thời trang và công nghệ để tạo nên tương lai.</p>
             </div>
             <div class="footer-col">
-                <h4>Liên hệ</h4>
-                <a href="tel:0774480916"><i class="fas fa-phone"></i> 0774 480 916</a>
-                <a href="mailto:contact@polomimin.vn"><i class="fas fa-envelope"></i> contact@polomimin.vn</a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i> 12/39 Xuân Thới Thượng 58C, HCM</a>
+                <h4>VỀ CHÚNG TÔI</h4>
+                <a href="#">Giới thiệu</a>
+                <a href="#">Tầm nhìn</a>
+                <a href="#">Sứ mệnh</a>
             </div>
             <div class="footer-col">
-                <h4>Sản phẩm</h4>
-                <a href="#">Áo Polo</a>
-                <a href="#">Áo Thun</a>
-                <a href="#">Áo Sơ Mi</a>
-                <a href="#">Quần Short</a>
-                <a href="#">Bộ Thể Thao</a>
+                <h4>HỖ TRỢ</h4>
+                <a href="#">Trung tâm hỗ trợ</a>
+                <a href="#">Chính sách</a>
+                <a href="#">Điều khoản sử dụng</a>
             </div>
             <div class="footer-col">
-                <h4>Theo dõi</h4>
+                <h4>LIÊN HỆ</h4>
+                <a href="#">Hotline: 1900 1234</a>
+                <a href="#">Email: hello@polomimin.com</a>
+                <a href="#">Địa chỉ: 123 Nguyễn Văn Cừ, P. Nguyễn Cư Trinh, Q.1, TP.HCM</a>
+            </div>
+            <div class="footer-col">
+                <h4>THEO DÕI CHÚNG TÔI</h4>
                 <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
                 <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
                 <a href="#"><i class="fab fa-tiktok"></i> TikTok</a>
@@ -268,17 +746,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            © 2025 POLOMIMIN - CÔNG TY TNHH DỆT MAY GIÀU SANG | MST: 0318507560
+            © 2024 POLOMIMIN. All rights reserved.
         </div>
     </footer>
-
-    <script>
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-    </script>
 </body>
 </html>
