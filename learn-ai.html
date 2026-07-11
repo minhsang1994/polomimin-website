@@ -682,6 +682,25 @@
             display: none;
         }
 
+        /* Remove glow icon effect on info cards */
+        .info-card-icon {
+            box-shadow: none !important;
+        }
+
+        /* Remove all glow/shine effects on cards */
+        .glass-card::before,
+        .info-card::before,
+        .course-card::before,
+        .ai-card::before {
+            opacity: 0 !important;
+            animation: none !important;
+        }
+
+        .glass-card:hover::before,
+        .info-card:hover::before {
+            opacity: 0 !important;
+        }
+
         .ai-card-icon {
             width: 60px;
             height: 60px;
