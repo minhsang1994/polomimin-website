@@ -7,6 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/galaxy.css">
     <style>
         :root {
             --primary: #6BA49F;
@@ -14,12 +15,8 @@
             --primary-light: #B2D6D1;
             --dark: #1a4d49;
             --darker: #0a2e2c;
-            --glass: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.5);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
@@ -31,43 +28,29 @@
             overflow-x: hidden;
             position: relative;
         }
-
-        /* Animated background */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: 
                 radial-gradient(circle at 20% 30%, rgba(107, 164, 159, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(70, 130, 126, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(178, 214, 209, 0.3) 0%, transparent 60%);
+                radial-gradient(circle at 80% 70%, rgba(70, 130, 126, 0.3) 0%, transparent 50%);
             z-index: 0;
             animation: bgFloat 20s ease-in-out infinite;
         }
-
         body::after {
             content: '';
             position: fixed;
             top: -50%; left: -50%;
             width: 200%; height: 200%;
-            background: 
-                radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
             background-size: 30px 30px;
             animation: wave 15s linear infinite;
             z-index: 0;
             pointer-events: none;
         }
-
-        @keyframes bgFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -20px) scale(1.05); }
-            66% { transform: translate(-20px, 30px) scale(0.95); }
-        }
-
-        @keyframes wave {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(30px, 30px) rotate(360deg); }
-        }
+        @keyframes bgFloat { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, -20px); } }
+        @keyframes wave { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 30px); } }
 
         .container {
             position: relative;
@@ -83,39 +66,10 @@
             box-shadow: 0 8px 32px rgba(70, 130, 126, 0.2);
             animation: fadeInUp 0.6s ease-out;
         }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .logo-icon {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, #6BA49F, #46827E);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            font-weight: 700;
-            color: white;
-            margin: 0 auto 16px;
-            box-shadow: 0 8px 24px rgba(107, 164, 159, 0.4);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
+        .logo { text-align: center; margin-bottom: 32px; }
+        .logo img { width: 72px; height: 72px; color: var(--primary); }
         .logo h1 {
             font-family: 'Playfair Display', serif;
             font-size: 28px;
@@ -124,66 +78,18 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 2px;
-            margin-bottom: 4px;
+            margin: 12px 0 4px;
         }
+        .logo p { color: #46827E; font-size: 13px; letter-spacing: 1px; }
 
-        .logo p {
-            color: #46827E;
-            font-size: 13px;
-            letter-spacing: 1px;
-        }
+        .tabs { display: flex; background: rgba(178, 214, 209, 0.4); border-radius: 12px; padding: 4px; margin-bottom: 28px; }
+        .tab { flex: 1; padding: 10px; text-align: center; color: #46827E; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 8px; transition: all 0.3s; }
+        .tab.active { background: linear-gradient(135deg, #6BA49F, #46827E); color: white; box-shadow: 0 4px 12px rgba(107, 164, 159, 0.4); }
 
-        .tabs {
-            display: flex;
-            background: rgba(178, 214, 209, 0.4);
-            border-radius: 12px;
-            padding: 4px;
-            margin-bottom: 28px;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            color: #46827E;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .tab.active {
-            background: linear-gradient(135deg, #6BA49F, #46827E);
-            color: white;
-            box-shadow: 0 4px 12px rgba(107, 164, 159, 0.4);
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #1a4d49;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-
-        .input-wrap {
-            position: relative;
-        }
-
-        .input-wrap i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6BA49F;
-            font-size: 14px;
-        }
-
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; color: #1a4d49; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+        .input-wrap { position: relative; }
+        .input-wrap i.fa-user, .input-wrap i.fa-envelope, .input-wrap i.fa-phone, .input-wrap i.fa-lock { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #6BA49F; font-size: 14px; }
         .form-group input {
             width: 100%;
             padding: 12px 16px 12px 44px;
@@ -195,61 +101,14 @@
             font-family: inherit;
             transition: all 0.3s;
         }
+        .form-group input::placeholder { color: #6BA49F; opacity: 0.6; }
+        .form-group input:focus { outline: none; border-color: #6BA49F; background: rgba(255, 255, 255, 0.8); box-shadow: 0 0 0 4px rgba(107, 164, 159, 0.15); }
+        .password-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #6BA49F; cursor: pointer; font-size: 14px; }
 
-        .form-group input::placeholder {
-            color: #6BA49F;
-            opacity: 0.6;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #6BA49F;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 0 4px rgba(107, 164, 159, 0.15);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .form-row .form-group { flex: 1; }
-
-        .password-toggle {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            margin: 16px 0;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            margin-top: 2px;
-            accent-color: var(--primary);
-        }
-
-        .checkbox-group label {
-            color: #1a4d49;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        .checkbox-group a {
-            color: #46827E;
-            text-decoration: none;
-            font-weight: 600;
-        }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 8px; margin: 16px 0; }
+        .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--primary); }
+        .checkbox-group label { color: #1a4d49; font-size: 12px; line-height: 1.5; }
+        .checkbox-group a { color: #46827E; text-decoration: none; font-weight: 600; }
 
         .btn {
             width: 100%;
@@ -261,51 +120,14 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             font-family: inherit;
             margin-top: 8px;
-            position: relative;
-            overflow: hidden;
         }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(107, 164, 159, 0.4); }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(107, 164, 159, 0.4);
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            color: #6BA49F;
-            font-size: 12px;
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(107, 164, 159, 0.3);
-        }
-
+        .divider { display: flex; align-items: center; margin: 20px 0; color: #6BA49F; font-size: 12px; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(107, 164, 159, 0.3); }
         .divider span { padding: 0 12px; }
 
         .social-btn {
@@ -325,73 +147,28 @@
             transition: all 0.3s;
             font-family: inherit;
         }
-
-        .social-btn:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px rgba(107, 164, 159, 0.3);
-            border-color: #6BA49F;
-        }
-
+        .social-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(107, 164, 159, 0.3); border-color: #6BA49F; }
         .social-btn.google i { color: #ea4335; font-size: 18px; }
         .social-btn.zalo i { color: #0068ff; font-size: 18px; }
 
         .form-section { display: none; animation: fadeIn 0.4s ease-out; }
         .form-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .alert { padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 12px; display: none; }
+        .alert.error { background: rgba(201, 122, 122, 0.15); border: 1px solid rgba(201, 122, 122, 0.3); color: #a04545; display: block; }
+        .alert.success { background: rgba(107, 164, 159, 0.15); border: 1px solid rgba(107, 164, 159, 0.3); color: #2d5e5a; display: block; }
 
-        .alert {
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 12px;
-            display: none;
-        }
-
-        .alert.error {
-            background: rgba(201, 122, 122, 0.15);
-            border: 1px solid rgba(201, 122, 122, 0.3);
-            color: #a04545;
-            display: block;
-        }
-
-        .alert.success {
-            background: rgba(107, 164, 159, 0.15);
-            border: 1px solid rgba(107, 164, 159, 0.3);
-            color: #2d5e5a;
-            display: block;
-        }
-
-        .back-home {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .back-home a {
-            color: #46827E;
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.3s;
-        }
-
+        .back-home { text-align: center; margin-top: 20px; }
+        .back-home a { color: #46827E; text-decoration: none; font-size: 13px; transition: color 0.3s; }
         .back-home a:hover { color: #1a4d49; }
-
-        .footer-text {
-            text-align: center;
-            color: #6BA49F;
-            font-size: 11px;
-            margin-top: 20px;
-            line-height: 1.6;
-        }
+        .footer-text { text-align: center; color: #6BA49F; font-size: 11px; margin-top: 20px; line-height: 1.6; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="assets/logo.svg" alt="POLOMIMIN" style="width: 72px; height: 72px; color: var(--seafoam-primary);">
+            <img src="assets/logo.svg" alt="POLOMIMIN">
             <h1>POLOMIMIN</h1>
             <p>DỆT MAY GIÀU SANG</p>
         </div>
@@ -403,7 +180,6 @@
 
         <div id="alertBox" class="alert"></div>
 
-        <!-- LOGIN FORM -->
         <form id="loginForm" class="form-section active">
             <div class="form-group">
                 <label>Email hoặc Số điện thoại</label>
@@ -443,15 +219,12 @@
             </div>
         </form>
 
-        <!-- REGISTER FORM -->
         <form id="registerForm" class="form-section">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Họ và tên</label>
-                    <div class="input-wrap">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="regName" placeholder="Nguyễn Văn A" required>
-                    </div>
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <div class="input-wrap">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="regName" placeholder="Nguyễn Văn A" required>
                 </div>
             </div>
 
@@ -495,7 +268,7 @@
 
             <div class="checkbox-group">
                 <input type="checkbox" id="subscribeEmail" checked>
-                <label for="subscribeEmail">Nhận email thông báo sản phẩm mới & ưu đãi đặc biệt</label>
+                <label for="subscribeEmail">Nhận email thông báo sản phẩm mới &amp; ưu đãi đặc biệt</label>
             </div>
 
             <button type="submit" class="btn">Tạo tài khoản</button>

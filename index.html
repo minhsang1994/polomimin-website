@@ -8,577 +8,63 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/galaxy.css">
+    <link rel="stylesheet" href="css/components.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-primary);
-            background: var(--galaxy-deep);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .hero { min-height: 100vh; padding: 120px 20px 60px; }
+        .hero-content { max-width: 1200px; margin: 0 auto; text-align: center; animation: fadeInUp 1s ease-out; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(107, 164, 159, 0.15); border: 1px solid rgba(107, 164, 159, 0.3); border-radius: 100px; color: var(--seafoam-light); font-size: 13px; margin-bottom: 24px; }
+        .hero-badge i { color: var(--seafoam-primary); animation: pulse 2s ease-in-out infinite; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 7vw, 80px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; background: linear-gradient(135deg, #ffffff 0%, var(--seafoam-light) 50%, var(--seafoam-primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 18px; color: var(--text-muted); line-height: 1.7; margin: 0 auto 36px; max-width: 600px; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+        .hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+        .hero-stat h3 { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, var(--seafoam-light), var(--seafoam-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-stat p { font-size: 13px; color: var(--text-muted); margin: 0; }
 
-        /* ===== NAVIGATION ===== */
-        .navbar {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 24px;
-            background: rgba(15, 23, 41, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(107, 164, 159, 0.2);
-            border-radius: 100px;
-            width: calc(100% - 40px);
-            max-width: 720px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .nav-logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-weight: 800;
-            color: white;
-            font-size: 18px;
-        }
-
-        .nav-logo span {
-            font-family: 'Playfair Display', serif;
-            font-weight: 800;
-            color: var(--seafoam-light);
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 4px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            padding: 8px 18px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            border-radius: 100px;
-            transition: all 0.3s;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            background: var(--seafoam-primary);
-            color: white;
-        }
-
-        .nav-auth {
-            display: flex;
-            gap: 8px;
-        }
-
-        .nav-btn {
-            padding: 8px 18px;
-            border: none;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .nav-btn-outline {
-            background: transparent;
-            color: var(--seafoam-light);
-            border: 1px solid var(--seafoam-primary);
-        }
-
-        .nav-btn-primary {
-            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
-            color: white;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(107, 164, 159, 0.4);
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 20px 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(107, 164, 159, 0.15);
-            border: 1px solid rgba(107, 164, 159, 0.3);
-            border-radius: 100px;
-            color: var(--seafoam-light);
-            font-size: 13px;
-            margin-bottom: 24px;
-        }
-
-        .hero-badge i {
-            color: var(--seafoam-primary);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(40px, 7vw, 80px);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--seafoam-light) 50%, var(--seafoam-primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 36px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 14px 32px;
-            border-radius: 100px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
-            color: white;
-            border: none;
-            box-shadow: 0 4px 16px rgba(107, 164, 159, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(107, 164, 159, 0.6);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--seafoam-light);
-            border: 1px solid var(--seafoam-primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(107, 164, 159, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            margin-top: 60px;
-            flex-wrap: wrap;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat h3 {
-            font-size: 36px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--seafoam-light), var(--seafoam-primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-stat p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* ===== SECTION ===== */
-        .section {
-            padding: 80px 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
-        }
-
-        .section-tag {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(107, 164, 159, 0.15);
-            color: var(--seafoam-light);
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-
-        .section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 16px;
-        }
-
-        /* ===== SERVICES GRID ===== */
-        .services-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .service-card {
-            padding: 32px 28px;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
+        .service-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; margin-bottom: 20px; position: relative; z-index: 2; }
         .service-icon.image { background: linear-gradient(135deg, #6BA49F, #46827E); }
         .service-icon.video { background: linear-gradient(135deg, #B2D6D1, #6BA49F); color: #1a4d49; }
         .service-icon.product { background: linear-gradient(135deg, #46827E, #1a4d49); }
         .service-icon.app { background: linear-gradient(135deg, #E6F2F0, #B2D6D1); color: #1a4d49; }
         .service-icon.ai { background: linear-gradient(135deg, #6BA49F, #B2D6D1); color: #1a4d49; }
         .service-icon.design { background: linear-gradient(135deg, #1a4d49, #0a2e2c); }
+        .service-card { padding: 32px 28px; }
+        .service-card h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; position: relative; z-index: 2; }
+        .service-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 20px; position: relative; z-index: 2; }
+        .service-card .features { list-style: none; margin-bottom: 24px; }
+        .service-card .features li { padding: 6px 0; color: var(--text-secondary); font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        .service-card .features li i { color: var(--seafoam-primary); font-size: 10px; }
+        .service-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark)); color: white; text-decoration: none; border-radius: 100px; font-size: 14px; font-weight: 600; transition: all 0.3s; position: relative; z-index: 2; }
 
-        .service-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
+        .products-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 24px; background: rgba(15, 23, 41, 0.5); border: 1px solid rgba(107, 164, 159, 0.2); color: var(--text-secondary); border-radius: 100px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+        .tab-btn.active { background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark)); color: white; border-color: transparent; }
 
-        .service-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
+        .product-card { padding: 0; overflow: hidden; }
+        .product-image { width: 100%; height: 220px; background: linear-gradient(135deg, rgba(107, 164, 159, 0.3), rgba(70, 130, 126, 0.2)); display: flex; align-items: center; justify-content: center; font-size: 64px; color: var(--seafoam-light); position: relative; }
+        .product-badge { position: absolute; top: 12px; right: 12px; padding: 4px 12px; background: rgba(233, 69, 96, 0.9); color: white; border-radius: 100px; font-size: 11px; font-weight: 600; z-index: 3; }
+        .product-info { padding: 20px; }
+        .product-info h4 { color: var(--text-primary); font-size: 16px; margin-bottom: 6px; }
+        .product-info .price { color: var(--seafoam-light); font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+        .product-info .old-price { color: var(--text-muted); text-decoration: line-through; font-size: 14px; font-weight: 400; margin-left: 8px; }
+        .add-cart { width: 100%; padding: 10px; background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark)); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
 
-        .service-card .features {
-            list-style: none;
-            margin-bottom: 24px;
-        }
-
-        .service-card .features li {
-            padding: 6px 0;
-            color: var(--text-secondary);
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .service-card .features li i {
-            color: var(--seafoam-primary);
-            font-size: 10px;
-        }
-
-        .service-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
-            color: white;
-            text-decoration: none;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 2;
-        }
-
-        .service-btn:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 16px rgba(107, 164, 159, 0.4);
-        }
-
-        /* ===== PRODUCTS SECTION ===== */
-        .products-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 10px 24px;
-            background: rgba(15, 23, 41, 0.5);
-            border: 1px solid rgba(107, 164, 159, 0.2);
-            color: var(--text-secondary);
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
-            color: white;
-            border-color: transparent;
-        }
-
-        .products-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .product-card {
-            overflow: hidden;
-            padding: 0;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, rgba(107, 164, 159, 0.3), rgba(70, 130, 126, 0.2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 64px;
-            color: var(--seafoam-light);
-            position: relative;
-        }
-
-        .product-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(15, 23, 41, 0.8) 100%);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            padding: 4px 12px;
-            background: rgba(233, 69, 96, 0.9);
-            color: white;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 600;
-            z-index: 3;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-info h4 {
-            color: var(--text-primary);
-            font-size: 16px;
-            margin-bottom: 6px;
-        }
-
-        .product-info .price {
-            color: var(--seafoam-light);
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .product-info .old-price {
-            color: var(--text-muted);
-            text-decoration: line-through;
-            font-size: 14px;
-            font-weight: 400;
-            margin-left: 8px;
-        }
-
-        .product-info .add-cart {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, var(--seafoam-primary), var(--seafoam-dark));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .product-info .add-cart:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(107, 164, 159, 0.4);
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            padding: 60px 20px 30px;
-            position: relative;
-            z-index: 1;
-            border-top: 1px solid rgba(107, 164, 159, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            color: var(--seafoam-light);
-            font-size: 16px;
-            margin-bottom: 16px;
-        }
-
-        .footer-col p, .footer-col a {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.8;
-            text-decoration: none;
-            display: block;
-        }
-
-        .footer-col a:hover {
-            color: var(--seafoam-light);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 13px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(107, 164, 159, 0.1);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .navbar { padding: 10px 16px; }
-            .nav-auth { gap: 4px; }
-            .nav-btn { padding: 6px 12px; font-size: 12px; }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
     </style>
 </head>
 <body>
-    <!-- NAVIGATION -->
     <nav class="navbar">
         <a href="index.html" class="nav-logo">
-            <img src="assets/logo.svg" alt="POLOMIMIN" style="width: 36px; height: 36px; color: var(--seafoam-light);">
+            <img src="assets/logo.svg" alt="POLOMIMIN">
             <span>POLOMIMIN</span>
         </a>
         <ul class="nav-links">
             <li><a href="index.html" class="active">Trang chủ</a></li>
             <li><a href="#dich-vu">Dịch vụ</a></li>
             <li><a href="#san-pham">Sản phẩm</a></li>
-            <li><a href="#ung-dung">Ứng dụng</a></li>
+            <li><a href="learn-ai.html">AI</a></li>
         </ul>
         <div class="nav-auth">
             <a href="auth.html" class="nav-btn nav-btn-outline">Đăng nhập</a>
@@ -586,53 +72,35 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">
                 <i class="fas fa-sparkles"></i>
                 <span>Thời trang nam cao cấp - Dệt may tận gốc</span>
             </div>
-            <h1>Dệt May <span class="highlight">Giàu Sang</span> Cho Mọi Nhà</h1>
-            <p>Xưởng dệt may tận gốc, không qua trung gian. Sản xuất & phân phối áo Polo, áo thun, sơ mi, quần short, bộ thể thao chất lượng cao với giá tốt nhất cho cửa hàng và đại lý toàn quốc.</p>
+            <h1>Dệt May <span class="text-gradient">Giàu Sang</span> Cho Mọi Nhà</h1>
+            <p>Xưởng dệt may tận gốc, không qua trung gian. Sản xuất &amp; phân phối áo Polo, áo thun, sơ mi, quần short, bộ thể thao chất lượng cao.</p>
             <div class="hero-buttons">
-                <a href="#san-pham" class="btn-primary">
-                    <i class="fas fa-shopping-bag"></i> Xem sản phẩm
-                </a>
-                <a href="#dich-vu" class="btn-secondary">
-                    <i class="fas fa-magic"></i> Khám phá dịch vụ
-                </a>
+                <a href="#san-pham" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Xem sản phẩm</a>
+                <a href="#dich-vu" class="btn btn-secondary"><i class="fas fa-magic"></i> Khám phá dịch vụ</a>
             </div>
             <div class="hero-stats">
-                <div class="hero-stat">
-                    <h3>10+</h3>
-                    <p>Năm kinh nghiệm</p>
-                </div>
-                <div class="hero-stat">
-                    <h3>500+</h3>
-                    <p>Đại lý toàn quốc</p>
-                </div>
-                <div class="hero-stat">
-                    <h3>1M+</h3>
-                    <p>Sản phẩm / năm</p>
-                </div>
+                <div class="hero-stat"><h3>10+</h3><p>Năm kinh nghiệm</p></div>
+                <div class="hero-stat"><h3>500+</h3><p>Đại lý toàn quốc</p></div>
+                <div class="hero-stat"><h3>1M+</h3><p>Sản phẩm / năm</p></div>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES -->
     <section class="section" id="dich-vu">
         <div class="section-header">
-            <span class="section-tag">Dịch vụ & Công cụ</span>
-            <h2>Công cụ AI & Dịch vụ sản xuất</h2>
+            <span class="section-tag">Dịch vụ &amp; Công cụ</span>
+            <h2>Công cụ AI &amp; Dịch vụ sản xuất</h2>
             <p class="section-subtitle">Bộ công cụ toàn diện giúp bạn thiết kế, sản xuất và kinh doanh hiệu quả</p>
         </div>
-
-        <div class="services-grid">
-            <div class="glass-card service-card animate-in">
-                <div class="service-icon image">
-                    <i class="fas fa-image"></i>
-                </div>
+        <div class="grid grid-2">
+            <div class="card card-animated-border fade-in service-card">
+                <div class="service-icon image"><i class="fas fa-image"></i></div>
                 <h3>Tạo hình ảnh AI</h3>
                 <p>Sinh hình ảnh sản phẩm chuyên nghiệp với AI. Tối ưu cho quảng cáo và mạng xã hội.</p>
                 <ul class="features">
@@ -640,15 +108,11 @@
                     <li><i class="fas fa-circle"></i> Background thông minh</li>
                     <li><i class="fas fa-circle"></i> 50+ mẫu thiết kế</li>
                 </ul>
-                <a href="service-image-ai.html" class="service-btn">
-                    Sử dụng ngay <i class="fas fa-arrow-right"></i>
-                </a>
+                <a href="learn-ai.html" class="service-btn">Sử dụng ngay <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="glass-card service-card animate-in">
-                <div class="service-icon video">
-                    <i class="fas fa-video"></i>
-                </div>
+            <div class="card card-animated-border fade-in service-card">
+                <div class="service-icon video"><i class="fas fa-video"></i></div>
                 <h3>Tạo video AI</h3>
                 <p>Biến ý tưởng thành video quảng cáo chuyên nghiệp. Tự động lồng tiếng và nhạc nền.</p>
                 <ul class="features">
@@ -656,15 +120,11 @@
                     <li><i class="fas fa-circle"></i> Lồng tiếng AI</li>
                     <li><i class="fas fa-circle"></i> Nhạc nền tự chọn</li>
                 </ul>
-                <a href="service-video-ai.html" class="service-btn">
-                    Sử dụng ngay <i class="fas fa-arrow-right"></i>
-                </a>
+                <a href="learn-ai.html" class="service-btn">Sử dụng ngay <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="glass-card service-card animate-in">
-                <div class="service-icon product">
-                    <i class="fas fa-tshirt"></i>
-                </div>
+            <div class="card card-animated-border fade-in service-card">
+                <div class="service-icon product"><i class="fas fa-tshirt"></i></div>
                 <h3>Danh mục sản phẩm</h3>
                 <p>Khám phá hơn 100+ mẫu thiết kế áo Polo, áo thun, sơ mi, quần short chất lượng cao.</p>
                 <ul class="features">
@@ -672,15 +132,11 @@
                     <li><i class="fas fa-circle"></i> Quần short, Bộ thể thao</li>
                     <li><i class="fas fa-circle"></i> Đồng phục công ty</li>
                 </ul>
-                <a href="#san-pham" class="service-btn">
-                    Xem sản phẩm <i class="fas fa-arrow-right"></i>
-                </a>
+                <a href="#san-pham" class="service-btn">Xem sản phẩm <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="glass-card service-card animate-in">
-                <div class="service-icon app">
-                    <i class="fas fa-industry"></i>
-                </div>
+            <div class="card card-animated-border fade-in service-card">
+                <div class="service-icon app"><i class="fas fa-industry"></i></div>
                 <h3>Ứng dụng sản xuất</h3>
                 <p>Quản lý đơn hàng, sản xuất, kho hàng, vận chuyển từ A-Z trên một nền tảng.</p>
                 <ul class="features">
@@ -688,15 +144,11 @@
                     <li><i class="fas fa-circle"></i> Theo dõi đơn hàng</li>
                     <li><i class="fas fa-circle"></i> Báo cáo doanh thu</li>
                 </ul>
-                <a href="index.html#ung-dung" class="service-btn">
-                    Khám phá <i class="fas fa-arrow-right"></i>
-                </a>
+                <a href="learn-ai.html" class="service-btn">Khám phá <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="glass-card service-card animate-in">
-                <div class="service-icon ai">
-                    <i class="fas fa-robot"></i>
-                </div>
+            <div class="card card-animated-border fade-in service-card">
+                <div class="service-icon ai"><i class="fas fa-robot"></i></div>
                 <h3>Chatbot AI tư vấn</h3>
                 <p>Trợ lý AI 24/7 hỗ trợ khách hàng chọn size, màu sắc, kiểu dáng phù hợp.</p>
                 <ul class="features">
@@ -704,15 +156,11 @@
                     <li><i class="fas fa-circle"></i> Hỗ trợ đa ngôn ngữ</li>
                     <li><i class="fas fa-circle"></i> Phản hồi tức thì</li>
                 </ul>
-                <a href="service-chatbot.html" class="service-btn">
-                    Dùng thử <i class="fas fa-arrow-right"></i>
-                </a>
+                <a href="learn-ai.html" class="service-btn">Dùng thử <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="glass-card service-card animate-in">
-                <div class="service-icon design">
-                    <i class="fas fa-palette"></i>
-                </div>
+            <div class="card card-animated-border fade-in service-card">
+                <div class="service-icon design"><i class="fas fa-palette"></i></div>
                 <h3>Thiết kế theo yêu cầu</h3>
                 <p>Đội ngũ designer chuyên nghiệp nhận thiết kế riêng cho thương hiệu của bạn.</p>
                 <ul class="features">
@@ -720,14 +168,11 @@
                     <li><i class="fas fa-circle"></i> Chỉnh sửa miễn phí</li>
                     <li><i class="fas fa-circle"></i> Giao file nguồn</li>
                 </ul>
-                <a href="service-design.html" class="service-btn">
-                    Yêu cầu thiết kế <i class="fas fa-arrow-right"></i>
-                </a>
+                <a href="learn-ai.html" class="service-btn">Yêu cầu thiết kế <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- PRODUCTS -->
     <section class="section" id="san-pham">
         <div class="section-header">
             <span class="section-tag">Danh mục sản phẩm</span>
@@ -744,8 +189,8 @@
             <button class="tab-btn">Bộ Thể Thao</button>
         </div>
 
-        <div class="products-grid">
-            <div class="glass-card product-card animate-in">
+        <div class="grid grid-4">
+            <div class="card card-animated-border fade-in product-card">
                 <div class="product-image">
                     <i class="fas fa-tshirt"></i>
                     <span class="product-badge">-30%</span>
@@ -757,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="glass-card product-card animate-in">
+            <div class="card card-animated-border fade-in product-card">
                 <div class="product-image">
                     <i class="fas fa-vest"></i>
                     <span class="product-badge">Hot</span>
@@ -769,7 +214,7 @@
                 </div>
             </div>
 
-            <div class="glass-card product-card animate-in">
+            <div class="card card-animated-border fade-in product-card">
                 <div class="product-image">
                     <i class="fas fa-male"></i>
                 </div>
@@ -780,7 +225,7 @@
                 </div>
             </div>
 
-            <div class="glass-card product-card animate-in">
+            <div class="card card-animated-border fade-in product-card">
                 <div class="product-image">
                     <i class="fas fa-tshirt"></i>
                     <span class="product-badge">Mới</span>
@@ -794,7 +239,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-col">
@@ -827,5 +271,14 @@
             © 2025 POLOMIMIN - CÔNG TY TNHH DỆT MAY GIÀU SANG | MST: 0318507560
         </div>
     </footer>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
