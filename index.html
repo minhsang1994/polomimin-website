@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POLOMIMIN - Thời trang & AI</title>
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-base: #1a3a4a;
+            --bg-light: #6fb0c4;
+            --text-primary: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --text-dim: rgba(255, 255, 255, 0.4);
+            --accent: #a8d8e8;
+        }
         body {
             font-family: 'Inter', sans-serif;
-            color: #ffffff;
-            background: #050810;
+            color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        /* Background gradient */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
             background: 
-                radial-gradient(ellipse at 20% 30%, rgba(20, 60, 120, 0.4) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(30, 40, 80, 0.3) 0%, transparent 50%),
-                linear-gradient(180deg, #050810 0%, #0a1228 50%, #050810 100%);
-            z-index: -2;
+                radial-gradient(ellipse at 20% 50%, rgba(168, 216, 232, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(111, 176, 196, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, #0f2530 0%, #1a3a4a 30%, #2d5a6a 60%, #6fb0c4 100%);
+            background-attachment: fixed;
+            letter-spacing: 0.02em;
         }
 
         /* ===== HEADER ===== */
@@ -37,197 +38,216 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 40px;
-            background: rgba(5, 8, 16, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(100, 180, 255, 0.1);
+            padding: 20px 50px;
         }
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             text-decoration: none;
+            color: var(--text-primary);
         }
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #fff;
+            width: 28px;
+            height: 28px;
+            border: 1.5px solid var(--text-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            color: #fff;
-            font-size: 20px;
-        }
-        .logo-text { color: #fff; }
-        .logo-text h1 { font-size: 16px; font-weight: 700; letter-spacing: 1px; }
-        .logo-text p { font-size: 10px; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
-        .nav { display: flex; gap: 8px; align-items: center; }
-        .nav a {
-            padding: 8px 16px;
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
             font-size: 14px;
-            font-weight: 500;
-            border-radius: 100px;
-            transition: all 0.3s;
         }
-        .nav a:hover, .nav a.active {
-            color: #fff;
-            background: rgba(100, 180, 255, 0.15);
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
-        .header-actions { display: flex; gap: 12px; align-items: center; }
-        .icon-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
+        .header-date {
+            position: absolute;
+            top: 20px;
+            right: 50px;
+            text-align: right;
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        .nav {
             display: flex;
+            gap: 30px;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
         }
-        .icon-btn:hover { background: rgba(100, 180, 255, 0.2); }
+        .nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .nav a:hover, .nav a.active { color: var(--text-primary); }
 
-        /* ===== HERO ===== */
+        /* ===== HERO SECTION ===== */
         .hero {
             min-height: 100vh;
-            padding: 120px 40px 60px;
+            padding: 140px 50px 80px;
             position: relative;
-            display: flex;
-            align-items: center;
         }
-        .hero-container {
-            max-width: 1400px;
+        .hero-content {
+            max-width: 1200px;
             margin: 0 auto;
-            width: 100%;
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 40px;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
             align-items: center;
         }
         .hero-text h2 {
-            font-size: clamp(40px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.05;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 300;
+            line-height: 1.15;
+            color: var(--text-primary);
             margin-bottom: 24px;
-            color: #fff;
+            letter-spacing: -0.5px;
         }
-        .hero-text h2 .highlight {
-            background: linear-gradient(135deg, #64b5f6, #90caf9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-text h2 strong {
+            font-weight: 700;
+            display: block;
         }
         .hero-text p {
-            color: rgba(255,255,255,0.7);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 32px;
-            max-width: 480px;
-        }
-        .hero-buttons { display: flex; gap: 12px; margin-bottom: 40px; }
-        .btn {
-            padding: 12px 28px;
-            border-radius: 100px;
+            color: var(--text-muted);
             font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 460px;
+            font-weight: 300;
+        }
+        .btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #1976d2, #42a5f5);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(25, 118, 210, 0.4);
-        }
-        .btn-outline {
+            padding: 12px 24px;
             background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .btn:hover { transform: translateY(-2px); }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 500px;
-        }
-        .stat {
-            text-align: left;
-        }
-        .stat i {
-            font-size: 24px;
-            color: #64b5f6;
-            margin-bottom: 8px;
-        }
-        .stat h3 {
-            font-size: 22px;
-            font-weight: 800;
-            color: #fff;
-        }
-        .stat p {
-            font-size: 12px;
-            color: rgba(255,255,255,0.5);
-            margin: 0;
+        .btn:hover {
+            background: var(--text-primary);
+            color: #1a3a4a;
         }
 
         .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
-            height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero-visual img {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 20px;
-            object-fit: cover;
-        }
-        .visual-placeholder {
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 30% 40%, rgba(100, 180, 255, 0.3) 0%, transparent 40%),
-                linear-gradient(135deg, #1a2a4a 0%, #0a1228 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 120px;
-            color: rgba(100, 180, 255, 0.3);
         }
         .hero-m-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            border: 2px solid rgba(100, 180, 255, 0.3);
+            width: 320px;
+            height: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            font-weight: 800;
-            color: rgba(100, 180, 255, 0.6);
+            font-size: 200px;
+            font-weight: 200;
+            color: rgba(255, 255, 255, 0.4);
         }
 
-        /* ===== SECTION ===== */
-        .section {
-            padding: 80px 40px;
+        /* ===== FEATURE CARDS ===== */
+        .features-section {
+            padding: 60px 50px;
+        }
+        .feature-card {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
             position: relative;
+        }
+        .feature-card-label {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        .feature-card h3 strong {
+            font-weight: 700;
+        }
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        .feature-card-icon {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .stat-item p {
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* ===== SERVICES GRID ===== */
+        .services-section {
+            padding: 60px 50px;
         }
         .section-header {
             text-align: center;
@@ -235,92 +255,30 @@
         }
         .section-tag {
             display: inline-block;
-            padding: 8px 20px;
-            background: rgba(100, 180, 255, 0.1);
-            border: 1px solid rgba(100, 180, 255, 0.3);
-            border-radius: 100px;
-            color: #64b5f6;
-            font-size: 13px;
+            padding: 4px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-muted);
+            font-size: 10px;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
             margin-bottom: 16px;
         }
         .section h2 {
-            font-size: 32px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        .section p { color: rgba(255,255,255,0.6); font-size: 15px; }
-
-        /* ===== TOOLS GRID (3 video tools) ===== */
-        .tools-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .tool-card {
-            background: linear-gradient(180deg, rgba(20, 30, 50, 0.6) 0%, rgba(10, 18, 40, 0.8) 100%);
-            border: 1px solid rgba(100, 180, 255, 0.15);
-            border-radius: 20px;
-            padding: 24px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-        }
-        .tool-num {
-            display: inline-block;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, #5e35b1, #7e57c2);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--text-primary);
             margin-bottom: 12px;
+            line-height: 1.2;
         }
-        .tool-card h3 {
-            color: #fff;
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .tool-card p {
-            color: rgba(255,255,255,0.6);
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-        .tool-preview {
-            background: linear-gradient(135deg, rgba(100, 180, 255, 0.1), rgba(100, 100, 200, 0.1));
-            border-radius: 12px;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: rgba(100, 180, 255, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-        .play-icon {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 16px;
+        .section h2 strong { font-weight: 700; }
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 300;
         }
 
-        /* ===== SERVICES GRID (3 main services) ===== */
         .services-grid {
             max-width: 1200px;
             margin: 0 auto;
@@ -329,21 +287,27 @@
             gap: 20px;
         }
         .service-card {
-            background: linear-gradient(180deg, rgba(20, 30, 50, 0.6) 0%, rgba(10, 18, 40, 0.8) 100%);
-            border: 1px solid rgba(100, 180, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 32px 24px;
             position: relative;
-            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.25);
         }
         .service-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             color: #fff;
             margin-bottom: 20px;
         }
@@ -351,22 +315,24 @@
         .service-icon.order { background: linear-gradient(135deg, #1976d2, #42a5f5); }
         .service-icon.ai { background: linear-gradient(135deg, #f57c00, #ffb74d); }
         .service-card h3 {
-            color: #fff;
-            font-size: 24px;
-            font-weight: 800;
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 700;
             margin-bottom: 12px;
+            line-height: 1.3;
         }
         .service-card > p {
-            color: rgba(255,255,255,0.7);
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-weight: 300;
         }
-        .features { list-style: none; margin-bottom: 24px; }
+        .features { list-style: none; margin-bottom: 20px; }
         .features li {
-            padding: 6px 0;
-            color: rgba(255,255,255,0.7);
-            font-size: 13px;
+            padding: 4px 0;
+            color: var(--text-muted);
+            font-size: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -375,50 +341,37 @@
             content: '\f00c';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
-            color: #64b5f6;
-            font-size: 12px;
+            color: var(--accent);
+            font-size: 10px;
         }
-        .service-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 100px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .service-card:nth-child(1) .service-btn { background: linear-gradient(135deg, #c2185b, #e91e63); }
-        .service-card:nth-child(2) .service-btn { background: linear-gradient(135deg, #00897b, #26a69a); }
-        .service-card:nth-child(3) .service-btn { background: linear-gradient(135deg, #f57c00, #ffb74d); }
 
-        /* ===== FEATURES BAR ===== */
-        .features-bar {
+        /* ===== FEATURES GRID ===== */
+        .features-grid {
             max-width: 1200px;
             margin: 60px auto;
-            background: linear-gradient(180deg, rgba(20, 30, 50, 0.6) 0%, rgba(10, 18, 40, 0.8) 100%);
-            border: 1px solid rgba(100, 180, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 24px;
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 20px;
+            gap: 16px;
         }
         .feature-item {
             text-align: center;
-            padding: 12px;
+            padding: 16px 8px;
         }
         .feature-item i {
-            font-size: 28px;
-            color: #64b5f6;
+            font-size: 24px;
+            color: var(--accent);
             margin-bottom: 8px;
         }
         .feature-item p {
-            color: rgba(255,255,255,0.8);
-            font-size: 13px;
-            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 400;
             line-height: 1.3;
         }
 
@@ -428,273 +381,267 @@
             padding: 40px 0;
         }
         .partners h3 {
-            color: rgba(255,255,255,0.7);
-            font-size: 14px;
+            color: var(--text-dim);
+            font-size: 11px;
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin-bottom: 24px;
         }
         .partners-grid {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 30px;
+            display: flex;
+            justify-content: space-around;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
         }
         .partner {
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
             font-size: 16px;
             font-weight: 600;
             text-align: center;
             transition: color 0.3s;
         }
-        .partner:hover { color: #fff; }
+        .partner:hover { color: var(--text-primary); }
 
         /* ===== FOOTER ===== */
         .footer {
-            background: linear-gradient(180deg, transparent 0%, rgba(5, 8, 16, 0.8) 100%);
-            padding: 60px 40px 30px;
-            border-top: 1px solid rgba(100, 180, 255, 0.1);
+            padding: 60px 50px 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         .footer-content {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
             gap: 40px;
             margin-bottom: 40px;
         }
-        .footer-brand .logo { margin-bottom: 16px; }
-        .footer-brand p { color: rgba(255,255,255,0.6); font-size: 13px; line-height: 1.6; }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
         .footer-col h4 {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin-bottom: 16px;
         }
         .footer-col a {
-            color: rgba(255,255,255,0.6);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             display: block;
-            padding: 4px 0;
+            padding: 3px 0;
             transition: color 0.3s;
         }
-        .footer-col a:hover { color: #64b5f6; }
+        .footer-col a:hover { color: var(--accent); }
         .footer-bottom {
             text-align: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 12px;
+            color: var(--text-dim);
+            font-size: 11px;
+            letter-spacing: 1px;
             padding-top: 20px;
-            border-top: 1px solid rgba(100, 180, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 968px) {
-            .hero-container { grid-template-columns: 1fr; }
-            .tools-grid, .services-grid { grid-template-columns: 1fr; }
-            .tool-card { grid-template-columns: 1fr; }
-            .features-bar { grid-template-columns: repeat(2, 1fr); }
-            .partners-grid { grid-template-columns: repeat(3, 1fr); }
-            .footer-content { grid-template-columns: 1fr 1fr; }
+            .hero-content { grid-template-columns: 1fr; }
+            .hero-m-icon { width: 240px; height: 240px; font-size: 140px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
             .nav { display: none; }
+            .header-date { display: none; }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header class="header">
         <a href="index.html" class="logo">
             <div class="logo-icon">M</div>
-            <div class="logo-text">
-                <h1>POLOMIMIN</h1>
-                <p>Thời trang &amp; AI</p>
-            </div>
+            <span class="logo-text">POLOMIMIN</span>
         </a>
         <nav class="nav">
-            <a href="index.html" class="active">Trang chủ</a>
-            <a href="#gioi-thieu">Giới thiệu</a>
-            <a href="#dich-vu">Dịch vụ</a>
-            <a href="#san-pham">Sản phẩm</a>
-            <a href="learn-ai.html">Khóa học AI</a>
-            <a href="#tin-tuc">Tin tức</a>
-            <a href="#lien-he">Liên hệ</a>
-            <a href="#chinh-sach">Chính sách</a>
+            <a href="index.html" class="active">HOME</a>
+            <a href="#dich-vu">DỊCH VỤ</a>
+            <a href="#san-pham">SẢN PHẨM</a>
+            <a href="learn-ai.html">KHÓA HỌC</a>
+            <a href="#lien-he">LIÊN HỆ</a>
         </nav>
-        <div class="header-actions">
-            <button class="icon-btn"><i class="fas fa-search"></i></button>
-            <button class="icon-btn"><i class="fas fa-bars"></i></button>
-        </div>
     </header>
 
-    <!-- HERO -->
+    <div class="header-date">
+        <div>14:36:29 PM</div>
+        <div>MAR 27, 2024</div>
+    </div>
+
     <section class="hero">
-        <div class="hero-container">
+        <div class="hero-content">
             <div class="hero-text">
-                <h2>POLOMIMIN<br>THỜI TRANG<br>DẪN ĐẦU<br><span class="highlight">CÔNG NGHỆ</span></h2>
-                <p>Kết hợp tinh hoa thời trang với sức mạnh AI để tạo nên trải nghiệm đột phá cho khách hàng và đối tác.</p>
-                <div class="hero-buttons">
-                    <a href="#dich-vu" class="btn btn-primary">Khám phá ngay <i class="fas fa-arrow-right"></i></a>
-                    <a href="#gioi-thieu" class="btn btn-outline">Tìm hiểu thêm</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <i class="fas fa-tshirt"></i>
-                        <h3>1000+</h3>
-                        <p>Sản phẩm</p>
-                    </div>
-                    <div class="stat">
-                        <i class="fas fa-users"></i>
-                        <h3>500+</h3>
-                        <p>Học viên</p>
-                    </div>
-                    <div class="stat">
-                        <i class="fas fa-award"></i>
-                        <h3>50+</h3>
-                        <p>Đối tác</p>
-                    </div>
-                    <div class="stat">
-                        <i class="fas fa-smile"></i>
-                        <h3>96%</h3>
-                        <p>Hài lòng</p>
-                    </div>
-                </div>
+                <h2>Build an <strong>AI-powered business</strong> without the <strong>complexity</strong></h2>
+                <p>Centralize communications, create advance AI assistants through chat, and gain actionable insights—all while keeping your data private.</p>
+                <a href="#dich-vu" class="btn">Bắt đầu ngay</a>
             </div>
             <div class="hero-visual">
-                <div class="visual-placeholder">
-                    <i class="fas fa-user-tie"></i>
-                </div>
                 <div class="hero-m-icon">M</div>
             </div>
         </div>
     </section>
 
-    <!-- TOOLS -->
-    <section class="section" id="dich-vu">
-        <div class="section-header">
-            <span class="section-tag">3 TOOL LÀM VIDEO BÁN HÀNG ✦</span>
-            <h2>Tạo video chuyên nghiệp - Dễ dàng - Hiệu quả</h2>
+    <section class="features-section">
+        <div class="feature-card">
+            <span class="feature-card-label">Main Feature</span>
+            <i class="fas fa-snowflake feature-card-icon"></i>
+            <h3>Cool <strong>Ice Cubes</strong></h3>
+            <p>Keep beverages refreshingly cold without diluting their flavor. Our cool ice cubes are clear and long-lasting, providing the chill you need for any drink.</p>
         </div>
-        <div class="tools-grid">
-            <div class="tool-card">
-                <div>
-                    <span class="tool-num">01</span>
-                    <h3>AI Video Script</h3>
-                    <p>Tạo kịch bản video bán hàng tự động bằng AI chỉ với 1 click.</p>
-                    <a href="#" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;">Dùng ngay <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="tool-preview">
-                    <i class="fas fa-pen-fancy"></i>
-                    <div class="play-icon"><i class="fas fa-play"></i></div>
-                </div>
-            </div>
 
-            <div class="tool-card">
-                <div>
-                    <span class="tool-num">02</span>
-                    <h3>AI Voice &amp; Avatar</h3>
-                    <p>Chuyển văn bản thành giọng nói và video với avatar AI sống động.</p>
-                    <a href="#" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;">Dùng ngay <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="tool-preview">
-                    <i class="fas fa-microphone"></i>
-                    <div class="play-icon"><i class="fas fa-play"></i></div>
-                </div>
-            </div>
+        <div class="feature-card" style="text-align: center;">
+            <h3 style="font-size: 32px;">Craft <strong>seamless workflows</strong><br>with unified communications</h3>
+        </div>
 
-            <div class="tool-card">
-                <div>
-                    <span class="tool-num">03</span>
-                    <h3>AI Video Editor</h3>
-                    <p>Chỉnh sửa video nhanh chóng, thêm hiệu ứng, phụ đề, âm nhạc.</p>
-                    <a href="#" class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;">Dùng ngay <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="tool-preview">
-                    <i class="fas fa-video"></i>
-                    <div class="play-icon"><i class="fas fa-play"></i></div>
-                </div>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <h3>1000+</h3>
+                <p>Sản phẩm</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Học viên</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Đối tác</p>
+            </div>
+            <div class="stat-item">
+                <h3>96%</h3>
+                <p>Hài lòng</p>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES -->
-    <section class="section" id="gioi-thieu">
+    <section class="services-section section" id="dich-vu">
+        <div class="section-header">
+            <span class="section-tag">3 TOOLS LÀM VIDEO BÁN HÀNG</span>
+            <h2>Tạo video chuyên nghiệp - <strong>Dễ dàng - Hiệu quả</strong></h2>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon brand"><i class="fas fa-pen-fancy"></i></div>
+                <h3>AI Video Script</h3>
+                <p>Tạo kịch bản video bán hàng tự động bằng AI chỉ với 1 click.</p>
+                <ul class="features">
+                    <li>Generate script tự động</li>
+                    <li>Đa ngôn ngữ</li>
+                    <li>Tối ưu hook đầu video</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon order"><i class="fas fa-microphone"></i></div>
+                <h3>AI Voice &amp; Avatar</h3>
+                <p>Chuyển văn bản thành giọng nói và video với avatar AI sống động.</p>
+                <ul class="features">
+                    <li>Giọng đọc tự nhiên</li>
+                    <li>Avatar đa dạng</li>
+                    <li>Đồng bộ lip-sync</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon ai"><i class="fas fa-video"></i></div>
+                <h3>AI Video Editor</h3>
+                <p>Chỉnh sửa video nhanh chóng, thêm hiệu ứng, phụ đề, âm nhạc.</p>
+                <ul class="features">
+                    <li>Auto subtitle</li>
+                    <li>Background music</li>
+                    <li>Effects chuyên nghiệp</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section section" id="san-pham">
+        <div class="section-header">
+            <span class="section-tag">DỊCH VỤ CHÍNH</span>
+            <h2>Xây dựng <strong>thương hiệu thời trang</strong><br>với <strong>công nghệ AI</strong></h2>
+        </div>
+
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon brand"><i class="fas fa-crown"></i></div>
-                <h3>XÂY DỰNG<br>THƯƠNG HIỆU</h3>
+                <h3>XÂY DỰNG THƯƠNG HIỆU</h3>
                 <p>Đồng hành cùng bạn từ tư vấn đến trùng hiệu thời trang chuyên nghiệp.</p>
                 <ul class="features">
                     <li>Tư vấn chiến lược thương hiệu</li>
                     <li>Thiết kế logo &amp; nhận diện</li>
                     <li>Xây dựng hình ảnh &amp; truyền thông</li>
-                    <li>Định vị thương hiệu bền vững</li>
                 </ul>
-                <a href="#" class="service-btn">Tư vấn ngay <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="service-card">
                 <div class="service-icon order"><i class="fas fa-box"></i></div>
-                <h3>ĐẶT HÀNG<br>SẢN XUẤT</h3>
+                <h3>ĐẶT HÀNG SẢN XUẤT</h3>
                 <p>Đặt hàng sản xuất thời trang để dùng qua ứng dụng POLOMIMIN.</p>
                 <ul class="features">
-                    <li>Quản lý đơn hàng mọi lúc, mọi nơi</li>
+                    <li>Quản lý đơn hàng mọi lúc</li>
                     <li>Theo dõi tiến độ sản xuất</li>
                     <li>Kiểm soát chất lượng</li>
-                    <li>Giao hàng đúng hẹn</li>
                 </ul>
-                <a href="#" class="service-btn">Đặt hàng ngay <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="service-card">
                 <div class="service-icon ai"><i class="fas fa-rocket"></i></div>
-                <h3>ĐỘT PHÁ CÙNG<br>AI</h3>
+                <h3>ĐỘT PHÁ CÙNG AI</h3>
                 <p>Ứng dụng AI vào mọi hoạt động để tối ưu hiệu suất và bứt phá.</p>
                 <ul class="features">
                     <li>Phân tích xu hướng thị trường</li>
-                    <li>Dự đoán nhu cầu thị trường</li>
-                    <li>Tối ưu chuỗi cung ứng</li>
+                    <li>Dự đoán nhu cầu</li>
                     <li>Cá nhân hóa trải nghiệm</li>
                 </ul>
-                <a href="learn-ai.html" class="service-btn">Khám phá AI <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- FEATURES BAR -->
-    <section class="section">
-        <div class="features-bar">
-            <div class="feature-item">
-                <i class="fas fa-piggy-bank"></i>
-                <p>Tiết kiệm<br>chi phí</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-shield-alt"></i>
-                <p>Chất lượng<br>đảm bảo</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-truck"></i>
-                <p>Giao hàng<br>đúng hẹn</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-headset"></i>
-                <p>Hỗ trợ 24/7<br>tận tâm</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-lock"></i>
-                <p>Bảo mật<br>thông tin</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-chart-line"></i>
-                <p>Phát triển<br>bền vững</p>
-            </div>
+    <section class="features-grid">
+        <div class="feature-item">
+            <i class="fas fa-piggy-bank"></i>
+            <p>Tiết kiệm chi phí</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-shield-alt"></i>
+            <p>Chất lượng đảm bảo</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-truck"></i>
+            <p>Giao hàng đúng hẹn</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-headset"></i>
+            <p>Hỗ trợ 24/7 tận tâm</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-lock"></i>
+            <p>Bảo mật thông tin</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <p>Phát triển bền vững</p>
         </div>
     </section>
 
-    <!-- PARTNERS -->
-    <section class="section partners">
-        <h3>ĐỐI TÁC CỦA POLOMIMIN</h3>
+    <section class="partners">
+        <h3>Đối tác của POLOMIMIN</h3>
         <div class="partners-grid">
             <div class="partner">Google Cloud</div>
             <div class="partner">Meta</div>
@@ -706,43 +653,32 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
+    <footer class="footer" id="lien-he">
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="logo">
                     <div class="logo-icon">M</div>
-                    <div class="logo-text">
-                        <h1>POLOMIMIN</h1>
-                        <p>Thời trang &amp; AI</p>
-                    </div>
+                    <span class="logo-text">POLOMIMIN</span>
                 </a>
                 <p>Kết nối thời trang và công nghệ để tạo nên tương lai.</p>
             </div>
             <div class="footer-col">
-                <h4>VỀ CHÚNG TÔI</h4>
+                <h4>Về chúng tôi</h4>
                 <a href="#">Giới thiệu</a>
                 <a href="#">Tầm nhìn</a>
                 <a href="#">Sứ mệnh</a>
             </div>
             <div class="footer-col">
-                <h4>HỖ TRỢ</h4>
+                <h4>Hỗ trợ</h4>
                 <a href="#">Trung tâm hỗ trợ</a>
                 <a href="#">Chính sách</a>
                 <a href="#">Điều khoản sử dụng</a>
             </div>
             <div class="footer-col">
-                <h4>LIÊN HỆ</h4>
+                <h4>Liên hệ</h4>
                 <a href="#">Hotline: 1900 1234</a>
                 <a href="#">Email: hello@polomimin.com</a>
-                <a href="#">Địa chỉ: 123 Nguyễn Văn Cừ, P. Nguyễn Cư Trinh, Q.1, TP.HCM</a>
-            </div>
-            <div class="footer-col">
-                <h4>THEO DÕI CHÚNG TÔI</h4>
-                <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="#"><i class="fab fa-tiktok"></i> TikTok</a>
-                <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="#">Địa chỉ: 123 Nguyễn Văn Cừ, Q.1, TP.HCM</a>
             </div>
         </div>
         <div class="footer-bottom">
