@@ -3,86 +3,985 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POLOMIMIN HUB - Hệ sinh thái số</title>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <title>POLOMIMIN - Đẳng Cấp Phái Mạnh | Thời Trang Nam Cao Cấp</title>
+    <meta name="description" content="POLOMIMIN - Thương hiệu thời trang nam cao cấp Việt Nam. Phong cách – Chất lượng – Tinh tế. Hệ thống ERP, MES, WMS, AI tích hợp hoàn chỉnh.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #1E40AF 100%); min-height: 100vh; color: white; padding: 40px 20px; }
-        .hub-container { max-width: 1280px; margin: 0 auto; }
-        .hub-hero { text-align: center; padding: 60px 0 40px; }
-        .hub-hero h1 { font-size: 56px; font-weight: 900; margin-bottom: 16px; }
-        .hub-hero .gradient { background: linear-gradient(135deg, #5EEAD4, #14B8A6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hub-hero p { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 40px; }
-        .hub-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
-        .hub-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; transition: all 0.3s; backdrop-filter: blur(10px); display: block; }
-        .hub-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
-        .hub-card-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #5EEAD4, #14B8A6); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; margin-bottom: 16px; }
-        .hub-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; color: white; }
-        .hub-card p { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
-        .hub-card-link { color: #5EEAD4; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
-        .hub-stats { display: flex; gap: 40px; justify-content: center; margin: 40px 0; }
-        .hub-stat-num { font-size: 36px; font-weight: 900; }
-        .hub-stat-label { font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; }
-        @media (max-width: 968px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } .hub-stats { flex-wrap: wrap; } .hub-hero h1 { font-size: 36px; } }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --navy: #0a1628;
+            --gold: #b8912a;
+            --gold-light: #d4a843;
+            --teal: #0d9488;
+            --red: #dc2626;
+            --radius: 8px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--gray-900);
+            font-size: 14px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+
+        /* ===== TOPBAR ===== */
+        .topbar {
+            background: var(--navy);
+            color: rgba(255,255,255,0.75);
+            font-size: 12px;
+            text-align: center;
+            padding: 7px 20px;
+            letter-spacing: 0.03em;
+        }
+        .topbar span { color: var(--gold-light); font-weight: 600; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky; top: 0; z-index: 100;
+            padding: 0 40px;
+            height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .nav-logo {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .logo-p {
+            width: 38px; height: 38px;
+            background: var(--navy);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 900; font-size: 18px; font-style: italic;
+        }
+        .logo-text-block { line-height: 1.1; }
+        .logo-text-block strong { font-size: 1rem; font-weight: 900; letter-spacing: 0.04em; color: var(--navy); display: block; }
+        .logo-text-block small { font-size: 0.6rem; color: var(--gray-400); letter-spacing: 0.12em; text-transform: uppercase; }
+
+        .nav-menu { display: flex; align-items: center; gap: 2px; }
+        .nav-menu a {
+            color: var(--gray-800); font-size: 0.825rem; font-weight: 500;
+            padding: 6px 13px; border-radius: 6px;
+            transition: color 0.2s, background 0.2s; white-space: nowrap;
+        }
+        .nav-menu a:hover { color: var(--navy); background: var(--gray-100); }
+        .nav-menu a.active { color: var(--gold); border-bottom: 2px solid var(--gold); border-radius: 0; }
+
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
+        .nav-icon-btn {
+            background: none; border: none; cursor: pointer;
+            color: var(--gray-600); font-size: 1.1rem;
+            width: 34px; height: 34px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 6px; transition: background 0.2s;
+        }
+        .nav-icon-btn:hover { background: var(--gray-100); color: var(--navy); }
+        .cart-badge { position: relative; }
+        .badge-dot {
+            position: absolute; top: -2px; right: -2px;
+            width: 16px; height: 16px;
+            background: var(--red); color: white;
+            border-radius: 50%; font-size: 9px;
+            display: flex; align-items: center; justify-content: center; font-weight: 700;
+        }
+
+        /* ===== HERO (FULL WIDTH SLIDER) ===== */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        /* ===== HERO SLIDER ===== */
+        .hero-slider-wrap {
+            position: absolute; inset: 0;
+            overflow: hidden;
+        }
+        .hero-slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .hero-slide {
+            min-width: 100%; height: 100%;
+            position: relative; overflow: hidden;
+        }
+        .hero-slide img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center 20%;
+            display: block;
+            transform: scale(1.06);
+            transition: transform 5s ease-out;
+        }
+        .hero-slide.active img {
+            transform: scale(1.0);
+        }
+        /* Dark gradient overlay so text is readable */
+        .hero-slide::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                100deg,
+                rgba(8, 18, 36, 0.75) 0%,
+                rgba(8, 18, 36, 0.55) 50%,
+                rgba(8, 18, 36, 0.2) 100%
+            );
+        }
+        /* Text content overlay */
+        .hero-content {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 80px;
+            max-width: 640px;
+        }
+        /* Dots */
+        .slider-dots {
+            position: absolute; bottom: 28px; left: 80px;
+            display: flex; gap: 8px; z-index: 11;
+        }
+        .slider-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(255,255,255,0.4); cursor: pointer;
+            transition: all 0.4s ease; border: none;
+        }
+        .slider-dot.active { background: white; width: 28px; border-radius: 4px; }
+        /* Arrows */
+        .slider-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25);
+            color: white; font-size: 1.1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 11; transition: background 0.2s; backdrop-filter: blur(6px);
+        }
+        .slider-arrow:hover { background: rgba(255,255,255,0.28); }
+        .slider-arrow.prev { left: 20px; }
+        .slider-arrow.next { right: 20px; }
+        /* Slide label bottom-right */
+        .slide-label {
+            position: absolute; bottom: 28px; right: 80px; z-index: 11;
+            font-size: 0.72rem; color: rgba(255,255,255,0.5);
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        .hero-brand {
+            color: var(--gold);
+            font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            margin-bottom: 14px;
+            opacity: 0.95;
+        }
+        .hero-title {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 900; line-height: 1.05;
+            color: #fff;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        .hero-sub {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem; line-height: 1.6; margin-bottom: 32px;
+        }
+        .hero-sub span { color: var(--gold-light); font-weight: 600; }
+        .hero-btns { display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; }
+        .btn-gold {
+            background: var(--gold);
+            color: white; padding: 13px 30px; border-radius: 9px;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; border: none;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+            letter-spacing: 0.04em;
+            box-shadow: 0 4px 20px rgba(184,145,42,0.4);
+        }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .btn-outline-white {
+            background: rgba(255,255,255,0.1); color: white;
+            padding: 13px 30px; border-radius: 9px;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer;
+            border: 1.5px solid rgba(255,255,255,0.35);
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s, background 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.18); }
+        .hero-stats {
+            display: flex; gap: 28px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px;
+        }
+        .h-stat-num { font-size: 1.5rem; font-weight: 900; color: white; }
+        .h-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+        .section { padding: 40px 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        .sec-header {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+        }
+        .sec-title { font-size: 1rem; font-weight: 800; color: var(--gray-900); letter-spacing: 0.01em; }
+        .sec-link { font-size: 0.8rem; color: var(--gray-400); display: flex; align-items: center; gap: 4px; }
+        .sec-link:hover { color: var(--navy); }
+
+        /* ===== CATEGORIES ===== */
+        .cat-section { background: white; border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); }
+        .cat-grid {
+            display: grid; grid-template-columns: repeat(9, 1fr); gap: 8px;
+        }
+        .cat-item {
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 16px 8px; border-radius: 10px; cursor: pointer;
+            transition: background 0.2s; text-align: center;
+        }
+        .cat-item:hover { background: var(--gray-50); }
+        .cat-img {
+            width: 68px; height: 68px; border-radius: 10px;
+            background: var(--gray-100); overflow: hidden;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem;
+        }
+        .cat-img img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-name { font-size: 0.75rem; font-weight: 600; color: var(--gray-800); }
+
+        /* ===== COLLECTIONS ===== */
+        .collections-section { background: var(--gray-50); }
+        .coll-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+        }
+        .coll-card {
+            border-radius: 10px; overflow: hidden; position: relative;
+            height: 180px; cursor: pointer;
+            background: var(--navy);
+        }
+        .coll-card img { width:100%; height:100%; object-fit:cover; opacity:0.7; transition: opacity 0.3s, transform 0.4s; }
+        .coll-card:hover img { opacity: 0.5; transform: scale(1.05); }
+        .coll-overlay {
+            position: absolute; inset: 0;
+            padding: 20px;
+            display: flex; flex-direction: column; justify-content: flex-end;
+        }
+        .coll-tag { font-size: 0.65rem; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+        .coll-name { font-size: 1.1rem; font-weight: 900; color: white; margin-bottom: 12px; }
+        .btn-coll {
+            display: inline-block; padding: 6px 14px;
+            background: var(--gold); color: white;
+            border-radius: 6px; font-size: 0.72rem; font-weight: 700;
+            width: fit-content; letter-spacing: 0.04em;
+            transition: background 0.2s;
+        }
+        .coll-card:hover .btn-coll { background: var(--gold-light); }
+
+        /* ===== PRODUCTS ===== */
+        .products-section-bg {
+            background: linear-gradient(180deg, #0d1f3c 0%, #111827 100%);
+            padding: 50px 0;
+        }
+        .products-section-bg .sec-title { color: #fff; }
+        .products-section-bg .sec-link { color: rgba(255,255,255,0.5); }
+        .products-section-bg .sec-link:hover { color: var(--gold-light); }
+        .products-grid {
+            display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px;
+        }
+        .product-card {
+            border-radius: 16px; overflow: hidden;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            cursor: pointer;
+            transition: box-shadow 0.35s, transform 0.35s, background 0.35s;
+        }
+        .product-card:hover {
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            transform: translateY(-6px);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.22);
+        }
+        .product-img {
+            height: 180px; background: rgba(255,255,255,0.04);
+            display: flex; align-items: center; justify-content: center; font-size: 3rem;
+            position: relative; overflow: hidden;
+        }
+        .product-img img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s; }
+        .product-card:hover .product-img img { transform: scale(1.07); }
+        .add-cart-btn {
+            position: absolute; bottom: 10px; right: 10px;
+            width: 32px; height: 32px;
+            background: var(--gold); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; opacity: 0; transition: opacity 0.2s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .product-card:hover .add-cart-btn { opacity: 1; }
+        .product-info { padding: 12px 14px 14px; }
+        .product-name { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .product-price { font-size: 0.95rem; font-weight: 800; color: #fff; }
+        .color-dots { display: flex; gap: 4px; margin-top: 7px; }
+        .color-dot { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25); }
+
+        /* ===== COURSES ===== */
+        .courses-section { background: var(--gray-50); }
+        .courses-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+        .course-card {
+            border-radius: 10px; overflow: hidden;
+            background: white; border: 1px solid var(--gray-200);
+            cursor: pointer; transition: box-shadow 0.2s;
+        }
+        .course-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .course-thumb {
+            height: 100px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem;
+        }
+        .course-thumb img { width:100%; height:100%; object-fit:cover; }
+        .course-info { padding: 10px; }
+        .course-name { font-size: 0.75rem; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; line-height: 1.4; }
+        .course-students { font-size: 0.68rem; color: var(--gray-400); }
+
+        /* ===== SOFTWARE / HỆ THỐNG ===== */
+        .software-section { background: white; }
+        .software-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+        .sw-card {
+            border: 1.5px solid var(--gray-200);
+            border-radius: 12px; padding: 18px 14px;
+            text-align: center; cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            background: white;
+        }
+        .sw-card:hover { border-color: var(--navy); box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-3px); }
+        .sw-icon { font-size: 2rem; margin-bottom: 8px; }
+        .sw-name { font-size: 0.9rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+        .sw-desc { font-size: 0.7rem; color: var(--gray-400); line-height: 1.4; }
+
+        /* ===== AI APPS ===== */
+        .ai-section { background: var(--gray-50); }
+        .ai-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+        .ai-card {
+            border-radius: 12px; padding: 14px 10px;
+            text-align: center; cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ai-card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        .ai-icon {
+            width: 52px; height: 52px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin: 0 auto 8px;
+        }
+        .ai-name { font-size: 0.75rem; font-weight: 700; color: var(--gray-900); margin-bottom: 3px; }
+        .ai-tag { font-size: 0.65rem; color: var(--gray-400); }
+
+        /* ===== TRUST BAR ===== */
+        .trust-bar {
+            background: white; border-top: 1px solid var(--gray-200);
+            padding: 18px 0;
+        }
+        .trust-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+        .trust-item { display: flex; align-items: center; gap: 12px; justify-content: center; }
+        .trust-icon { font-size: 1.6rem; }
+        .trust-title { font-size: 0.82rem; font-weight: 700; color: var(--navy); }
+        .trust-sub { font-size: 0.7rem; color: var(--gray-400); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--navy); color: rgba(255,255,255,0.7);
+            padding: 40px 0 20px; font-size: 0.8rem; text-align: center;
+        }
+        footer strong { color: var(--gold-light); }
+
+        /* divider */
+        .section-divider { height: 1px; background: var(--gray-200); }
     </style>
 </head>
 <body>
-    <div class="hub-container">
-        <div class="hub-hero">
-            <h1><span class="gradient">POLOMIMIN</span> HUB</h1>
-            <p>Hệ sinh thái số toàn diện cho doanh nghiệp dệt may Việt Nam</p>
-            <div class="hub-stats">
-                <div><div class="hub-stat-num">7</div><div class="hub-stat-label">Modules</div></div>
-                <div><div class="hub-stat-num">40+</div><div class="hub-stat-label">Màn hình</div></div>
-                <div><div class="hub-stat-num">24/7</div><div class="hub-stat-label">Vận hành</div></div>
-                <div><div class="hub-stat-num">100%</div><div class="hub-stat-label">Made in VN</div></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    🎉 Miễn phí vận chuyển đơn từ <span>500K</span> — Mã: <span>POLO2026</span> — Hotline: <span>1800 xxxx</span>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="01-home.html" class="nav-logo">
+        <div class="logo-p">P</div>
+        <div class="logo-text-block">
+            <strong>POLOMIMIN</strong>
+            <small>Thời Trang Nam</small>
+        </div>
+    </a>
+
+    <div class="nav-menu">
+        <a href="01-home.html" class="active">Trang Chủ</a>
+        <a href="25-sales-san-pham.html">Sản Phẩm</a>
+        <a href="#">Bộ Sưu Tập</a>
+        <a href="37-academy-dashboard.html">Khóa Học</a>
+        <a href="33-ai-dashboard.html">Ứng Dụng AI</a>
+        <a href="gallery.html">Phần Mềm</a>
+        <a href="#">Tin Tức</a>
+        <a href="#">Liên Hệ</a>
+    </div>
+
+    <div class="nav-actions">
+        <button class="nav-icon-btn" title="Tìm kiếm">🔍</button>
+        <button class="nav-icon-btn" title="Tài khoản">👤</button>
+        <button class="nav-icon-btn cart-badge" title="Giỏ hàng">
+            🛒<span class="badge-dot">0</span>
+        </button>
+    </div>
+</nav>
+
+<!-- HERO (FULL WIDTH SLIDER) -->
+<section class="hero">
+    <!-- FULL WIDTH SLIDER (background) -->
+    <div class="hero-slider-wrap" id="heroSlider">
+        <div class="hero-slider-track" id="heroTrack">
+            <div class="hero-slide active">
+                <img src="assets/images/coll_premium.png" alt="POLOMIMIN Premium"
+                     onerror="this.parentElement.style.background='linear-gradient(135deg,#0a1628,#1a3a5c)'">
+            </div>
+            <div class="hero-slide">
+                <img src="assets/images/coll_summer.png" alt="POLOMIMIN Summer"
+                     onerror="this.parentElement.style.background='linear-gradient(135deg,#1b4332,#0f4c75)'">
+            </div>
+            <div class="hero-slide">
+                <img src="assets/images/coll_sport.png" alt="POLOMIMIN Sport"
+                     onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a2e,#3d0c02)'">
+            </div>
+            <div class="hero-slide">
+                <img src="assets/images/coll_office.png" alt="POLOMIMIN Office"
+                     onerror="this.parentElement.style.background='linear-gradient(135deg,#162840,#0a1628)'">
+            </div>
+            <div class="hero-slide">
+                <img src="assets/images/prod_polo_basic.png" alt="POLOMIMIN Polo"
+                     onerror="this.parentElement.style.background='linear-gradient(135deg,#0f4c75,#162840)'">
             </div>
         </div>
-        <div class="hub-grid">
-            <a href="02-erp-dashboard.html" class="hub-card">
-                <div class="hub-card-icon"><i class="fas fa-chart-pie"></i></div>
-                <h3>ERP</h3>
-                <p>Quản lý doanh nghiệp tổng thể</p>
-                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
-            </a>
-            <a href="04-mes-dashboard.html" class="hub-card">
-                <div class="hub-card-icon"><i class="fas fa-industry"></i></div>
-                <h3>MES</h3>
-                <p>Quản lý sản xuất</p>
-                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
-            </a>
-            <a href="06-wms-dashboard.html" class="hub-card">
-                <div class="hub-card-icon"><i class="fas fa-warehouse"></i></div>
-                <h3>WMS</h3>
-                <p>Quản lý kho</p>
-                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
-            </a>
-            <a href="22-hr-dashboard.html" class="hub-card">
-                <div class="hub-card-icon"><i class="fas fa-user-tie"></i></div>
-                <h3>HRM</h3>
-                <p>Quản lý nhân sự</p>
-                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
-            </a>
-            <a href="22-sales-dashboard.html" class="hub-card">
-                <div class="hub-card-icon"><i class="fas fa-cash-register"></i></div>
-                <h3>Sales</h3>
-                <p>Bán hàng đa kênh</p>
-                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
-            </a>
-            <a href="25-ai-dashboard.html" class="hub-card">
-                <div class="hub-card-icon"><i class="fas fa-robot"></i></div>
-                <h3>AI Center</h3>
-                <p>Trí tuệ nhân tạo</p>
-                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
-            </a>
-            <a href="37-academy-dashboard.html" class="hub-card">
-                <div class="hub-card-icon"><i class="fas fa-graduation-cap"></i></div>
-                <h3>Academy</h3>
-                <p>Học viện nội bộ</p>
-                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
-            </a>
+    </div>
+
+    <!-- TEXT OVERLAY on top of slider -->
+    <div class="hero-content">
+        <div class="hero-brand">POLOMIMIN</div>
+        <h1 class="hero-title">ĐẲNG CẤP<br>PHÁI MẠNH</h1>
+        <p class="hero-sub">Thời trang nam cao cấp — <span>Phong cách</span> – <span>Chất lượng</span> – <span>Tinh tế</span></p>
+        <div class="hero-btns">
+            <a href="25-sales-san-pham.html" class="btn-gold">MUA NGAY</a>
+            <a href="gallery.html" class="btn-outline-white">KHÁM PHÁ BỘ SƯU TẬP</a>
+        </div>
+        <div class="hero-stats">
+            <div><div class="h-stat-num">10+</div><div class="h-stat-label">Năm kinh nghiệm</div></div>
+            <div><div class="h-stat-num">500+</div><div class="h-stat-label">Đại lý toàn quốc</div></div>
+            <div><div class="h-stat-num">1 Triệu+</div><div class="h-stat-label">Sản phẩm/năm</div></div>
+            <div><div class="h-stat-num">100%</div><div class="h-stat-label">Chất lượng đảm bảo</div></div>
         </div>
     </div>
+
+    <!-- Arrows -->
+    <button class="slider-arrow prev" onclick="sliderMove(-1)">&#8592;</button>
+    <button class="slider-arrow next" onclick="sliderMove(1)">&#8594;</button>
+    <!-- Dots -->
+    <div class="slider-dots" id="sliderDots"></div>
+    <!-- Slide counter -->
+    <div class="slide-label" id="slideLabel">01 / 05</div>
+</section>
+
+<!-- DANH MỤC SẢN PHẨM -->
+<section class="section cat-section">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-title">DANH MỤC SẢN PHẨM</div>
+            <a href="25-sales-san-pham.html" class="sec-link">Xem tất cả →</a>
+        </div>
+        <div class="cat-grid">
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">👕</div>
+                <div class="cat-name">Áo Polo</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">👔</div>
+                <div class="cat-name">Áo Thun</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">🔵</div>
+                <div class="cat-name">Áo Sơ Mi</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">👖</div>
+                <div class="cat-name">Quần Dài</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">🩲</div>
+                <div class="cat-name">Quần Short</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">🏃</div>
+                <div class="cat-name">Bộ Thể Thao</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">🧥</div>
+                <div class="cat-name">Áo Khoác</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">🩳</div>
+                <div class="cat-name">Đồ Lót</div>
+            </div>
+            <div class="cat-item" onclick="location.href='25-sales-san-pham.html'">
+                <div class="cat-img">🧢</div>
+                <div class="cat-name">Phụ Kiện</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BỘ SƯU TẬP NỔI BẬT -->
+<section class="section collections-section">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-title">BỘ SƯU TẬP NỔI BẬT</div>
+            <a href="25-sales-san-pham.html" class="sec-link">Xem tất cả →</a>
+        </div>
+        <div class="coll-grid">
+            <div class="coll-card" style="background: linear-gradient(135deg,#0f4c75,#1b6ca8)">
+                <div class="coll-overlay">
+                    <div class="coll-tag">Collection</div>
+                    <div class="coll-name">SUMMER</div>
+                    <a href="25-sales-san-pham.html" class="btn-coll">KHÁM PHÁ</a>
+                </div>
+            </div>
+            <div class="coll-card" style="background: linear-gradient(135deg,#1a1a2e,#16213e)">
+                <div class="coll-overlay">
+                    <div class="coll-tag">Collection</div>
+                    <div class="coll-name">OFFICE</div>
+                    <a href="25-sales-san-pham.html" class="btn-coll">KHÁM PHÁ</a>
+                </div>
+            </div>
+            <div class="coll-card" style="background: linear-gradient(135deg,#1b4332,#2d6a4f)">
+                <div class="coll-overlay">
+                    <div class="coll-tag">Collection</div>
+                    <div class="coll-name">SPORT</div>
+                    <a href="25-sales-san-pham.html" class="btn-coll">KHÁM PHÁ</a>
+                </div>
+            </div>
+            <div class="coll-card" style="background: linear-gradient(135deg,#3d0c02,#6b1c0f)">
+                <div class="coll-overlay">
+                    <div class="coll-tag">Collection</div>
+                    <div class="coll-name">PREMIUM</div>
+                    <a href="25-sales-san-pham.html" class="btn-coll">KHÁM PHÁ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SẢN PHẨM BÁN CHẠY -->
+<section class="section products-section-bg">
+    <div class="container">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-title">SẢN PHẨM BÁN CHẠY</div>
+            <a href="25-sales-san-pham.html" class="sec-link">Xem tất cả →</a>
+        </div>
+        <div class="products-grid">
+            <div class="product-card" onclick="location.href='25-sales-san-pham.html'">
+                <div class="product-img">👕<div class="add-cart-btn">🛒</div></div>
+                <div class="product-info">
+                    <div class="product-name">Áo Polo Basic</div>
+                    <div class="product-price">395.000đ</div>
+                    <div class="color-dots">
+                        <div class="color-dot" style="background:#2563eb"></div>
+                        <div class="color-dot" style="background:#16a34a"></div>
+                        <div class="color-dot" style="background:#d4a843"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" onclick="location.href='25-sales-san-pham.html'">
+                <div class="product-img">🖤<div class="add-cart-btn">🛒</div></div>
+                <div class="product-info">
+                    <div class="product-name">Áo Thun Cotton</div>
+                    <div class="product-price">295.000đ</div>
+                    <div class="color-dots">
+                        <div class="color-dot" style="background:#111"></div>
+                        <div class="color-dot" style="background:#fff;border-color:#ccc"></div>
+                        <div class="color-dot" style="background:#374151"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" onclick="location.href='25-sales-san-pham.html'">
+                <div class="product-img">🔵<div class="add-cart-btn">🛒</div></div>
+                <div class="product-info">
+                    <div class="product-name">Áo Sơ Mi Bamboo</div>
+                    <div class="product-price">490.000đ</div>
+                    <div class="color-dots">
+                        <div class="color-dot" style="background:#bfdbfe"></div>
+                        <div class="color-dot" style="background:#fff;border-color:#ccc"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" onclick="location.href='25-sales-san-pham.html'">
+                <div class="product-img">👖<div class="add-cart-btn">🛒</div></div>
+                <div class="product-info">
+                    <div class="product-name">Quần Tây SlimFit</div>
+                    <div class="product-price">550.000đ</div>
+                    <div class="color-dots">
+                        <div class="color-dot" style="background:#1e293b"></div>
+                        <div class="color-dot" style="background:#374151"></div>
+                        <div class="color-dot" style="background:#92400e"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" onclick="location.href='25-sales-san-pham.html'">
+                <div class="product-img">🩳<div class="add-cart-btn">🛒</div></div>
+                <div class="product-info">
+                    <div class="product-name">Quần Short Kaki</div>
+                    <div class="product-price">295.000đ</div>
+                    <div class="color-dots">
+                        <div class="color-dot" style="background:#ca8a04"></div>
+                        <div class="color-dot" style="background:#111"></div>
+                        <div class="color-dot" style="background:#6b7280"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" onclick="location.href='25-sales-san-pham.html'">
+                <div class="product-img">🏃<div class="add-cart-btn">🛒</div></div>
+                <div class="product-info">
+                    <div class="product-name">Bộ Thể Thao Nam</div>
+                    <div class="product-price">785.000đ</div>
+                    <div class="color-dots">
+                        <div class="color-dot" style="background:#111"></div>
+                        <div class="color-dot" style="background:#1d4ed8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- KHÓA HỌC ĐÀO TẠO -->
+<section class="section courses-section">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-title">KHÓA HỌC ĐÀO TẠO</div>
+            <a href="37-academy-dashboard.html" class="sec-link">Xem tất cả →</a>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card" onclick="location.href='37-academy-dashboard.html'">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#312e81,#4f46e5)">🤖</div>
+                <div class="course-info">
+                    <div class="course-name">Đào tạo AI từ A-Z</div>
+                    <div class="course-students">12.5K học viên</div>
+                </div>
+            </div>
+            <div class="course-card" onclick="location.href='37-academy-dashboard.html'">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">🎨</div>
+                <div class="course-info">
+                    <div class="course-name">Khóa học làm hình ảnh AI</div>
+                    <div class="course-students">8.7K học viên</div>
+                </div>
+            </div>
+            <div class="course-card" onclick="location.href='37-academy-dashboard.html'">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#dc2626,#f87171)">🎬</div>
+                <div class="course-info">
+                    <div class="course-name">Khóa học làm video AI</div>
+                    <div class="course-students">9.3K học viên</div>
+                </div>
+            </div>
+            <div class="course-card" onclick="location.href='37-academy-dashboard.html'">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#0891b2,#22d3ee)">📱</div>
+                <div class="course-info">
+                    <div class="course-name">Xây dựng kênh AI A-Z</div>
+                    <div class="course-students">15.2K học viên</div>
+                </div>
+            </div>
+            <div class="course-card" onclick="location.href='37-academy-dashboard.html'">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#065f46,#10b981)">🧵</div>
+                <div class="course-info">
+                    <div class="course-name">Khởi tạo xưởng quần áo</div>
+                    <div class="course-students">5.6K học viên</div>
+                </div>
+            </div>
+            <div class="course-card" onclick="location.href='37-academy-dashboard.html'">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#1e3a5f,#2563eb)">💻</div>
+                <div class="course-info">
+                    <div class="course-name">Đào tạo xây dựng ứng dụng</div>
+                    <div class="course-students">7.1K học viên</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CUNG CẤP PHẦN MỀM HỆ THỐNG -->
+<section class="section software-section">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-title">CUNG CẤP PHẦN MỀM HỆ THỐNG</div>
+            <a href="gallery.html" class="sec-link">Xem tất cả →</a>
+        </div>
+        <div class="software-grid">
+            <div class="sw-card" onclick="location.href='02-erp-dashboard.html'">
+                <div class="sw-icon">🏢</div>
+                <div class="sw-name">ERP</div>
+                <div class="sw-desc">Quản lý tổng thể doanh nghiệp</div>
+            </div>
+            <div class="sw-card" onclick="location.href='04-mes-dashboard.html'">
+                <div class="sw-icon">🏭</div>
+                <div class="sw-name">MES</div>
+                <div class="sw-desc">Quản lý sản xuất chuyên sâu</div>
+            </div>
+            <div class="sw-card" onclick="location.href='16-wms-dashboard.html'">
+                <div class="sw-icon">📦</div>
+                <div class="sw-name">WMS</div>
+                <div class="sw-desc">Quản lý kho thông minh</div>
+            </div>
+            <div class="sw-card" onclick="location.href='24-sales-khach-hang.html'">
+                <div class="sw-icon">💼</div>
+                <div class="sw-name">CRM</div>
+                <div class="sw-desc">Quản lý khách hàng hiệu quả</div>
+            </div>
+            <div class="sw-card" onclick="location.href='30-hr-dashboard.html'">
+                <div class="sw-icon">👥</div>
+                <div class="sw-name">HRM</div>
+                <div class="sw-desc">Quản lý nhân sự toàn diện</div>
+            </div>
+            <div class="sw-card" onclick="location.href='22-sales-dashboard.html'">
+                <div class="sw-icon">🛒</div>
+                <div class="sw-name">POS</div>
+                <div class="sw-desc">Quản lý bán hàng đa kênh</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- KHO ỨNG DỤNG AI + CÔNG CỤ AI BÁN HÀNG -->
+<section class="section ai-section">
+    <div class="container">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <!-- Kho ứng dụng AI -->
+            <div>
+                <div class="sec-header">
+                    <div class="sec-title">KHO ỨNG DỤNG AI</div>
+                    <a href="33-ai-dashboard.html" class="sec-link">Xem tất cả →</a>
+                </div>
+                <div style="display:grid; grid-template-columns: repeat(6,1fr); gap: 8px;">
+                    <div class="ai-card" onclick="location.href='33-ai-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">💬</div>
+                        <div class="ai-name">AI Chat</div>
+                        <div class="ai-tag">Trợ lý AI</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='33-ai-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#ec4899,#f43f5e)">🖼️</div>
+                        <div class="ai-name">AI Image</div>
+                        <div class="ai-tag">Tạo hình AI</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='33-ai-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#dc2626,#f87171)">🎬</div>
+                        <div class="ai-name">AI Video</div>
+                        <div class="ai-tag">Tạo video AI</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='33-ai-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#0891b2,#06b6d4)">🎙️</div>
+                        <div class="ai-name">AI Voice</div>
+                        <div class="ai-tag">Giọng nói AI</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='33-ai-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#065f46,#10b981)">✍️</div>
+                        <div class="ai-name">AI Content</div>
+                        <div class="ai-tag">Tạo nội dung</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='33-ai-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#b45309,#f59e0b)">⚙️</div>
+                        <div class="ai-name">AI Auto</div>
+                        <div class="ai-tag">Tự động hóa</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Công cụ AI bán hàng -->
+            <div>
+                <div class="sec-header">
+                    <div class="sec-title">CÔNG CỤ AI BÁN HÀNG</div>
+                    <a href="22-sales-dashboard.html" class="sec-link">Xem tất cả →</a>
+                </div>
+                <div style="display:grid; grid-template-columns: repeat(6,1fr); gap: 8px;">
+                    <div class="ai-card" onclick="location.href='22-sales-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#dc2626,#f87171)">🎬</div>
+                        <div class="ai-name">Livestream</div>
+                        <div class="ai-tag">AI bán hàng</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='22-sales-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">📝</div>
+                        <div class="ai-name">Đăng bài</div>
+                        <div class="ai-tag">Tự động đăng</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='22-sales-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#0891b2,#22d3ee)">✍️</div>
+                        <div class="ai-name">Content AI</div>
+                        <div class="ai-tag">Viết content</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='22-sales-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#065f46,#10b981)">🤖</div>
+                        <div class="ai-name">Chatbot AI</div>
+                        <div class="ai-tag">Tool chatbot</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='22-sales-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#dc2626,#f97316)">📡</div>
+                        <div class="ai-name">Livestream</div>
+                        <div class="ai-tag">Tool live AI</div>
+                    </div>
+                    <div class="ai-card" onclick="location.href='22-sales-dashboard.html'">
+                        <div class="ai-icon" style="background:linear-gradient(135deg,#1d4ed8,#2563eb)">📊</div>
+                        <div class="ai-name">Phân tích</div>
+                        <div class="ai-tag">Tool quảng cáo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+    <div class="container">
+        <div class="trust-grid">
+            <div class="trust-item">
+                <div class="trust-icon">🚚</div>
+                <div>
+                    <div class="trust-title">MIỄN PHÍ GIAO HÀNG</div>
+                    <div class="trust-sub">Đơn từ 500K</div>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🔄</div>
+                <div>
+                    <div class="trust-title">ĐỔI TRẢ DỄ DÀNG</div>
+                    <div class="trust-sub">Trong 7 ngày</div>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🔒</div>
+                <div>
+                    <div class="trust-title">THANH TOÁN AN TOÀN</div>
+                    <div class="trust-sub">Đa dạng phương thức</div>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🎧</div>
+                <div>
+                    <div class="trust-title">TƯ VẤN 24/7</div>
+                    <div class="trust-sub">Hỗ trợ nhanh chóng</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p>© 2026 <strong>POLOMIMIN</strong> — Thời trang nam cao cấp Việt Nam. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// ===== HERO SLIDER =====
+(function() {
+    const track   = document.getElementById('heroTrack');
+    const dotsEl  = document.getElementById('sliderDots');
+    const labelEl = document.getElementById('slideLabel');
+    const slides  = track ? Array.from(track.querySelectorAll('.hero-slide')) : [];
+    let current   = 0;
+    let autoTimer = null;
+
+    if (!slides.length) return;
+
+    // Build dots
+    slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i+1));
+        d.onclick = () => { goTo(i); startAuto(); };
+        dotsEl.appendChild(d);
+    });
+
+    function goTo(index) {
+        // Remove active from old slide (stops Ken Burns)
+        slides[current].classList.remove('active');
+
+        current = (index + slides.length) % slides.length;
+        track.style.transform = `translateX(-${current * 100}%)`;
+
+        // Add active to new slide (triggers Ken Burns zoom)
+        // Small delay so CSS transition kicks in after slide arrives
+        setTimeout(() => slides[current].classList.add('active'), 50);
+
+        // Update dots
+        dotsEl.querySelectorAll('.slider-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+
+        // Update counter label
+        if (labelEl) {
+            const pad = n => String(n).padStart(2, '0');
+            labelEl.textContent = `${pad(current + 1)} / ${pad(slides.length)}`;
+        }
+    }
+
+    function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(() => goTo(current + 1), 4500);
+    }
+    function stopAuto() {
+        if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }
+
+    // Pause on hover
+    const wrapper = document.getElementById('heroSlider') || document.querySelector('.hero');
+    if (wrapper) {
+        wrapper.addEventListener('mouseenter', stopAuto);
+        wrapper.addEventListener('mouseleave', startAuto);
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft')  { goTo(current - 1); startAuto(); }
+        if (e.key === 'ArrowRight') { goTo(current + 1); startAuto(); }
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    const heroEl = document.querySelector('.hero');
+    if (heroEl) {
+        heroEl.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        heroEl.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
+        });
+    }
+
+    window.sliderMove = function(dir) { goTo(current + dir); startAuto(); };
+
+    // Init: activate first slide
+    slides[0].classList.add('active');
+    startAuto();
+})();
+</script>
 </body>
 </html>

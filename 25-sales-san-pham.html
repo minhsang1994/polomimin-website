@@ -1,124 +1,539 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · Sản phẩm</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLOMIMIN - Sản Phẩm | Thời Trang Nam Cao Cấp</title>
+    <meta name="description" content="Khám phá bộ sưu tập áo polo, áo thun, áo sơ mi, quần, bộ thể thao nam POLOMIMIN. Chất lượng cao cấp, thiết kế tinh tế.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; --teal-light: #5EEAD4; }
-        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --navy: #0a1628; --gold: #b8912a; --gold-light: #d4a843;
+            --blue: #1d4ed8; --blue-light: #3b82f6;
+            --white: #fff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb; --gray-400: #9ca3af; --gray-600: #4b5563; --gray-900: #111827;
+            --red: #dc2626; --green: #16a34a;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--gray-900); font-size: 14px; }
+        a { text-decoration: none; color: inherit; }
+
+        /* TOPBAR */
+        .topbar { background: var(--navy); color: rgba(255,255,255,0.75); font-size: 12px; text-align: center; padding: 7px; }
+        .topbar span { color: var(--gold-light); font-weight: 600; }
+
+        /* NAVBAR */
+        .navbar {
+            background: var(--white); border-bottom: 1px solid var(--gray-200);
+            position: sticky; top: 0; z-index: 100;
+            padding: 0 40px; height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; }
+        .logo-p { width: 36px; height: 36px; background: var(--navy); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 18px; font-style: italic; }
+        .logo-text strong { font-size: 0.95rem; font-weight: 900; letter-spacing: 0.04em; color: var(--navy); display: block; }
+        .logo-text small { font-size: 0.58rem; color: var(--gray-400); letter-spacing: 0.1em; text-transform: uppercase; }
+        .nav-menu { display: flex; align-items: center; gap: 2px; }
+        .nav-menu a { color: var(--gray-600); font-size: 0.82rem; font-weight: 500; padding: 6px 13px; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
+        .nav-menu a:hover { color: var(--navy); background: var(--gray-100); }
+        .nav-menu a.active { color: var(--blue); border-bottom: 2px solid var(--blue); border-radius: 0; font-weight: 700; }
+        .nav-actions { display: flex; align-items: center; gap: 12px; }
+        .nav-icon { background: none; border: none; cursor: pointer; color: var(--gray-600); font-size: 1rem; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: background 0.2s; }
+        .nav-icon:hover { background: var(--gray-100); }
+        .btn-login { background: var(--navy); color: white; padding: 8px 18px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border: none; font-family: inherit; }
+        .cart-wrap { position: relative; }
+        .cart-dot { position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; background: var(--red); color: white; border-radius: 50%; font-size: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+        /* HERO BANNER */
+        .hero-banner {
+            background: linear-gradient(110deg, #0a1628 0%, #102040 55%, #1a3a5c 100%);
+            min-height: 320px; display: grid; grid-template-columns: 1fr 420px 200px;
+            align-items: stretch; overflow: hidden; position: relative;
+        }
+        .hero-content { padding: 40px 20px 40px 60px; display: flex; flex-direction: column; justify-content: center; z-index: 1; }
+        .hero-brand { color: var(--gold); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; margin-bottom: 10px; }
+        .hero-title { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 12px; }
+        .hero-sub { color: rgba(255,255,255,0.65); font-size: 0.875rem; line-height: 1.6; margin-bottom: 24px; }
+        .hero-sub span { color: var(--gold-light); font-weight: 600; }
+        .hero-btns { display: flex; gap: 10px; margin-bottom: 28px; }
+        .btn-gold { background: var(--gold); color: white; padding: 11px 24px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; border: none; font-family: inherit; display: flex; align-items: center; gap: 6px; }
+        .btn-gold:hover { background: var(--gold-light); }
+        .btn-outline { background: transparent; color: white; padding: 11px 24px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; border: 1.5px solid rgba(255,255,255,0.35); font-family: inherit; }
+        .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+        .hero-badges { display: flex; gap: 20px; flex-wrap: wrap; }
+        .h-badge { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+        .hero-img { overflow: hidden; display: flex; }
+        .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+        .hero-promo {
+            background: rgba(255,255,255,0.06); border-left: 1px solid rgba(255,255,255,0.1);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 24px 16px; text-align: center; gap: 8px;
+        }
+        .promo-label { font-size: 0.7rem; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+        .promo-up { font-size: 0.8rem; color: rgba(255,255,255,0.7); font-weight: 500; }
+        .promo-pct { font-size: 3rem; font-weight: 900; color: var(--blue-light); line-height: 1; }
+        .promo-off { font-size: 1.2rem; font-weight: 700; color: var(--blue-light); }
+        .promo-note { font-size: 0.68rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+        .btn-promo { background: white; color: var(--navy); padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 0.78rem; cursor: pointer; border: none; font-family: inherit; display: flex; align-items: center; gap: 4px; margin-top: 4px; }
+
+        /* BREADCRUMB */
+        .breadcrumb { padding: 12px 40px; border-bottom: 1px solid var(--gray-200); font-size: 0.78rem; color: var(--gray-400); display: flex; align-items: center; gap: 6px; background: var(--white); }
+        .breadcrumb a { color: var(--blue); }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        /* CONTENT LAYOUT */
+        .content-wrap { display: grid; grid-template-columns: 220px 1fr; gap: 0; min-height: calc(100vh - 200px); }
+
+        /* SIDEBAR */
+        .sidebar { border-right: 1px solid var(--gray-200); padding: 24px 20px; background: var(--white); position: sticky; top: 60px; height: fit-content; }
+        .sidebar-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--gray-400); text-transform: uppercase; margin-bottom: 10px; margin-top: 20px; }
+        .sidebar-title:first-child { margin-top: 0; }
+        .cat-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 500; color: var(--gray-600); transition: all 0.2s; margin-bottom: 2px; }
+        .cat-item:hover { background: var(--gray-100); color: var(--navy); }
+        .cat-item.active { background: rgba(29,78,216,0.08); color: var(--blue); font-weight: 700; }
+        .cat-icon { font-size: 1rem; }
+        .price-range { padding: 4px 0; }
+        .price-range input[type=range] { width: 100%; accent-color: var(--blue); }
+        .price-labels { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--gray-400); margin-top: 4px; }
+        .color-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .color-swatch { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+        .color-swatch:hover, .color-swatch.active { border-color: var(--blue); }
+        .size-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .size-btn { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--gray-200); font-size: 0.72rem; font-weight: 600; cursor: pointer; background: var(--white); color: var(--gray-600); transition: all 0.2s; }
+        .size-btn:hover, .size-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
+
+        /* PRODUCTS AREA */
+        .products-area { padding: 24px 32px; }
+        .products-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .products-title { font-size: 1.1rem; font-weight: 800; color: var(--gray-900); }
+        .products-count { font-size: 0.78rem; color: var(--gray-400); margin-top: 2px; }
+        .sort-wrap { display: flex; align-items: center; gap: 10px; }
+        .sort-label { font-size: 0.78rem; color: var(--gray-400); white-space: nowrap; }
+        .sort-select { padding: 6px 10px; border: 1px solid var(--gray-200); border-radius: 6px; font-size: 0.8rem; font-family: inherit; background: var(--white); cursor: pointer; color: var(--gray-900); }
+        .view-btns { display: flex; gap: 4px; }
+        .view-btn { width: 30px; height: 30px; border: 1px solid var(--gray-200); border-radius: 6px; background: var(--white); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--gray-400); font-size: 0.9rem; transition: all 0.2s; }
+        .view-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+        /* PRODUCT GRID */
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+        .prod-card {
+            border-radius: 12px; overflow: hidden; background: var(--white);
+            border: 1px solid var(--gray-200);
+            transition: box-shadow 0.3s, transform 0.3s; cursor: pointer;
+            position: relative;
+        }
+        .prod-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-4px); }
+        .prod-img-wrap { position: relative; height: 220px; background: var(--gray-100); overflow: hidden; }
+        .prod-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .prod-card:hover .prod-img-wrap img { transform: scale(1.05); }
+        .prod-badge {
+            position: absolute; top: 10px; left: 10px;
+            padding: 3px 8px; border-radius: 5px; font-size: 0.7rem; font-weight: 700; z-index: 1;
+        }
+        .badge-new { background: var(--blue); color: white; }
+        .badge-sale { background: var(--red); color: white; }
+        .prod-wishlist {
+            position: absolute; top: 10px; right: 10px;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: white; border: none; cursor: pointer; font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12); opacity: 0; transition: opacity 0.2s;
+        }
+        .prod-card:hover .prod-wishlist { opacity: 1; }
+        .prod-body { padding: 12px 14px 14px; }
+        .prod-name { font-size: 0.82rem; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .prod-price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .prod-price { font-size: 0.95rem; font-weight: 800; color: var(--gray-900); }
+        .prod-old-price { font-size: 0.78rem; color: var(--gray-400); text-decoration: line-through; }
+        .prod-rating { display: flex; align-items: center; gap: 4px; font-size: 0.7rem; color: var(--gray-400); margin-bottom: 8px; }
+        .stars { color: #f59e0b; font-size: 0.75rem; }
+        .prod-bottom { display: flex; align-items: center; justify-content: space-between; }
+        .prod-colors { display: flex; gap: 3px; }
+        .pc-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.1); }
+        .add-cart {
+            width: 28px; height: 28px; border-radius: 6px;
+            background: var(--navy); color: white; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 0.8rem;
+            transition: background 0.2s;
+        }
+        .add-cart:hover { background: var(--blue); }
+
+        /* TRUST BAR */
+        .trust-bar { background: var(--white); border-top: 1px solid var(--gray-200); padding: 16px 0; }
+        .trust-grid { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+        .trust-item { display: flex; align-items: center; gap: 10px; }
+        .trust-icon { font-size: 1.4rem; }
+        .trust-title { font-size: 0.78rem; font-weight: 700; color: var(--navy); }
+        .trust-sub { font-size: 0.68rem; color: var(--gray-400); }
+
+        /* Footer */
+        footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 20px 40px; text-align: center; font-size: 0.78rem; }
+        footer strong { color: var(--gold-light); }
     </style>
 </head>
 <body>
-    <aside class="m-sidebar" id="sidebar">
-        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
-        <ul class="m-sidebar-nav" id="navMenu"></ul>
-        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
-    </aside>
-    <main class="m-main">
-        <header class="m-header">
-            <button class="menu-toggle">☰</button>
-            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm sản phẩm theo tên, SKU, danh mục..."><span class="shortcut">⌘K</span></div>
-            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
-        </header>
-        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><span class="current">👕 Sản phẩm</span></nav>
-        <div class="biz-page-header"><div><div class="bph-title">👕 Sản phẩm</div><div class="bph-subtitle">Catalog sản phẩm POLOMIMIN - Polo, Thun, Sơ mi, Quần, Thể thao</div></div><div class="bph-actions"><div class="biz-filters" id="dateFilters"></div></div></div>
-        <div class="biz-stat-grid" id="statGrid"></div>
-        <div class="quick-grid">
-            <div class="quick-card"><h4>👕 Sản phẩm</h4><div class="qc-links"><a href="22-sales-dashboard.html">💰 Tổng quan Sales <span>›</span></a><a href="23-sales-don-hang.html">📋 Đơn hàng <span>›</span></a><a href="24-sales-khach-hang.html">👥 Khách hàng <span>›</span></a></div></div>
-            <div class="quick-card"><h4>📦 Kho & Giá</h4><div class="qc-links"><a href="26-sales-kho-thanh-pham.html">📦 Kho thành phẩm <span>›</span></a><a href="#">💰 Bảng giá <span>›</span></a><a href="#">📊 Tồn kho chi tiết <span>›</span></a></div></div>
-            <div class="quick-card"><h4>🏭 Sản xuất</h4><div class="qc-links"><a href="04-mes-dashboard.html">⚙️ MES Sản xuất <span>›</span></a><a href="06-wms-dashboard.html">📦 WMS Kho vải <span>›</span></a></div></div>
-            <div class="quick-card"><h4>🏠 Khác</h4><div class="qc-links"><a href="01-home.html">🏠 Về Hub chính <span>›</span></a><a href="02-erp-dashboard.html">📊 ERP Dashboard <span>›</span></a></div></div>
+
+<div class="topbar">🎉 Miễn phí giao hàng đơn từ <span>500K</span> · Mã: <span>POLO2026</span> · Đổi trả trong 7 ngày</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="01-home.html" class="nav-logo">
+        <div class="logo-p">P</div>
+        <div class="logo-text">
+            <strong>POLOMIMIN</strong>
+            <small>Thời Trang Nam</small>
         </div>
-        <div class="biz-page-header" style="margin-top: 24px;"><div><div class="bph-title" style="font-size:18px;">🕰️ Hoạt động sản phẩm gần đây</div><div class="bph-subtitle">Cập nhật catalog POLOMIMIN</div></div></div>
-        <div class="data-table-wrap"><table class="data-table" id="activityTable"><thead><tr></tr></thead><tbody></tbody></table></div>
-        <div class="biz-empty" id="activityEmpty" style="display:none;"><div class="be-icon">📭</div><h3>Chưa có sản phẩm</h3><p>Sản phẩm sẽ xuất hiện tại đây.</p></div>
-        <div class="pagination" id="activityPagination"></div>
-        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560</footer>
-    </main>
-    <button class="m-ai-float"><span class="ai-icon">🧠</span><span>AI Gợi ý hôm nay · <strong>8 SP bán chạy cần nhập</strong></span></button>
-    <button class="biz-fab stacked" id="quickAddBtn">+</button>
-    <div class="m-drawer-overlay"><div class="m-drawer"><button class="drawer-close">✕</button><div class="drawer-avatar">HS</div><div class="drawer-name">Hồ Minh Sang</div><div class="drawer-role">Founder &amp; CEO · POLOMIMIN</div><div class="drawer-info"><span class="label">Công ty</span><span class="value">Dệt May Giàu Sang</span></div><div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value">Enterprise</span></div><button class="drawer-btn">Quản lý tài khoản</button></div></div>
-    <div class="toast-container"></div>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/business-layout.js"></script>
-    <script>
-    (function(){
-        'use strict';
-        const USER={name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'};
-        const NAV_ITEMS=[
-            {icon:'🏠',label:'Hub chính',href:'01-home.html'},
-            {section:'Bán hàng'},
-            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
-            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',badge:'12'},
-            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
-            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html',active:true},
-            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
-            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
-            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html'},
-            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
-            {section:'Modules khác'},
-            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
-            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
-            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
-            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
-            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
-            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
-        ];
-        const NOTIFICATIONS=[
-            {icon:'🔥',title:'8 SP bán chạy cần nhập thêm',time:'15 phút trước'},
-            {icon:'⚠️',title:'12 SP sắp hết cần đặt MES gấp',time:'1 giờ trước'},
-            {icon:'💰',title:'3 SP có thể tăng giá 10%',time:'3 giờ trước'}
-        ];
-        const STATS=[
-            ['👕','Tổng sản phẩm','385','+8',true,'#DC2626'],
-            ['✅','Đang bán','342','+6',true,'#10B981'],
-            ['🔥','Bán chạy','48','+3',true,'#EF4444'],
-            ['⚠️','Sắp hết hàng','12','-2',true,'#F59E0B'],
-            ['❌','Hết hàng','5','-1',true,'#6B7280'],
-            ['💰','Giá trung bình','425K','+5%',true,'#7C3AED'],
-            ['📈','Tồn kho (sp)','15,420','-820',true,'#3B82F6'],
-            ['🏷️','Đang khuyến mãi','24','+4',true,'#14B8A6']
-        ];
-        const ACTIVITY=[
-            {id:1,type:'SP mới',ref:'POLO-001',entity:'Áo Polo Basic Premium',amount:'295,000',status:'Đang bán',color:'green',time:'5 phút trước'},
-            {id:2,type:'SP hot',ref:'THUN-015',entity:'Áo Thun Cotton Compact',amount:'195,000',status:'Bán chạy',color:'red',time:'12 phút trước'},
-            {id:3,type:'SP hot',ref:'SOMI-008',entity:'Áo Sơ Mi Bamboo',amount:'395,000',status:'Sắp hết',color:'amber',time:'25 phút trước'},
-            {id:4,type:'SP mới',ref:'QUAN-022',entity:'Quần Tây Slimfit 2026',amount:'495,000',status:'Đang bán',color:'green',time:'1 giờ trước'},
-            {id:5,type:'SP KM',ref:'SHORT-007',entity:'Quần Short Kaki Khuyến Mãi',amount:'195,000',status:'Khuyến mãi',color:'purple',time:'2 giờ trước'},
-            {id:6,type:'SP hot',ref:'BTS-012',entity:'Bộ Thể Thao Nam Premium',amount:'595,000',status:'Bán chạy',color:'red',time:'3 giờ trước'},
-            {id:7,type:'SP cập nhật',ref:'POLO-002',entity:'Áo Polo Slimfit',amount:'345,000',status:'Đang bán',color:'green',time:'4 giờ trước'},
-            {id:8,type:'SP hết hàng',ref:'THUN-009',entity:'Áo Thun Limited Edition',amount:'250,000',status:'Hết hàng',color:'red',time:'5 giờ trước'},
-            {id:9,type:'SP KM',ref:'POLO-003-KM',entity:'Polo Basic -20%',amount:'236,000',status:'Khuyến mãi',color:'purple',time:'6 giờ trước'},
-            {id:10,type:'SP mới',ref:'BTS-013',entity:'Bộ Thể Thao Nữ',amount:'495,000',status:'Mới',color:'blue',time:'Hôm qua'},
-            {id:11,type:'SP cập nhật',ref:'SOMI-009',entity:'Sơ Mi Trắng Premium',amount:'425,000',status:'Đang bán',color:'green',time:'Hôm qua'},
-            {id:12,type:'SP hot',ref:'POLO-005',entity:'Polo Sport Edition 2026',amount:'385,000',status:'Bán chạy',color:'red',time:'Hôm qua'}
-        ];
-        let currentPage=1;const PAGE_SIZE=5;
-        function renderActivity(){
-            const pageRows=MiminBiz.paginateRows(ACTIVITY,currentPage,PAGE_SIZE);
-            MiminBiz.renderTable({container:document.querySelector('#activityTable'),emptyEl:'activityEmpty',columns:[
-                {key:'type',label:'Loại',render:r=>`<span class="cell-primary">${r.type}</span>`},
-                {key:'ref',label:'SKU',render:r=>r.ref},
-                {key:'entity',label:'Tên sản phẩm',cls:'wrap',render:r=>r.entity},
-                {key:'amount',label:'Giá bán',cls:'num',render:r=>r.amount==='—'?'—':r.amount+' đ'},
-                {key:'status',label:'Trạng thái',render:r=>`<span class="status-badge ${r.color}">${r.status}</span>`},
-                {key:'time',label:'Cập nhật',render:r=>`<span class="cell-sub">${r.time}</span>`}
-            ],rows:pageRows,onRowClick:row=>{MiminBiz.openModal({title:`${row.type} · ${row.ref}`,subtitle:row.entity,rows:[{label:'Giá bán',value:row.amount==='—'?'—':row.amount+' đ'},{label:'Trạng thái',value:row.status},{label:'Cập nhật',value:row.time}],actions:[{label:'Đóng',type:'secondary'},{label:'Xem chi tiết',type:'primary',onClick:()=>MiminShell.showToast(`↗ ${row.ref}`,'info','↗')}])})}});
-            MiminBiz.renderPagination({container:'activityPagination',total:ACTIVITY.length,pageSize:PAGE_SIZE,page:currentPage,onChange:p=>{currentPage=p;renderActivity();}});
-        }
-        function renderDateFilters(){const opts=['Hôm nay','Tuần này','Tháng này','Quý này'];const c=document.getElementById('dateFilters');opts.forEach((l,i)=>{const b=document.createElement('button');b.className='filter-btn'+(i===2?' active':'');b.textContent=l;b.onclick=()=>{c.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');MiminShell.showToast(`📅 ${l}`,'info','📅');};c.appendChild(b);});}
-        document.getElementById('quickAddBtn').onclick=()=>{MiminBiz.openModal({title:'+ Thêm sản phẩm',subtitle:'Chọn loại sản phẩm mới',bodyHtml:`<div style="display:flex;flex-direction:column;gap:8px;"><a href="#" class="btn-biz-outline" style="justify-content:flex-start;">👕 Áo Polo mới</a><a href="#" class="btn-biz-outline" style="justify-content:flex-start;">👔 Áo Sơ mi mới</a><a href="#" class="btn-biz-outline" style="justify-content:flex-start;">👖 Quần mới</a><a href="#" class="btn-biz-outline" style="justify-content:flex-start;">🏃 Bộ thể thao mới</a></div>`,actions:[{label:'Đóng',type:'secondary'}]});};
-        MiminShell.init({user:USER,navItems:NAV_ITEMS,notifications:NOTIFICATIONS,aiFloatMessage:'🧠 AI gợi ý:\n1. 8 SP bán chạy cần nhập thêm\n2. 12 SP sắp hết cần đặt MES\n3. 3 SP có thể tăng giá 10%',onNavClick:(item,el)=>{if(item.href&&item.href!=='#')return;document.querySelectorAll('.m-sidebar-nav a').forEach(a=>a.classList.remove('active'));el.classList.add('active');MiminShell.showToast(`🚧 ${item.label} đang xây dựng`,'info',item.icon);}});
-        renderDateFilters();MiminBiz.renderStatCards(STATS);renderActivity();
-    })();
-    </script>
+    </a>
+    <div class="nav-menu">
+        <a href="01-home.html">Trang chủ</a>
+        <a href="25-sales-san-pham.html" class="active">Sản phẩm</a>
+        <a href="#">Bộ sưu tập</a>
+        <a href="37-academy-dashboard.html">Khóa học</a>
+        <a href="33-ai-dashboard.html">Ứng dụng AI</a>
+        <a href="gallery.html">Phần mềm ERP</a>
+        <a href="#">Tin tức</a>
+        <a href="#">Liên hệ</a>
+    </div>
+    <div class="nav-actions">
+        <button class="nav-icon" title="Tìm kiếm">🔍</button>
+        <div class="cart-wrap">
+            <button class="nav-icon" title="Giỏ hàng">🛒<span class="cart-dot">2</span></button>
+        </div>
+        <button class="btn-login" onclick="location.href='login.html'">Đăng nhập</button>
+    </div>
+</nav>
+
+<!-- HERO BANNER -->
+<section class="hero-banner">
+    <div class="hero-content">
+        <div class="hero-brand">POLOMIMIN</div>
+        <h1 class="hero-title">ĐẲNG CẤP<br>PHÁI MẠNH</h1>
+        <p class="hero-sub">Thời trang nam cao cấp – <span>Thiết kế tinh tế</span><br>dành cho người đàn ông hiện đại</p>
+        <div class="hero-btns">
+            <button class="btn-gold">🛍️ Mua ngay</button>
+            <button class="btn-outline" onclick="location.href='01-home.html'">Khám phá bộ sưu tập →</button>
+        </div>
+        <div class="hero-badges">
+            <div class="h-badge">✔️ Chất liệu cao cấp</div>
+            <div class="h-badge">✔️ Thiết kế độc quyền</div>
+            <div class="h-badge">✔️ Đổi trả dễ dàng</div>
+            <div class="h-badge">✔️ Giao hàng toàn quốc</div>
+        </div>
+    </div>
+    <div class="hero-img">
+        <img src="assets/images/coll_premium.png" alt="POLOMIMIN Hero"
+             onerror="this.parentElement.style.background='linear-gradient(135deg,#1a3a5c,#0a1628)'">
+    </div>
+    <div class="hero-promo">
+        <div class="promo-label">ƯU ĐÃI HÔM NAY</div>
+        <div class="promo-up">UP TO</div>
+        <div class="promo-pct">30%</div>
+        <div class="promo-off">OFF</div>
+        <div class="promo-note">Miễn phí giao hàng<br>cho đơn từ 500K</div>
+        <button class="btn-promo">Xem ngay →</button>
+    </div>
+</section>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <a href="01-home.html">Trang chủ</a>
+    <span>›</span>
+    <span>Sản phẩm</span>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content-wrap">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-title">DANH MỤC</div>
+        <div class="cat-item active" onclick="filterCat(this,'all')"><span class="cat-icon">👕</span> Áo Polo</div>
+        <div class="cat-item" onclick="filterCat(this,'thun')"><span class="cat-icon">👔</span> Áo Thun</div>
+        <div class="cat-item" onclick="filterCat(this,'somi')"><span class="cat-icon">🔵</span> Áo Sơ Mì</div>
+        <div class="cat-item" onclick="filterCat(this,'quan')"><span class="cat-icon">👖</span> Quần</div>
+        <div class="cat-item" onclick="filterCat(this,'sport')"><span class="cat-icon">🏃</span> Bộ thể thao</div>
+        <div class="cat-item" onclick="filterCat(this,'dolot')"><span class="cat-icon">🩳</span> Đồ lót</div>
+        <div class="cat-item" onclick="filterCat(this,'phukien')"><span class="cat-icon">🧢</span> Phụ kiện</div>
+
+        <div class="sidebar-title">BỘ LỌC</div>
+        <div style="font-size:0.75rem; font-weight:600; color:var(--gray-600); margin-bottom:8px;">Khoảng giá</div>
+        <div class="price-range">
+            <input type="range" min="0" max="1000000" value="1000000" id="priceRange">
+            <div class="price-labels"><span>0đ</span><span id="priceVal">1.000.000đ+</span></div>
+        </div>
+
+        <div style="font-size:0.75rem; font-weight:600; color:var(--gray-600); margin-bottom:4px; margin-top:16px;">Màu sắc</div>
+        <div class="color-filters">
+            <div class="color-swatch active" style="background:#111827" title="Đen"></div>
+            <div class="color-swatch" style="background:#1d4ed8" title="Xanh navy"></div>
+            <div class="color-swatch" style="background:#fff; border-color:#e5e7eb" title="Trắng"></div>
+            <div class="color-swatch" style="background:#6b7280" title="Xám"></div>
+            <div class="color-swatch" style="background:#65a30d" title="Xanh lá"></div>
+            <div class="color-swatch" style="background:#b45309" title="Nâu"></div>
+            <div class="color-swatch" style="background:#dc2626" title="Đỏ"></div>
+        </div>
+
+        <div style="font-size:0.75rem; font-weight:600; color:var(--gray-600); margin-bottom:4px; margin-top:16px;">Kích cỡ</div>
+        <div class="size-filters">
+            <button class="size-btn">S</button>
+            <button class="size-btn active">M</button>
+            <button class="size-btn active">L</button>
+            <button class="size-btn">XL</button>
+            <button class="size-btn">2XL</button>
+            <button class="size-btn">3XL</button>
+        </div>
+    </aside>
+
+    <!-- PRODUCTS -->
+    <div class="products-area">
+        <div class="products-header">
+            <div>
+                <div class="products-title">SẢN PHẨM</div>
+                <div class="products-count">Hiển thị 385 sản phẩm</div>
+            </div>
+            <div class="sort-wrap">
+                <span class="sort-label">Sắp xếp:</span>
+                <select class="sort-select">
+                    <option>Mới nhất</option>
+                    <option>Bán chạy</option>
+                    <option>Giá tăng dần</option>
+                    <option>Giá giảm dần</option>
+                </select>
+                <div class="view-btns">
+                    <button class="view-btn active">⊞</button>
+                    <button class="view-btn">☰</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- ROW 1 -->
+            <div class="prod-card" onclick="">
+                <div class="prod-img-wrap">
+                    <img src="assets/images/prod_polo_basic.png" alt="Áo Polo Basic"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>👕</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Áo Polo Basic</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">295.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★★</span> 4.9 <span>(128)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#111827"></div>
+                            <div class="pc-dot" style="background:#1d4ed8"></div>
+                            <div class="pc-dot" style="background:#fff;border-color:#ccc"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prod-card">
+                <div class="prod-img-wrap">
+                    <span class="prod-badge badge-new">Mới</span>
+                    <img src="assets/images/coll_summer.png" alt="Áo Polo Premium"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>👕</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Áo Polo Premium</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">375.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★★</span> 4.9 <span>(95)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#111827"></div>
+                            <div class="pc-dot" style="background:#0d9488"></div>
+                            <div class="pc-dot" style="background:#1d4ed8"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prod-card">
+                <div class="prod-img-wrap">
+                    <span class="prod-badge badge-sale">-15%</span>
+                    <img src="assets/images/prod_thun_cotton.png" alt="Áo Polo Luxury"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>👔</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Áo Polo Luxury</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">382.500đ</span>
+                        <span class="prod-old-price">450.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★☆</span> 4.8 <span>(76)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#111827"></div>
+                            <div class="pc-dot" style="background:#374151"></div>
+                            <div class="pc-dot" style="background:#fff;border-color:#ccc"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prod-card">
+                <div class="prod-img-wrap">
+                    <img src="assets/images/prod_so_mi.png" alt="Áo Polo Bamboo"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>🔵</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Áo Polo Bamboo</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">345.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★☆</span> 4.9 <span>(64)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#d4a843"></div>
+                            <div class="pc-dot" style="background:#6b7280"></div>
+                            <div class="pc-dot" style="background:#1d4ed8"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="prod-card">
+                <div class="prod-img-wrap">
+                    <span class="prod-badge badge-new">Mới</span>
+                    <img src="assets/images/coll_office.png" alt="Áo Sơ Mi Slim"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>👔</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Áo Sơ Mi SlimFit</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">395.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★★</span> 4.8 <span>(52)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#bfdbfe"></div>
+                            <div class="pc-dot" style="background:#fff;border-color:#ccc"></div>
+                            <div class="pc-dot" style="background:#374151"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prod-card">
+                <div class="prod-img-wrap">
+                    <img src="assets/images/prod_quan_tay.png" alt="Quần Tây SlimFit"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>👖</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Quần Tây SlimFit</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">495.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★★</span> 4.9 <span>(88)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#1e293b"></div>
+                            <div class="pc-dot" style="background:#374151"></div>
+                            <div class="pc-dot" style="background:#92400e"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prod-card">
+                <div class="prod-img-wrap">
+                    <span class="prod-badge badge-sale">-10%</span>
+                    <img src="assets/images/prod_quan_short.png" alt="Quần Short Kaki"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>🩳</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Quần Short Kaki</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">265.000đ</span>
+                        <span class="prod-old-price">295.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★☆</span> 4.7 <span>(43)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#ca8a04"></div>
+                            <div class="pc-dot" style="background:#111"></div>
+                            <div class="pc-dot" style="background:#6b7280"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prod-card">
+                <div class="prod-img-wrap">
+                    <img src="assets/images/prod_the_thao.png" alt="Bộ Thể Thao"
+                         onerror="this.parentElement.innerHTML='<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>🏃</div>'">
+                    <button class="prod-wishlist">♡</button>
+                </div>
+                <div class="prod-body">
+                    <div class="prod-name">Bộ Thể Thao Nam</div>
+                    <div class="prod-price-row">
+                        <span class="prod-price">595.000đ</span>
+                    </div>
+                    <div class="prod-rating"><span class="stars">★★★★★</span> 5.0 <span>(31)</span></div>
+                    <div class="prod-bottom">
+                        <div class="prod-colors">
+                            <div class="pc-dot" style="background:#111"></div>
+                            <div class="pc-dot" style="background:#1d4ed8"></div>
+                        </div>
+                        <button class="add-cart">🛒</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+    <div class="trust-grid">
+        <div class="trust-item"><div class="trust-icon">🚚</div><div><div class="trust-title">MIỄN PHÍ GIAO HÀNG</div><div class="trust-sub">Đơn từ 500K</div></div></div>
+        <div class="trust-item"><div class="trust-icon">🔄</div><div><div class="trust-title">ĐỔI TRẢ DỄ DÀNG</div><div class="trust-sub">Trong 7 ngày</div></div></div>
+        <div class="trust-item"><div class="trust-icon">🔒</div><div><div class="trust-title">THANH TOÁN AN TOÀN</div><div class="trust-sub">Đa dạng phương thức</div></div></div>
+        <div class="trust-item"><div class="trust-icon">🎧</div><div><div class="trust-title">TƯ VẤN 24/7</div><div class="trust-sub">Hỗ trợ nhanh chóng</div></div></div>
+    </div>
+</div>
+
+<footer>© 2026 <strong>POLOMIMIN</strong> — Thời trang nam cao cấp | Dệt May Giàu Sang · MST: 0318507560</footer>
+
+<script>
+function filterCat(el, cat) {
+    document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+}
+document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.classList.toggle('active'));
+});
+document.querySelectorAll('.color-swatch').forEach(sw => {
+    sw.addEventListener('click', () => {
+        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+    });
+});
+document.getElementById('priceRange').addEventListener('input', function() {
+    const val = parseInt(this.value);
+    document.getElementById('priceVal').textContent = val >= 1000000 ? '1.000.000đ+' : val.toLocaleString('vi') + 'đ';
+});
+</script>
 </body>
 </html>
