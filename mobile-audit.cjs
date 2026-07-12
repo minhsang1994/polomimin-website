@@ -50,6 +50,8 @@ const viewports = [
                             width: mainStyle.width
                         } : null,
                         bodyWidth: body.scrollWidth,
+                        bodyOverflowX: getComputedStyle(body).overflowX,
+                        htmlOverflowX: getComputedStyle(document.documentElement).overflowX,
                         hasHorizontalScroll: body.scrollWidth > window.innerWidth,
                         menuToggleVisible: (() => {
                             const btn = document.querySelector('.m-header .menu-toggle');
@@ -62,19 +64,29 @@ const viewports = [
 
                 const isMobile = vp.width <= 768;
                 if (isMobile && checks.sidebar) {
-                    // Sidebar is hidden if: position=fixed AND transform is translateX OR matrix with negative x
+                    // Sidebar is hidden if: transform moves it offscreen
                     const t = checks.sidebar.transform;
-                    const isHidden = t.includes('translateX') ||
-                                     (t.includes('matrix') && parseFloat(t.match(/matrix\(([^,]+)/)?.[1] || 1) > 0 && parseFloat(t.match(/,\s*(-?[\d.]+)/)?.[1] || 0) < -50);
+                    let isHidden = t.includes('translateX') && t.includes('-');
+                    // matrix(a, b, c, d, e, f) - e is x translation
+                    const matrixMatch = t.match(/matrix\(([^)]+)\)/);
+                    if (!isHidden && matrixMatch) {
+                        const parts = matrixMatch[1].split(',').map(s => parseFloat(s.trim()));
+                        const e = parts[4]; // x translation
+                        isHidden = e < -50; // moved left offscreen
+                    }
                     if (checks.sidebar.position === 'fixed' && !isHidden) {
                         issues.push('Sidebar visible on mobile (should be hidden)');
                     }
                 }
+
+                // Body horizontal scroll: only counts if overflow is visible
+                const bodyOvf = checks.bodyOverflowX || '?';
+                const htmlOvf = checks.htmlOverflowX || '?';
+                if (checks.hasHorizontalScroll && bodyOvf !== 'hidden' && htmlOvf !== 'hidden') {
+                    issues.push(`H-scroll visible (body=${checks.bodyWidth}px, bodyOvf=${bodyOvf}, htmlOvf=${htmlOvf})`);
+                }
                 if (isMobile && checks.menuToggleVisible === false) {
                     issues.push('Menu toggle not visible on mobile');
-                }
-                if (checks.hasHorizontalScroll) {
-                    issues.push(`Horizontal scroll (body ${checks.bodyWidth}px > viewport ${vp.width}px)`);
                 }
 
                 results.push({
