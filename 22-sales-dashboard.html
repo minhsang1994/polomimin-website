@@ -1,154 +1,324 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tổng quan Sales - POLOMIMIN Sales</title>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Sales Dashboard</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        /* POLOMIMIN Sales - red theme */
+        :root {
+            --primary: #DC2626;
+            --primary-dark: #B91C1C;
+            --primary-light: #EF4444;
+            --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+            --teal: #14B8A6;
+            --teal-light: #5EEAD4;
+        }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+    </style>
 </head>
+
 <body>
-    <div class="app-shell">
-        <aside class="app-sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">P</div>
-                <div class="sidebar-logo-text">
-                    <h2>POLOMIMIN</h2>
-                    <p>Sales</p>
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div>
+            <div class="logo-text">POLOMIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main" id="mainContent">
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm đơn hàng, khách hàng..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+            </div>
+        </header>
+
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="01-home.html">🏠 Hub</a>
+            <span class="separator">›</span>
+            <span class="current">💰 Sales Dashboard</span>
+        </nav>
+
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">💰 Sales Dashboard</div>
+                <div class="bph-subtitle">Tổng quan bán hàng đa kênh — Sỉ, Lẻ, Online, Đại lý</div>
+            </div>
+            <div class="bph-actions">
+                <div class="biz-filters" id="dateFilters"></div>
+            </div>
+        </div>
+
+        <div class="biz-stat-grid" id="statGrid"></div>
+
+        <div class="quick-grid">
+            <div class="quick-card">
+                <h4>🛒 Đơn hàng</h4>
+                <div class="qc-links">
+                    <a href="23-sales-don-hang.html">📋 Tất cả đơn hàng <span>›</span></a>
+                    <a href="24-sales-khach-hang.html">👥 Khách hàng <span>›</span></a>
+                    <a href="25-sales-san-pham.html">👕 Sản phẩm <span>›</span></a>
                 </div>
             </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li class="sidebar-section">Sales</li>
-                <li class="sidebar-nav-item"><a href="22-sales-dashboard.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Tổng quan</a></li>
-                <li class="sidebar-nav-item"><a href="23-sales-don-hang.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Đơn hàng</a></li>
-                <li class="sidebar-nav-item"><a href="24-sales-khach-hang.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Khách hàng</a></li>
-                <li class="sidebar-nav-item"><a href="25-sales-san-pham.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Sản phẩm</a></li>
-                <li class="sidebar-nav-item"><a href="26-sales-kho-thanh-pham.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Kho TP</a></li>
-                <li class="sidebar-nav-item"><a href="27-sales-van-chuyen.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Vận chuyển</a></li>
-                <li class="sidebar-nav-item"><a href="28-sales-thanh-toan.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Thanh toán</a></li>
-                <li class="sidebar-nav-item"><a href="29-sales-kenh-ban.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Kênh bán</a></li>
-                <li class="sidebar-section">Liên kết</li>
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-th-large"></i> Tất cả modules</a></li>
-                <li class="sidebar-nav-item"><a href="login.html" class="sidebar-nav-link"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
-            </ul>
-        </aside>
-        <main class="app-main">
-            <div class="app-topbar">
-                <div>
-                    <h1>Tổng quan Sales</h1>
-                    <p>Doanh số, đơn hàng đa kênh</p>
-                </div>
-                <div class="topbar-actions">
-                    <button class="btn-icon"><i class="fas fa-search"></i></button>
-                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm mới</button>
+            <div class="quick-card">
+                <h4>📦 Kho & Vận chuyển</h4>
+                <div class="qc-links">
+                    <a href="26-sales-kho-thanh-pham.html">📦 Kho thành phẩm <span>›</span></a>
+                    <a href="27-sales-van-chuyen.html">🚚 Vận chuyển <span>›</span></a>
+                    <a href="28-sales-thanh-toan.html">💳 Thanh toán <span>›</span></a>
                 </div>
             </div>
-            <div class="module-header" style="background: linear-gradient(135deg, #DC2626, #B91C1C);">
-                <div class="module-header-left">
-                    <div class="module-header-icon"><i class="fas fa-cash-register"></i></div>
-                    <div>
-                        <h1>Sales - Tổng quan Sales</h1>
-                        <p>Quản lý bán hàng</p>
-                    </div>
-                </div>
-                <button class="btn" style="background: rgba(255,255,255,0.2); color: white;"><i class="fas fa-download"></i> Xuất báo cáo</button>
-            </div>
-            <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #DC262620; color: #DC2626;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Doanh số tháng</div>
-                <div class="kpi-value">8.2 tỷ</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +22%</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #F59E0B20; color: #F59E0B;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Đơn hàng</div>
-                <div class="kpi-value">1,420</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +15%</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #10B98120; color: #10B981;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Đại lý active</div>
-                <div class="kpi-value">385</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +8</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #8B5CF620; color: #8B5CF6;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Công nợ</div>
-                <div class="kpi-value">2.1 tỷ</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> -5%</div>
-            </div>
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Hoạt động gần đây</div>
-                            <div class="card-subtitle">Cập nhật 5 phút trước</div>
-                        </div>
-                        <a href="#" class="btn btn-secondary">Xem tất cả</a>
-                    </div>
-                    <div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-plus"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đơn hàng mới #8073</div>
-                                <div class="list-item-subtitle">2 phút trước • 5,250,000đ</div>
-                            </div>
-                            <span class="badge badge-success">Mới</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-check"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đã xử lý #8444</div>
-                                <div class="list-item-subtitle">15 phút trước • POLOMIMIN HCM</div>
-                            </div>
-                            <span class="badge badge-info">Xong</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-exclamation"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cảnh báo tồn kho</div>
-                                <div class="list-item-subtitle">1 giờ trước • SKU POLO-001</div>
-                            </div>
-                            <span class="badge badge-warning">Cảnh báo</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-sync"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cập nhật trạng thái</div>
-                                <div class="list-item-subtitle">2 giờ trước • Lệnh SX #662</div>
-                            </div>
-                            <span class="badge badge-info">Cập nhật</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Danh sách mới nhất</div>
-                            <div class="card-subtitle">Top 5 bản ghi gần đây</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Mã</th><th>Tên</th><th>Trạng thái</th><th>Giá trị</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>0G43NI</td><td>POLOMIMIN Polo Basic</td><td><span class="badge badge-success">Hoạt động</span></td><td>295,000đ</td></tr>
-                            <tr><td>C32ZY7</td><td>POLOMIMIN Thun Cotton</td><td><span class="badge badge-success">Hoạt động</span></td><td>195,000đ</td></tr>
-                            <tr><td>8LS8I6</td><td>POLOMIMIN Sơ Mi Bamboo</td><td><span class="badge badge-warning">Sắp hết</span></td><td>395,000đ</td></tr>
-                            <tr><td>35VGXB</td><td>POLOMIMIN Quần Tây</td><td><span class="badge badge-success">Hoạt động</span></td><td>495,000đ</td></tr>
-                            <tr><td>HDTBVK</td><td>POLOMIMIN Bộ thể thao</td><td><span class="badge badge-info">Mới</span></td><td>595,000đ</td></tr>
-                        </tbody>
-                    </table>
+            <div class="quick-card">
+                <h4>🌐 Kênh bán & Báo cáo</h4>
+                <div class="qc-links">
+                    <a href="29-sales-kenh-ban.html">🌐 Kênh bán hàng <span>›</span></a>
+                    <a href="07-erp-bao-cao.html">📈 Báo cáo doanh thu <span>›</span></a>
                 </div>
             </div>
-        </main>
+            <div class="quick-card">
+                <h4>🏭 Modules khác</h4>
+                <div class="qc-links">
+                    <a href="01-home.html">🏠 Về Hub chính <span>›</span></a>
+                    <a href="02-erp-dashboard.html">📊 ERP Dashboard <span>›</span></a>
+                    <a href="06-wms-dashboard.html">📦 WMS Kho <span>›</span></a>
+                    <a href="04-mes-dashboard.html">⚙️ MES Sản xuất <span>›</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="biz-page-header" style="margin-top: 24px;">
+            <div>
+                <div class="bph-title" style="font-size:18px;">🕰️ Hoạt động bán hàng gần đây</div>
+                <div class="bph-subtitle">Cập nhật real-time từ các kênh bán POLOMIMIN</div>
+            </div>
+        </div>
+
+        <div class="data-table-wrap">
+            <table class="data-table" id="activityTable">
+                <thead><tr></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="biz-empty" id="activityEmpty" style="display:none;">
+            <div class="be-icon">📭</div>
+            <h3>Chưa có hoạt động nào</h3>
+            <p>Hoạt động bán hàng sẽ xuất hiện tại đây.</p>
+        </div>
+        <div class="pagination" id="activityPagination"></div>
+
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
+            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI Gợi ý hôm nay · <strong>5 lead nóng cần chốt</strong></span>
+    </button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tạo đơn nhanh" title="Tạo đơn nhanh">+</button>
+
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
+            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
     </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+
+            const NAV_ITEMS = [
+                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
+                { section: 'Bán hàng' },
+                { icon: '💰', label: 'Sales Dashboard', href: '22-sales-dashboard.html', active: true, badge: '' },
+                { icon: '📋', label: 'Đơn hàng', href: '23-sales-don-hang.html', active: false, badge: '12' },
+                { icon: '👥', label: 'Khách hàng', href: '24-sales-khach-hang.html', active: false, badge: '' },
+                { icon: '👕', label: 'Sản phẩm', href: '25-sales-san-pham.html', active: false, badge: '' },
+                { icon: '📦', label: 'Kho thành phẩm', href: '26-sales-kho-thanh-pham.html', active: false, badge: '' },
+                { icon: '🚚', label: 'Vận chuyển', href: '27-sales-van-chuyen.html', active: false, badge: '5' },
+                { icon: '💳', label: 'Thanh toán', href: '28-sales-thanh-toan.html', active: false, badge: '' },
+                { icon: '🌐', label: 'Kênh bán', href: '29-sales-kenh-ban.html', active: false, badge: '' },
+                { section: 'Modules khác' },
+                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: '📦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: '🤖', label: 'AI Center', href: '25-ai-dashboard.html', active: false, badge: '' },
+                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '🛒', title: 'Đơn sỉ #SO-4521 từ Đại lý Hà Nội vừa được duyệt', time: '5 phút trước' },
+                { icon: '🎯', title: '5 lead nóng cần liên hệ hôm nay', time: '15 phút trước' },
+                { icon: '🚚', title: 'Đơn #SO-4498 đang giao, ETA 2 giờ', time: '1 giờ trước' },
+                { icon: '💳', title: 'Thanh toán 85 triệu từ Đại lý Miền Tây', time: '2 giờ trước' }
+            ];
+
+            const STATS = [
+                { icon: '💰', label: 'Doanh số tháng', value: '8.2 tỷ', change: '+22%', up: true },
+                { icon: '📋', label: 'Tổng đơn hàng', value: '1,420', change: '+15%', up: true },
+                { icon: '🛒', label: 'Đơn mới hôm nay', value: '47', change: '+12', up: true },
+                { icon: '👥', label: 'Đại lý active', value: '385', change: '+8', up: true },
+                { icon: '💳', label: 'Công nợ phải thu', value: '2.1 tỷ', change: '-5%', up: true },
+                { icon: '🎯', label: 'Tỷ lệ chốt deal', value: '34%', change: '+2%', up: true },
+                { icon: '⏳', label: 'Đơn chờ xử lý', value: '28', change: '-4', up: true },
+                { icon: '📈', label: 'TB doanh số/đơn', value: '5.8tr', change: '+8%', up: true }
+            ];
+
+            const ACTIVITY = [
+                { id: 1, type: 'Đơn sỉ', ref: 'SO-4521', entity: 'Đại lý Anh Tuấn - Hà Nội', amount: '120,000,000', status: 'Đã duyệt', color: 'green', time: '5 phút trước' },
+                { id: 2, type: 'Đơn lẻ online', ref: 'SO-4520', entity: 'Nguyễn Văn A (Zalo OA)', amount: '850,000', status: 'Mới', color: 'blue', time: '12 phút trước' },
+                { id: 3, type: 'Đơn Zalo', ref: 'SO-4519', entity: 'Shopee POLOMIMIN Official', amount: '3,200,000', status: 'Đang giao', color: 'amber', time: '25 phút trước' },
+                { id: 4, type: 'Lead nóng', ref: 'LD-1102', entity: 'Cty TNHH May Mặc Hoàng Gia', amount: '500,000,000', status: 'Mới', color: 'blue', time: '1 giờ trước' },
+                { id: 5, type: 'Thanh toán', ref: 'PM-0885', entity: 'Đại lý Miền Tây', amount: '85,000,000', status: 'Hoàn tất', color: 'green', time: '2 giờ trước' },
+                { id: 6, type: 'Xuất kho', ref: 'XK-0445', entity: 'Chi nhánh POLOMIMIN Cần Thơ', amount: '45,000,000', status: 'Hoàn tất', color: 'green', time: '3 giờ trước' },
+                { id: 7, type: 'Đơn sỉ', ref: 'SO-4518', entity: 'Cửa hàng Thời Trang Việt', amount: '78,000,000', status: 'Đã duyệt', color: 'green', time: '4 giờ trước' },
+                { id: 8, type: 'Lead mới', ref: 'LD-1101', entity: 'Chuỗi 50 cửa hàng Sài Gòn Co.op', amount: '—', status: 'Đàm phán', color: 'purple', time: '5 giờ trước' },
+                { id: 9, type: 'Trả hàng', ref: 'RT-0034', entity: 'Khách lẻ - sai size', amount: '650,000', status: 'Đang xử lý', color: 'amber', time: '6 giờ trước' },
+                { id: 10, type: 'Đơn sỉ', ref: 'SO-4517', entity: 'Đại lý Bắc Ninh', amount: '156,000,000', status: 'Đã duyệt', color: 'green', time: 'Hôm qua' },
+                { id: 11, type: 'Vận chuyển', ref: 'VC-0298', entity: 'GHN Express - HCM → HN', amount: '12,000,000', status: 'Đang giao', color: 'amber', time: 'Hôm qua' },
+                { id: 12, type: 'Đơn Zalo', ref: 'SO-4516', entity: 'Khách lẻ Zalo POLOMIMIN', amount: '1,250,000', status: 'Hoàn tất', color: 'green', time: 'Hôm qua' }
+            ];
+
+            let currentPage = 1;
+            const PAGE_SIZE = 5;
+
+            function renderActivity() {
+                const pageRows = MiminBiz.paginateRows(ACTIVITY, currentPage, PAGE_SIZE);
+                MiminBiz.renderTable({
+                    container: document.querySelector('#activityTable'),
+                    emptyEl: 'activityEmpty',
+                    columns: [
+                        { key: 'type', label: 'Loại', render: r => `<span class="cell-primary">${r.type}</span>` },
+                        { key: 'ref', label: 'Mã', render: r => r.ref },
+                        { key: 'entity', label: 'Đối tượng', cls: 'wrap', render: r => r.entity },
+                        { key: 'amount', label: 'Giá trị', cls: 'num', render: r => r.amount === '—' ? '—' : r.amount + ' đ' },
+                        { key: 'status', label: 'Trạng thái', render: r => `<span class="status-badge ${r.color}">${r.status}</span>` },
+                        { key: 'time', label: 'Thời gian', render: r => `<span class="cell-sub">${r.time}</span>` }
+                    ],
+                    rows: pageRows,
+                    onRowClick: (row) => {
+                        MiminBiz.openModal({
+                            title: `${row.type} · ${row.ref}`,
+                            subtitle: row.entity,
+                            rows: [
+                                { label: 'Giá trị', value: row.amount === '—' ? '—' : row.amount + ' đ' },
+                                { label: 'Trạng thái', value: row.status },
+                                { label: 'Thời gian', value: row.time }
+                            ],
+                            actions: [
+                                { label: 'Đóng', type: 'secondary' },
+                                { label: 'Mở chi tiết', type: 'primary', onClick: () => MiminShell.showToast(`↗ Mở chi tiết ${row.ref}`, 'info', '↗') }
+                            ]
+                        });
+                    }
+                });
+                MiminBiz.renderPagination({
+                    container: 'activityPagination',
+                    total: ACTIVITY.length,
+                    pageSize: PAGE_SIZE,
+                    page: currentPage,
+                    onChange: (p) => { currentPage = p; renderActivity(); }
+                });
+            }
+
+            function renderDateFilters() {
+                const options = ['Hôm nay', 'Tuần này', 'Tháng này', 'Quý này'];
+                const container = document.getElementById('dateFilters');
+                options.forEach((label, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn' + (i === 2 ? ' active' : '');
+                    btn.textContent = label;
+                    btn.addEventListener('click', () => {
+                        container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        MiminShell.showToast(`📅 Xem theo: ${label}`, 'info', '📅');
+                    });
+                    container.appendChild(btn);
+                });
+            }
+
+            document.getElementById('quickAddBtn').addEventListener('click', () => {
+                MiminBiz.openModal({
+                    title: '+ Tạo nhanh',
+                    subtitle: 'Chọn loại cần tạo',
+                    bodyHtml: `
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <a href="23-sales-don-hang.html" class="btn-biz-outline" style="justify-content:flex-start;">🛒 Đơn hàng mới</a>
+                            <a href="24-sales-khach-hang.html" class="btn-biz-outline" style="justify-content:flex-start;">👥 Khách hàng mới</a>
+                            <a href="29-sales-kenh-ban.html" class="btn-biz-outline" style="justify-content:flex-start;">🌐 Thêm kênh bán</a>
+                            <a href="27-sales-van-chuyen.html" class="btn-biz-outline" style="justify-content:flex-start;">🚚 Tạo vận đơn</a>
+                        </div>
+                    `,
+                    actions: [{ label: 'Đóng', type: 'secondary' }]
+                });
+            });
+
+            MiminShell.init({
+                user: USER,
+                navItems: NAV_ITEMS,
+                notifications: NOTIFICATIONS,
+                aiFloatMessage: '🧠 AI Gợi ý hôm nay (POLOMIMIN Sales):\n1. 5 lead nóng cần liên hệ\n2. 12 đơn chờ xử lý quá 24h\n3. Cơ hội lớn 500tr từ Hoàng Gia\n4. 3 khách VIP sắp hết hạn chiết khấu',
+                onNavClick: (item, el) => {
+                    if (item.href && item.href !== '#') return;
+                    document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                }
+            });
+
+            renderDateFilters();
+            MiminBiz.renderStatCards(STATS);
+            renderActivity();
+
+            console.log('✅ POLOMIMIN Sales Dashboard initialized.');
+        })();
+    </script>
 </body>
 </html>
