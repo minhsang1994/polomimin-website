@@ -35,3 +35,8 @@ generate_pages.*
 generate-pages.*
 copy_reference.cjs
 copy_assets.cjs
+
+# Firebase Admin SDK service account key (chứa private key - KHÔNG COMMIT)
+serviceAccountKey.json
+service-account*.json
+*-firebase-adminsdk-*.json

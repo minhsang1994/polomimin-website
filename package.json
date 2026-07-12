@@ -16,6 +16,7 @@
   ],
   "author": "POLOMIMIN Team",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "firebase-admin": "^14.1.0"
+  }
 }
