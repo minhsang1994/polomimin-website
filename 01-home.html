@@ -408,6 +408,7 @@
 
         /* ====== MOBILE RESPONSIVE (Hub Home) ====== */
         @media (max-width: 768px) {
+            html, body { overflow-x: hidden !important; max-width: 100vw !important; }
             .navbar {
                 padding: 0 16px;
                 height: 56px;
@@ -422,10 +423,20 @@
             .topbar { font-size: 10px; padding: 5px 12px; }
             .topbar span { display: inline; }
             .hero { min-height: 70vh !important; }
+            .hero-slider-wrap { width: 100% !important; max-width: 100vw !important; }
             .hero-slide, .hero-slide img, .hero-banner img, section img {
                 max-width: 100% !important;
                 height: auto !important;
             }
+            /* Categories grid: wrap to multiple rows */
+            .cat-grid, [class*="cat"]:not(.cat-item) {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 8px !important;
+                max-width: 100% !important;
+            }
+            .cat-item { min-width: 0 !important; }
+            .cat-img { height: 60px !important; }
             .section-title { font-size: 1.4rem !important; }
             .section { padding: 40px 16px !important; }
             .container, .grid, [class*="grid-"] {
@@ -436,6 +447,11 @@
                 width: 100% !important;
                 max-width: 100% !important;
             }
+            .hero-text, .hero-content { padding: 0 20px !important; }
+            .hero-text h1, .hero h1 { font-size: 1.8rem !important; }
+            .hero-text p, .hero p { font-size: 0.9rem !important; }
+            .h-stats { flex-wrap: wrap !important; }
+            .h-stat-num { font-size: 1.2rem !important; }
             footer { padding: 30px 16px 16px !important; }
         }
     </style>
