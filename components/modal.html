@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Component - POLOMIMIN</title>
+</head>
+<body>
+    <div id="modal-container"></div>
+    <script>
+    // Modal component dùng chung cho POLOMIMIN
+    function showModal({ title, content, onConfirm, onCancel }) {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>${title}</h3>
+                <div>${content}</div>
+                <div class="modal-actions">
+                    <button class="modal-cancel">Hủy</button>
+                    <button class="modal-confirm">Xác nhận</button>
+                </div>
+            </div>
+        `;
+        document.getElementById('modal-container').appendChild(modal);
+        modal.querySelector('.modal-cancel').onclick = () => { modal.remove(); if (onCancel) onCancel(); };
+        modal.querySelector('.modal-confirm').onclick = () => { modal.remove(); if (onConfirm) onConfirm(); };
+    }
+    window.showModal = showModal;
+    </script>
+</body>
+</html>

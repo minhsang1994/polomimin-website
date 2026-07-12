@@ -1,0 +1,21 @@
+{
+  "name": "polomimin-erp",
+  "version": "1.0.0",
+  "description": "POLOMIMIN - Hệ thống quản lý doanh nghiệp",
+  "main": "index.html",
+  "scripts": {
+    "start": "firebase serve",
+    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting"
+  },
+  "keywords": [
+    "polomimin",
+    "erp",
+    "fashion",
+    "thoi-trang"
+  ],
+  "author": "POLOMIMIN Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
