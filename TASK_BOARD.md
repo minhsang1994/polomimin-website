@@ -9,11 +9,14 @@
 
 ## 📋 Tổng quan phân chia
 
-| AI | Module | Số trang | Màu chủ đạo | Status |
-|---|---|---|---|---|
-| 🤖 **Claude** | MES (Sản xuất) | 10 | `#2563EB` (xanh dương) | ⏳ Pending |
-| 🤖 **MiniMax** | WMS (Kho) + HR (Nhân sự) | 6+7=13 | WMS `#16A34A` / HR `#EA580C` | ⏳ Pending |
-| 🤖 **Antigravity** | AI Center + Academy + Hub/Common | 4+3+5=12 | AI `#7C3AED` / Academy `#0891B2` | ⏳ Pending |
+| Ưu tiên | AI | Module | Số trang | Màu chủ đạo | Status |
+|---|---|---|---|---|---|
+| 🥇 **#1** | 🤖 **Claude** | MES (Sản xuất) | 10 | `#2563EB` (xanh dương) | ✅ **Done** (commit `584dd15`) |
+| 🥈 **#2** | 🤖 **MiniMax** | WMS (Kho) + HR (Nhân sự) | 6+7=13 | WMS `#16A34A` / HR `#EA580C` | ⏳ Pending |
+| 🥉 **#3** | 🤖 **Antigravity** | AI Center + Academy + Hub/Common | 4+3+5=12 | AI `#7C3AED` / Academy `#0891B2` | 🔄 85% (6/7 done) |
+
+> **Thứ tự review (Mavis):** MES → WMS+HR → AI+Academy+Common
+> **Tiến độ tổng:** 17/47 trang done (36%)
 
 ---
 
@@ -267,6 +270,28 @@ favicon.svg
 4. **Trước khi push, pull main về** để tránh conflict
 5. **Test trên Chrome local** trước khi commit
 6. **Responsive bắt buộc** — mobile + tablet + desktop
+
+## 🔌 PHÂN VAI HẠ TẦNG
+
+| Hạ tầng | Phụ trách | Trạng thái |
+|---|---|---|
+| ☁️ **Cloudflare DNS** (polomimin.shop) | 🤖 **Mavis** | ✅ Xong |
+| 🐙 **GitHub push** (mỗi module) | Mỗi AI tự push | 🔄 Đang chạy |
+| 🔥 **Firebase Auth + Firestore** | 🤖 **Antigravity (chủ trì)** | ⏳ Cần setup |
+| 🗄 **Firestore data schema** | Mỗi AI tạo data cho module mình | ⏳ Sau khi Auth xong |
+
+**Firestore collections (đề xuất):**
+- `users/` — Auth profiles
+- `mes/lenh_sx/`, `mes/ke_hoach/` — Claude
+- `wms/kho_vai/`, `wms/kho_tp/` — MiniMax
+- `hr/nhan_vien/`, `hr/cham_cong/` — MiniMax
+- `ai/predictions/`, `ai/models/` — Antigravity
+- `academy/khoa_hoc/`, `academy/sop/` — Antigravity
+
+**Workflow:**
+1. Antigravity setup `firebase-client.js` (đã có sẵn) + Auth UI
+2. Mỗi AI gọi `firebase.firestore().collection('module/...')` trong code mình
+3. Mavis review schema + security rules
 
 ---
 
