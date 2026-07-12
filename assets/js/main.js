@@ -44,8 +44,12 @@ const MiminShell = (function () {
 
     // ====== TOAST ======
     function showToast(message, type = 'info', icon = '💡') {
-        const container = document.getElementById('toastContainer');
+        // Fallback: id="toastContainer" OR class="toast-container"
+        const container = document.getElementById('toastContainer')
+                       || document.querySelector('.toast-container');
         if (!container) return;
+        // Auto-assign id for future calls
+        if (!container.id) container.id = 'toastContainer';
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
@@ -236,8 +240,9 @@ const MiminShell = (function () {
             });
         }
 
-        // AI Float
-        const aiFloatBtn = document.getElementById('aiFloatBtn');
+        // AI Float — id="aiFloatBtn" OR class="m-ai-float"
+        const aiFloatBtn = document.getElementById('aiFloatBtn')
+                        || document.querySelector('.m-ai-float');
         if (aiFloatBtn) {
             aiFloatBtn.addEventListener('click', () => {
                 if (typeof config.onAiFloat === 'function') {
