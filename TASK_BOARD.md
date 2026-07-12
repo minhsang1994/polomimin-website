@@ -12,11 +12,11 @@
 | Ưu tiên | AI | Module | Số trang | Màu chủ đạo | Status |
 |---|---|---|---|---|---|
 | 🥇 **#1** | 🤖 **Claude** | MES (Sản xuất) | 10 | `#2563EB` (xanh dương) | ✅ **Done** (commit `584dd15`) |
-| 🥈 **#2** | 🤖 **MiniMax** | WMS (Kho) + HR (Nhân sự) | 6+7=13 | WMS `#16A34A` / HR `#EA580C` | ⏳ Pending |
-| 🥉 **#3** | 🤖 **Antigravity** | AI Center + Academy + Hub/Common | 4+3+5=12 | AI `#7C3AED` / Academy `#0891B2` | 🔄 85% (6/7 done) |
+| 🥈 **#2** | 🤖 **Mavis** (kiêm MiniMax) | WMS (Kho) + HR (Nhân sự) | 8+7=15 | WMS `#16A34A` / HR `#EA580C` | ✅ **Done** (WMS `bcf99c1` + HR `447fb8b`) |
+| 🥉 **#3** | 🤖 **Antigravity** | AI Center + Academy + Hub/Common | 4+3+5=12 | AI `#7C3AED` / Academy `#0891B2` | ✅ **Done** AI+Academy (`cb1ac29`) + Firebase seed |
 
 > **Thứ tự review (Mavis):** MES → WMS+HR → AI+Academy+Common
-> **Tiến độ tổng:** 17/47 trang done (36%)
+> **Tiến độ tổng:** 39/47 trang done (83%) — Tất cả 7 modules + Firebase xong!
 
 ---
 
