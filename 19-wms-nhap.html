@@ -1,152 +1,249 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phiếu nhập kho - POLOMIMIN WMS</title>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Nhập kho</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/warehouse-layout.css" />
+    <style>
+        :root {
+            --primary: #16A34A;
+            --primary-dark: #15803D;
+            --primary-light: #22C55E;
+            --primary-gradient: linear-gradient(135deg, #16A34A 0%, #15803D 100%);
+        }
+        .wh-page-header { background: linear-gradient(135deg, rgba(22, 163, 74, 0.05), rgba(20, 184, 166, 0.05)); }
+        .phieunhap-row { display: grid; grid-template-columns: 130px 1.5fr 1fr 1fr 1fr 1fr 100px; align-items: center; gap: 12px; padding: 14px 12px; border-bottom: 1px solid var(--border-color); font-size: 14px; }
+        .phieunhap-row.head { background: var(--bg); font-weight: 600; color: var(--text-light); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    </style>
 </head>
+
 <body>
-    <div class="app-shell">
-        <aside class="app-sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">P</div>
-                <div class="sidebar-logo-text">
-                    <h2>POLOMIMIN</h2>
-                    <p>WMS</p>
-                </div>
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #16A34A, #14B8A6);">P</div>
+            <div class="logo-text">POLOMIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li class="sidebar-section">WMS</li>
-                <li class="sidebar-nav-item"><a href="06-wms-dashboard.html" class="sidebar-nav-link"><i class="fas fa-warehouse"></i> Tổng quan</a></li>
-                <li class="sidebar-nav-item"><a href="07-wms-kho-vai.html" class="sidebar-nav-link"><i class="fas fa-warehouse"></i> Kho vải</a></li>
-                <li class="sidebar-nav-item"><a href="18-wms-kho-tp.html" class="sidebar-nav-link"><i class="fas fa-warehouse"></i> Kho thành phẩm</a></li>
-                <li class="sidebar-nav-item"><a href="19-wms-nhap.html" class="sidebar-nav-link"><i class="fas fa-warehouse"></i> Phiếu nhập</a></li>
-                <li class="sidebar-nav-item"><a href="20-wms-xuat.html" class="sidebar-nav-link"><i class="fas fa-warehouse"></i> Phiếu xuất</a></li>
-                <li class="sidebar-nav-item"><a href="21-wms-kiem-ke.html" class="sidebar-nav-link"><i class="fas fa-warehouse"></i> Kiểm kê</a></li>
-                <li class="sidebar-section">Liên kết</li>
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-th-large"></i> Tất cả modules</a></li>
-                <li class="sidebar-nav-item"><a href="login.html" class="sidebar-nav-link"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
-            </ul>
-        </aside>
-        <main class="app-main">
-            <div class="app-topbar">
-                <div>
-                    <h1>Phiếu nhập kho</h1>
-                    <p>Nhập kho từ nhà cung cấp</p>
-                </div>
-                <div class="topbar-actions">
-                    <button class="btn-icon"><i class="fas fa-search"></i></button>
-                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm mới</button>
-                </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main" id="mainContent">
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm phiếu nhập..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
             </div>
-            <div class="module-header" style="background: linear-gradient(135deg, #16A34A, #15803D);">
-                <div class="module-header-left">
-                    <div class="module-header-icon"><i class="fas fa-warehouse"></i></div>
-                    <div>
-                        <h1>WMS - Phiếu nhập kho</h1>
-                        <p>Quản lý kho</p>
-                    </div>
-                </div>
-                <button class="btn" style="background: rgba(255,255,255,0.2); color: white;"><i class="fas fa-download"></i> Xuất báo cáo</button>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
             </div>
-            <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #16A34A20; color: #16A34A;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Tồn kho vải</div>
-                <div class="kpi-value">85,000 m</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +2,500 m</div>
+        </header>
+
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="01-home.html">🏠 Hub</a>
+            <span class="separator">›</span>
+            <a href="06-wms-dashboard.html">📦 WMS</a>
+            <span class="separator">›</span>
+            <span class="current">📥 Nhập kho</span>
+        </nav>
+
+        <div class="wh-page-header">
+            <div>
+                <div class="wph-title">📥 Nhập kho</div>
+                <div class="wph-subtitle">Quản lý phiếu nhập: Từ NCC, Từ SX, Trả hàng, Điều chỉnh</div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #0EA5E920; color: #0EA5E9;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Tồn kho TP</div>
-                <div class="kpi-value">15,420 sp</div>
-                <div class="kpi-change down"><i class="fas fa-arrow-down"></i> -820 sp</div>
+            <div class="wph-actions">
+                <button class="btn-wh-primary" id="btnNew">+ Tạo phiếu nhập mới</button>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #8B5CF620; color: #8B5CF6;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Phiếu nhập hôm nay</div>
-                <div class="kpi-value">24</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +6</div>
+        </div>
+
+        <div class="biz-stat-grid" id="statGrid"></div>
+
+        <div class="wh-page-header" style="margin-top: 24px;">
+            <div>
+                <div class="wph-title" style="font-size:18px;">📋 Danh sách phiếu nhập</div>
+                <div class="wph-subtitle">12 phiếu trong tháng · Tổng giá trị: 4.2 tỷ</div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #EF444420; color: #EF4444;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Sắp hết hàng</div>
-                <div class="kpi-value">8 SKU</div>
-                <div class="kpi-change down"><i class="fas fa-arrow-down"></i> Cảnh báo</div>
+        </div>
+
+        <div class="card" style="padding: 0;">
+            <div class="phieunhap-row head">
+                <div>Mã phiếu</div>
+                <div>Nguồn nhập</div>
+                <div>SL</div>
+                <div>Giá trị</div>
+                <div>Kho</div>
+                <div>Ngày nhập</div>
+                <div>Trạng thái</div>
             </div>
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Hoạt động gần đây</div>
-                            <div class="card-subtitle">Cập nhật 5 phút trước</div>
-                        </div>
-                        <a href="#" class="btn btn-secondary">Xem tất cả</a>
-                    </div>
-                    <div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-plus"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đơn hàng mới #2566</div>
-                                <div class="list-item-subtitle">2 phút trước • 5,250,000đ</div>
-                            </div>
-                            <span class="badge badge-success">Mới</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-check"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đã xử lý #4773</div>
-                                <div class="list-item-subtitle">15 phút trước • POLOMIMIN HCM</div>
-                            </div>
-                            <span class="badge badge-info">Xong</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-exclamation"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cảnh báo tồn kho</div>
-                                <div class="list-item-subtitle">1 giờ trước • SKU POLO-001</div>
-                            </div>
-                            <span class="badge badge-warning">Cảnh báo</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-sync"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cập nhật trạng thái</div>
-                                <div class="list-item-subtitle">2 giờ trước • Lệnh SX #706</div>
-                            </div>
-                            <span class="badge badge-info">Cập nhật</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Danh sách mới nhất</div>
-                            <div class="card-subtitle">Top 5 bản ghi gần đây</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Mã</th><th>Tên</th><th>Trạng thái</th><th>Giá trị</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>YG7ZFK</td><td>POLOMIMIN Polo Basic</td><td><span class="badge badge-success">Hoạt động</span></td><td>295,000đ</td></tr>
-                            <tr><td>A6P3SE</td><td>POLOMIMIN Thun Cotton</td><td><span class="badge badge-success">Hoạt động</span></td><td>195,000đ</td></tr>
-                            <tr><td>23FIEM</td><td>POLOMIMIN Sơ Mi Bamboo</td><td><span class="badge badge-warning">Sắp hết</span></td><td>395,000đ</td></tr>
-                            <tr><td>AUHGGB</td><td>POLOMIMIN Quần Tây</td><td><span class="badge badge-success">Hoạt động</span></td><td>495,000đ</td></tr>
-                            <tr><td>VQQDB4</td><td>POLOMIMIN Bộ thể thao</td><td><span class="badge badge-info">Mới</span></td><td>595,000đ</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
+            <div id="phieuList"></div>
+        </div>
+
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
+            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI: <strong>3 phiếu nhập chờ duyệt, tổng 850 triệu</strong></span>
+    </button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tạo phiếu nhập" title="Tạo phiếu nhập">+</button>
+
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
+            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
     </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/warehouse-layout.js"></script>
+    <script>
+        (function () {
+            'use strict';
+            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const NAV_ITEMS = [
+                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
+                { section: 'Quản lý kho' },
+                { icon: '📦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: '🧵', label: 'Kho vải', href: '07-wms-kho-vai.html', active: false, badge: '' },
+                { icon: '👕', label: 'Kho thành phẩm', href: '18-wms-kho-tp.html', active: false, badge: '' },
+                { icon: '📥', label: 'Nhập kho', href: '19-wms-nhap.html', active: true, badge: '' },
+                { icon: '📤', label: 'Xuất kho', href: '20-wms-xuat.html', active: false, badge: '3' },
+                { icon: '📋', label: 'Kiểm kê', href: '21-wms-kiem-ke.html', active: false, badge: '' },
+                { section: 'Modules khác' },
+                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+            ];
+            const NOTIFICATIONS = [
+                { icon: '📥', title: '3 phiếu nhập chờ duyệt — 850 triệu', time: '10 phút trước' },
+                { icon: '✅', title: 'NK-234 đã hoàn tất nhập kho', time: '1 giờ trước' },
+                { icon: '🚚', title: 'NCC Dệt Việt đang giao lô NK-235', time: '2 giờ trước' }
+            ];
+            const STATS = [
+                { icon: '📥', label: 'Phiếu tháng này', value: '12', change: '+3', up: true },
+                { icon: '💰', label: 'Tổng giá trị nhập', value: '4.2 tỷ', change: '+15%', up: true },
+                { icon: '⏳', label: 'Chờ duyệt', value: '3', change: '+1', up: false },
+                { icon: '🚚', label: 'NCC đang giao', value: '5', change: '+2', up: true }
+            ];
+            const PHIEUS = [
+                { code: 'NK-234', src: 'NCC Dệt Việt', qty: '250 cuộn', value: '450,000,000', kho: 'A1', date: '07/07/2026', status: 'Hoàn tất', cls: 'green' },
+                { code: 'NK-233', src: 'NCC Sợi Phú Thọ', qty: '120 cuộn', value: '240,000,000', kho: 'A2', date: '07/07/2026', status: 'Hoàn tất', cls: 'green' },
+                { code: 'NK-232', src: 'Lệnh SX #502', qty: '1,250 SP', value: '375,000,000', kho: 'C1', date: '06/07/2026', status: 'Hoàn tất', cls: 'green' },
+                { code: 'NK-231', src: 'NCC Nam Định', qty: '80 cuộn', value: '160,000,000', kho: 'B1', date: '06/07/2026', status: 'Hoàn tất', cls: 'green' },
+                { code: 'NK-230', src: 'Trả hàng từ ĐL Bắc Ninh', qty: '12 SP', value: '4,200,000', kho: 'C2', date: '05/07/2026', status: 'Hoàn tất', cls: 'green' },
+                { code: 'NK-229', src: 'NCC Dệt Miền Tây', qty: '200 cuộn', value: '380,000,000', kho: 'D1', date: '05/07/2026', status: 'Chờ duyệt', cls: 'amber' },
+                { code: 'NK-228', src: 'Lệnh SX #501', qty: '850 SP', value: '255,000,000', kho: 'C1', date: '04/07/2026', status: 'Chờ duyệt', cls: 'amber' }
+            ];
+            function renderPhieus() {
+                const list = document.getElementById('phieuList');
+                list.innerHTML = PHIEUS.map(p => `
+                    <div class="phieunhap-row" data-code="${p.code}" style="cursor:pointer;">
+                        <div><span style="font-family:monospace; font-size:12px; background:var(--bg); padding:2px 6px; border-radius:4px;">${p.code}</span></div>
+                        <div style="font-weight:600;">${p.src}</div>
+                        <div>${p.qty}</div>
+                        <div style="font-weight:700; text-align:right;">${p.value} đ</div>
+                        <div>Kho ${p.kho}</div>
+                        <div style="font-size:12px;">${p.date}</div>
+                        <div><span class="status-badge ${p.cls}">${p.status}</span></div>
+                    </div>
+                `).join('');
+                list.querySelectorAll('.phieunhap-row').forEach(row => {
+                    row.addEventListener('click', () => {
+                        const code = row.getAttribute('data-code');
+                        const p = PHIEUS.find(x => x.code === code);
+                        MiminBiz.openModal({
+                            title: `📥 Phiếu nhập ${p.code}`,
+                            subtitle: p.src,
+                            rows: [
+                                { label: 'Số lượng', value: p.qty },
+                                { label: 'Giá trị', value: p.value + ' đ' },
+                                { label: 'Kho nhập', value: 'Kho ' + p.kho },
+                                { label: 'Ngày nhập', value: p.date },
+                                { label: 'Trạng thái', value: p.status }
+                            ],
+                            actions: [
+                                { label: 'Đóng', type: 'secondary' },
+                                { label: '🖨 In phiếu', type: 'primary', onClick: () => MiminShell.showToast(`🖨 In phiếu ${p.code}`, 'info', '🖨') }
+                            ]
+                        });
+                    });
+                });
+            }
+            document.getElementById('btnNew').addEventListener('click', () => {
+                MiminBiz.openModal({
+                    title: '📥 Tạo phiếu nhập mới',
+                    subtitle: 'Chọn nguồn nhập',
+                    bodyHtml: `
+                        <div style="display:flex;flex-direction:column;gap:12px;">
+                            <div><label class="form-label">Mã phiếu</label><input class="form-input" value="NK-${Math.floor(Math.random() * 900 + 100)}" /></div>
+                            <div><label class="form-label">Nguồn nhập</label><select class="form-input"><option>Từ NCC (Dệt Việt, Phú Thọ, Nam Định...)</option><option>Từ lệnh SX</option><option>Trả hàng từ khách</option><option>Điều chỉnh kiểm kê</option></select></div>
+                            <div><label class="form-label">Ngày nhập</label><input class="form-input" type="date" value="${new Date().toISOString().split('T')[0]}" /></div>
+                            <div><label class="form-label">Kho nhập</label><select class="form-input"><option>A1 - Vải chính</option><option>A2 - Vải phụ</option><option>B1, B2 - Vải dự phòng</option><option>C1, C2, C3, C4, C5 - Thành phẩm</option></select></div>
+                        </div>
+                    `,
+                    actions: [
+                        { label: 'Hủy', type: 'secondary' },
+                        { label: '✅ Tạo phiếu', type: 'primary', onClick: () => MiminShell.showToast('✅ Đã tạo phiếu nhập thành công', 'success', '📥') }
+                    ]
+                });
+            });
+            document.getElementById('quickAddBtn').addEventListener('click', () => {
+                MiminShell.showToast('📥 Mở form tạo phiếu nhập...', 'info', '📥');
+            });
+            MiminShell.init({
+                user: USER, navItems: NAV_ITEMS, notifications: NOTIFICATIONS,
+                aiFloatMessage: '🧠 AI Nhập kho:\n1. 3 phiếu nhập chờ duyệt (850 triệu) — cần duyệt gấp\n2. NK-234 đã hoàn tất nhập 250 cuộn từ Dệt Việt\n3. 5 NCC đang giao hàng — ETA trung bình 2.3 ngày\n4. Tổng giá trị nhập tháng 4.2 tỷ (+15% so với tháng trước)\n5. Đề xuất: Auto-approve phiếu nhập từ NCC uy tín (>5 lần giao đúng hạn)',
+                onNavClick: (item, el) => {
+                    if (item.href && item.href !== '#') return;
+                    document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                }
+            });
+            renderPhieus();
+            MiminBiz.renderStatCards(STATS);
+            console.log('✅ POLOMIMIN Nhập kho initialized.');
+        })();
+    </script>
 </body>
 </html>
