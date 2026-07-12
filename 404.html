@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>POLOMIMIN · 404 — Không Tìm Thấy Trang</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --navy: #0a1628; --blue: #1d4ed8; --gold: #b8912a;
+            --bg: #f8fafc; --text: #0f172a; --muted: #94a3b8;
+        }
+        [data-theme=dark] { --bg: #060d1a; --text: #f1f5f9; --muted: #475569; }
+        body {
+            font-family: 'Inter', sans-serif; background: var(--bg);
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 24px; transition: background .3s;
+        }
+        .wrap { text-align: center; max-width: 480px; width: 100%; }
+        /* Big 404 */
+        .err-code {
+            font-size: clamp(6rem, 18vw, 10rem); font-weight: 900;
+            background: linear-gradient(135deg, #1d4ed8, #7C3AED);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; line-height: 1; margin-bottom: 8px;
+            position: relative; display: inline-block;
+        }
+        .err-code::after {
+            content: '🔍';
+            position: absolute; bottom: 0; right: -10px;
+            font-size: 2.5rem; -webkit-text-fill-color: initial;
+            animation: bob 2s ease-in-out infinite;
+        }
+        @keyframes bob { 0%,100%{transform:translateY(0) rotate(-10deg)} 50%{transform:translateY(-8px) rotate(10deg)} }
+        .err-title { font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+        .err-desc  { font-size: .88rem; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
+        /* Quick nav grid */
+        .nav-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 24px; }
+        .nav-card {
+            border-radius: 12px; padding: 14px 10px; text-decoration: none;
+            border: 1.5px solid rgba(0,0,0,.08); background: rgba(255,255,255,.7);
+            backdrop-filter: blur(8px); transition: transform .2s, box-shadow .2s;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+        }
+        [data-theme=dark] .nav-card { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); }
+        .nav-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(29,78,216,.15); }
+        .nav-card .ic  { font-size: 1.4rem; }
+        .nav-card .lbl { font-size: .72rem; font-weight: 700; color: var(--text); }
+        .nav-card .sub { font-size: .64rem; color: var(--muted); }
+        /* Buttons */
+        .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 12px 24px; border-radius: 10px; font-size: .86rem; font-weight: 700;
+            cursor: pointer; border: none; font-family: 'Inter',sans-serif;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+            transition: opacity .2s, transform .2s;
+        }
+        .btn:hover { opacity: .88; transform: translateY(-1px); }
+        .btn-primary { background: linear-gradient(135deg,#1d4ed8,#7C3AED); color: #fff; }
+        .btn-outline  { background: transparent; border: 1.5px solid rgba(0,0,0,.12); color: var(--text); }
+        [data-theme=dark] .btn-outline { border-color: rgba(255,255,255,.15); }
+        /* Search */
+        .search-row { display: flex; gap: 8px; margin-bottom: 28px; }
+        .search-inp {
+            flex: 1; padding: 10px 14px; border-radius: 9px;
+            border: 1.5px solid rgba(0,0,0,.1); background: rgba(255,255,255,.8);
+            font-size: .84rem; font-family: 'Inter',sans-serif; outline: none;
+            transition: border-color .2s, box-shadow .2s; color: var(--text);
+        }
+        [data-theme=dark] .search-inp { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.12); }
+        .search-inp:focus { border-color: #1d4ed8; box-shadow: 0 0 0 3px rgba(29,78,216,.12); }
+        .btn-search { padding: 10px 18px; border-radius: 9px; background: linear-gradient(135deg,#1d4ed8,#7C3AED); color:#fff; border:none; cursor:pointer; font-size:.84rem; font-weight:700; font-family:'Inter',sans-serif; }
+        /* Logo */
+        .logo-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 32px; }
+        .logo-icon { width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#1d4ed8,#7C3AED);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;font-style:italic;color:#fff; }
+        .logo-name { font-size:.95rem;font-weight:900;color:var(--text);letter-spacing:.04em; }
+        .logo-sub  { font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em; }
+        /* Theme toggle */
+        .theme-btn {
+            position: fixed; top: 20px; right: 20px;
+            width: 36px; height: 36px; border-radius: 9px;
+            background: rgba(255,255,255,.8); border: 1.5px solid rgba(0,0,0,.1);
+            cursor: pointer; font-size: 1rem; backdrop-filter: blur(8px);
+        }
+        [data-theme=dark] .theme-btn { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.12); }
+    </style>
+</head>
+<body>
+    <button class="theme-btn" id="themeBtn" title="Đổi giao diện">🌓</button>
+
+    <div class="wrap">
+        <div class="logo-row">
+            <div class="logo-icon">P</div>
+            <div><div class="logo-name">POLOMIMIN</div><div class="logo-sub">Enterprise ERP</div></div>
+        </div>
+
+        <div class="err-code">404</div>
+        <h1 class="err-title">Ối! Trang này không tồn tại</h1>
+        <p class="err-desc">
+            Trang bạn đang tìm có thể đã bị xóa, đổi tên, hoặc chưa được tạo.<br/>
+            Bạn muốn đi đâu trong POLOMIMIN?
+        </p>
+
+        <!-- Quick search -->
+        <div class="search-row">
+            <input class="search-inp" type="text" id="searchInp" placeholder="Tìm trang... (VD: kho, sản xuất, AI)" onkeydown="if(event.key==='Enter')doSearch()"/>
+            <button class="btn-search" onclick="doSearch()">🔍</button>
+        </div>
+
+        <!-- Quick nav -->
+        <div class="nav-grid">
+            <a class="nav-card" href="01-home.html"><span class="ic">🏠</span><span class="lbl">Hub chính</span><span class="sub">Trang tổng quan</span></a>
+            <a class="nav-card" href="22-sales-dashboard.html"><span class="ic">💰</span><span class="lbl">Sales</span><span class="sub">Bán hàng & CRM</span></a>
+            <a class="nav-card" href="04-mes-dashboard.html"><span class="ic">⚙️</span><span class="lbl">MES</span><span class="sub">Sản xuất</span></a>
+            <a class="nav-card" href="06-wms-dashboard.html"><span class="ic">📦</span><span class="lbl">WMS</span><span class="sub">Kho vận</span></a>
+            <a class="nav-card" href="22-hr-dashboard.html"><span class="ic">👥</span><span class="lbl">HR</span><span class="sub">Nhân sự</span></a>
+            <a class="nav-card" href="33-ai-dashboard.html"><span class="ic">🤖</span><span class="lbl">AI Center</span><span class="sub">Dự báo & Gợi ý</span></a>
+        </div>
+
+        <div class="btn-row">
+            <a class="btn btn-primary" href="01-home.html">🏠 Về Hub chính</a>
+            <button class="btn btn-outline" onclick="history.back()">← Quay lại</button>
+        </div>
+    </div>
+
+<script>
+// Theme
+const root = document.documentElement;
+const savedTheme = localStorage.getItem('mimin-theme') || 'light';
+root.dataset.theme = savedTheme;
+document.getElementById('themeBtn').addEventListener('click', () => {
+    const isDark = root.dataset.theme === 'dark';
+    root.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('mimin-theme', isDark ? 'light' : 'dark');
+});
+
+// Quick search
+const PAGE_MAP = [
+    { kw: ['home','hub','trang chủ','chính'], url: '01-home.html' },
+    { kw: ['sales','bán hàng','đơn hàng','crm'], url: '22-sales-dashboard.html' },
+    { kw: ['mes','sản xuất','lệnh sx','kế hoạch'], url: '04-mes-dashboard.html' },
+    { kw: ['wms','kho','nhập kho','xuất kho','kiểm kê'], url: '06-wms-dashboard.html' },
+    { kw: ['hr','nhân sự','nhân viên','chấm công','lương'], url: '22-hr-dashboard.html' },
+    { kw: ['ai','dự báo','gợi ý','trí tuệ'], url: '33-ai-dashboard.html' },
+    { kw: ['academy','khóa học','sop','quy trình','đào tạo'], url: '37-academy-dashboard.html' },
+    { kw: ['login','đăng nhập'], url: 'login.html' },
+    { kw: ['settings','cài đặt'], url: 'settings.html' },
+    { kw: ['gallery','bộ sưu tập','catalog'], url: 'gallery.html' },
+];
+function doSearch() {
+    const q = document.getElementById('searchInp').value.toLowerCase().trim();
+    if (!q) return;
+    for (const p of PAGE_MAP) {
+        if (p.kw.some(k => q.includes(k))) {
+            window.location.href = p.url; return;
+        }
+    }
+    // No match — go to home
+    window.location.href = '01-home.html';
+}
+</script>
+</body>
+</html>

@@ -4,14 +4,13 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "reference/**",
+      "docs/**"
     ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+    "cleanUrls": false,
+    "trailingSlash": false,
+    "404": "/404.html"
   },
   "firestore": {
     "rules": "firestore.rules",
