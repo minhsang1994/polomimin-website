@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · Kiểm kê</title>
+    <title>POLOMIMIN Â· Kiá»ƒm kÃª</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
     <link rel="stylesheet" href="assets/css/warehouse-layout.css" />
     <style>
         :root {
@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #16A34A, #14B8A6);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -37,51 +37,51 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="globalSearch" placeholder="Tìm phiếu kiểm kê..." aria-label="Tìm kiếm" />
-                <span class="shortcut" aria-hidden="true">⌘K</span>
+                <span class="search-icon" aria-hidden="true">ðŸ”</span>
+                <input type="text" id="globalSearch" placeholder="TÃ¬m phiáº¿u kiá»ƒm kÃª..." aria-label="TÃ¬m kiáº¿m" />
+                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
-                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
+                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
-            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
+            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">🏠 Hub</a>
-            <span class="separator">›</span>
-            <a href="06-wms-dashboard.html">📦 WMS</a>
-            <span class="separator">›</span>
-            <span class="current">📋 Kiểm kê</span>
+            <a href="01-home.html">ðŸ  Hub</a>
+            <span class="separator">â€º</span>
+            <a href="06-wms-dashboard.html">ðŸ“¦ WMS</a>
+            <span class="separator">â€º</span>
+            <span class="current">ðŸ“‹ Kiá»ƒm kÃª</span>
         </nav>
 
         <div class="wh-page-header">
             <div>
-                <div class="wph-title">📋 Kiểm kê định kỳ</div>
-                <div class="wph-subtitle">Quản lý phiên kiểm kê: Đột xuất, Hàng tháng, Hàng quý, Hàng năm</div>
+                <div class="wph-title">ðŸ“‹ Kiá»ƒm kÃª Ä‘á»‹nh ká»³</div>
+                <div class="wph-subtitle">Quáº£n lÃ½ phiÃªn kiá»ƒm kÃª: Äá»™t xuáº¥t, HÃ ng thÃ¡ng, HÃ ng quÃ½, HÃ ng nÄƒm</div>
             </div>
             <div class="wph-actions">
-                <button class="btn-wh-outline" id="btnSchedule">📅 Lên lịch tự động</button>
-                <button class="btn-wh-primary" id="btnNew">+ Tạo phiên kiểm kê</button>
+                <button class="btn-wh-outline" id="btnSchedule">ðŸ“… LÃªn lá»‹ch tá»± Ä‘á»™ng</button>
+                <button class="btn-wh-primary" id="btnNew">+ Táº¡o phiÃªn kiá»ƒm kÃª</button>
             </div>
         </div>
 
@@ -89,92 +89,92 @@
 
         <div class="wh-page-header" style="margin-top: 24px;">
             <div>
-                <div class="wph-title" style="font-size:18px;">📋 Danh sách phiên kiểm kê</div>
-                <div class="wph-subtitle">5 phiên trong tháng · Tỷ lệ chính xác: 99.2%</div>
+                <div class="wph-title" style="font-size:18px;">ðŸ“‹ Danh sÃ¡ch phiÃªn kiá»ƒm kÃª</div>
+                <div class="wph-subtitle">5 phiÃªn trong thÃ¡ng Â· Tá»· lá»‡ chÃ­nh xÃ¡c: 99.2%</div>
             </div>
         </div>
 
         <div class="card" style="padding: 0;">
             <div class="kk-row head">
-                <div>Mã phiên</div>
-                <div>Phạm vi</div>
-                <div>Số vị trí</div>
-                <div>Đã đếm</div>
-                <div>Chênh lệch</div>
-                <div>Tiến độ</div>
-                <div>Ngày KK</div>
-                <div>Trạng thái</div>
+                <div>MÃ£ phiÃªn</div>
+                <div>Pháº¡m vi</div>
+                <div>Sá»‘ vá»‹ trÃ­</div>
+                <div>ÄÃ£ Ä‘áº¿m</div>
+                <div>ChÃªnh lá»‡ch</div>
+                <div>Tiáº¿n Ä‘á»™</div>
+                <div>NgÃ y KK</div>
+                <div>Tráº¡ng thÃ¡i</div>
             </div>
             <div id="kkList"></div>
         </div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
-            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
-        <span class="ai-icon" aria-hidden="true">🧠</span>
-        <span>AI: <strong>KK-046 tiến độ 78%, ETA hoàn tất 2 ngày</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
+        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
+        <span>AI: <strong>KK-046 tiáº¿n Ä‘á»™ 78%, ETA hoÃ n táº¥t 2 ngÃ y</strong></span>
     </button>
-    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tạo kiểm kê" title="Tạo kiểm kê">+</button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Táº¡o kiá»ƒm kÃª" title="Táº¡o kiá»ƒm kÃª">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
-            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
+            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
     <script src="assets/js/warehouse-layout.js"></script>
     <script>
         (function () {
             'use strict';
-            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
             const NAV_ITEMS = [
-                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
-                { section: 'Quản lý kho' },
-                { icon: '📦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
-                { icon: '🧵', label: 'Kho vải', href: '07-wms-kho-vai.html', active: false, badge: '' },
-                { icon: '👕', label: 'Kho thành phẩm', href: '18-wms-kho-tp.html', active: false, badge: '' },
-                { icon: '📥', label: 'Nhập kho', href: '19-wms-nhap.html', active: false, badge: '' },
-                { icon: '📤', label: 'Xuất kho', href: '20-wms-xuat.html', active: false, badge: '3' },
-                { icon: '📋', label: 'Kiểm kê', href: '21-wms-kiem-ke.html', active: true, badge: '' },
-                { section: 'Modules khác' },
-                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
-                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
-                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
+                { section: 'Quáº£n lÃ½ kho' },
+                { icon: 'ðŸ“¦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ§µ', label: 'Kho váº£i', href: '07-wms-kho-vai.html', active: false, badge: '' },
+                { icon: 'ðŸ‘•', label: 'Kho thÃ nh pháº©m', href: '18-wms-kho-tp.html', active: false, badge: '' },
+                { icon: 'ðŸ“¥', label: 'Nháº­p kho', href: '19-wms-nhap.html', active: false, badge: '' },
+                { icon: 'ðŸ“¤', label: 'Xuáº¥t kho', href: '20-wms-xuat.html', active: false, badge: '3' },
+                { icon: 'ðŸ“‹', label: 'Kiá»ƒm kÃª', href: '21-wms-kiem-ke.html', active: true, badge: '' },
+                { section: 'Modules khÃ¡c' },
+                { icon: 'ðŸ“Š', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: 'âš™ï¸', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ¤–', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
             const NOTIFICATIONS = [
-                { icon: '📋', title: 'KK-046 tiến độ 78% — ETA hoàn tất 2 ngày', time: '5 phút trước' },
-                { icon: '✅', title: 'KK-045 hoàn tất - chênh lệch 0.3%', time: '1 giờ trước' },
-                { icon: '⚠️', title: 'KK-044 phát hiện chênh 5 cuộn vải', time: '3 giờ trước' }
+                { icon: 'ðŸ“‹', title: 'KK-046 tiáº¿n Ä‘á»™ 78% â€” ETA hoÃ n táº¥t 2 ngÃ y', time: '5 phÃºt trÆ°á»›c' },
+                { icon: 'âœ…', title: 'KK-045 hoÃ n táº¥t - chÃªnh lá»‡ch 0.3%', time: '1 giá» trÆ°á»›c' },
+                { icon: 'âš ï¸', title: 'KK-044 phÃ¡t hiá»‡n chÃªnh 5 cuá»™n váº£i', time: '3 giá» trÆ°á»›c' }
             ];
             const STATS = [
-                { icon: '📋', label: 'Phiên tháng này', value: '5', change: '+2', up: true },
-                { icon: '📦', label: 'Vị trí đã đếm', value: '1,485', change: '+320', up: true },
-                { icon: '🎯', label: 'Tỷ lệ chính xác', value: '99.2%', change: '+0.3%', up: true },
-                { icon: '⚠️', label: 'Phát hiện chênh lệch', value: '8', change: '-3', up: true }
+                { icon: 'ðŸ“‹', label: 'PhiÃªn thÃ¡ng nÃ y', value: '5', change: '+2', up: true },
+                { icon: 'ðŸ“¦', label: 'Vá»‹ trÃ­ Ä‘Ã£ Ä‘áº¿m', value: '1,485', change: '+320', up: true },
+                { icon: 'ðŸŽ¯', label: 'Tá»· lá»‡ chÃ­nh xÃ¡c', value: '99.2%', change: '+0.3%', up: true },
+                { icon: 'âš ï¸', label: 'PhÃ¡t hiá»‡n chÃªnh lá»‡ch', value: '8', change: '-3', up: true }
             ];
             const KKS = [
-                { code: 'KK-046', scope: 'Kho A1 (Vải chính)', total: 500, done: 390, diff: '-2 cuộn (-0.5%)', pct: 78, date: '07-09/07', status: 'Đang thực hiện', cls: 'amber' },
-                { code: 'KK-045', scope: 'Kho C1 (Thành phẩm Polo)', total: 320, done: 320, diff: '+1 cái (+0.05%)', pct: 100, date: '06/07/2026', status: 'Hoàn tất', cls: 'green' },
-                { code: 'KK-044', scope: 'Kho A2 (Vải phụ)', total: 280, done: 280, diff: '-5 cuộn (-1.8%)', pct: 100, date: '04/07/2026', status: 'Đã duyệt', cls: 'blue' },
-                { code: 'KK-043', scope: 'Kho phụ liệu', total: 150, done: 150, diff: '0 (100%)', pct: 100, date: '02/07/2026', status: 'Hoàn tất', cls: 'green' },
-                { code: 'KK-042', scope: 'Kho B1 (Vải dự phòng)', total: 200, done: 200, diff: '-1 cuộn (-0.5%)', pct: 100, date: '01/07/2026', status: 'Hoàn tất', cls: 'green' }
+                { code: 'KK-046', scope: 'Kho A1 (Váº£i chÃ­nh)', total: 500, done: 390, diff: '-2 cuá»™n (-0.5%)', pct: 78, date: '07-09/07', status: 'Äang thá»±c hiá»‡n', cls: 'amber' },
+                { code: 'KK-045', scope: 'Kho C1 (ThÃ nh pháº©m Polo)', total: 320, done: 320, diff: '+1 cÃ¡i (+0.05%)', pct: 100, date: '06/07/2026', status: 'HoÃ n táº¥t', cls: 'green' },
+                { code: 'KK-044', scope: 'Kho A2 (Váº£i phá»¥)', total: 280, done: 280, diff: '-5 cuá»™n (-1.8%)', pct: 100, date: '04/07/2026', status: 'ÄÃ£ duyá»‡t', cls: 'blue' },
+                { code: 'KK-043', scope: 'Kho phá»¥ liá»‡u', total: 150, done: 150, diff: '0 (100%)', pct: 100, date: '02/07/2026', status: 'HoÃ n táº¥t', cls: 'green' },
+                { code: 'KK-042', scope: 'Kho B1 (Váº£i dá»± phÃ²ng)', total: 200, done: 200, diff: '-1 cuá»™n (-0.5%)', pct: 100, date: '01/07/2026', status: 'HoÃ n táº¥t', cls: 'green' }
             ];
             function renderKKs() {
                 const list = document.getElementById('kkList');
@@ -200,19 +200,19 @@
                         const code = row.getAttribute('data-code');
                         const k = KKS.find(x => x.code === code);
                         MiminBiz.openModal({
-                            title: `📋 Phiên kiểm kê ${k.code}`,
+                            title: `ðŸ“‹ PhiÃªn kiá»ƒm kÃª ${k.code}`,
                             subtitle: k.scope,
                             rows: [
-                                { label: 'Số vị trí', value: k.total },
-                                { label: 'Đã đếm', value: k.done },
-                                { label: 'Tiến độ', value: k.pct + '%' },
-                                { label: 'Chênh lệch', value: k.diff },
-                                { label: 'Ngày KK', value: k.date },
-                                { label: 'Trạng thái', value: k.status }
+                                { label: 'Sá»‘ vá»‹ trÃ­', value: k.total },
+                                { label: 'ÄÃ£ Ä‘áº¿m', value: k.done },
+                                { label: 'Tiáº¿n Ä‘á»™', value: k.pct + '%' },
+                                { label: 'ChÃªnh lá»‡ch', value: k.diff },
+                                { label: 'NgÃ y KK', value: k.date },
+                                { label: 'Tráº¡ng thÃ¡i', value: k.status }
                             ],
                             actions: [
-                                { label: 'Đóng', type: 'secondary' },
-                                { label: '📊 Xem báo cáo', type: 'primary', onClick: () => MiminShell.showToast(`📊 Báo cáo ${k.code}`, 'info', '📊') }
+                                { label: 'ÄÃ³ng', type: 'secondary' },
+                                { label: 'ðŸ“Š Xem bÃ¡o cÃ¡o', type: 'primary', onClick: () => MiminShell.showToast(`ðŸ“Š BÃ¡o cÃ¡o ${k.code}`, 'info', 'ðŸ“Š') }
                             ]
                         });
                     });
@@ -220,38 +220,38 @@
             }
             document.getElementById('btnNew').addEventListener('click', () => {
                 MiminBiz.openModal({
-                    title: '📋 Tạo phiên kiểm kê mới',
-                    subtitle: 'Chọn phạm vi kiểm kê',
+                    title: 'ðŸ“‹ Táº¡o phiÃªn kiá»ƒm kÃª má»›i',
+                    subtitle: 'Chá»n pháº¡m vi kiá»ƒm kÃª',
                     bodyHtml: `
                         <div style="display:flex;flex-direction:column;gap:12px;">
-                            <div><label class="form-label">Mã phiên</label><input class="form-input" value="KK-${Math.floor(Math.random() * 900 + 100)}" /></div>
-                            <div><label class="form-label">Phạm vi</label><select class="form-input"><option>Kho A1 - Vải chính (500 vị trí)</option><option>Kho A2 - Vải phụ (280 vị trí)</option><option>Kho C1-C5 - Thành phẩm (1,500 vị trí)</option><option>Toàn bộ kho (3,500 vị trí)</option></select></div>
-                            <div><label class="form-label">Loại kiểm kê</label><select class="form-input"><option>Đột xuất (khẩn cấp)</option><option>Định kỳ tháng</option><option>Định kỳ quý</option><option>Định kỳ năm (tổng)</option></select></div>
-                            <div><label class="form-label">Ngày bắt đầu</label><input class="form-input" type="date" value="${new Date().toISOString().split('T')[0]}" /></div>
-                            <div><label class="form-label">Phụ trách</label><select class="form-input"><option>Nguyễn Văn A (Kế toán kho)</option><option>Trần Thị B (Quản lý kho)</option><option>Đội ngũ kiểm kê (3-5 người)</option></select></div>
+                            <div><label class="form-label">MÃ£ phiÃªn</label><input class="form-input" value="KK-${Math.floor(Math.random() * 900 + 100)}" /></div>
+                            <div><label class="form-label">Pháº¡m vi</label><select class="form-input"><option>Kho A1 - Váº£i chÃ­nh (500 vá»‹ trÃ­)</option><option>Kho A2 - Váº£i phá»¥ (280 vá»‹ trÃ­)</option><option>Kho C1-C5 - ThÃ nh pháº©m (1,500 vá»‹ trÃ­)</option><option>ToÃ n bá»™ kho (3,500 vá»‹ trÃ­)</option></select></div>
+                            <div><label class="form-label">Loáº¡i kiá»ƒm kÃª</label><select class="form-input"><option>Äá»™t xuáº¥t (kháº©n cáº¥p)</option><option>Äá»‹nh ká»³ thÃ¡ng</option><option>Äá»‹nh ká»³ quÃ½</option><option>Äá»‹nh ká»³ nÄƒm (tá»•ng)</option></select></div>
+                            <div><label class="form-label">NgÃ y báº¯t Ä‘áº§u</label><input class="form-input" type="date" value="${new Date().toISOString().split('T')[0]}" /></div>
+                            <div><label class="form-label">Phá»¥ trÃ¡ch</label><select class="form-input"><option>Nguyá»…n VÄƒn A (Káº¿ toÃ¡n kho)</option><option>Tráº§n Thá»‹ B (Quáº£n lÃ½ kho)</option><option>Äá»™i ngÅ© kiá»ƒm kÃª (3-5 ngÆ°á»i)</option></select></div>
                         </div>
                     `,
                     actions: [
-                        { label: 'Hủy', type: 'secondary' },
-                        { label: '✅ Tạo phiên', type: 'primary', onClick: () => MiminShell.showToast('✅ Đã tạo phiên kiểm kê', 'success', '📋') }
+                        { label: 'Há»§y', type: 'secondary' },
+                        { label: 'âœ… Táº¡o phiÃªn', type: 'primary', onClick: () => MiminShell.showToast('âœ… ÄÃ£ táº¡o phiÃªn kiá»ƒm kÃª', 'success', 'ðŸ“‹') }
                     ]
                 });
             });
-            document.getElementById('btnSchedule').addEventListener('click', () => MiminShell.showToast('📅 Mở cài đặt lịch kiểm kê tự động...', 'info', '📅'));
-            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('📋 Mở form tạo kiểm kê...', 'info', '📋'));
+            document.getElementById('btnSchedule').addEventListener('click', () => MiminShell.showToast('ðŸ“… Má»Ÿ cÃ i Ä‘áº·t lá»‹ch kiá»ƒm kÃª tá»± Ä‘á»™ng...', 'info', 'ðŸ“…'));
+            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('ðŸ“‹ Má»Ÿ form táº¡o kiá»ƒm kÃª...', 'info', 'ðŸ“‹'));
             MiminShell.init({
                 user: USER, navItems: NAV_ITEMS, notifications: NOTIFICATIONS,
-                aiFloatMessage: '🧠 AI Kiểm kê:\n1. KK-046 tiến độ 78% — ETA hoàn tất 09/07\n2. KK-044 phát hiện chênh 5 cuộn vải — nghi ngờ hao hụt hoặc thất thoát\n3. Tỷ lệ chính xác 99.2% (tăng 0.3%) — tốt\n4. Đề xuất: KK định kỳ tháng cho kho A1 (ưu tiên cao)\n5. Auto-generate báo cáo chênh lệch sau mỗi phiên — gửi email cho CEO',
+                aiFloatMessage: 'ðŸ§  AI Kiá»ƒm kÃª:\n1. KK-046 tiáº¿n Ä‘á»™ 78% â€” ETA hoÃ n táº¥t 09/07\n2. KK-044 phÃ¡t hiá»‡n chÃªnh 5 cuá»™n váº£i â€” nghi ngá» hao há»¥t hoáº·c tháº¥t thoÃ¡t\n3. Tá»· lá»‡ chÃ­nh xÃ¡c 99.2% (tÄƒng 0.3%) â€” tá»‘t\n4. Äá» xuáº¥t: KK Ä‘á»‹nh ká»³ thÃ¡ng cho kho A1 (Æ°u tiÃªn cao)\n5. Auto-generate bÃ¡o cÃ¡o chÃªnh lá»‡ch sau má»—i phiÃªn â€” gá»­i email cho CEO',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
                 }
             });
             renderKKs();
             MiminBiz.renderStatCards(STATS);
-            console.log('✅ POLOMIMIN Kiểm kê initialized.');
+            console.log('âœ… POLOMIMIN Kiá»ƒm kÃª initialized.');
         })();
     </script>
 </body>

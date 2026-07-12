@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · Kho thành phẩm</title>
+    <title>POLOMIMIN Â· Kho thÃ nh pháº©m</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
     <link rel="stylesheet" href="assets/css/warehouse-layout.css" />
     <style>
         :root {
@@ -49,7 +49,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #16A34A, #14B8A6);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -58,156 +58,156 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="globalSearch" placeholder="Tìm SKU, tên sản phẩm..." aria-label="Tìm kiếm" />
-                <span class="shortcut" aria-hidden="true">⌘K</span>
+                <span class="search-icon" aria-hidden="true">ðŸ”</span>
+                <input type="text" id="globalSearch" placeholder="TÃ¬m SKU, tÃªn sáº£n pháº©m..." aria-label="TÃ¬m kiáº¿m" />
+                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
-                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
+                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
-            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
+            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">🏠 Hub</a>
-            <span class="separator">›</span>
-            <a href="06-wms-dashboard.html">📦 WMS</a>
-            <span class="separator">›</span>
-            <span class="current">👕 Kho thành phẩm</span>
+            <a href="01-home.html">ðŸ  Hub</a>
+            <span class="separator">â€º</span>
+            <a href="06-wms-dashboard.html">ðŸ“¦ WMS</a>
+            <span class="separator">â€º</span>
+            <span class="current">ðŸ‘• Kho thÃ nh pháº©m</span>
         </nav>
 
         <div class="wh-page-header">
             <div>
-                <div class="wph-title">👕 Kho thành phẩm</div>
-                <div class="wph-subtitle">Quản lý sản phẩm hoàn chỉnh: Polo, Thun, Sơ mi, Quần short, Bộ thể thao, Đồng phục</div>
+                <div class="wph-title">ðŸ‘• Kho thÃ nh pháº©m</div>
+                <div class="wph-subtitle">Quáº£n lÃ½ sáº£n pháº©m hoÃ n chá»‰nh: Polo, Thun, SÆ¡ mi, Quáº§n short, Bá»™ thá»ƒ thao, Äá»“ng phá»¥c</div>
             </div>
             <div class="wph-actions">
-                <button class="btn-wh-outline" id="btnInventory">📋 Kiểm kê</button>
-                <button class="btn-wh-primary" id="btnImport">📥 Nhập từ SX</button>
+                <button class="btn-wh-outline" id="btnInventory">ðŸ“‹ Kiá»ƒm kÃª</button>
+                <button class="btn-wh-primary" id="btnImport">ðŸ“¥ Nháº­p tá»« SX</button>
             </div>
         </div>
 
         <div class="biz-stat-grid" id="statGrid"></div>
 
         <div class="tp-filters">
-            <input type="text" class="tp-search" id="spSearch" placeholder="🔍 Tìm SKU, tên SP..." />
-            <button class="tp-chip active" data-cat="all">Tất cả (385 SKU)</button>
+            <input type="text" class="tp-search" id="spSearch" placeholder="ðŸ” TÃ¬m SKU, tÃªn SP..." />
+            <button class="tp-chip active" data-cat="all">Táº¥t cáº£ (385 SKU)</button>
             <button class="tp-chip" data-cat="polo">Polo (85)</button>
-            <button class="tp-chip" data-cat="thun">Áo thun (62)</button>
-            <button class="tp-chip" data-cat="somi">Sơ mi (48)</button>
-            <button class="tp-chip" data-cat="short">Quần short (54)</button>
-            <button class="tp-chip" data-cat="thethao">Bộ thể thao (76)</button>
-            <button class="tp-chip" data-cat="dongphuc">Đồng phục (60)</button>
+            <button class="tp-chip" data-cat="thun">Ão thun (62)</button>
+            <button class="tp-chip" data-cat="somi">SÆ¡ mi (48)</button>
+            <button class="tp-chip" data-cat="short">Quáº§n short (54)</button>
+            <button class="tp-chip" data-cat="thethao">Bá»™ thá»ƒ thao (76)</button>
+            <button class="tp-chip" data-cat="dongphuc">Äá»“ng phá»¥c (60)</button>
         </div>
 
         <div class="card" style="padding: 0; margin-bottom: 24px;">
             <div class="sp-row head">
                 <div>SKU</div>
-                <div>Sản phẩm</div>
-                <div>Size/Màu</div>
-                <div>Tồn kho</div>
-                <div>Vị trí</div>
-                <div>Đã đặt</div>
-                <div>Trạng thái</div>
+                <div>Sáº£n pháº©m</div>
+                <div>Size/MÃ u</div>
+                <div>Tá»“n kho</div>
+                <div>Vá»‹ trÃ­</div>
+                <div>ÄÃ£ Ä‘áº·t</div>
+                <div>Tráº¡ng thÃ¡i</div>
             </div>
             <div id="spList"></div>
         </div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
-            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
-        <span class="ai-icon" aria-hidden="true">🧠</span>
-        <span>AI: <strong>27 SKU sắp hết, cần đặt SX gấp</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
+        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
+        <span>AI: <strong>27 SKU sáº¯p háº¿t, cáº§n Ä‘áº·t SX gáº¥p</strong></span>
     </button>
-    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tác vụ nhanh" title="Tác vụ nhanh">+</button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="TÃ¡c vá»¥ nhanh" title="TÃ¡c vá»¥ nhanh">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
-            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
+            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
     <script src="assets/js/warehouse-layout.js"></script>
     <script>
         (function () {
             'use strict';
 
-            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
 
             const NAV_ITEMS = [
-                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
-                { section: 'Quản lý kho' },
-                { icon: '📦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
-                { icon: '🧵', label: 'Kho vải', href: '07-wms-kho-vai.html', active: false, badge: '' },
-                { icon: '👕', label: 'Kho thành phẩm', href: '18-wms-kho-tp.html', active: true, badge: '' },
-                { icon: '📥', label: 'Nhập kho', href: '19-wms-nhap.html', active: false, badge: '' },
-                { icon: '📤', label: 'Xuất kho', href: '20-wms-xuat.html', active: false, badge: '3' },
-                { icon: '📋', label: 'Kiểm kê', href: '21-wms-kiem-ke.html', active: false, badge: '' },
-                { section: 'Modules khác' },
-                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
-                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
-                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
+                { section: 'Quáº£n lÃ½ kho' },
+                { icon: 'ðŸ“¦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ§µ', label: 'Kho váº£i', href: '07-wms-kho-vai.html', active: false, badge: '' },
+                { icon: 'ðŸ‘•', label: 'Kho thÃ nh pháº©m', href: '18-wms-kho-tp.html', active: true, badge: '' },
+                { icon: 'ðŸ“¥', label: 'Nháº­p kho', href: '19-wms-nhap.html', active: false, badge: '' },
+                { icon: 'ðŸ“¤', label: 'Xuáº¥t kho', href: '20-wms-xuat.html', active: false, badge: '3' },
+                { icon: 'ðŸ“‹', label: 'Kiá»ƒm kÃª', href: '21-wms-kiem-ke.html', active: false, badge: '' },
+                { section: 'Modules khÃ¡c' },
+                { icon: 'ðŸ“Š', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: 'âš™ï¸', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ¤–', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
 
             const NOTIFICATIONS = [
-                { icon: '⚠️', title: '27 SKU sắp hết hàng — cần đặt SX gấp', time: '10 phút trước' },
-                { icon: '🔴', title: 'POLO-001 (Trắng/M) chỉ còn 12 cái', time: '20 phút trước' },
-                { icon: '📦', title: 'Lô SX #502 đã hoàn tất 1,250 SP', time: '1 giờ trước' },
-                { icon: '🚚', title: '47 đơn đang chờ xuất kho', time: '2 giờ trước' }
+                { icon: 'âš ï¸', title: '27 SKU sáº¯p háº¿t hÃ ng â€” cáº§n Ä‘áº·t SX gáº¥p', time: '10 phÃºt trÆ°á»›c' },
+                { icon: 'ðŸ”´', title: 'POLO-001 (Tráº¯ng/M) chá»‰ cÃ²n 12 cÃ¡i', time: '20 phÃºt trÆ°á»›c' },
+                { icon: 'ðŸ“¦', title: 'LÃ´ SX #502 Ä‘Ã£ hoÃ n táº¥t 1,250 SP', time: '1 giá» trÆ°á»›c' },
+                { icon: 'ðŸšš', title: '47 Ä‘Æ¡n Ä‘ang chá» xuáº¥t kho', time: '2 giá» trÆ°á»›c' }
             ];
 
             const STATS = [
-                { icon: '👕', label: 'Tổng SP tồn', value: '42,580', change: '+1,250', up: true },
-                { icon: '🏷', label: 'SKU có hàng', value: '385', change: '93.4%', up: true },
-                { icon: '⚠️', label: 'Sắp hết', value: '27 SKU', change: '+5', up: false },
-                { icon: '💰', label: 'Giá trị tồn', value: '12.4 tỷ', change: '+8%', up: true }
+                { icon: 'ðŸ‘•', label: 'Tá»•ng SP tá»“n', value: '42,580', change: '+1,250', up: true },
+                { icon: 'ðŸ·', label: 'SKU cÃ³ hÃ ng', value: '385', change: '93.4%', up: true },
+                { icon: 'âš ï¸', label: 'Sáº¯p háº¿t', value: '27 SKU', change: '+5', up: false },
+                { icon: 'ðŸ’°', label: 'GiÃ¡ trá»‹ tá»“n', value: '12.4 tá»·', change: '+8%', up: true }
             ];
 
             const SPS = [
-                { sku: 'POLO-001', name: 'POLOMIMIN Polo Basic', emoji: '👕', cat: 'polo', sizeColor: 'M/Trắng', stock: 850, reserved: 120, viTri: 'C1-A1-03', status: 'Sẵn sàng', cls: 'green' },
-                { sku: 'POLO-001W', name: 'POLOMIMIN Polo Trắng', emoji: '👕', cat: 'polo', sizeColor: 'M/Trắng', stock: 12, reserved: 50, viTri: 'C1-A2-01', status: 'Sắp hết', cls: 'red' },
-                { sku: 'THUN-COT-003', name: 'POLOMIMIN Thun Cotton', emoji: '👔', cat: 'thun', sizeColor: 'L/Xanh', stock: 8, reserved: 35, viTri: 'C1-B3-02', status: 'Sắp hết', cls: 'red' },
-                { sku: 'SOMI-BAM-002', name: 'POLOMIMIN Sơ Mi Bamboo', emoji: '👔', cat: 'somi', sizeColor: 'XL/Be', stock: 35, reserved: 22, viTri: 'C2-A1-01', status: 'Sắp hết', cls: 'amber' },
-                { sku: 'QUAN-TAY-004', name: 'POLOMIMIN Quần Tây', emoji: '👖', cat: 'short', sizeColor: '32/Đen', stock: 420, reserved: 45, viTri: 'C3-A1-02', status: 'Sẵn sàng', cls: 'green' },
-                { sku: 'BONG-TAY-005', name: 'POLOMIMIN Bộ thể thao', emoji: '🏃', cat: 'thethao', sizeColor: 'L/Xám', stock: 680, reserved: 95, viTri: 'C4-A1-01', status: 'Sẵn sàng', cls: 'green' },
-                { sku: 'DONG-PHUC-X', name: 'Đồng phục Cty X (Custom)', emoji: '👔', cat: 'dongphuc', sizeColor: '28/Đen', stock: 0, reserved: 250, viTri: 'C5-A1-01', status: 'Hết hàng', cls: 'red' },
-                { sku: 'SHORT-KAKI-005', name: 'POLOMIMIN Short Kaki', emoji: '🩳', cat: 'short', sizeColor: '29/Đen', stock: 42, reserved: 18, viTri: 'C3-B1-02', status: 'Sắp hết', cls: 'amber' }
+                { sku: 'POLO-001', name: 'POLOMIMIN Polo Basic', emoji: 'ðŸ‘•', cat: 'polo', sizeColor: 'M/Tráº¯ng', stock: 850, reserved: 120, viTri: 'C1-A1-03', status: 'Sáºµn sÃ ng', cls: 'green' },
+                { sku: 'POLO-001W', name: 'POLOMIMIN Polo Tráº¯ng', emoji: 'ðŸ‘•', cat: 'polo', sizeColor: 'M/Tráº¯ng', stock: 12, reserved: 50, viTri: 'C1-A2-01', status: 'Sáº¯p háº¿t', cls: 'red' },
+                { sku: 'THUN-COT-003', name: 'POLOMIMIN Thun Cotton', emoji: 'ðŸ‘”', cat: 'thun', sizeColor: 'L/Xanh', stock: 8, reserved: 35, viTri: 'C1-B3-02', status: 'Sáº¯p háº¿t', cls: 'red' },
+                { sku: 'SOMI-BAM-002', name: 'POLOMIMIN SÆ¡ Mi Bamboo', emoji: 'ðŸ‘”', cat: 'somi', sizeColor: 'XL/Be', stock: 35, reserved: 22, viTri: 'C2-A1-01', status: 'Sáº¯p háº¿t', cls: 'amber' },
+                { sku: 'QUAN-TAY-004', name: 'POLOMIMIN Quáº§n TÃ¢y', emoji: 'ðŸ‘–', cat: 'short', sizeColor: '32/Äen', stock: 420, reserved: 45, viTri: 'C3-A1-02', status: 'Sáºµn sÃ ng', cls: 'green' },
+                { sku: 'BONG-TAY-005', name: 'POLOMIMIN Bá»™ thá»ƒ thao', emoji: 'ðŸƒ', cat: 'thethao', sizeColor: 'L/XÃ¡m', stock: 680, reserved: 95, viTri: 'C4-A1-01', status: 'Sáºµn sÃ ng', cls: 'green' },
+                { sku: 'DONG-PHUC-X', name: 'Äá»“ng phá»¥c Cty X (Custom)', emoji: 'ðŸ‘”', cat: 'dongphuc', sizeColor: '28/Äen', stock: 0, reserved: 250, viTri: 'C5-A1-01', status: 'Háº¿t hÃ ng', cls: 'red' },
+                { sku: 'SHORT-KAKI-005', name: 'POLOMIMIN Short Kaki', emoji: 'ðŸ©³', cat: 'short', sizeColor: '29/Äen', stock: 42, reserved: 18, viTri: 'C3-B1-02', status: 'Sáº¯p háº¿t', cls: 'amber' }
             ];
 
             function getQtyClass(stock) {
@@ -244,15 +244,15 @@
                             title: `${s.emoji} ${s.name}`,
                             subtitle: `SKU: ${s.sku}`,
                             rows: [
-                                { label: 'Size/Màu', value: s.sizeColor },
-                                { label: 'Tồn kho', value: s.stock.toLocaleString() + ' cái' },
-                                { label: 'Đã đặt trước', value: s.reserved.toLocaleString() + ' cái' },
-                                { label: 'Vị trí', value: s.viTri },
-                                { label: 'Trạng thái', value: s.status }
+                                { label: 'Size/MÃ u', value: s.sizeColor },
+                                { label: 'Tá»“n kho', value: s.stock.toLocaleString() + ' cÃ¡i' },
+                                { label: 'ÄÃ£ Ä‘áº·t trÆ°á»›c', value: s.reserved.toLocaleString() + ' cÃ¡i' },
+                                { label: 'Vá»‹ trÃ­', value: s.viTri },
+                                { label: 'Tráº¡ng thÃ¡i', value: s.status }
                             ],
                             actions: [
-                                { label: 'Đóng', type: 'secondary' },
-                                { label: '📥 Đặt SX thêm', type: 'primary', onClick: () => MiminShell.showToast(`📥 Đã tạo yêu cầu SX cho ${s.sku}`, 'success', '✅') }
+                                { label: 'ÄÃ³ng', type: 'secondary' },
+                                { label: 'ðŸ“¥ Äáº·t SX thÃªm', type: 'primary', onClick: () => MiminShell.showToast(`ðŸ“¥ ÄÃ£ táº¡o yÃªu cáº§u SX cho ${s.sku}`, 'success', 'âœ…') }
                             ]
                         });
                     });
@@ -276,23 +276,23 @@
             });
 
             document.getElementById('btnImport').addEventListener('click', () => {
-                MiminShell.showToast('📥 Mở form nhập thành phẩm từ lệnh SX...', 'info', '📥');
+                MiminShell.showToast('ðŸ“¥ Má»Ÿ form nháº­p thÃ nh pháº©m tá»« lá»‡nh SX...', 'info', 'ðŸ“¥');
             });
 
-            document.getElementById('btnInventory').addEventListener('click', () => MiminShell.showToast('📋 Tạo phiếu kiểm kê...', 'info', '📋'));
+            document.getElementById('btnInventory').addEventListener('click', () => MiminShell.showToast('ðŸ“‹ Táº¡o phiáº¿u kiá»ƒm kÃª...', 'info', 'ðŸ“‹'));
 
             document.getElementById('quickAddBtn').addEventListener('click', () => {
                 MiminBiz.openModal({
                     title: '+ Kho TP',
-                    subtitle: 'Tác vụ nhanh',
+                    subtitle: 'TÃ¡c vá»¥ nhanh',
                     bodyHtml: `
                         <div style="display:flex;flex-direction:column;gap:8px;">
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📥 Nhập từ lệnh SX</button>
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📤 Xuất cho đơn hàng</button>
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📋 Kiểm kê</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“¥ Nháº­p tá»« lá»‡nh SX</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“¤ Xuáº¥t cho Ä‘Æ¡n hÃ ng</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“‹ Kiá»ƒm kÃª</button>
                         </div>
                     `,
-                    actions: [{ label: 'Đóng', type: 'secondary' }]
+                    actions: [{ label: 'ÄÃ³ng', type: 'secondary' }]
                 });
             });
 
@@ -300,18 +300,18 @@
                 user: USER,
                 navItems: NAV_ITEMS,
                 notifications: NOTIFICATIONS,
-                aiFloatMessage: '🧠 AI Kho thành phẩm:\n1. 27 SKU sắp hết hàng — đề xuất đặt SX ngay\n2. POLO-001 (Trắng/M) chỉ 12 cái — ưu tiên cao nhất\n3. Đồng phục CTY-X hết hàng — 250 cái pending\n4. Tổng giá trị tồn 12.4 tỷ (tăng 8%)\n5. Dự báo: Bộ thể thao +45% trong 2 tuần tới — SX sớm',
+                aiFloatMessage: 'ðŸ§  AI Kho thÃ nh pháº©m:\n1. 27 SKU sáº¯p háº¿t hÃ ng â€” Ä‘á» xuáº¥t Ä‘áº·t SX ngay\n2. POLO-001 (Tráº¯ng/M) chá»‰ 12 cÃ¡i â€” Æ°u tiÃªn cao nháº¥t\n3. Äá»“ng phá»¥c CTY-X háº¿t hÃ ng â€” 250 cÃ¡i pending\n4. Tá»•ng giÃ¡ trá»‹ tá»“n 12.4 tá»· (tÄƒng 8%)\n5. Dá»± bÃ¡o: Bá»™ thá»ƒ thao +45% trong 2 tuáº§n tá»›i â€” SX sá»›m',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
                 }
             });
 
             renderSps('all');
             MiminBiz.renderStatCards(STATS);
-            console.log('✅ POLOMIMIN Kho thành phẩm initialized.');
+            console.log('âœ… POLOMIMIN Kho thÃ nh pháº©m initialized.');
         })();
     </script>
 </body>

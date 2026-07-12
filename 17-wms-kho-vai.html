@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · Kho vải (Compact)</title>
+    <title>POLOMIMIN Â· Kho váº£i (Compact)</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
     <link rel="stylesheet" href="assets/css/warehouse-layout.css" />
     <style>
         :root {
@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #16A34A, #14B8A6);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -53,50 +53,50 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="globalSearch" placeholder="Tìm mã cuộn..." aria-label="Tìm kiếm" />
-                <span class="shortcut" aria-hidden="true">⌘K</span>
+                <span class="search-icon" aria-hidden="true">ðŸ”</span>
+                <input type="text" id="globalSearch" placeholder="TÃ¬m mÃ£ cuá»™n..." aria-label="TÃ¬m kiáº¿m" />
+                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
-                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
+                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
-            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
+            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">🏠 Hub</a>
-            <span class="separator">›</span>
-            <a href="06-wms-dashboard.html">📦 WMS</a>
-            <span class="separator">›</span>
-            <span class="current">🧵 Kho vải (Compact)</span>
+            <a href="01-home.html">ðŸ  Hub</a>
+            <span class="separator">â€º</span>
+            <a href="06-wms-dashboard.html">ðŸ“¦ WMS</a>
+            <span class="separator">â€º</span>
+            <span class="current">ðŸ§µ Kho váº£i (Compact)</span>
         </nav>
 
         <div class="wh-page-header">
             <div>
-                <div class="wph-title">🧵 Kho vải (Compact View)</div>
-                <div class="wph-subtitle">Giao diện thu gọn — Lọc theo loại vải, click vào card để xem chi tiết</div>
+                <div class="wph-title">ðŸ§µ Kho váº£i (Compact View)</div>
+                <div class="wph-subtitle">Giao diá»‡n thu gá»n â€” Lá»c theo loáº¡i váº£i, click vÃ o card Ä‘á»ƒ xem chi tiáº¿t</div>
             </div>
             <div class="wph-actions">
-                <button class="btn-wh-primary" id="btnImport">📥 Nhập cuộn</button>
+                <button class="btn-wh-primary" id="btnImport">ðŸ“¥ Nháº­p cuá»™n</button>
             </div>
         </div>
 
@@ -104,7 +104,7 @@
 
         <div class="wh-page-header" style="margin-top: 24px;">
             <div>
-                <div class="wph-title" style="font-size:18px;">📦 Lọc theo loại vải</div>
+                <div class="wph-title" style="font-size:18px;">ðŸ“¦ Lá»c theo loáº¡i váº£i</div>
             </div>
         </div>
 
@@ -112,99 +112,99 @@
 
         <div class="wh-page-header" style="margin-top: 24px;">
             <div>
-                <div class="wph-title" style="font-size:18px;">📋 Danh sách cuộn vải</div>
-                <div class="wph-subtitle" id="filterNote">Hiển thị tất cả cuộn</div>
+                <div class="wph-title" style="font-size:18px;">ðŸ“‹ Danh sÃ¡ch cuá»™n váº£i</div>
+                <div class="wph-subtitle" id="filterNote">Hiá»ƒn thá»‹ táº¥t cáº£ cuá»™n</div>
             </div>
         </div>
 
         <div class="cuon-card-grid" id="cuonCardGrid"></div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
-            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
-        <span class="ai-icon" aria-hidden="true">🧠</span>
-        <span>AI: <strong>5 loại vải sắp hết, đặt NCC gấp</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
+        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
+        <span>AI: <strong>5 loáº¡i váº£i sáº¯p háº¿t, Ä‘áº·t NCC gáº¥p</strong></span>
     </button>
-    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tác vụ nhanh" title="Tác vụ nhanh">+</button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="TÃ¡c vá»¥ nhanh" title="TÃ¡c vá»¥ nhanh">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
-            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
+            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
     <script src="assets/js/warehouse-layout.js"></script>
     <script>
         (function () {
             'use strict';
 
-            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
 
             const NAV_ITEMS = [
-                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
-                { section: 'Quản lý kho' },
-                { icon: '📦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
-                { icon: '🧵', label: 'Kho vải', href: '07-wms-kho-vai.html', active: true, badge: '' },
-                { icon: '👕', label: 'Kho thành phẩm', href: '18-wms-kho-tp.html', active: false, badge: '' },
-                { icon: '📥', label: 'Nhập kho', href: '19-wms-nhap.html', active: false, badge: '' },
-                { icon: '📤', label: 'Xuất kho', href: '20-wms-xuat.html', active: false, badge: '3' },
-                { icon: '📋', label: 'Kiểm kê', href: '21-wms-kiem-ke.html', active: false, badge: '' },
-                { section: 'Modules khác' },
-                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
-                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
-                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
+                { section: 'Quáº£n lÃ½ kho' },
+                { icon: 'ðŸ“¦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ§µ', label: 'Kho váº£i', href: '07-wms-kho-vai.html', active: true, badge: '' },
+                { icon: 'ðŸ‘•', label: 'Kho thÃ nh pháº©m', href: '18-wms-kho-tp.html', active: false, badge: '' },
+                { icon: 'ðŸ“¥', label: 'Nháº­p kho', href: '19-wms-nhap.html', active: false, badge: '' },
+                { icon: 'ðŸ“¤', label: 'Xuáº¥t kho', href: '20-wms-xuat.html', active: false, badge: '3' },
+                { icon: 'ðŸ“‹', label: 'Kiá»ƒm kÃª', href: '21-wms-kiem-ke.html', active: false, badge: '' },
+                { section: 'Modules khÃ¡c' },
+                { icon: 'ðŸ“Š', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: 'âš™ï¸', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ¤–', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
 
             const NOTIFICATIONS = [
-                { icon: '⚠️', title: '5 loại vải sắp hết — cần đặt NCC', time: '10 phút trước' },
-                { icon: '📦', title: 'Lô NK-234 đã nhập kho A1', time: '1 giờ trước' },
-                { icon: '🚚', title: 'NCC Dệt Việt đang giao 250 cuộn', time: '2 giờ trước' },
-                { icon: '🔄', title: 'Chuyển kho 50 cuộn từ A1 → A2', time: '3 giờ trước' }
+                { icon: 'âš ï¸', title: '5 loáº¡i váº£i sáº¯p háº¿t â€” cáº§n Ä‘áº·t NCC', time: '10 phÃºt trÆ°á»›c' },
+                { icon: 'ðŸ“¦', title: 'LÃ´ NK-234 Ä‘Ã£ nháº­p kho A1', time: '1 giá» trÆ°á»›c' },
+                { icon: 'ðŸšš', title: 'NCC Dá»‡t Viá»‡t Ä‘ang giao 250 cuá»™n', time: '2 giá» trÆ°á»›c' },
+                { icon: 'ðŸ”„', title: 'Chuyá»ƒn kho 50 cuá»™n tá»« A1 â†’ A2', time: '3 giá» trÆ°á»›c' }
             ];
 
             const STATS = [
-                { icon: '🧵', label: 'Tổng cuộn', value: '2,485', change: '+45', up: true },
-                { icon: '📏', label: 'Tổng mét', value: '128,450', change: '+2,800', up: true },
-                { icon: '💰', label: 'Giá trị kho', value: '7.8 tỷ', change: '+12%', up: true },
-                { icon: '⚠️', label: 'Sắp hết', value: '5 loại', change: '+2', up: false }
+                { icon: 'ðŸ§µ', label: 'Tá»•ng cuá»™n', value: '2,485', change: '+45', up: true },
+                { icon: 'ðŸ“', label: 'Tá»•ng mÃ©t', value: '128,450', change: '+2,800', up: true },
+                { icon: 'ðŸ’°', label: 'GiÃ¡ trá»‹ kho', value: '7.8 tá»·', change: '+12%', up: true },
+                { icon: 'âš ï¸', label: 'Sáº¯p háº¿t', value: '5 loáº¡i', change: '+2', up: false }
             ];
 
             const LOAI_VAI = [
-                { id: 'all', name: 'Tất cả', emoji: '📦', count: 2485, met: 128450 },
-                { id: 'cotton', name: 'Cotton', emoji: '🌿', count: 1120, met: 58400 },
-                { id: 'poly', name: 'Poly', emoji: '🧪', count: 685, met: 35200 },
-                { id: 'bamboo', name: 'Bamboo', emoji: '🎋', count: 320, met: 18400 },
-                { id: 'kaki', name: 'Kaki', emoji: '🪨', count: 260, met: 12250 },
-                { id: 'thun', name: 'Thun lạnh', emoji: '❄️', count: 100, met: 4200 }
+                { id: 'all', name: 'Táº¥t cáº£', emoji: 'ðŸ“¦', count: 2485, met: 128450 },
+                { id: 'cotton', name: 'Cotton', emoji: 'ðŸŒ¿', count: 1120, met: 58400 },
+                { id: 'poly', name: 'Poly', emoji: 'ðŸ§ª', count: 685, met: 35200 },
+                { id: 'bamboo', name: 'Bamboo', emoji: 'ðŸŽ‹', count: 320, met: 18400 },
+                { id: 'kaki', name: 'Kaki', emoji: 'ðŸª¨', count: 260, met: 12250 },
+                { id: 'thun', name: 'Thun láº¡nh', emoji: 'â„ï¸', count: 100, met: 4200 }
             ];
 
             const CUONS = [
-                { code: 'CV-30T-001', name: 'Cotton 30s Trắng', met: 2850, color: '#FFFFFF', viTri: 'A1-01-03' },
-                { code: 'CV-30Đ-002', name: 'Cotton 30s Đen', met: 1240, color: '#1F2937', viTri: 'A1-02-01' },
-                { code: 'PL-40Đ-101', name: 'Poly 40s Đen', met: 380, color: '#1F2937', viTri: 'B2-01-05' },
+                { code: 'CV-30T-001', name: 'Cotton 30s Tráº¯ng', met: 2850, color: '#FFFFFF', viTri: 'A1-01-03' },
+                { code: 'CV-30Ä-002', name: 'Cotton 30s Äen', met: 1240, color: '#1F2937', viTri: 'A1-02-01' },
+                { code: 'PL-40Ä-101', name: 'Poly 40s Äen', met: 380, color: '#1F2937', viTri: 'B2-01-05' },
                 { code: 'PL-40X-102', name: 'Poly 40s Xanh', met: 1850, color: '#3B82F6', viTri: 'B2-02-01' },
                 { code: 'BM-32B-201', name: 'Bamboo 32s Be', met: 1450, color: '#D4A574', viTri: 'C1-01-02' },
-                { code: 'KK-24R-301', name: 'Kaki 24s Rêu', met: 980, color: '#15803D', viTri: 'D1-01-01' },
-                { code: 'KK-24Đ-302', name: 'Kaki 24s Đen', met: 1620, color: '#1F2937', viTri: 'D1-01-02' },
-                { code: 'TL-32C-401', name: 'Thun lạnh Coban', met: 1230, color: '#1E40AF', viTri: 'E1-01-03' },
-                { code: 'TL-32Đ-402', name: 'Thun lạnh Đỏ', met: 2100, color: '#DC2626', viTri: 'E1-02-01' }
+                { code: 'KK-24R-301', name: 'Kaki 24s RÃªu', met: 980, color: '#15803D', viTri: 'D1-01-01' },
+                { code: 'KK-24Ä-302', name: 'Kaki 24s Äen', met: 1620, color: '#1F2937', viTri: 'D1-01-02' },
+                { code: 'TL-32C-401', name: 'Thun láº¡nh Coban', met: 1230, color: '#1E40AF', viTri: 'E1-01-03' },
+                { code: 'TL-32Ä-402', name: 'Thun láº¡nh Äá»', met: 2100, color: '#DC2626', viTri: 'E1-02-01' }
             ];
 
             function renderLoaiVai() {
@@ -214,7 +214,7 @@
                         <div class="lv-emoji">${lv.emoji}</div>
                         <div class="lv-name">${lv.name}</div>
                         <div class="lv-count">${lv.count.toLocaleString()}</div>
-                        <div class="lv-met">cuộn · ${lv.met.toLocaleString()}m</div>
+                        <div class="lv-met">cuá»™n Â· ${lv.met.toLocaleString()}m</div>
                     </div>
                 `).join('');
 
@@ -224,8 +224,8 @@
                         card.classList.add('active');
                         const id = card.getAttribute('data-id');
                         const filter = LOAI_VAI.find(l => l.id === id);
-                        document.getElementById('filterNote').textContent = `Hiển thị: ${filter.name} (${filter.count} cuộn · ${filter.met.toLocaleString()}m)`;
-                        MiminShell.showToast(`📦 Lọc: ${filter.name}`, 'info', '🔍');
+                        document.getElementById('filterNote').textContent = `Hiá»ƒn thá»‹: ${filter.name} (${filter.count} cuá»™n Â· ${filter.met.toLocaleString()}m)`;
+                        MiminShell.showToast(`ðŸ“¦ Lá»c: ${filter.name}`, 'info', 'ðŸ”');
                     });
                 });
             }
@@ -240,10 +240,10 @@
                         </div>
                         <div class="cuon-card-name">${c.name}</div>
                         <div class="cuon-card-met">${c.met.toLocaleString()}<span style="font-size:12px; font-weight:400; color:var(--text-light);"> m</span></div>
-                        <div class="cuon-card-met-label">Số mét còn lại</div>
+                        <div class="cuon-card-met-label">Sá»‘ mÃ©t cÃ²n láº¡i</div>
                         <div class="cuon-card-info">
-                            <span>📍 ${c.viTri}</span>
-                            <span>📦 Tồn kho</span>
+                            <span>ðŸ“ ${c.viTri}</span>
+                            <span>ðŸ“¦ Tá»“n kho</span>
                         </div>
                     </div>
                 `).join('');
@@ -253,16 +253,16 @@
                         const code = card.getAttribute('data-code');
                         const c = CUONS.find(x => x.code === code);
                         MiminBiz.openModal({
-                            title: `🧵 ${c.name}`,
-                            subtitle: `Mã cuộn: ${c.code}`,
+                            title: `ðŸ§µ ${c.name}`,
+                            subtitle: `MÃ£ cuá»™n: ${c.code}`,
                             rows: [
-                                { label: 'Số mét còn', value: c.met.toLocaleString() + ' m' },
-                                { label: 'Vị trí kho', value: c.viTri },
-                                { label: 'Màu sắc', value: c.color }
+                                { label: 'Sá»‘ mÃ©t cÃ²n', value: c.met.toLocaleString() + ' m' },
+                                { label: 'Vá»‹ trÃ­ kho', value: c.viTri },
+                                { label: 'MÃ u sáº¯c', value: c.color }
                             ],
                             actions: [
-                                { label: 'Đóng', type: 'secondary' },
-                                { label: '🏷 In QR', type: 'primary', onClick: () => MiminShell.showToast(`🏷 In QR cho ${c.code}`, 'success', '🏷') }
+                                { label: 'ÄÃ³ng', type: 'secondary' },
+                                { label: 'ðŸ· In QR', type: 'primary', onClick: () => MiminShell.showToast(`ðŸ· In QR cho ${c.code}`, 'success', 'ðŸ·') }
                             ]
                         });
                     });
@@ -270,21 +270,21 @@
             }
 
             document.getElementById('btnImport').addEventListener('click', () => {
-                MiminShell.showToast('📥 Mở form nhập cuộn mới...', 'info', '📥');
+                MiminShell.showToast('ðŸ“¥ Má»Ÿ form nháº­p cuá»™n má»›i...', 'info', 'ðŸ“¥');
             });
 
             document.getElementById('quickAddBtn').addEventListener('click', () => {
                 MiminBiz.openModal({
-                    title: '+ Kho vải',
-                    subtitle: 'Tác vụ nhanh',
+                    title: '+ Kho váº£i',
+                    subtitle: 'TÃ¡c vá»¥ nhanh',
                     bodyHtml: `
                         <div style="display:flex;flex-direction:column;gap:8px;">
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📥 Nhập cuộn từ NCC</button>
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📤 Xuất cuộn cho SX</button>
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📋 Kiểm kê</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“¥ Nháº­p cuá»™n tá»« NCC</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“¤ Xuáº¥t cuá»™n cho SX</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“‹ Kiá»ƒm kÃª</button>
                         </div>
                     `,
-                    actions: [{ label: 'Đóng', type: 'secondary' }]
+                    actions: [{ label: 'ÄÃ³ng', type: 'secondary' }]
                 });
             });
 
@@ -292,19 +292,19 @@
                 user: USER,
                 navItems: NAV_ITEMS,
                 notifications: NOTIFICATIONS,
-                aiFloatMessage: '🧠 AI Kho vải (compact view):\n1. 5 loại sắp hết — đề xuất đặt NCC ngay\n2. Cotton 30s (Trắng) còn 12 cuộn — ưu tiên cao nhất\n3. Tổng giá trị kho vải: 7.8 tỷ (tăng 12%)\n4. Kho A1 đang 74% — chuyển 100 cuộn sang Kho B\n5. Cotton 30s giá NCC tăng 8% — đặt sớm để lock giá',
+                aiFloatMessage: 'ðŸ§  AI Kho váº£i (compact view):\n1. 5 loáº¡i sáº¯p háº¿t â€” Ä‘á» xuáº¥t Ä‘áº·t NCC ngay\n2. Cotton 30s (Tráº¯ng) cÃ²n 12 cuá»™n â€” Æ°u tiÃªn cao nháº¥t\n3. Tá»•ng giÃ¡ trá»‹ kho váº£i: 7.8 tá»· (tÄƒng 12%)\n4. Kho A1 Ä‘ang 74% â€” chuyá»ƒn 100 cuá»™n sang Kho B\n5. Cotton 30s giÃ¡ NCC tÄƒng 8% â€” Ä‘áº·t sá»›m Ä‘á»ƒ lock giÃ¡',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
                 }
             });
 
             renderLoaiVai();
             renderCuons();
             MiminBiz.renderStatCards(STATS);
-            console.log('✅ POLOMIMIN Kho vải (Compact) initialized.');
+            console.log('âœ… POLOMIMIN Kho váº£i (Compact) initialized.');
         })();
     </script>
 </body>

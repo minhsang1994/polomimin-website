@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · HR Dashboard (Chi tiết)</title>
+    <title>POLOMIMIN Â· HR Dashboard (Chi tiáº¿t)</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
+    <link rel="stylesheet" href="assets/css/business-layout.css?v=2" />
     <style>
         :root { --primary: #EA580C; --primary-dark: #C2410C; --primary-light: #FB923C; --primary-gradient: linear-gradient(135deg, #EA580C 0%, #C2410C 100%); }
         .biz-page-header { background: linear-gradient(135deg, rgba(234, 88, 12, 0.05), rgba(20, 184, 166, 0.05)); }
@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #EA580C, #14B8A6);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -35,47 +35,47 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="globalSearch" placeholder="Tìm..." aria-label="Tìm kiếm" />
-                <span class="shortcut" aria-hidden="true">⌘K</span>
+                <span class="search-icon" aria-hidden="true">ðŸ”</span>
+                <input type="text" id="globalSearch" placeholder="TÃ¬m..." aria-label="TÃ¬m kiáº¿m" />
+                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
-                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
+                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
-            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
+            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">🏠 Hub</a>
-            <span class="separator">›</span>
-            <a href="22-hr-dashboard.html">👨‍💼 HR</a>
-            <span class="separator">›</span>
-            <span class="current">🏢 Cơ cấu tổ chức</span>
+            <a href="01-home.html">ðŸ  Hub</a>
+            <span class="separator">â€º</span>
+            <a href="22-hr-dashboard.html">ðŸ‘¨â€ðŸ’¼ HR</a>
+            <span class="separator">â€º</span>
+            <span class="current">ðŸ¢ CÆ¡ cáº¥u tá»• chá»©c</span>
         </nav>
 
         <div class="biz-page-header">
             <div>
-                <div class="bph-title">🏢 HR Dashboard - Cơ cấu tổ chức</div>
-                <div class="bph-subtitle">Sơ đồ tổ chức POLOMIMIN — 185 nhân viên, 8 phòng ban</div>
+                <div class="bph-title">ðŸ¢ HR Dashboard - CÆ¡ cáº¥u tá»• chá»©c</div>
+                <div class="bph-subtitle">SÆ¡ Ä‘á»“ tá»• chá»©c POLOMIMIN â€” 185 nhÃ¢n viÃªn, 8 phÃ²ng ban</div>
             </div>
         </div>
 
@@ -83,7 +83,7 @@
 
         <div class="wh-page-header" style="margin-top: 24px;">
             <div>
-                <div class="wph-title" style="font-size:18px;">🗂️ Sơ đồ tổ chức</div>
+                <div class="wph-title" style="font-size:18px;">ðŸ—‚ï¸ SÆ¡ Ä‘á»“ tá»• chá»©c</div>
             </div>
         </div>
 
@@ -91,98 +91,98 @@
             <div class="org-chart">
                 <div class="org-level">
                     <div class="org-box ceo">
-                        <strong>Hồ Minh Sang</strong>
+                        <strong>Há»“ Minh Sang</strong>
                         <small>Founder & CEO</small>
                     </div>
                 </div>
-                <div style="text-align:center; color:var(--text-light); font-size:18px;">│</div>
+                <div style="text-align:center; color:var(--text-light); font-size:18px;">â”‚</div>
                 <div class="org-level">
-                    <div class="org-box"><strong>Trần Văn Nam</strong><small>Quản lý Sản xuất · 95 NV</small></div>
-                    <div class="org-box"><strong>Lê Thị Hoa</strong><small>Trưởng phòng Sales · 25 NV</small></div>
-                    <div class="org-box"><strong>Nguyễn Thị Mai</strong><small>Kế toán trưởng · 12 NV</small></div>
+                    <div class="org-box"><strong>Tráº§n VÄƒn Nam</strong><small>Quáº£n lÃ½ Sáº£n xuáº¥t Â· 95 NV</small></div>
+                    <div class="org-box"><strong>LÃª Thá»‹ Hoa</strong><small>TrÆ°á»Ÿng phÃ²ng Sales Â· 25 NV</small></div>
+                    <div class="org-box"><strong>Nguyá»…n Thá»‹ Mai</strong><small>Káº¿ toÃ¡n trÆ°á»Ÿng Â· 12 NV</small></div>
                 </div>
-                <div style="text-align:center; color:var(--text-light); font-size:18px;">│</div>
+                <div style="text-align:center; color:var(--text-light); font-size:18px;">â”‚</div>
                 <div class="org-level">
-                    <div class="org-box"><strong>Võ Văn Tài</strong><small>Quản lý Kho · 18 NV</small></div>
-                    <div class="org-box"><strong>Đặng Thị Linh</strong><small>Marketing Mgr · 8 NV</small></div>
-                    <div class="org-box"><strong>Bùi Văn Hùng</strong><small>DevOps Lead · 7 NV</small></div>
-                    <div class="org-box"><strong>Hoàng Thị Lan</strong><small>HR Manager · 5 NV</small></div>
-                    <div class="org-box"><strong>Phạm Văn Đức</strong><small>Trưởng ca SX · 15 NV</small></div>
+                    <div class="org-box"><strong>VÃµ VÄƒn TÃ i</strong><small>Quáº£n lÃ½ Kho Â· 18 NV</small></div>
+                    <div class="org-box"><strong>Äáº·ng Thá»‹ Linh</strong><small>Marketing Mgr Â· 8 NV</small></div>
+                    <div class="org-box"><strong>BÃ¹i VÄƒn HÃ¹ng</strong><small>DevOps Lead Â· 7 NV</small></div>
+                    <div class="org-box"><strong>HoÃ ng Thá»‹ Lan</strong><small>HR Manager Â· 5 NV</small></div>
+                    <div class="org-box"><strong>Pháº¡m VÄƒn Äá»©c</strong><small>TrÆ°á»Ÿng ca SX Â· 15 NV</small></div>
                 </div>
             </div>
         </div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
-            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
-        <span class="ai-icon" aria-hidden="true">🧠</span>
-        <span>AI: <strong>Cơ cấu tổ chức đang tối ưu, 1:25 quản lý/NV</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
+        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
+        <span>AI: <strong>CÆ¡ cáº¥u tá»• chá»©c Ä‘ang tá»‘i Æ°u, 1:25 quáº£n lÃ½/NV</strong></span>
     </button>
-    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tác vụ nhanh" title="Tác vụ nhanh">+</button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="TÃ¡c vá»¥ nhanh" title="TÃ¡c vá»¥ nhanh">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
-            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
+            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/business-layout.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
+    <script src="assets/js/business-layout.js?v=2"></script>
     <script>
         (function () {
             'use strict';
-            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
             const NAV_ITEMS = [
-                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
-                { section: 'Nhân sự' },
-                { icon: '👨‍💼', label: 'HR Dashboard', href: '22-hr-dashboard.html', active: true, badge: '' },
-                { icon: '👥', label: 'Hồ sơ NV', href: '23-hr-ho-so.html', active: false, badge: '' },
-                { icon: '⏰', label: 'Chấm công', href: '24-hr-cham-cong.html', active: false, badge: '' },
-                { icon: '💰', label: 'Tính lương', href: '34-hr-luong.html', active: false, badge: '' },
-                { section: 'Modules khác' },
-                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: '📦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
-                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
-                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
+                { section: 'NhÃ¢n sá»±' },
+                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HR Dashboard', href: '22-hr-dashboard.html', active: true, badge: '' },
+                { icon: 'ðŸ‘¥', label: 'Há»“ sÆ¡ NV', href: '23-hr-ho-so.html', active: false, badge: '' },
+                { icon: 'â°', label: 'Cháº¥m cÃ´ng', href: '24-hr-cham-cong.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'TÃ­nh lÆ°Æ¡ng', href: '34-hr-luong.html', active: false, badge: '' },
+                { section: 'Modules khÃ¡c' },
+                { icon: 'ðŸ“Š', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: 'âš™ï¸', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ“¦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ¤–', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
             const NOTIFICATIONS = [
-                { icon: '🏢', title: 'Sơ đồ tổ chức đã cập nhật Q2', time: '1 ngày' },
-                { icon: '👥', title: 'Tuyển 3 thợ may chính', time: '2 giờ' }
+                { icon: 'ðŸ¢', title: 'SÆ¡ Ä‘á»“ tá»• chá»©c Ä‘Ã£ cáº­p nháº­t Q2', time: '1 ngÃ y' },
+                { icon: 'ðŸ‘¥', title: 'Tuyá»ƒn 3 thá»£ may chÃ­nh', time: '2 giá»' }
             ];
             const STATS = [
-                { icon: '👥', label: 'Tổng NV', value: '185', change: '+5 tháng', up: true },
-                { icon: '🏢', label: 'Phòng ban', value: '8', change: 'Sản xuất, Kho, Sales...', up: true },
-                { icon: '👔', label: 'Quản lý', value: '15', change: '8.1%', up: true },
-                { icon: '📊', label: 'Tỷ lệ QL/NV', value: '1:12', change: 'Tối ưu', up: true }
+                { icon: 'ðŸ‘¥', label: 'Tá»•ng NV', value: '185', change: '+5 thÃ¡ng', up: true },
+                { icon: 'ðŸ¢', label: 'PhÃ²ng ban', value: '8', change: 'Sáº£n xuáº¥t, Kho, Sales...', up: true },
+                { icon: 'ðŸ‘”', label: 'Quáº£n lÃ½', value: '15', change: '8.1%', up: true },
+                { icon: 'ðŸ“Š', label: 'Tá»· lá»‡ QL/NV', value: '1:12', change: 'Tá»‘i Æ°u', up: true }
             ];
-            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('➕ Thêm phòng ban mới...', 'info', '➕'));
+            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('âž• ThÃªm phÃ²ng ban má»›i...', 'info', 'âž•'));
             MiminShell.init({
                 user: USER, navItems: NAV_ITEMS, notifications: NOTIFICATIONS,
-                aiFloatMessage: '🧠 AI Cơ cấu tổ chức:\n1. Tỷ lệ quản lý/NV: 1:12 — tối ưu\n2. SX có 95 NV (51%) — phòng ban lớn nhất\n3. Sales 25 NV + doanh thu 8.2 tỷ = 328tr/NV/năm — cao\n4. Đề xuất: Tách phòng Marketing Digital riêng (hiện 8 NV)\n5. Tuyển 1 HR Business Partner cho SX (hỗ trợ 95 NV)',
+                aiFloatMessage: 'ðŸ§  AI CÆ¡ cáº¥u tá»• chá»©c:\n1. Tá»· lá»‡ quáº£n lÃ½/NV: 1:12 â€” tá»‘i Æ°u\n2. SX cÃ³ 95 NV (51%) â€” phÃ²ng ban lá»›n nháº¥t\n3. Sales 25 NV + doanh thu 8.2 tá»· = 328tr/NV/nÄƒm â€” cao\n4. Äá» xuáº¥t: TÃ¡ch phÃ²ng Marketing Digital riÃªng (hiá»‡n 8 NV)\n5. Tuyá»ƒn 1 HR Business Partner cho SX (há»— trá»£ 95 NV)',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
                 }
             });
             MiminBiz.renderStatCards(STATS);
-            console.log('✅ POLOMIMIN HR Org Chart initialized.');
+            console.log('âœ… POLOMIMIN HR Org Chart initialized.');
         })();
     </script>
 </body>

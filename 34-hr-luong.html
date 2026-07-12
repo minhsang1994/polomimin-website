@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · Tính lương</title>
+    <title>POLOMIMIN Â· TÃ­nh lÆ°Æ¡ng</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
+    <link rel="stylesheet" href="assets/css/business-layout.css?v=2" />
     <style>
         :root { --primary: #EA580C; --primary-dark: #C2410C; --primary-light: #FB923C; --primary-gradient: linear-gradient(135deg, #EA580C 0%, #C2410C 100%); }
         .biz-page-header { background: linear-gradient(135deg, rgba(234, 88, 12, 0.05), rgba(20, 184, 166, 0.05)); }
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #EA580C, #14B8A6);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -33,51 +33,51 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="globalSearch" placeholder="Tìm NV..." aria-label="Tìm kiếm" />
-                <span class="shortcut" aria-hidden="true">⌘K</span>
+                <span class="search-icon" aria-hidden="true">ðŸ”</span>
+                <input type="text" id="globalSearch" placeholder="TÃ¬m NV..." aria-label="TÃ¬m kiáº¿m" />
+                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
-                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
+                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
-            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
+            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">🏠 Hub</a>
-            <span class="separator">›</span>
-            <a href="22-hr-dashboard.html">👨‍💼 HR</a>
-            <span class="separator">›</span>
-            <span class="current">💰 Tính lương T7/2026</span>
+            <a href="01-home.html">ðŸ  Hub</a>
+            <span class="separator">â€º</span>
+            <a href="22-hr-dashboard.html">ðŸ‘¨â€ðŸ’¼ HR</a>
+            <span class="separator">â€º</span>
+            <span class="current">ðŸ’° TÃ­nh lÆ°Æ¡ng T7/2026</span>
         </nav>
 
         <div class="biz-page-header">
             <div>
-                <div class="bph-title">💰 Bảng lương tháng 07/2026</div>
-                <div class="bph-subtitle">Tính lương 185 nhân viên · Tổng quỹ lương: 4.8 tỷ</div>
+                <div class="bph-title">ðŸ’° Báº£ng lÆ°Æ¡ng thÃ¡ng 07/2026</div>
+                <div class="bph-subtitle">TÃ­nh lÆ°Æ¡ng 185 nhÃ¢n viÃªn Â· Tá»•ng quá»¹ lÆ°Æ¡ng: 4.8 tá»·</div>
             </div>
             <div class="bph-actions">
-                <button class="btn-biz-outline" id="btnExport">📤 Xuất bảng lương</button>
-                <button class="btn-biz-primary" id="btnApprove">✅ Duyệt bảng lương</button>
+                <button class="btn-biz-outline" id="btnExport">ðŸ“¤ Xuáº¥t báº£ng lÆ°Æ¡ng</button>
+                <button class="btn-biz-primary" id="btnApprove">âœ… Duyá»‡t báº£ng lÆ°Æ¡ng</button>
             </div>
         </div>
 
@@ -85,95 +85,95 @@
 
         <div class="wh-page-header" style="margin-top: 24px;">
             <div>
-                <div class="wph-title" style="font-size:18px;">💵 Bảng lương chi tiết (Top 10)</div>
-                <div class="wph-subtitle">Click để xem phiếu lương</div>
+                <div class="wph-title" style="font-size:18px;">ðŸ’µ Báº£ng lÆ°Æ¡ng chi tiáº¿t (Top 10)</div>
+                <div class="wph-subtitle">Click Ä‘á»ƒ xem phiáº¿u lÆ°Æ¡ng</div>
             </div>
         </div>
 
         <div class="card" style="padding: 0;">
             <div class="luong-row head">
                 <div></div>
-                <div>Nhân viên</div>
-                <div>Lương CB</div>
-                <div>Phụ cấp</div>
+                <div>NhÃ¢n viÃªn</div>
+                <div>LÆ°Æ¡ng CB</div>
+                <div>Phá»¥ cáº¥p</div>
                 <div>OT</div>
-                <div>Khấu trừ</div>
-                <div>Thực nhận</div>
-                <div>Trạng thái</div>
+                <div>Kháº¥u trá»«</div>
+                <div>Thá»±c nháº­n</div>
+                <div>Tráº¡ng thÃ¡i</div>
             </div>
             <div id="luongList"></div>
         </div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
-            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
-        <span class="ai-icon" aria-hidden="true">🧠</span>
-        <span>AI: <strong>Tổng OT tháng 7 là 425tr, tăng 12% so với T6</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
+        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
+        <span>AI: <strong>Tá»•ng OT thÃ¡ng 7 lÃ  425tr, tÄƒng 12% so vá»›i T6</strong></span>
     </button>
-    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tác vụ nhanh" title="Tác vụ nhanh">+</button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="TÃ¡c vá»¥ nhanh" title="TÃ¡c vá»¥ nhanh">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
-            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
+            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/business-layout.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
+    <script src="assets/js/business-layout.js?v=2"></script>
     <script>
         (function () {
             'use strict';
-            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
             const NAV_ITEMS = [
-                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
-                { section: 'Nhân sự' },
-                { icon: '👨‍💼', label: 'HR Dashboard', href: '22-hr-dashboard.html', active: false, badge: '' },
-                { icon: '👥', label: 'Hồ sơ NV', href: '23-hr-ho-so.html', active: false, badge: '' },
-                { icon: '⏰', label: 'Chấm công', href: '24-hr-cham-cong.html', active: false, badge: '' },
-                { icon: '💰', label: 'Tính lương', href: '34-hr-luong.html', active: true, badge: '' },
-                { section: 'Modules khác' },
-                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: '📦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
-                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
-                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
+                { section: 'NhÃ¢n sá»±' },
+                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HR Dashboard', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ‘¥', label: 'Há»“ sÆ¡ NV', href: '23-hr-ho-so.html', active: false, badge: '' },
+                { icon: 'â°', label: 'Cháº¥m cÃ´ng', href: '24-hr-cham-cong.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'TÃ­nh lÆ°Æ¡ng', href: '34-hr-luong.html', active: true, badge: '' },
+                { section: 'Modules khÃ¡c' },
+                { icon: 'ðŸ“Š', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: 'âš™ï¸', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ“¦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ¤–', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
             const NOTIFICATIONS = [
-                { icon: '💰', title: 'Bảng lương T7 đã chốt - 4.8 tỷ', time: '2 giờ trước' },
-                { icon: '⏰', title: 'OT tháng 7 tăng 12% (425 triệu)', time: '1 ngày' },
-                { icon: '✅', title: 'BHXH đã đóng cho 185 NV', time: '3 ngày' }
+                { icon: 'ðŸ’°', title: 'Báº£ng lÆ°Æ¡ng T7 Ä‘Ã£ chá»‘t - 4.8 tá»·', time: '2 giá» trÆ°á»›c' },
+                { icon: 'â°', title: 'OT thÃ¡ng 7 tÄƒng 12% (425 triá»‡u)', time: '1 ngÃ y' },
+                { icon: 'âœ…', title: 'BHXH Ä‘Ã£ Ä‘Ã³ng cho 185 NV', time: '3 ngÃ y' }
             ];
             const STATS = [
-                { icon: '💰', label: 'Tổng quỹ lương', value: '4.8 tỷ', change: '+5% tháng', up: true },
-                { icon: '👥', label: 'NV nhận lương', value: '185', change: '+5', up: true },
-                { icon: '⏰', label: 'Tổng OT', value: '425 tr', change: '+12%', up: false },
-                { icon: '📊', label: 'TB lương/NV', value: '25.9 tr', change: '+0.8tr', up: true }
+                { icon: 'ðŸ’°', label: 'Tá»•ng quá»¹ lÆ°Æ¡ng', value: '4.8 tá»·', change: '+5% thÃ¡ng', up: true },
+                { icon: 'ðŸ‘¥', label: 'NV nháº­n lÆ°Æ¡ng', value: '185', change: '+5', up: true },
+                { icon: 'â°', label: 'Tá»•ng OT', value: '425 tr', change: '+12%', up: false },
+                { icon: 'ðŸ“Š', label: 'TB lÆ°Æ¡ng/NV', value: '25.9 tr', change: '+0.8tr', up: true }
             ];
             const LUONGS = [
-                { name: 'Hồ Minh Sang', cb: '50,000,000', pc: '5,000,000', ot: '0', kt: '12,500,000', net: '42,500,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Trần Văn Nam', cb: '25,000,000', pc: '3,000,000', ot: '3,200,000', kt: '6,300,000', net: '24,900,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Lê Thị Hoa', cb: '22,000,000', pc: '2,500,000', ot: '0', kt: '4,950,000', net: '19,550,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Bùi Văn Hùng', cb: '28,000,000', pc: '2,000,000', ot: '1,500,000', kt: '6,750,000', net: '24,750,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Hoàng Thị Lan', cb: '20,000,000', pc: '1,500,000', ot: '0', kt: '4,150,000', net: '17,350,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Nguyễn Thị Mai', cb: '20,000,000', pc: '1,500,000', ot: '0', kt: '4,150,000', net: '17,350,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Võ Văn Tài', cb: '18,000,000', pc: '1,500,000', ot: '1,800,000', kt: '3,900,000', net: '17,400,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Đặng Thị Linh', cb: '18,000,000', pc: '1,500,000', ot: '0', kt: '3,750,000', net: '15,750,000', status: 'Chờ duyệt', cls: 'amber' },
-                { name: 'Phạm Văn Đức', cb: '15,000,000', pc: '1,000,000', ot: '2,800,000', kt: '3,500,000', net: '15,300,000', status: 'Đã duyệt', cls: 'green' },
-                { name: 'Ngô Văn Cường', cb: '12,000,000', pc: '800,000', ot: '0', kt: '2,500,000', net: '10,300,000', status: 'Đã duyệt', cls: 'green' }
+                { name: 'Há»“ Minh Sang', cb: '50,000,000', pc: '5,000,000', ot: '0', kt: '12,500,000', net: '42,500,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'Tráº§n VÄƒn Nam', cb: '25,000,000', pc: '3,000,000', ot: '3,200,000', kt: '6,300,000', net: '24,900,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'LÃª Thá»‹ Hoa', cb: '22,000,000', pc: '2,500,000', ot: '0', kt: '4,950,000', net: '19,550,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'BÃ¹i VÄƒn HÃ¹ng', cb: '28,000,000', pc: '2,000,000', ot: '1,500,000', kt: '6,750,000', net: '24,750,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'HoÃ ng Thá»‹ Lan', cb: '20,000,000', pc: '1,500,000', ot: '0', kt: '4,150,000', net: '17,350,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'Nguyá»…n Thá»‹ Mai', cb: '20,000,000', pc: '1,500,000', ot: '0', kt: '4,150,000', net: '17,350,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'VÃµ VÄƒn TÃ i', cb: '18,000,000', pc: '1,500,000', ot: '1,800,000', kt: '3,900,000', net: '17,400,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'Äáº·ng Thá»‹ Linh', cb: '18,000,000', pc: '1,500,000', ot: '0', kt: '3,750,000', net: '15,750,000', status: 'Chá» duyá»‡t', cls: 'amber' },
+                { name: 'Pháº¡m VÄƒn Äá»©c', cb: '15,000,000', pc: '1,000,000', ot: '2,800,000', kt: '3,500,000', net: '15,300,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' },
+                { name: 'NgÃ´ VÄƒn CÆ°á»ng', cb: '12,000,000', pc: '800,000', ot: '0', kt: '2,500,000', net: '10,300,000', status: 'ÄÃ£ duyá»‡t', cls: 'green' }
             ];
             function getInitials(name) {
                 const parts = name.split(' ');
@@ -185,11 +185,11 @@
                     <div class="luong-row" data-name="${l.name}" style="cursor:pointer;">
                         <div><div class="nv-avatar">${getInitials(l.name)}</div></div>
                         <div style="font-weight:600;">${l.name}</div>
-                        <div class="luong-num">${l.cb} đ</div>
-                        <div class="luong-num">${l.pc} đ</div>
-                        <div class="luong-num" style="color:#8B5CF6;">${l.ot} đ</div>
-                        <div class="luong-num" style="color:#EF4444;">-${l.kt} đ</div>
-                        <div class="luong-net">${l.net} đ</div>
+                        <div class="luong-num">${l.cb} Ä‘</div>
+                        <div class="luong-num">${l.pc} Ä‘</div>
+                        <div class="luong-num" style="color:#8B5CF6;">${l.ot} Ä‘</div>
+                        <div class="luong-num" style="color:#EF4444;">-${l.kt} Ä‘</div>
+                        <div class="luong-net">${l.net} Ä‘</div>
                         <div><span class="status-badge ${l.cls}">${l.status}</span></div>
                     </div>
                 `).join('');
@@ -198,60 +198,60 @@
                         const name = row.getAttribute('data-name');
                         const l = LUONGS.find(x => x.name === name);
                         MiminBiz.openModal({
-                            title: `💰 Phiếu lương - ${l.name}`,
-                            subtitle: 'Tháng 07/2026',
+                            title: `ðŸ’° Phiáº¿u lÆ°Æ¡ng - ${l.name}`,
+                            subtitle: 'ThÃ¡ng 07/2026',
                             rows: [
-                                { label: 'Lương cơ bản', value: l.cb + ' đ' },
-                                { label: 'Phụ cấp', value: l.pc + ' đ' },
-                                { label: 'Tăng ca (OT)', value: l.ot + ' đ' },
-                                { label: 'Khấu trừ (BHXH+thuế)', value: '-' + l.kt + ' đ' },
-                                { label: 'Thực nhận', value: l.net + ' đ', highlight: true },
-                                { label: 'Trạng thái', value: l.status }
+                                { label: 'LÆ°Æ¡ng cÆ¡ báº£n', value: l.cb + ' Ä‘' },
+                                { label: 'Phá»¥ cáº¥p', value: l.pc + ' Ä‘' },
+                                { label: 'TÄƒng ca (OT)', value: l.ot + ' Ä‘' },
+                                { label: 'Kháº¥u trá»« (BHXH+thuáº¿)', value: '-' + l.kt + ' Ä‘' },
+                                { label: 'Thá»±c nháº­n', value: l.net + ' Ä‘', highlight: true },
+                                { label: 'Tráº¡ng thÃ¡i', value: l.status }
                             ],
                             actions: [
-                                { label: 'Đóng', type: 'secondary' },
-                                { label: '🖨 In phiếu lương', type: 'primary', onClick: () => MiminShell.showToast(`🖨 In phiếu lương ${l.name}`, 'info', '🖨') }
+                                { label: 'ÄÃ³ng', type: 'secondary' },
+                                { label: 'ðŸ–¨ In phiáº¿u lÆ°Æ¡ng', type: 'primary', onClick: () => MiminShell.showToast(`ðŸ–¨ In phiáº¿u lÆ°Æ¡ng ${l.name}`, 'info', 'ðŸ–¨') }
                             ]
                         });
                     });
                 });
             }
-            document.getElementById('btnExport').addEventListener('click', () => MiminShell.showToast('📤 Xuất bảng lương...', 'info', '📤'));
+            document.getElementById('btnExport').addEventListener('click', () => MiminShell.showToast('ðŸ“¤ Xuáº¥t báº£ng lÆ°Æ¡ng...', 'info', 'ðŸ“¤'));
             document.getElementById('btnApprove').addEventListener('click', () => {
                 MiminBiz.openModal({
-                    title: '✅ Duyệt bảng lương T7/2026',
-                    subtitle: 'Xác nhận chuyển khoản cho 185 NV',
+                    title: 'âœ… Duyá»‡t báº£ng lÆ°Æ¡ng T7/2026',
+                    subtitle: 'XÃ¡c nháº­n chuyá»ƒn khoáº£n cho 185 NV',
                     bodyHtml: `
                         <div style="display:flex; flex-direction:column; gap:8px;">
                             <div style="background:rgba(20,184,166,0.1); padding:10px; border-radius:6px; font-size:13px;">
-                                <strong>📊 Tổng quan:</strong><br/>
-                                • Tổng chi: <strong>4,800,000,000 đ</strong><br/>
-                                • NV nhận: <strong>185 người</strong><br/>
-                                • Ngân hàng: <strong>Vietcombank, Techcombank, MB</strong>
+                                <strong>ðŸ“Š Tá»•ng quan:</strong><br/>
+                                â€¢ Tá»•ng chi: <strong>4,800,000,000 Ä‘</strong><br/>
+                                â€¢ NV nháº­n: <strong>185 ngÆ°á»i</strong><br/>
+                                â€¢ NgÃ¢n hÃ ng: <strong>Vietcombank, Techcombank, MB</strong>
                             </div>
-                            <div style="font-size:12px; color:var(--text-light);">Ngày thanh toán: 30/07/2026</div>
+                            <div style="font-size:12px; color:var(--text-light);">NgÃ y thanh toÃ¡n: 30/07/2026</div>
                         </div>
                     `,
                     actions: [
-                        { label: 'Hủy', type: 'secondary' },
-                        { label: '✅ Duyệt & chuyển khoản', type: 'primary', onClick: () => MiminShell.showToast('✅ Đã duyệt bảng lương T7', 'success', '💰') }
+                        { label: 'Há»§y', type: 'secondary' },
+                        { label: 'âœ… Duyá»‡t & chuyá»ƒn khoáº£n', type: 'primary', onClick: () => MiminShell.showToast('âœ… ÄÃ£ duyá»‡t báº£ng lÆ°Æ¡ng T7', 'success', 'ðŸ’°') }
                     ]
                 });
             });
-            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('💰 Tính lương nhanh...', 'info', '💰'));
+            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('ðŸ’° TÃ­nh lÆ°Æ¡ng nhanh...', 'info', 'ðŸ’°'));
             MiminShell.init({
                 user: USER, navItems: NAV_ITEMS, notifications: NOTIFICATIONS,
-                aiFloatMessage: '🧠 AI Tính lương:\n1. Tổng OT tháng 7: 425 triệu (tăng 12% vs T6) — do nhiều đơn gấp\n2. Đề xuất: Thưởng hiệu suất 8% cho 12 NV xuất sắc Q2\n3. BHXH: 21.5% (10.5% DN + 10.5% NV + 0.5% công đoàn)\n4. Cảnh báo: Lương tháng 8 dự kiến tăng 6% (tuyển 12 NV mới)\n5. Auto-sync với phần mềm kế toán MISA SME.NET',
+                aiFloatMessage: 'ðŸ§  AI TÃ­nh lÆ°Æ¡ng:\n1. Tá»•ng OT thÃ¡ng 7: 425 triá»‡u (tÄƒng 12% vs T6) â€” do nhiá»u Ä‘Æ¡n gáº¥p\n2. Äá» xuáº¥t: ThÆ°á»Ÿng hiá»‡u suáº¥t 8% cho 12 NV xuáº¥t sáº¯c Q2\n3. BHXH: 21.5% (10.5% DN + 10.5% NV + 0.5% cÃ´ng Ä‘oÃ n)\n4. Cáº£nh bÃ¡o: LÆ°Æ¡ng thÃ¡ng 8 dá»± kiáº¿n tÄƒng 6% (tuyá»ƒn 12 NV má»›i)\n5. Auto-sync vá»›i pháº§n má»m káº¿ toÃ¡n MISA SME.NET',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
                 }
             });
             renderLuongs();
             MiminBiz.renderStatCards(STATS);
-            console.log('✅ POLOMIMIN Tính lương initialized.');
+            console.log('âœ… POLOMIMIN TÃ­nh lÆ°Æ¡ng initialized.');
         })();
     </script>
 </body>

@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · WMS Dashboard (Chi tiết)</title>
+    <title>POLOMIMIN Â· WMS Dashboard (Chi tiáº¿t)</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
     <link rel="stylesheet" href="assets/css/warehouse-layout.css" />
     <style>
         :root {
@@ -37,7 +37,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #16A34A, #14B8A6);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -46,47 +46,47 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="globalSearch" placeholder="Tìm kiếm..." aria-label="Tìm kiếm" />
-                <span class="shortcut" aria-hidden="true">⌘K</span>
+                <span class="search-icon" aria-hidden="true">ðŸ”</span>
+                <input type="text" id="globalSearch" placeholder="TÃ¬m kiáº¿m..." aria-label="TÃ¬m kiáº¿m" />
+                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
-                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
+                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
-            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
+            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">🏠 Hub</a>
-            <span class="separator">›</span>
-            <a href="06-wms-dashboard.html">📦 WMS</a>
-            <span class="separator">›</span>
-            <span class="current">📊 Chi tiết các kho</span>
+            <a href="01-home.html">ðŸ  Hub</a>
+            <span class="separator">â€º</span>
+            <a href="06-wms-dashboard.html">ðŸ“¦ WMS</a>
+            <span class="separator">â€º</span>
+            <span class="current">ðŸ“Š Chi tiáº¿t cÃ¡c kho</span>
         </nav>
 
         <div class="wh-page-header">
             <div>
-                <div class="wph-title">📊 WMS Dashboard - Chi tiết các kho</div>
-                <div class="wph-subtitle">Xem chi tiết 6 kho: Kho vải (A, B), Kho thành phẩm (C, D), Kho phụ liệu, Kho thành phẩm chờ xuất</div>
+                <div class="wph-title">ðŸ“Š WMS Dashboard - Chi tiáº¿t cÃ¡c kho</div>
+                <div class="wph-subtitle">Xem chi tiáº¿t 6 kho: Kho váº£i (A, B), Kho thÃ nh pháº©m (C, D), Kho phá»¥ liá»‡u, Kho thÃ nh pháº©m chá» xuáº¥t</div>
             </div>
         </div>
 
@@ -94,62 +94,62 @@
             <div class="kho-card">
                 <div class="kho-card-head">
                     <div>
-                        <div class="kho-card-name">Kho vải A (Chính)</div>
-                        <small style="color:var(--text-light);">📍 Bà Điểm, HCM · 500m²</small>
+                        <div class="kho-card-name">Kho váº£i A (ChÃ­nh)</div>
+                        <small style="color:var(--text-light);">ðŸ“ BÃ  Äiá»ƒm, HCM Â· 500mÂ²</small>
                     </div>
-                    <div class="kho-card-emoji">🧵</div>
+                    <div class="kho-card-emoji">ðŸ§µ</div>
                 </div>
                 <div class="kho-card-stats">
                     <div>
-                        <div class="kho-card-stat-label">Cuộn vải</div>
+                        <div class="kho-card-stat-label">Cuá»™n váº£i</div>
                         <div class="kho-card-stat-value">1,485</div>
-                        <div class="kho-card-stat-meta">/ 2,000 sức chứa</div>
+                        <div class="kho-card-stat-meta">/ 2,000 sá»©c chá»©a</div>
                     </div>
                     <div>
-                        <div class="kho-card-stat-label">Số mét</div>
+                        <div class="kho-card-stat-label">Sá»‘ mÃ©t</div>
                         <div class="kho-card-stat-value">85,200m</div>
                     </div>
                 </div>
                 <div class="kho-progress"><div style="width: 74%;"></div></div>
-                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">74% sức chứa</div>
+                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">74% sá»©c chá»©a</div>
             </div>
 
             <div class="kho-card">
                 <div class="kho-card-head">
                     <div>
-                        <div class="kho-card-name">Kho vải B (Phụ)</div>
-                        <small style="color:var(--text-light);">📍 Bà Điểm, HCM · 300m²</small>
+                        <div class="kho-card-name">Kho váº£i B (Phá»¥)</div>
+                        <small style="color:var(--text-light);">ðŸ“ BÃ  Äiá»ƒm, HCM Â· 300mÂ²</small>
                     </div>
-                    <div class="kho-card-emoji">🧶</div>
+                    <div class="kho-card-emoji">ðŸ§¶</div>
                 </div>
                 <div class="kho-card-stats">
                     <div>
-                        <div class="kho-card-stat-label">Cuộn vải</div>
+                        <div class="kho-card-stat-label">Cuá»™n váº£i</div>
                         <div class="kho-card-stat-value">1,000</div>
-                        <div class="kho-card-stat-meta">/ 1,500 sức chứa</div>
+                        <div class="kho-card-stat-meta">/ 1,500 sá»©c chá»©a</div>
                     </div>
                     <div>
-                        <div class="kho-card-stat-label">Số mét</div>
+                        <div class="kho-card-stat-label">Sá»‘ mÃ©t</div>
                         <div class="kho-card-stat-value">43,250m</div>
                     </div>
                 </div>
                 <div class="kho-progress"><div style="width: 67%;"></div></div>
-                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">67% sức chứa</div>
+                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">67% sá»©c chá»©a</div>
             </div>
 
             <div class="kho-card">
                 <div class="kho-card-head">
                     <div>
-                        <div class="kho-card-name">Kho thành phẩm C</div>
-                        <small style="color:var(--text-light);">📍 Bà Điểm, HCM · 400m²</small>
+                        <div class="kho-card-name">Kho thÃ nh pháº©m C</div>
+                        <small style="color:var(--text-light);">ðŸ“ BÃ  Äiá»ƒm, HCM Â· 400mÂ²</small>
                     </div>
-                    <div class="kho-card-emoji">👕</div>
+                    <div class="kho-card-emoji">ðŸ‘•</div>
                 </div>
                 <div class="kho-card-stats">
                     <div>
-                        <div class="kho-card-stat-label">Sản phẩm</div>
+                        <div class="kho-card-stat-label">Sáº£n pháº©m</div>
                         <div class="kho-card-stat-value">25,420</div>
-                        <div class="kho-card-stat-meta">/ 30,000 sức chứa</div>
+                        <div class="kho-card-stat-meta">/ 30,000 sá»©c chá»©a</div>
                     </div>
                     <div>
                         <div class="kho-card-stat-label">SKU</div>
@@ -157,22 +157,22 @@
                     </div>
                 </div>
                 <div class="kho-progress"><div style="width: 85%;"></div></div>
-                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">85% sức chứa - cần chuyển</div>
+                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">85% sá»©c chá»©a - cáº§n chuyá»ƒn</div>
             </div>
 
             <div class="kho-card">
                 <div class="kho-card-head">
                     <div>
-                        <div class="kho-card-name">Kho thành phẩm D</div>
-                        <small style="color:var(--text-light);">📍 Cần Thơ · 350m²</small>
+                        <div class="kho-card-name">Kho thÃ nh pháº©m D</div>
+                        <small style="color:var(--text-light);">ðŸ“ Cáº§n ThÆ¡ Â· 350mÂ²</small>
                     </div>
-                    <div class="kho-card-emoji">👔</div>
+                    <div class="kho-card-emoji">ðŸ‘”</div>
                 </div>
                 <div class="kho-card-stats">
                     <div>
-                        <div class="kho-card-stat-label">Sản phẩm</div>
+                        <div class="kho-card-stat-label">Sáº£n pháº©m</div>
                         <div class="kho-card-stat-value">17,160</div>
-                        <div class="kho-card-stat-meta">/ 25,000 sức chứa</div>
+                        <div class="kho-card-stat-meta">/ 25,000 sá»©c chá»©a</div>
                     </div>
                     <div>
                         <div class="kho-card-stat-label">SKU</div>
@@ -180,45 +180,45 @@
                     </div>
                 </div>
                 <div class="kho-progress"><div style="width: 68%;"></div></div>
-                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">68% sức chứa</div>
+                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">68% sá»©c chá»©a</div>
             </div>
 
             <div class="kho-card">
                 <div class="kho-card-head">
                     <div>
-                        <div class="kho-card-name">Kho phụ liệu</div>
-                        <small style="color:var(--text-light);">📍 Bà Điểm, HCM · 150m²</small>
+                        <div class="kho-card-name">Kho phá»¥ liá»‡u</div>
+                        <small style="color:var(--text-light);">ðŸ“ BÃ  Äiá»ƒm, HCM Â· 150mÂ²</small>
                     </div>
-                    <div class="kho-card-emoji">🧷</div>
+                    <div class="kho-card-emoji">ðŸ§·</div>
                 </div>
                 <div class="kho-card-stats">
                     <div>
-                        <div class="kho-card-stat-label">Phụ liệu</div>
+                        <div class="kho-card-stat-label">Phá»¥ liá»‡u</div>
                         <div class="kho-card-stat-value">12,500</div>
-                        <div class="kho-card-stat-meta">Cúc, khóa, chỉ, nhãn</div>
+                        <div class="kho-card-stat-meta">CÃºc, khÃ³a, chá»‰, nhÃ£n</div>
                     </div>
                     <div>
-                        <div class="kho-card-stat-label">Loại</div>
+                        <div class="kho-card-stat-label">Loáº¡i</div>
                         <div class="kho-card-stat-value">85</div>
                     </div>
                 </div>
                 <div class="kho-progress"><div style="width: 52%;"></div></div>
-                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">52% sức chứa</div>
+                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">52% sá»©c chá»©a</div>
             </div>
 
             <div class="kho-card">
                 <div class="kho-card-head">
                     <div>
-                        <div class="kho-card-name">Kho TP chờ xuất</div>
-                        <small style="color:var(--text-light);">📍 Bà Điểm, HCM · 200m²</small>
+                        <div class="kho-card-name">Kho TP chá» xuáº¥t</div>
+                        <small style="color:var(--text-light);">ðŸ“ BÃ  Äiá»ƒm, HCM Â· 200mÂ²</small>
                     </div>
-                    <div class="kho-card-emoji">📤</div>
+                    <div class="kho-card-emoji">ðŸ“¤</div>
                 </div>
                 <div class="kho-card-stats">
                     <div>
-                        <div class="kho-card-stat-label">Đơn chờ</div>
+                        <div class="kho-card-stat-label">ÄÆ¡n chá»</div>
                         <div class="kho-card-stat-value">47</div>
-                        <div class="kho-card-stat-meta">Đang đóng gói + chờ VC</div>
+                        <div class="kho-card-stat-meta">Äang Ä‘Ã³ng gÃ³i + chá» VC</div>
                     </div>
                     <div>
                         <div class="kho-card-stat-label">SP</div>
@@ -226,91 +226,91 @@
                     </div>
                 </div>
                 <div class="kho-progress"><div style="width: 35%;"></div></div>
-                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">35% sức chứa</div>
+                <div style="text-align:right; font-size:11px; color:var(--text-light); margin-top:4px;">35% sá»©c chá»©a</div>
             </div>
         </div>
 
         <div class="biz-stat-grid" id="statGrid"></div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
-            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
-        <span class="ai-icon" aria-hidden="true">🧠</span>
-        <span>AI: <strong>Kho C đang 85% đầy, cần chuyển bớt sang Kho D</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
+        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
+        <span>AI: <strong>Kho C Ä‘ang 85% Ä‘áº§y, cáº§n chuyá»ƒn bá»›t sang Kho D</strong></span>
     </button>
-    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tác vụ nhanh" title="Tác vụ nhanh">+</button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="TÃ¡c vá»¥ nhanh" title="TÃ¡c vá»¥ nhanh">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
-            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
+            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
     <script src="assets/js/warehouse-layout.js"></script>
     <script>
         (function () {
             'use strict';
 
-            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
 
             const NAV_ITEMS = [
-                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
-                { section: 'Quản lý kho' },
-                { icon: '📦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: true, badge: '' },
-                { icon: '🧵', label: 'Kho vải', href: '07-wms-kho-vai.html', active: false, badge: '' },
-                { icon: '👕', label: 'Kho thành phẩm', href: '18-wms-kho-tp.html', active: false, badge: '' },
-                { icon: '📥', label: 'Nhập kho', href: '19-wms-nhap.html', active: false, badge: '' },
-                { icon: '📤', label: 'Xuất kho', href: '20-wms-xuat.html', active: false, badge: '3' },
-                { icon: '📋', label: 'Kiểm kê', href: '21-wms-kiem-ke.html', active: false, badge: '' },
-                { section: 'Modules khác' },
-                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
-                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
-                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
+                { section: 'Quáº£n lÃ½ kho' },
+                { icon: 'ðŸ“¦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: true, badge: '' },
+                { icon: 'ðŸ§µ', label: 'Kho váº£i', href: '07-wms-kho-vai.html', active: false, badge: '' },
+                { icon: 'ðŸ‘•', label: 'Kho thÃ nh pháº©m', href: '18-wms-kho-tp.html', active: false, badge: '' },
+                { icon: 'ðŸ“¥', label: 'Nháº­p kho', href: '19-wms-nhap.html', active: false, badge: '' },
+                { icon: 'ðŸ“¤', label: 'Xuáº¥t kho', href: '20-wms-xuat.html', active: false, badge: '3' },
+                { icon: 'ðŸ“‹', label: 'Kiá»ƒm kÃª', href: '21-wms-kiem-ke.html', active: false, badge: '' },
+                { section: 'Modules khÃ¡c' },
+                { icon: 'ðŸ“Š', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: 'âš™ï¸', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ¤–', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
 
             const NOTIFICATIONS = [
-                { icon: '⚠️', title: 'Kho C đang 85% đầy — cần chuyển bớt', time: '20 phút trước' },
-                { icon: '🧵', title: 'Kho vải A có 250 cuộn mới về', time: '2 giờ trước' },
-                { icon: '📤', title: '47 đơn đang chờ xuất kho', time: '1 giờ trước' },
-                { icon: '📋', title: 'Kiểm kê Kho D tuần này', time: '4 giờ trước' }
+                { icon: 'âš ï¸', title: 'Kho C Ä‘ang 85% Ä‘áº§y â€” cáº§n chuyá»ƒn bá»›t', time: '20 phÃºt trÆ°á»›c' },
+                { icon: 'ðŸ§µ', title: 'Kho váº£i A cÃ³ 250 cuá»™n má»›i vá»', time: '2 giá» trÆ°á»›c' },
+                { icon: 'ðŸ“¤', title: '47 Ä‘Æ¡n Ä‘ang chá» xuáº¥t kho', time: '1 giá» trÆ°á»›c' },
+                { icon: 'ðŸ“‹', title: 'Kiá»ƒm kÃª Kho D tuáº§n nÃ y', time: '4 giá» trÆ°á»›c' }
             ];
 
             const STATS = [
-                { icon: '🏪', label: 'Tổng số kho', value: '6', change: '4 chính + 2 phụ', up: true },
-                { icon: '📦', label: 'Tổng SP tồn', value: '42,580', change: '+1,250', up: true },
-                { icon: '🧵', label: 'Tổng cuộn vải', value: '2,485', change: '+45', up: true },
-                { icon: '💰', label: 'Giá trị tồn', value: '12.4 tỷ', change: '+8%', up: true }
+                { icon: 'ðŸª', label: 'Tá»•ng sá»‘ kho', value: '6', change: '4 chÃ­nh + 2 phá»¥', up: true },
+                { icon: 'ðŸ“¦', label: 'Tá»•ng SP tá»“n', value: '42,580', change: '+1,250', up: true },
+                { icon: 'ðŸ§µ', label: 'Tá»•ng cuá»™n váº£i', value: '2,485', change: '+45', up: true },
+                { icon: 'ðŸ’°', label: 'GiÃ¡ trá»‹ tá»“n', value: '12.4 tá»·', change: '+8%', up: true }
             ];
 
             document.getElementById('quickAddBtn').addEventListener('click', () => {
                 MiminBiz.openModal({
                     title: '+ WMS',
-                    subtitle: 'Tác vụ nhanh',
+                    subtitle: 'TÃ¡c vá»¥ nhanh',
                     bodyHtml: `
                         <div style="display:flex;flex-direction:column;gap:8px;">
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">🔄 Chuyển hàng giữa các kho</button>
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📋 Lên lịch kiểm kê</button>
-                            <button class="btn-wh-outline" style="justify-content:flex-start;">📊 Báo cáo sức chứa kho</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ”„ Chuyá»ƒn hÃ ng giá»¯a cÃ¡c kho</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“‹ LÃªn lá»‹ch kiá»ƒm kÃª</button>
+                            <button class="btn-wh-outline" style="justify-content:flex-start;">ðŸ“Š BÃ¡o cÃ¡o sá»©c chá»©a kho</button>
                         </div>
                     `,
-                    actions: [{ label: 'Đóng', type: 'secondary' }]
+                    actions: [{ label: 'ÄÃ³ng', type: 'secondary' }]
                 });
             });
 
@@ -318,17 +318,17 @@
                 user: USER,
                 navItems: NAV_ITEMS,
                 notifications: NOTIFICATIONS,
-                aiFloatMessage: '🧠 AI Tối ưu kho:\n1. Kho C đang 85% đầy — đề xuất chuyển 5,000 SP sang Kho D (còn 68%)\n2. Kho A vải đang 74% — sắp đầy, tối ưu sắp xếp\n3. Cân nhắc thuê thêm Kho E ở Bình Dương (gần cảng, giá rẻ)\n4. Kho phụ liệu còn 48% trống — chuyển thêm cuộn vải dự phòng\n5. Giảm chi phí thuê kho 12% nếu tối ưu layout',
+                aiFloatMessage: 'ðŸ§  AI Tá»‘i Æ°u kho:\n1. Kho C Ä‘ang 85% Ä‘áº§y â€” Ä‘á» xuáº¥t chuyá»ƒn 5,000 SP sang Kho D (cÃ²n 68%)\n2. Kho A váº£i Ä‘ang 74% â€” sáº¯p Ä‘áº§y, tá»‘i Æ°u sáº¯p xáº¿p\n3. CÃ¢n nháº¯c thuÃª thÃªm Kho E á»Ÿ BÃ¬nh DÆ°Æ¡ng (gáº§n cáº£ng, giÃ¡ ráº»)\n4. Kho phá»¥ liá»‡u cÃ²n 48% trá»‘ng â€” chuyá»ƒn thÃªm cuá»™n váº£i dá»± phÃ²ng\n5. Giáº£m chi phÃ­ thuÃª kho 12% náº¿u tá»‘i Æ°u layout',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
                 }
             });
 
             MiminBiz.renderStatCards(STATS);
-            console.log('✅ POLOMIMIN WMS Chi tiết các kho initialized.');
+            console.log('âœ… POLOMIMIN WMS Chi tiáº¿t cÃ¡c kho initialized.');
         })();
     </script>
 </body>

@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN · Chấm công</title>
+    <title>POLOMIMIN Â· Cháº¥m cÃ´ng</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
+    <link rel="stylesheet" href="assets/css/business-layout.css?v=2" />
     <style>
         :root { --primary: #EA580C; --primary-dark: #C2410C; --primary-light: #FB923C; --primary-gradient: linear-gradient(135deg, #EA580C 0%, #C2410C 100%); }
         .biz-page-header { background: linear-gradient(135deg, rgba(234, 88, 12, 0.05), rgba(20, 184, 166, 0.05)); }
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #EA580C, #14B8A6);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -33,51 +33,51 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="globalSearch" placeholder="Tìm nhân viên..." aria-label="Tìm kiếm" />
-                <span class="shortcut" aria-hidden="true">⌘K</span>
+                <span class="search-icon" aria-hidden="true">ðŸ”</span>
+                <input type="text" id="globalSearch" placeholder="TÃ¬m nhÃ¢n viÃªn..." aria-label="TÃ¬m kiáº¿m" />
+                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
-                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
+                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
-            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
+            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">🏠 Hub</a>
-            <span class="separator">›</span>
-            <a href="22-hr-dashboard.html">👨‍💼 HR</a>
-            <span class="separator">›</span>
-            <span class="current">⏰ Chấm công hôm nay</span>
+            <a href="01-home.html">ðŸ  Hub</a>
+            <span class="separator">â€º</span>
+            <a href="22-hr-dashboard.html">ðŸ‘¨â€ðŸ’¼ HR</a>
+            <span class="separator">â€º</span>
+            <span class="current">â° Cháº¥m cÃ´ng hÃ´m nay</span>
         </nav>
 
         <div class="biz-page-header">
             <div>
-                <div class="bph-title">⏰ Chấm công hôm nay</div>
-                <div class="bph-subtitle">Ngày 07/07/2026 (Thứ Ba) — Theo dõi check-in/out real-time</div>
+                <div class="bph-title">â° Cháº¥m cÃ´ng hÃ´m nay</div>
+                <div class="bph-subtitle">NgÃ y 07/07/2026 (Thá»© Ba) â€” Theo dÃµi check-in/out real-time</div>
             </div>
             <div class="bph-actions">
-                <button class="btn-biz-outline" id="btnExport">📤 Xuất báo cáo</button>
-                <button class="btn-biz-primary" id="btnAdd">+ Chấm công tay</button>
+                <button class="btn-biz-outline" id="btnExport">ðŸ“¤ Xuáº¥t bÃ¡o cÃ¡o</button>
+                <button class="btn-biz-primary" id="btnAdd">+ Cháº¥m cÃ´ng tay</button>
             </div>
         </div>
 
@@ -85,95 +85,95 @@
 
         <div class="wh-page-header" style="margin-top: 24px;">
             <div>
-                <div class="wph-title" style="font-size:18px;">📋 Bảng chấm công chi tiết</div>
-                <div class="wph-subtitle">Top 10 NV theo phòng ban</div>
+                <div class="wph-title" style="font-size:18px;">ðŸ“‹ Báº£ng cháº¥m cÃ´ng chi tiáº¿t</div>
+                <div class="wph-subtitle">Top 10 NV theo phÃ²ng ban</div>
             </div>
         </div>
 
         <div class="card" style="padding: 0;">
             <div class="cc-row head">
                 <div></div>
-                <div>Nhân viên</div>
+                <div>NhÃ¢n viÃªn</div>
                 <div>Check-in</div>
                 <div>Check-out</div>
-                <div>Tổng giờ</div>
+                <div>Tá»•ng giá»</div>
                 <div>OT</div>
-                <div>Trạng thái</div>
-                <div>Ghi chú</div>
+                <div>Tráº¡ng thÃ¡i</div>
+                <div>Ghi chÃº</div>
             </div>
             <div id="ccList"></div>
         </div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
-            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
-        <span class="ai-icon" aria-hidden="true">🧠</span>
-        <span>AI: <strong>5 NV đi muộn hôm nay, gửi nhắc nhở</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
+        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
+        <span>AI: <strong>5 NV Ä‘i muá»™n hÃ´m nay, gá»­i nháº¯c nhá»Ÿ</strong></span>
     </button>
-    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Chấm công" title="Chấm công nhanh">+</button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Cháº¥m cÃ´ng" title="Cháº¥m cÃ´ng nhanh">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
-            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
+            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/business-layout.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
+    <script src="assets/js/business-layout.js?v=2"></script>
     <script>
         (function () {
             'use strict';
-            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
             const NAV_ITEMS = [
-                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
-                { section: 'Nhân sự' },
-                { icon: '👨‍💼', label: 'HR Dashboard', href: '22-hr-dashboard.html', active: false, badge: '' },
-                { icon: '👥', label: 'Hồ sơ NV', href: '23-hr-ho-so.html', active: false, badge: '' },
-                { icon: '⏰', label: 'Chấm công', href: '24-hr-cham-cong.html', active: true, badge: '' },
-                { icon: '💰', label: 'Tính lương', href: '34-hr-luong.html', active: false, badge: '' },
-                { section: 'Modules khác' },
-                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: '📦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
-                { icon: '💰', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: '🤖', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
-                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
+                { section: 'NhÃ¢n sá»±' },
+                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HR Dashboard', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ‘¥', label: 'Há»“ sÆ¡ NV', href: '23-hr-ho-so.html', active: false, badge: '' },
+                { icon: 'â°', label: 'Cháº¥m cÃ´ng', href: '24-hr-cham-cong.html', active: true, badge: '' },
+                { icon: 'ðŸ’°', label: 'TÃ­nh lÆ°Æ¡ng', href: '34-hr-luong.html', active: false, badge: '' },
+                { section: 'Modules khÃ¡c' },
+                { icon: 'ðŸ“Š', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: 'âš™ï¸', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ“¦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ’°', label: 'Sales', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸ¤–', label: 'AI Center', href: '33-ai-dashboard.html', active: false, badge: '' },
+                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
             const NOTIFICATIONS = [
-                { icon: '⏰', title: '5 NV đi muộn hôm nay — gửi nhắc nhở', time: '15 phút trước' },
-                { icon: '✅', title: '178/185 NV đã check-in (96.2%)', time: '30 phút trước' },
-                { icon: '🌴', title: '4 NV đang nghỉ phép hôm nay', time: '1 giờ trước' }
+                { icon: 'â°', title: '5 NV Ä‘i muá»™n hÃ´m nay â€” gá»­i nháº¯c nhá»Ÿ', time: '15 phÃºt trÆ°á»›c' },
+                { icon: 'âœ…', title: '178/185 NV Ä‘Ã£ check-in (96.2%)', time: '30 phÃºt trÆ°á»›c' },
+                { icon: 'ðŸŒ´', title: '4 NV Ä‘ang nghá»‰ phÃ©p hÃ´m nay', time: '1 giá» trÆ°á»›c' }
             ];
             const STATS = [
-                { icon: '✅', label: 'Đi làm hôm nay', value: '178/185', change: '96.2%', up: true },
-                { icon: '⏰', label: 'Đi muộn', value: '5', change: '-2 hôm qua', up: true },
-                { icon: '❌', label: 'Vắng không phép', value: '3', change: '+1', up: false },
-                { icon: '🌴', label: 'Nghỉ phép', value: '4', change: 'Đã duyệt', up: true }
+                { icon: 'âœ…', label: 'Äi lÃ m hÃ´m nay', value: '178/185', change: '96.2%', up: true },
+                { icon: 'â°', label: 'Äi muá»™n', value: '5', change: '-2 hÃ´m qua', up: true },
+                { icon: 'âŒ', label: 'Váº¯ng khÃ´ng phÃ©p', value: '3', change: '+1', up: false },
+                { icon: 'ðŸŒ´', label: 'Nghá»‰ phÃ©p', value: '4', change: 'ÄÃ£ duyá»‡t', up: true }
             ];
             const CCS = [
-                { name: 'Hồ Minh Sang', dept: 'CEO', in: '07:55', out: '18:30', hours: '8h35m', ot: '0h35m', status: 'Đúng giờ', cls: 'green', note: 'OK' },
-                { name: 'Trần Văn Nam', dept: 'SX', in: '07:50', out: '19:00', hours: '9h10m', ot: '1h10m', status: 'Đúng giờ', cls: 'green', note: 'OT' },
-                { name: 'Lê Thị Hoa', dept: 'Sales', in: '08:35', out: '—', hours: '—', ot: '—', status: 'Đi muộn', cls: 'amber', note: '35 phút' },
-                { name: 'Phạm Văn Đức', dept: 'SX', in: '07:45', out: '—', hours: '—', ot: '—', status: 'Đang làm', cls: 'blue', note: 'OK' },
-                { name: 'Nguyễn Thị Mai', dept: 'KT', in: '07:58', out: '17:30', hours: '7h32m', ot: '0h', status: 'Về sớm', cls: 'amber', note: 'Có việc' },
-                { name: 'Võ Văn Tài', dept: 'Kho', in: '07:30', out: '—', hours: '—', ot: '—', status: 'Đang làm', cls: 'blue', note: 'Ca sáng' },
-                { name: 'Đặng Thị Linh', dept: 'MKT', in: '08:50', out: '—', hours: '—', ot: '—', status: 'Đi muộn', cls: 'red', note: '50 phút' },
-                { name: 'Bùi Văn Hùng', dept: 'IT', in: '08:00', out: '18:00', hours: '8h', ot: '0h', status: 'Đúng giờ', cls: 'green', note: 'WFH' },
-                { name: 'Hoàng Thị Lan', dept: 'HR', in: '07:50', out: '17:35', hours: '7h45m', ot: '0h', status: 'Đúng giờ', cls: 'green', note: 'OK' },
-                { name: 'Ngô Văn Cường', dept: 'SX', in: '—', out: '—', hours: '—', ot: '—', status: 'Vắng', cls: 'red', note: 'Nghỉ không phép' }
+                { name: 'Há»“ Minh Sang', dept: 'CEO', in: '07:55', out: '18:30', hours: '8h35m', ot: '0h35m', status: 'ÄÃºng giá»', cls: 'green', note: 'OK' },
+                { name: 'Tráº§n VÄƒn Nam', dept: 'SX', in: '07:50', out: '19:00', hours: '9h10m', ot: '1h10m', status: 'ÄÃºng giá»', cls: 'green', note: 'OT' },
+                { name: 'LÃª Thá»‹ Hoa', dept: 'Sales', in: '08:35', out: 'â€”', hours: 'â€”', ot: 'â€”', status: 'Äi muá»™n', cls: 'amber', note: '35 phÃºt' },
+                { name: 'Pháº¡m VÄƒn Äá»©c', dept: 'SX', in: '07:45', out: 'â€”', hours: 'â€”', ot: 'â€”', status: 'Äang lÃ m', cls: 'blue', note: 'OK' },
+                { name: 'Nguyá»…n Thá»‹ Mai', dept: 'KT', in: '07:58', out: '17:30', hours: '7h32m', ot: '0h', status: 'Vá» sá»›m', cls: 'amber', note: 'CÃ³ viá»‡c' },
+                { name: 'VÃµ VÄƒn TÃ i', dept: 'Kho', in: '07:30', out: 'â€”', hours: 'â€”', ot: 'â€”', status: 'Äang lÃ m', cls: 'blue', note: 'Ca sÃ¡ng' },
+                { name: 'Äáº·ng Thá»‹ Linh', dept: 'MKT', in: '08:50', out: 'â€”', hours: 'â€”', ot: 'â€”', status: 'Äi muá»™n', cls: 'red', note: '50 phÃºt' },
+                { name: 'BÃ¹i VÄƒn HÃ¹ng', dept: 'IT', in: '08:00', out: '18:00', hours: '8h', ot: '0h', status: 'ÄÃºng giá»', cls: 'green', note: 'WFH' },
+                { name: 'HoÃ ng Thá»‹ Lan', dept: 'HR', in: '07:50', out: '17:35', hours: '7h45m', ot: '0h', status: 'ÄÃºng giá»', cls: 'green', note: 'OK' },
+                { name: 'NgÃ´ VÄƒn CÆ°á»ng', dept: 'SX', in: 'â€”', out: 'â€”', hours: 'â€”', ot: 'â€”', status: 'Váº¯ng', cls: 'red', note: 'Nghá»‰ khÃ´ng phÃ©p' }
             ];
             function getInitials(name) {
                 const parts = name.split(' ');
@@ -188,8 +188,8 @@
                             <div style="font-weight:600;">${c.name}</div>
                             <small style="color:var(--text-light); font-size:11px;">${c.dept}</small>
                         </div>
-                        <div class="cc-time">${c.in === '—' ? '—' : c.in}</div>
-                        <div class="cc-time">${c.out === '—' ? '—' : c.out}</div>
+                        <div class="cc-time">${c.in === 'â€”' ? 'â€”' : c.in}</div>
+                        <div class="cc-time">${c.out === 'â€”' ? 'â€”' : c.out}</div>
                         <div style="font-weight:600;">${c.hours}</div>
                         <div style="color:#8B5CF6; font-weight:600;">${c.ot}</div>
                         <div><span class="status-badge ${c.cls}">${c.status}</span></div>
@@ -197,22 +197,22 @@
                     </div>
                 `).join('');
             }
-            document.getElementById('btnAdd').addEventListener('click', () => MiminShell.showToast('👤 Mở form chấm công tay...', 'info', '👤'));
-            document.getElementById('btnExport').addEventListener('click', () => MiminShell.showToast('📤 Đang xuất báo cáo chấm công...', 'info', '📤'));
-            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('⏰ Chấm công nhanh...', 'info', '⏰'));
+            document.getElementById('btnAdd').addEventListener('click', () => MiminShell.showToast('ðŸ‘¤ Má»Ÿ form cháº¥m cÃ´ng tay...', 'info', 'ðŸ‘¤'));
+            document.getElementById('btnExport').addEventListener('click', () => MiminShell.showToast('ðŸ“¤ Äang xuáº¥t bÃ¡o cÃ¡o cháº¥m cÃ´ng...', 'info', 'ðŸ“¤'));
+            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('â° Cháº¥m cÃ´ng nhanh...', 'info', 'â°'));
             MiminShell.init({
                 user: USER, navItems: NAV_ITEMS, notifications: NOTIFICATIONS,
-                aiFloatMessage: '🧠 AI Chấm công:\n1. 5 NV đi muộn hôm nay (Lê Thị Hoa, Đặng Thị Linh, 3 người khác) — gửi nhắc nhở Zalo\n2. Tỷ lệ đi làm 96.2% — tốt\n3. Ngô Văn Cường vắng không phép — kiểm tra với quản lý\n4. Tổng giờ OT tháng này: 1,250 giờ — cao hơn 8% so với tháng trước\n5. Đề xuất: Auto check-in qua Zalo (nhân viên chỉ cần nhắn tin)',
+                aiFloatMessage: 'ðŸ§  AI Cháº¥m cÃ´ng:\n1. 5 NV Ä‘i muá»™n hÃ´m nay (LÃª Thá»‹ Hoa, Äáº·ng Thá»‹ Linh, 3 ngÆ°á»i khÃ¡c) â€” gá»­i nháº¯c nhá»Ÿ Zalo\n2. Tá»· lá»‡ Ä‘i lÃ m 96.2% â€” tá»‘t\n3. NgÃ´ VÄƒn CÆ°á»ng váº¯ng khÃ´ng phÃ©p â€” kiá»ƒm tra vá»›i quáº£n lÃ½\n4. Tá»•ng giá» OT thÃ¡ng nÃ y: 1,250 giá» â€” cao hÆ¡n 8% so vá»›i thÃ¡ng trÆ°á»›c\n5. Äá» xuáº¥t: Auto check-in qua Zalo (nhÃ¢n viÃªn chá»‰ cáº§n nháº¯n tin)',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
                 }
             });
             renderCcs();
             MiminBiz.renderStatCards(STATS);
-            console.log('✅ POLOMIMIN Chấm công initialized.');
+            console.log('âœ… POLOMIMIN Cháº¥m cÃ´ng initialized.');
         })();
     </script>
 </body>
