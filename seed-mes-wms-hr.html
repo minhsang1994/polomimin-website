@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<title>POLOMIMIN · Seed MES + WMS + HR Data</title>
+<link rel="icon" href="favicon.svg"/>
+<style>
+  body{font-family:monospace;background:#0a1628;color:#e2e8f0;padding:24px;margin:0}
+  h1{color:#7C3AED;margin-bottom:4px}
+  .subtitle{color:#64748b;font-size:.8rem;margin-bottom:24px}
+  .progress{background:#1e293b;border-radius:8px;padding:16px;margin-bottom:12px;border-left:4px solid #334155}
+  .progress.ok{border-color:#16A34A}.progress.err{border-color:#dc2626}.progress.running{border-color:#7C3AED}
+  .label{font-weight:700;color:#94a3b8;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}
+  .msg{font-size:.82rem;margin-top:4px;line-height:1.6}
+  .btn{background:linear-gradient(135deg,#7C3AED,#2563EB);color:#fff;border:none;padding:14px 32px;border-radius:10px;cursor:pointer;font-size:1rem;font-weight:700;margin-right:12px;margin-bottom:12px}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .summary{background:#1e293b;border-radius:10px;padding:20px;margin-top:16px;display:none}
+  .count{font-size:2rem;font-weight:900;color:#7C3AED}
+</style>
+</head>
+<body>
+<h1>🌱 Seed MES + WMS + HR Data</h1>
+<p class="subtitle">Ghi dữ liệu mẫu vào Firestore cho 3 modules</p>
+
+<button class="btn" id="seedBtn" onclick="runSeed()">▶ Chạy Seed</button>
+<button class="btn" style="background:linear-gradient(135deg,#dc2626,#9f1239)" onclick="runClear()">🗑 Xóa Data</button>
+<a href="01-home.html" style="color:#64748b;font-size:.82rem;text-decoration:none">← Hub chính</a>
+
+<div id="log"></div>
+<div class="summary" id="summary">
+  <div class="label">Kết quả</div>
+  <div class="count" id="countEl">0</div>
+  <div style="color:#94a3b8;font-size:.85rem">documents đã được ghi</div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+    apiKey:"AIzaSyB8cIURDcIsDHjqibi7Irql7HECCmXm4j8",
+    authDomain:"polomimin.firebaseapp.com",
+    projectId:"polomimin"
+});
+const db = firebase.firestore();
+
+function log(id, label, msg, status='running'){
+    let el = document.getElementById('p-'+id);
+    if(!el){
+        el = document.createElement('div');
+        el.id = 'p-'+id;
+        el.className = 'progress running';
+        el.innerHTML = `<div class="label">${label}</div><div class="msg" id="m-${id}"></div>`;
+        document.getElementById('log').appendChild(el);
+    }
+    el.className = 'progress ' + status;
+    document.getElementById('m-'+id).innerHTML = msg;
+}
+
+// ══ DATA ══════════════════════════════════════════════════════════════════
+
+const now = firebase.firestore.Timestamp.now();
+const ago = (m) => firebase.firestore.Timestamp.fromDate(new Date(Date.now() - m*60000));
+
+const SEED_DATA = {
+
+  // ── MES ─────────────────────────────────────────────────────────────────
+  'mes/lenh_sx/orders': [
+    {ref:'LSX-0231',type:'Lệnh SX mới',product:'Áo Polo Basic',size:'M/L/XL',qty:1200,done:0,unit:'Tổ May 1',status:'Mới',color:'blue',createdAt:ago(10)},
+    {ref:'LSX-0230',type:'Đang sản xuất',product:'Bộ Thể Thao',size:'M/L',qty:800,done:620,unit:'Tổ May 3',status:'Đang chạy',color:'amber',createdAt:ago(120)},
+    {ref:'LSX-0229',type:'Hoàn tất',product:'Áo Sơ Mi Công Sở',size:'S/M/L',qty:500,done:500,unit:'Tổ May 2',status:'Hoàn tất',color:'green',createdAt:ago(300)},
+    {ref:'LSX-0228',type:'Lệnh SX mới',product:'Áo Thun Cotton',size:'M/L/XL',qty:2000,done:0,unit:'Tổ May 4',status:'Mới',color:'blue',createdAt:ago(15)},
+    {ref:'LSX-0227',type:'Đang sản xuất',product:'Quần Tây Nam',size:'28-34',qty:600,done:400,unit:'Tổ May 1',status:'Đang chạy',color:'amber',createdAt:ago(90)},
+    {ref:'LSX-0226',type:'Tạm dừng',product:'Jacket Thu Đông',size:'M/L/XL/XXL',qty:300,done:120,unit:'Tổ May 2',status:'Tạm dừng',color:'red',createdAt:ago(240)},
+  ],
+
+  'mes/ke_hoach/plans': [
+    {ref:'KH-0045',name:'Kế hoạch Q3/2026',startDate:'2026-07-01',endDate:'2026-09-30',totalOrders:48,done:12,status:'Đang thực hiện',color:'blue',createdAt:ago(10080)},
+    {ref:'KH-0044',name:'Kế hoạch Tháng 7',startDate:'2026-07-01',endDate:'2026-07-31',totalOrders:18,done:6,status:'Đang thực hiện',color:'amber',createdAt:ago(4320)},
+    {ref:'KH-0043',name:'Kế hoạch Tháng 6',startDate:'2026-06-01',endDate:'2026-06-30',totalOrders:22,done:22,status:'Hoàn tất',color:'green',createdAt:ago(14400)},
+  ],
+
+  'mes/qc/inspections': [
+    {ref:'QC-0187',product:'Áo Thun Cotton · Lô B',inspector:'Nguyễn Thị Lan',defects:18,total:200,rate:'9%',status:'Lỗi',color:'red',createdAt:ago(60)},
+    {ref:'QC-0186',product:'Áo Polo Basic · Lô A',inspector:'Trần Văn Nam',defects:3,total:300,rate:'1%',status:'Đạt',color:'green',createdAt:ago(180)},
+    {ref:'QC-0185',product:'Quần Tây Nam · Lô C',inspector:'Lê Thị Hoa',defects:7,total:150,rate:'4.7%',status:'Đạt',color:'green',createdAt:ago(360)},
+  ],
+
+  'mes/cat/orders': [
+    {ref:'LC-0455',fabric:'Vải Cotton Xanh Navy',qty:850,unit:'Tổ cắt 1',status:'Đã cắt',color:'green',createdAt:ago(35)},
+    {ref:'LC-0454',fabric:'Vải Poly Trắng',qty:1200,unit:'Tổ cắt 2',status:'Đang cắt',color:'amber',createdAt:ago(80)},
+    {ref:'LC-0453',fabric:'Vải Cotton Trắng',qty:600,unit:'Tổ cắt 1',status:'Hoàn tất',color:'green',createdAt:ago(200)},
+  ],
+
+  // ── WMS ─────────────────────────────────────────────────────────────────
+  'wms/kho_vai/inventory': [
+    {sku:'VAI-001',name:'Vải Cotton 30/1 Trắng',unit:'m',qty:4500,minQty:500,location:'A1-01',status:'Đủ',color:'green',updatedAt:ago(30)},
+    {sku:'VAI-002',name:'Vải Cotton 30/1 Đen',unit:'m',qty:2800,minQty:500,location:'A1-02',status:'Đủ',color:'green',updatedAt:ago(45)},
+    {sku:'VAI-003',name:'Vải Poly Xanh Navy',unit:'m',qty:350,minQty:500,location:'A2-01',status:'Sắp hết',color:'amber',updatedAt:ago(60)},
+    {sku:'VAI-004',name:'Vải Linen Be',unit:'m',qty:80,minQty:300,location:'A2-02',status:'Nguy hiểm',color:'red',updatedAt:ago(120)},
+    {sku:'VAI-005',name:'Vải Denim Xanh',unit:'m',qty:1200,minQty:300,location:'A3-01',status:'Đủ',color:'green',updatedAt:ago(90)},
+    {sku:'VAI-006',name:'Vải Kaki Nâu',unit:'m',qty:950,minQty:200,location:'A3-02',status:'Đủ',color:'green',updatedAt:ago(150)},
+  ],
+
+  'wms/kho_tp/inventory': [
+    {sku:'TP-001',name:'Áo Polo Basic Trắng M',unit:'cái',qty:850,minQty:100,location:'B1-01',status:'Đủ',color:'green',updatedAt:ago(20)},
+    {sku:'TP-002',name:'Áo Polo Basic Trắng L',unit:'cái',qty:620,minQty:100,location:'B1-02',status:'Đủ',color:'green',updatedAt:ago(25)},
+    {sku:'TP-003',name:'Bộ Thể Thao M',unit:'bộ',qty:45,minQty:50,status:'Sắp hết',color:'amber',location:'B2-01',updatedAt:ago(90)},
+    {sku:'TP-004',name:'Áo Sơ Mi Công Sở L',unit:'cái',qty:280,minQty:80,location:'B2-02',status:'Đủ',color:'green',updatedAt:ago(120)},
+    {sku:'TP-005',name:'Quần Tây Nam 30',unit:'cái',qty:0,minQty:50,location:'B3-01',status:'Hết hàng',color:'red',updatedAt:ago(180)},
+  ],
+
+  'wms/nhap/receipts': [
+    {ref:'NK-0124',supplier:'Dệt May Hà Nội',items:'Vải Cotton 30/1 Trắng',qty:2000,unit:'m',status:'Đã nhập',color:'green',createdAt:ago(60)},
+    {ref:'NK-0123',supplier:'Vải Sợi Bình Dương',items:'Vải Poly Xanh Navy',qty:1500,unit:'m',status:'Đang nhập',color:'amber',createdAt:ago(30)},
+    {ref:'NK-0122',supplier:'Nút cài Minh Phát',items:'Nút áo phi 4 lỗ',qty:50000,unit:'cái',status:'Chờ duyệt',color:'blue',createdAt:ago(180)},
+  ],
+
+  'wms/xuat/issues': [
+    {ref:'XK-0089',dest:'Tổ May 1',items:'Vải Cotton Trắng',qty:850,unit:'m',status:'Đã xuất',color:'green',createdAt:ago(40)},
+    {ref:'XK-0088',dest:'Tổ May 3',items:'Vải Poly Xanh',qty:600,unit:'m',status:'Đã xuất',color:'green',createdAt:ago(100)},
+    {ref:'XK-0087',dest:'Kho TP · Giao hàng',items:'Áo Polo Basic',qty:500,unit:'cái',status:'Đang xuất',color:'amber',createdAt:ago(20)},
+  ],
+
+  // ── HR ──────────────────────────────────────────────────────────────────
+  'hr/nhan_vien/employees': [
+    {id:'NV-001',name:'Nguyễn Thị Lan',dept:'Tổ May 1',role:'Công nhân may',salary:6500000,status:'Đang làm',startDate:'2022-03-15',phone:'0901234567'},
+    {id:'NV-002',name:'Trần Văn Nam',dept:'QC',role:'Kiểm soát chất lượng',salary:7200000,status:'Đang làm',startDate:'2021-08-01',phone:'0912345678'},
+    {id:'NV-003',name:'Lê Thị Hoa',dept:'Kho Vải',role:'Thủ kho',salary:6800000,status:'Đang làm',startDate:'2023-01-10',phone:'0923456789'},
+    {id:'NV-004',name:'Phạm Văn Đức',dept:'Tổ Cắt',role:'Thợ cắt',salary:7000000,status:'Đang làm',startDate:'2022-06-20',phone:'0934567890'},
+    {id:'NV-005',name:'Hoàng Thị Mai',dept:'Kế toán',role:'Kế toán viên',salary:9000000,status:'Đang làm',startDate:'2020-11-05',phone:'0945678901'},
+    {id:'NV-006',name:'Võ Văn Hùng',dept:'Tổ May 2',role:'Tổ trưởng',salary:8500000,status:'Đang làm',startDate:'2019-04-12',phone:'0956789012'},
+    {id:'NV-007',name:'Đặng Thị Nga',dept:'Hoàn thiện',role:'Công nhân hoàn thiện',salary:6200000,status:'Nghỉ phép',startDate:'2023-07-01',phone:'0967890123'},
+    {id:'NV-008',name:'Bùi Văn Tài',dept:'Vận chuyển',role:'Lái xe',salary:7500000,status:'Đang làm',startDate:'2021-03-18',phone:'0978901234'},
+  ],
+
+  'hr/cham_cong/attendance': [
+    {employeeId:'NV-001',name:'Nguyễn Thị Lan',date:'2026-07-12',checkIn:'07:58',checkOut:'17:05',hours:8.1,status:'Đúng giờ',color:'green'},
+    {employeeId:'NV-002',name:'Trần Văn Nam',date:'2026-07-12',checkIn:'08:12',checkOut:'17:00',hours:7.8,status:'Đi muộn',color:'amber'},
+    {employeeId:'NV-003',name:'Lê Thị Hoa',date:'2026-07-12',checkIn:'07:45',checkOut:'17:15',hours:8.5,status:'Đúng giờ',color:'green'},
+    {employeeId:'NV-004',name:'Phạm Văn Đức',date:'2026-07-12',checkIn:'07:55',checkOut:'17:00',hours:8.1,status:'Đúng giờ',color:'green'},
+    {employeeId:'NV-005',name:'Hoàng Thị Mai',date:'2026-07-12',checkIn:'08:00',checkOut:'17:30',hours:8.5,status:'Đúng giờ',color:'green'},
+    {employeeId:'NV-007',name:'Đặng Thị Nga',date:'2026-07-12',checkIn:null,checkOut:null,hours:0,status:'Nghỉ phép',color:'blue'},
+  ],
+
+  'hr/luong/payroll': [
+    {month:'2026-06',employeeId:'NV-001',name:'Nguyễn Thị Lan',base:6500000,overtime:520000,bonus:200000,deduction:650000,net:6570000,status:'Đã thanh toán',color:'green'},
+    {month:'2026-06',employeeId:'NV-002',name:'Trần Văn Nam',base:7200000,overtime:0,bonus:500000,deduction:720000,net:6980000,status:'Đã thanh toán',color:'green'},
+    {month:'2026-06',employeeId:'NV-003',name:'Lê Thị Hoa',base:6800000,overtime:680000,bonus:0,deduction:680000,net:6800000,status:'Đã thanh toán',color:'green'},
+    {month:'2026-06',employeeId:'NV-004',name:'Phạm Văn Đức',base:7000000,overtime:350000,bonus:0,deduction:700000,net:6650000,status:'Chờ duyệt',color:'amber'},
+    {month:'2026-06',employeeId:'NV-005',name:'Hoàng Thị Mai',base:9000000,overtime:0,bonus:1000000,deduction:900000,net:9100000,status:'Đã thanh toán',color:'green'},
+  ],
+};
+
+// ══ SEED FUNCTION ══════════════════════════════════════════════════════════════
+
+let totalWritten = 0;
+
+async function runSeed() {
+    document.getElementById('seedBtn').disabled = true;
+    document.getElementById('log').innerHTML = '';
+    totalWritten = 0;
+
+    for (const [collPath, docs] of Object.entries(SEED_DATA)) {
+        log(collPath, collPath, '⏳ Đang ghi...', 'running');
+        let ok = 0;
+        for (let i = 0; i < docs.length; i++) {
+            const doc = docs[i];
+            const docId = doc.ref || doc.id || `doc-${i+1}`;
+            try {
+                await db.collection(collPath).doc(docId).set(doc, { merge: true });
+                ok++;
+            } catch(e) {
+                log(collPath, collPath, `❌ Lỗi doc ${docId}: ${e.message}`, 'err');
+            }
+        }
+        totalWritten += ok;
+        log(collPath, collPath, `✅ ${ok}/${docs.length} documents`, 'ok');
+    }
+
+    document.getElementById('countEl').textContent = totalWritten;
+    document.getElementById('summary').style.display = 'block';
+    document.getElementById('seedBtn').disabled = false;
+    log('done', 'HOÀN TẤT', `🎉 Seed xong! Tổng ${totalWritten} documents vào ${Object.keys(SEED_DATA).length} collections`, 'ok');
+}
+
+async function runClear() {
+    if (!confirm('Xóa toàn bộ data MES + WMS + HR?')) return;
+    document.getElementById('log').innerHTML = '';
+    for (const collPath of Object.keys(SEED_DATA)) {
+        log('del-'+collPath, 'XÓA: '+collPath, '⏳ Đang xóa...', 'running');
+        try {
+            const snap = await db.collection(collPath).get();
+            const batch = db.batch();
+            snap.docs.forEach(d => batch.delete(d.ref));
+            await batch.commit();
+            log('del-'+collPath, 'XÓA: '+collPath, `✅ Đã xóa ${snap.size} docs`, 'ok');
+        } catch(e) {
+            log('del-'+collPath, 'XÓA: '+collPath, `❌ ${e.message}`, 'err');
+        }
+    }
+}
+</script>
+</body>
+</html>

@@ -2,14 +2,32 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ── ai/ collections — read public, write requires auth ──
+    // ── ai/ — read public, write requires auth ──
     match /ai/{document=**} {
       allow read: if true;
       allow write: if request.auth != null;
     }
 
-    // ── academy/ collections — read public, write requires auth ──
+    // ── academy/ — read public, write requires auth ──
     match /academy/{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // ── mes/ — read public, write requires auth ──
+    match /mes/{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // ── wms/ — read public, write requires auth ──
+    match /wms/{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // ── hr/ — read public, write requires auth ──
+    match /hr/{document=**} {
       allow read: if true;
       allow write: if request.auth != null;
     }

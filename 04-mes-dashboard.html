@@ -169,6 +169,11 @@
 
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="assets/js/firebase-client.js?v=2"></script>
     <script src="assets/js/main.js?v=2"></script>
     <script src="assets/js/factory-layout.js?v=2"></script>
     <script>
@@ -317,9 +322,35 @@
 
             renderDateFilters();
             MiminFac.renderStatCards(STATS);
-            renderActivity();
 
-            console.log('✅ POLOMIMIN MES Dashboard (Factory OS) initialized.');
+            // ── Load dữ liệu từ Firestore (real-time) ──────────────────────
+            // Fallback: nếu Firestore lỗi → dùng ACTIVITY tĩnh
+            if (typeof MiminFirebase !== 'undefined') {
+                MiminFirebase.onCollection('mes/lenh_sx/orders', (docs) => {
+                    if (docs.length > 0) {
+                        // Map Firestore docs → format ACTIVITY cũ
+                        ACTIVITY = docs.map(d => ({
+                            id:     d.id,
+                            type:   d.type   || 'Lệnh SX',
+                            ref:    d.ref    || d.id,
+                            entity: (d.product || '') + (d.unit ? ' · ' + d.unit : ''),
+                            amount: d.qty    ? String(d.qty) : '—',
+                            status: d.status || '—',
+                            color:  d.color  || 'blue',
+                            time:   MiminFirebase.fmt.relative(d.createdAt)
+                        }));
+                        currentPage = 1;
+                        renderActivity();
+                        MiminShell.showToast('🔄 Dữ liệu cập nhật từ Firestore', 'success', '🔥');
+                    } else {
+                        renderActivity(); // dùng static
+                    }
+                }, { orderBy: 'createdAt', limit: 20 });
+            } else {
+                renderActivity(); // fallback static
+            }
+
+            console.log('✅ POLOMIMIN MES Dashboard initialized — Firestore connected.');
         })();
     </script>
 </body>

@@ -1,163 +1,106 @@
 /* ==========================================================================
-   MIMIN Platform — Firebase Binding Framework (Stage 6)
-   Generic Firestore/Auth client cho 199 trang prototype HTML (pages/*.html).
+   POLOMIMIN — firebase-client.js
+   Shared Firebase initialization + Firestore helper functions.
+   Include this BEFORE main.js and business-layout.js in pages that need
+   real-time data from Firestore.
 
-   CHỈ LÀ FRAMEWORK — chưa gắn vào trang nào (không có pages/*.html nào include
-   file này), chưa có Business Logic/Workflow/Automation. Khi Firebase project
-   thật được tạo (hiện .env Next.js còn trống — xem CLAUDE.md mục 9), file này
-   sẵn sàng dùng ngay mà không cần build step/bundler, dùng Firebase JS SDK bản
-   "compat" qua CDN — cùng phong cách <script src="..."> như main.js/MiminShell.
-
-   Cách dùng (trong 1 trang, SAU KHI include 3 script CDN sau, THEO ĐÚNG thứ tự):
-     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-     <script src="../assets/js/firebase-client.js"></script>
-
-     MiminFirebase.init({ apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId });
-
-     const orders = await MiminFirebase.list('orders', { organizationId, workspaceId: 'business' });
-     const one    = await MiminFirebase.get('orders', orderId);
-     const newId  = await MiminFirebase.create('orders', { organizationId, workspaceId: 'business', createdBy: uid, ... });
-     await MiminFirebase.update('orders', orderId, { status: 'approved' });
-     await MiminFirebase.softDelete('orders', orderId, uid);
-     MiminFirebase.onAuthChange((user) => { ... });
-
-   Tên collection hợp lệ: xem docs/COLLECTIONS.md (92 collection, 11 domain) và
-   packages/database/src/firestore/collection-names.ts (bản TypeScript tương đương
-   dùng cho apps/dashboard, apps/admin — 2 bên cùng 1 nguồn thiết kế, khác ngôn ngữ).
-
-   Quy ước field tự động điền khi create()/update()/softDelete(): xem
-   docs/FIELD_STANDARD.md mục 3 (organizationId/workspaceId bắt buộc — người gọi
-   tự truyền, file này KHÔNG suy đoán hộ; createdAt/updatedAt/isDeleted tự động).
+   Usage:
+     MiminFirebase.getCollection('mes/lenh_sx/orders', { orderBy: 'createdAt', limit: 20 })
+       .then(docs => { /* use docs */ });
+     MiminFirebase.onCollection('mes/lenh_sx/orders', docs => render(docs));
    ========================================================================== */
+
+const _MIMIN_CONFIG = {
+    apiKey:            "AIzaSyB8cIURDcIsDHjqibi7Irql7HECCmXm4j8",
+    authDomain:        "polomimin.firebaseapp.com",
+    projectId:         "polomimin",
+    storageBucket:     "polomimin.appspot.com",
+    messagingSenderId: "1046397136632",
+    appId:             "1:1046397136632:web:d3e4b9c2a7f8e1d0"
+};
+
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+    firebase.initializeApp(_MIMIN_CONFIG);
+}
 
 const MiminFirebase = (function () {
     'use strict';
 
-    let app = null;
-    let db = null;
-    let auth = null;
+    const db   = () => firebase.firestore();
 
-    /** Danh sách collection dùng chung toàn nền tảng — không lọc organizationId/workspaceId
-     *  (khớp PLATFORM_WIDE_COLLECTIONS ở packages/database/src/firestore/collection-names.ts). */
-    const PLATFORM_WIDE_COLLECTIONS = [
-        'permissions', 'models', 'menus', 'pages', 'components',
-        'themes', 'languages', 'countries', 'currencies',
-    ];
-
-    /** Collection dùng chung trong 1 Organization, không lọc workspaceId (chỉ organizationId). */
-    const ORG_WIDE_COLLECTIONS = ['roles'];
-
-    function ensureInitialized() {
-        if (!app) {
-            throw new Error('MiminFirebase.init(config) chưa được gọi.');
-        }
+    // ── Auth ─────────────────────────────────────────────────────────────────
+    function getCurrentUser() {
+        try { return JSON.parse(localStorage.getItem('mimin-user') || 'null'); }
+        catch { return null; }
     }
 
-    // ====== INIT ======
-    function init(config) {
-        if (typeof firebase === 'undefined') {
-            throw new Error(
-                'Chưa include Firebase SDK (compat) qua CDN trước firebase-client.js — xem banner comment đầu file.',
+    function requireAuth() {
+        const user = getCurrentUser();
+        if (!user) window.location.replace('login.html?redirect=' + encodeURIComponent(window.location.pathname));
+        return user;
+    }
+
+    // ── Firestore ─────────────────────────────────────────────────────────────
+    async function getCollection(collPath, opts = {}) {
+        try {
+            let ref = db().collection(collPath);
+            if (opts.where) for (const [f, op, v] of opts.where) ref = ref.where(f, op, v);
+            if (opts.orderBy) ref = ref.orderBy(opts.orderBy, opts.direction || 'desc');
+            if (opts.limit)   ref = ref.limit(opts.limit);
+            const snap = await ref.get();
+            return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        } catch (err) { console.warn('[MiminFirebase] getCollection:', collPath, err.message); return []; }
+    }
+
+    async function getDoc(docPath) {
+        try {
+            const snap = await db().doc(docPath).get();
+            return snap.exists ? { id: snap.id, ...snap.data() } : null;
+        } catch (err) { console.warn('[MiminFirebase] getDoc:', docPath, err.message); return null; }
+    }
+
+    function onCollection(collPath, callback, opts = {}) {
+        try {
+            let ref = db().collection(collPath);
+            if (opts.where) for (const [f, op, v] of opts.where) ref = ref.where(f, op, v);
+            if (opts.orderBy) ref = ref.orderBy(opts.orderBy, opts.direction || 'desc');
+            if (opts.limit)   ref = ref.limit(opts.limit);
+            return ref.onSnapshot(
+                snap => callback(snap.docs.map(d => ({ id: d.id, ...d.data() }))),
+                err  => console.warn('[MiminFirebase] onCollection:', collPath, err.message)
             );
+        } catch (err) { console.warn('[MiminFirebase] onCollection setup:', collPath, err.message); return () => {}; }
+    }
+
+    async function setDoc(docPath, data, merge = true) {
+        try {
+            await db().doc(docPath).set({ ...data, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge });
+            return true;
+        } catch (err) { console.error('[MiminFirebase] setDoc:', err.message); return false; }
+    }
+
+    async function addDoc(collPath, data) {
+        try {
+            const ref = await db().collection(collPath).add({ ...data, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+            return ref.id;
+        } catch (err) { console.error('[MiminFirebase] addDoc:', err.message); return null; }
+    }
+
+    // ── Format helpers ────────────────────────────────────────────────────────
+    const fmt = {
+        number:   n  => Number(n || 0).toLocaleString('vi-VN'),
+        time:     ts => { if (!ts) return '—'; const d = ts.toDate ? ts.toDate() : new Date(ts); return d.toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }); },
+        relative: ts => {
+            if (!ts) return '—';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            const m = Math.floor((Date.now() - d.getTime()) / 60000);
+            if (m < 1) return 'Vừa xong';
+            if (m < 60) return `${m} phút trước`;
+            const h = Math.floor(m / 60);
+            if (h < 24) return `${h} giờ trước`;
+            return `${Math.floor(h / 24)} ngày trước`;
         }
-        app = firebase.apps && firebase.apps.length ? firebase.apps[0] : firebase.initializeApp(config);
-        db = firebase.firestore();
-        auth = firebase.auth();
-        return { app, db, auth };
-    }
-
-    // ====== AUTH ======
-    function onAuthChange(callback) {
-        ensureInitialized();
-        return auth.onAuthStateChanged(callback);
-    }
-
-    function signInWithEmail(email, password) {
-        ensureInitialized();
-        return auth.signInWithEmailAndPassword(email, password);
-    }
-
-    function signOut() {
-        ensureInitialized();
-        return auth.signOut();
-    }
-
-    // ====== FIRESTORE — GENERIC CRUD (không Business Logic, chỉ build query/document) ======
-
-    function buildScopedQuery(collectionName, scope, extra) {
-        let ref = db.collection(collectionName);
-
-        if (PLATFORM_WIDE_COLLECTIONS.indexOf(collectionName) === -1) {
-            ref = ref.where('organizationId', '==', scope.organizationId);
-            if (ORG_WIDE_COLLECTIONS.indexOf(collectionName) === -1 && scope.workspaceId) {
-                ref = ref.where('workspaceId', '==', scope.workspaceId);
-            }
-            if (scope.branchId) {
-                ref = ref.where('branchId', '==', scope.branchId);
-            }
-        }
-
-        return typeof extra === 'function' ? extra(ref) : ref;
-    }
-
-    /** Liệt kê document theo phạm vi tenant (organizationId bắt buộc, trừ catalog nền tảng). */
-    async function list(collectionName, scope, extraQueryFn) {
-        ensureInitialized();
-        const snapshot = await buildScopedQuery(collectionName, scope || {}, extraQueryFn).get();
-        return snapshot.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
-    }
-
-    /** Đọc 1 document theo id, trả null nếu không tồn tại. */
-    async function get(collectionName, docId) {
-        ensureInitialized();
-        const docSnap = await db.collection(collectionName).doc(docId).get();
-        return docSnap.exists ? { id: docSnap.id, ...docSnap.data() } : null;
-    }
-
-    /** Tạo document mới — tự điền createdAt/updatedAt/isDeleted, KHÔNG tự đoán organizationId/workspaceId. */
-    async function create(collectionName, data) {
-        ensureInitialized();
-        const now = Date.now();
-        const docRef = await db.collection(collectionName).add({
-            ...data,
-            createdAt: now,
-            updatedAt: now,
-            isDeleted: false,
-        });
-        return docRef.id;
-    }
-
-    /** Cập nhật document — tự set lại updatedAt. */
-    async function update(collectionName, docId, patch) {
-        ensureInitialized();
-        await db.collection(collectionName).doc(docId).update({
-            ...patch,
-            updatedAt: Date.now(),
-        });
-    }
-
-    /** Soft-delete — không xoá cứng, giữ vết cho activity_logs/báo cáo lịch sử (FIELD_STANDARD.md mục 3). */
-    async function softDelete(collectionName, docId, deletedBy) {
-        ensureInitialized();
-        await db.collection(collectionName).doc(docId).update({
-            isDeleted: true,
-            deletedAt: Date.now(),
-            deletedBy: deletedBy,
-            updatedAt: Date.now(),
-        });
-    }
-
-    return {
-        init,
-        onAuthChange,
-        signInWithEmail,
-        signOut,
-        list,
-        get,
-        create,
-        update,
-        softDelete,
     };
+
+    return { getCurrentUser, requireAuth, getCollection, getDoc, onCollection, setDoc, addDoc, fmt };
 })();
