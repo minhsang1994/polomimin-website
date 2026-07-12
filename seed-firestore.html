@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLOMIMIN · Firestore Seeder — AI + Academy</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Inter',sans-serif;background:#060d1a;color:#e2e8f0;min-height:100vh;padding:32px 20px;}
+        .wrap{max-width:760px;margin:0 auto;}
+        .header{text-align:center;margin-bottom:40px;}
+        .logo{width:56px;height:56px;background:linear-gradient(135deg,#7C3AED,#4F46E5);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;margin:0 auto 16px;}
+        .header h1{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:6px;}
+        .header p{font-size:.85rem;color:rgba(255,255,255,.5);}
+        /* Config card */
+        .config-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:24px;margin-bottom:20px;}
+        .config-card h2{font-size:.9rem;font-weight:700;color:#a78bfa;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+        .config-row{display:grid;grid-template-columns:140px 1fr;gap:8px;margin-bottom:8px;align-items:center;}
+        .config-row label{font-size:.75rem;color:rgba(255,255,255,.5);font-weight:600;}
+        .config-val{font-size:.78rem;color:#e2e8f0;background:rgba(255,255,255,.06);padding:6px 10px;border-radius:7px;border:1px solid rgba(255,255,255,.08);word-break:break-all;}
+        .config-val.key{color:#fbbf24;font-family:monospace;}
+        /* Collections */
+        .coll-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;}
+        .coll-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;}
+        .coll-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+        .coll-icon{font-size:1.2rem;}
+        .coll-name{font-size:.85rem;font-weight:700;color:#fff;}
+        .coll-path{font-size:.68rem;color:rgba(255,255,255,.4);font-family:monospace;margin-bottom:8px;}
+        .coll-docs{font-size:.75rem;color:rgba(255,255,255,.55);}
+        .doc-list{margin-top:8px;display:flex;flex-direction:column;gap:3px;}
+        .doc-item{font-size:.68rem;color:rgba(255,255,255,.35);font-family:monospace;padding:2px 6px;background:rgba(255,255,255,.03);border-radius:4px;}
+        .doc-item.seeded{color:#10B981;background:rgba(16,185,129,.08);}
+        .doc-item.error{color:#EF4444;background:rgba(239,68,68,.08);}
+        /* Actions */
+        .actions{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+        .btn{padding:12px 24px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all .2s;display:flex;align-items:center;gap:8px;}
+        .btn-primary{background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.35);}
+        .btn-primary:hover{opacity:.9;transform:translateY(-1px);}
+        .btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+        .btn-outline{background:rgba(255,255,255,.06);color:#e2e8f0;border:1px solid rgba(255,255,255,.15);}
+        .btn-outline:hover{background:rgba(255,255,255,.12);}
+        .btn-danger{background:rgba(239,68,68,.12);color:#FCA5A5;border:1px solid rgba(239,68,68,.25);}
+        .btn-danger:hover{background:rgba(239,68,68,.22);}
+        /* Log */
+        .log-panel{background:#000;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;font-family:monospace;font-size:.78rem;line-height:1.7;max-height:340px;overflow-y:auto;}
+        .log-line{display:flex;gap:8px;}
+        .log-time{color:rgba(255,255,255,.25);flex-shrink:0;}
+        .log-msg{flex:1;}
+        .log-msg.ok{color:#10B981;}
+        .log-msg.err{color:#F87171;}
+        .log-msg.info{color:#A78BFA;}
+        .log-msg.warn{color:#FCD34D;}
+        /* Progress */
+        .progress-wrap{margin-bottom:20px;display:none;}
+        .progress-wrap.show{display:block;}
+        .progress-label{font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:8px;display:flex;justify-content:space-between;}
+        .progress-bar{height:8px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;}
+        .progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#7C3AED,#4F46E5);transition:width .3s ease;}
+        /* Status banner */
+        .status-banner{padding:12px 16px;border-radius:10px;font-size:.82rem;font-weight:600;margin-bottom:20px;display:none;align-items:center;gap:8px;}
+        .status-banner.show{display:flex;}
+        .status-banner.success{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:#6EE7B7;}
+        .status-banner.error{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#FCA5A5;}
+        .status-banner.info{background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#C4B5FD;}
+        /* Auth section */
+        .auth-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:20px;}
+        .auth-card h2{font-size:.88rem;font-weight:700;color:#fbbf24;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+        .auth-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+        .form-input{padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e2e8f0;font-size:.82rem;font-family:'Inter',sans-serif;width:100%;outline:none;}
+        .form-input:focus{border-color:#7C3AED;box-shadow:0 0 0 3px rgba(124,58,237,.2);}
+        .form-input::placeholder{color:rgba(255,255,255,.3);}
+        .auth-note{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:6px;}
+        /* Summary */
+        .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+        .summary-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;text-align:center;}
+        .summary-num{font-size:1.6rem;font-weight:900;color:#a78bfa;}
+        .summary-label{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:3px;}
+        .summary-card.ok .summary-num{color:#10B981;}
+        .summary-card.err .summary-num{color:#F87171;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <div class="header">
+        <div class="logo">🌱</div>
+        <h1>Firestore Seeder — POLOMIMIN</h1>
+        <p>Seed data cho AI Center + Academy · Project: <strong style="color:#a78bfa">polomimin</strong></p>
+    </div>
+
+    <!-- Config card -->
+    <div class="config-card">
+        <h2>⚙️ Firebase Config (POLOMIMIN app)</h2>
+        <div class="config-row"><label>Project ID</label><div class="config-val">polomimin</div></div>
+        <div class="config-row"><label>App ID</label><div class="config-val">1:478464978260:web:e2eb223cb3df528bbdecc1</div></div>
+        <div class="config-row"><label>Auth Domain</label><div class="config-val">polomimin.firebaseapp.com</div></div>
+        <div class="config-row"><label>API Key</label><div class="config-val key">AIzaSyB8cIURDcIsDHjqibi7Irql7HECCmXm4j8</div></div>
+    </div>
+
+    <!-- Auth -->
+    <div class="auth-card" id="authCard">
+        <h2>🔑 Đăng nhập Firebase (cần quyền write Firestore)</h2>
+        <div class="auth-row">
+            <input class="form-input" type="email" id="emailInput" placeholder="Email Firebase Admin" value="">
+            <input class="form-input" type="password" id="passInput" placeholder="Password">
+        </div>
+        <button class="btn btn-outline" id="loginBtn" onclick="doLogin()">🔐 Đăng nhập &amp; Seed</button>
+        <div class="auth-note">⚡ Có thể bỏ qua nếu Firestore rules cho phép write không cần auth</div>
+    </div>
+
+    <!-- Status -->
+    <div class="status-banner info show" id="statusBanner">
+        ⏳ Sẵn sàng — nhấn "▶ Seed Now" để bắt đầu
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+        <button class="btn btn-primary" id="seedBtn" onclick="runSeed()">▶ Seed Now (24 docs)</button>
+        <button class="btn btn-outline" onclick="verifySeed()">🔍 Verify collections</button>
+        <button class="btn btn-outline" onclick="clearLog()">🗑 Clear log</button>
+        <button class="btn btn-danger" onclick="deleteSeed()">⚠ Delete seeded docs</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap" id="progressWrap">
+        <div class="progress-label"><span id="progressLabel">Đang seed...</span><span id="progressPct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-grid" id="summaryGrid" style="display:none">
+        <div class="summary-card ok"><div class="summary-num" id="sumTotal">0</div><div class="summary-label">Tổng docs seeded</div></div>
+        <div class="summary-card ok"><div class="summary-num" id="sumAiP">0</div><div class="summary-label">ai/predictions</div></div>
+        <div class="summary-card ok"><div class="summary-num" id="sumAiM">0</div><div class="summary-label">ai/models</div></div>
+        <div class="summary-card ok"><div class="summary-num" id="sumAcad">0</div><div class="summary-label">academy/*</div></div>
+    </div>
+
+    <!-- Collections overview -->
+    <div class="coll-grid" id="collGrid">
+        <div class="coll-card">
+            <div class="coll-head"><span class="coll-icon">📈</span><span class="coll-name">AI Predictions</span></div>
+            <div class="coll-path">ai / predictions / items /</div>
+            <div class="coll-docs">6 documents</div>
+            <div class="doc-list" id="docListP">
+                <div class="doc-item">FC-0042 · revenue_7d</div>
+                <div class="doc-item">FC-0041 · sku_trend (alert)</div>
+                <div class="doc-item">FC-0040 · revenue_30d</div>
+                <div class="doc-item">FC-0039 · inventory_risk (alert)</div>
+                <div class="doc-item">REC-248 · recommendation (applied)</div>
+                <div class="doc-item">REC-247 · recommendation (applied)</div>
+            </div>
+        </div>
+        <div class="coll-card">
+            <div class="coll-head"><span class="coll-icon">🤖</span><span class="coll-name">AI Models</span></div>
+            <div class="coll-path">ai / models / items /</div>
+            <div class="coll-docs">6 documents</div>
+            <div class="doc-list" id="docListM">
+                <div class="doc-item">revsys-v3 · forecasting (online)</div>
+                <div class="doc-item">recsys-v3 · recommendation (online)</div>
+                <div class="doc-item">sku-trend-v2 · trend_detection</div>
+                <div class="doc-item">inv-risk-v1 · risk_detection</div>
+                <div class="doc-item">churn-v1 · churn_prediction (busy)</div>
+                <div class="doc-item">img-gen-v1 · generative (online)</div>
+            </div>
+        </div>
+        <div class="coll-card">
+            <div class="coll-head"><span class="coll-icon">📚</span><span class="coll-name">Academy Khóa Học</span></div>
+            <div class="coll-path">academy / khoa_hoc / items /</div>
+            <div class="coll-docs">6 documents</div>
+            <div class="doc-list" id="docListC">
+                <div class="doc-item">AC-S-001 · Sales · 124 students</div>
+                <div class="doc-item">AC-AI-001 · AI · 38 students</div>
+                <div class="doc-item">AC-OP-001 · Van hanh · required</div>
+                <div class="doc-item">AC-MK-001 · Marketing · 56 students</div>
+                <div class="doc-item">AC-MFG-001 · San xuat</div>
+                <div class="doc-item">AC-FIN-001 · Tai chinh</div>
+            </div>
+        </div>
+        <div class="coll-card">
+            <div class="coll-head"><span class="coll-icon">📋</span><span class="coll-name">Academy SOP</span></div>
+            <div class="coll-path">academy / sop / items /</div>
+            <div class="coll-docs">6 documents</div>
+            <div class="doc-list" id="docListS">
+                <div class="doc-item">SOP-S-001 · Sales · v2.3</div>
+                <div class="doc-item">SOP-S-002 · Sales · v1.5</div>
+                <div class="doc-item">SOP-W-001 · Kho · v3.0</div>
+                <div class="doc-item">SOP-HR-001 · Nhan su · v2.1</div>
+                <div class="doc-item">SOP-F-001 · Tai chinh · needs_update</div>
+                <div class="doc-item">SOP-P-001 · San xuat · v2.0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log -->
+    <div class="log-panel" id="logPanel">
+        <div class="log-line"><span class="log-time">--:--:--</span><span class="log-msg info">🌱 POLOMIMIN Firestore Seeder v1.0 sẵn sàng.</span></div>
+        <div class="log-line"><span class="log-time">--:--:--</span><span class="log-msg info">📦 Project: polomimin | Collections: ai/predictions, ai/models, academy/khoa_hoc, academy/sop</span></div>
+        <div class="log-line"><span class="log-time">--:--:--</span><span class="log-msg warn">⚠ Nếu Firestore chưa enable hoặc Rules chặn → đăng nhập bằng email Admin trước.</span></div>
+    </div>
+
+</div>
+
+<script>
+// ── Firebase Init ──────────────────────────────────────────────────────────────
+const FIREBASE_CONFIG = {
+    apiKey:            "AIzaSyB8cIURDcIsDHjqibi7Irql7HECCmXm4j8",
+    authDomain:        "polomimin.firebaseapp.com",
+    projectId:         "polomimin",
+    storageBucket:     "polomimin.firebasestorage.app",
+    messagingSenderId: "478464978260",
+    appId:             "1:478464978260:web:e2eb223cb3df528bbdecc1",
+    measurementId:     "G-6EHMT03L36"
+};
+
+firebase.initializeApp(FIREBASE_CONFIG);
+const db   = firebase.firestore();
+const auth = firebase.auth();
+
+// ── Seed Data ─────────────────────────────────────────────────────────────────
+const SEED_DATA = {
+    'ai/predictions/items': [
+        { id:'FC-0042', type:'revenue_7d',      label:'Du bao doanh thu 7 ngay toi',       value:485000000,  unit:'VND', accuracy:0.942, confidence:'high',   period_days:7,  sku_count:385, alert:false,  model_id:'revsys-v3',    status:'completed', run_time_ms:2400, created_at:'2026-07-12T06:00:00Z' },
+        { id:'FC-0041', type:'sku_trend',        label:'Polo Basic Navy - xu huong tang',    value:null,       unit:null,  accuracy:0.940, confidence:'high',   change_pct:0.28, sku_ref:'POLO-BASIC-NAVY', alert:true, alert_msg:'Ton kho co the het trong 8 ngay - dat them ngay', model_id:'sku-trend-v2', status:'alert', created_at:'2026-07-12T00:00:00Z' },
+        { id:'FC-0040', type:'revenue_30d',      label:'Du bao doanh thu 30 ngay Q3/2026',   value:2100000000, unit:'VND', accuracy:0.780, confidence:'medium', period_days:30, sku_count:385, alert:false,  model_id:'revsys-v3',    status:'completed', created_at:'2026-07-11T06:00:00Z' },
+        { id:'FC-0039', type:'inventory_risk',   label:'Ao Thun Cotton - nguy co het hang',  value:null,       unit:null,  accuracy:0.910, confidence:'high',   sku_ref:'THUN-COTTON-WHITE', days_remaining:5, alert:true, alert_msg:'Ton kho du bao het trong 5 ngay', model_id:'inv-risk-v1', status:'alert', created_at:'2026-07-11T00:00:00Z' },
+        { id:'REC-248', type:'recommendation',   label:'Upsell So Mi Linen - Chuoi Sao Mai', value:210000000,  unit:'VND', accuracy:0.870, confidence:'high',   target_customer:'chain-sao-mai', sku_ref:'SOMI-LINEN-BLUE', applied:true, applied_at:'2026-07-12T08:30:00Z', model_id:'recsys-v3', status:'applied', created_at:'2026-07-12T06:00:00Z' },
+        { id:'REC-247', type:'recommendation',   label:'Tai dat Polo Basic - Dai ly Thanh Phat', value:45000000, unit:'VND', accuracy:0.930, confidence:'high',  target_customer:'agent-thanh-phat', sku_ref:'POLO-BASIC-NAVY', applied:true, applied_at:'2026-07-12T09:00:00Z', model_id:'recsys-v3', status:'applied', created_at:'2026-07-12T04:00:00Z' },
+    ],
+    'ai/models/items': [
+        { id:'revsys-v3',    name:'Revenue Forecast v3',          type:'forecasting',     description:'Du bao doanh thu 7-30 ngay dua tren lich su ban hang, xu huong thi truong va mua vu', accuracy:0.942, version:'3.0.2', status:'online', train_samples:12500, features:['historical_sales','seasonality','agent_behavior','promotion_calendar'], avg_response_ms:2400, daily_calls:4,    last_trained:'2026-07-01T00:00:00Z' },
+        { id:'recsys-v3',    name:'Product Recommendation v3',    type:'recommendation',  description:'Goi y san pham phu hop cho tung khach hang dua tren collaborative filtering va RFM',  accuracy:0.870, version:'3.1.0', status:'online', train_samples:8200,  features:['rfm_score','purchase_history','category_affinity','price_sensitivity'],  avg_response_ms:800,  daily_calls:1248, last_trained:'2026-07-05T00:00:00Z' },
+        { id:'sku-trend-v2', name:'SKU Trend Detector v2',        type:'trend_detection', description:'Phat hien xu huong tang/giam dot bien cua tung SKU de canh bao som ton kho va nhu cau', accuracy:0.910, version:'2.3.1', status:'online', train_samples:45000, features:['sku_velocity','seasonality','promo_impact','competitor_signal'],           avg_response_ms:1200, daily_calls:96,   last_trained:'2026-06-28T00:00:00Z' },
+        { id:'inv-risk-v1',  name:'Inventory Risk v1',            type:'risk_detection',  description:'Phat hien nguy co het hang hoac ton kho qua nhieu, tu dong tao canh bao va goi y dat hang', accuracy:0.890, version:'1.4.0', status:'online', train_samples:22000, features:['stock_level','sales_velocity','lead_time','safety_stock'],                avg_response_ms:900,  daily_calls:24,   last_trained:'2026-07-03T00:00:00Z' },
+        { id:'churn-v1',     name:'Customer Churn Predictor v1',  type:'churn_prediction',description:'Du bao khach hang co nguy co ngung hop tac trong 30 ngay de kip thoi can thiep',        accuracy:0.830, version:'1.2.0', status:'busy',   train_samples:5800,  features:['order_frequency','recency','complaint_count','payment_delay'],             avg_response_ms:3200, daily_calls:2,    last_trained:'2026-06-20T00:00:00Z' },
+        { id:'img-gen-v1',   name:'AI Image Generator v1',        type:'generative',      description:'Sinh anh san pham, banner quang cao va lookbook thoi trang tu mo ta text',               accuracy:null,  version:'1.0.0', status:'online', train_samples:null,  features:['text_to_image','style_transfer','background_removal'],                   avg_response_ms:8000, daily_calls:20,   last_trained:'2026-06-15T00:00:00Z' },
+    ],
+    'academy/khoa_hoc/items': [
+        { id:'AC-S-001',   category:'Sales',     title:'Ky nang ban hang dai ly cao cap',       description:'Hoc cach tiep can, thuyet phuc va cham soc dai ly ban le. Bao gom role-play, case study thuc te tu POLOMIMIN.', lessons:12, duration_h:8,   students:124, rating:4.9, badge:'popular',     required:false, instructor:'Ho Minh Sang',     tags:['ban hang','dai ly','giao tiep'],                                   status:'active', certificate:true,  created_at:'2026-01-15T00:00:00Z', updated_at:'2026-07-01T00:00:00Z' },
+        { id:'AC-AI-001',  category:'AI',        title:'Lam chu AI trong quan ly doanh nghiep', description:'Hieu va su dung cac cong cu AI: ChatGPT, POLOMIMIN AI Center, du bao tu dong trong cong viec hang ngay.',         lessons:18, duration_h:12,  students:38,  rating:4.8, badge:'new',          required:false, instructor:'Nguyen Trong Nghia',tags:['AI','ChatGPT','du bao','cong nghe'],                               status:'active', certificate:true,  created_at:'2026-07-01T00:00:00Z', updated_at:'2026-07-10T00:00:00Z' },
+        { id:'AC-OP-001',  category:'Van hanh',  title:'Nam vung SOP van hanh POLOMIMIN',       description:'Toan bo quy trinh bat buoc: tu nhap don, xu ly den giao hang. Bai kiem tra cuoi ky de cap chung chi.',            lessons:8,  duration_h:6,   students:89,  rating:4.7, badge:'required',     required:true,  instructor:'Phong Van hanh',   tags:['SOP','quy trinh','bat buoc','van hanh'],                          status:'active', certificate:true,  created_at:'2026-03-01T00:00:00Z', updated_at:'2026-06-15T00:00:00Z' },
+        { id:'AC-MK-001',  category:'Marketing', title:'Digital Marketing cho thoi trang',      description:'Content, Facebook Ads, TikTok Shop, Shopee Mall -- chien luoc ban hang da kenh thuc chien cho POLOMIMIN.',        lessons:14, duration_h:10,  students:56,  rating:4.8, badge:'popular',     required:false, instructor:'Le Thi Phuong',    tags:['Facebook Ads','TikTok','Shopee','Marketing'],                     status:'active', certificate:true,  created_at:'2026-02-01T00:00:00Z', updated_at:'2026-07-05T00:00:00Z' },
+        { id:'AC-MFG-001', category:'San xuat',  title:'Hieu quy trinh san xuat det may',       description:'Tu cat vai, may, QC den dong goi. Giup sales va kho hieu ro hon nang luc san xuat cua nha may.',                 lessons:10, duration_h:7,   students:45,  rating:4.6, badge:'recommended',  required:false, instructor:'Phong San xuat',   tags:['MES','san xuat','QC','det may'],                                  status:'active', certificate:false, created_at:'2026-04-01T00:00:00Z', updated_at:'2026-06-01T00:00:00Z' },
+        { id:'AC-FIN-001', category:'Tai chinh', title:'Quan ly dong tien va cong no',          description:'Phan tich bao cao tai chinh, theo doi cong no dai ly, du bao dong tien -- ky nang thiet yeu cho team sales.',     lessons:9,  duration_h:6.5, students:62,  rating:4.7, badge:'popular',     required:false, instructor:'Phong Ke toan',    tags:['tai chinh','cong no','bao cao','dong tien'],                      status:'active', certificate:true,  created_at:'2026-05-01T00:00:00Z', updated_at:'2026-07-01T00:00:00Z' },
+    ],
+    'academy/sop/items': [
+        { id:'SOP-S-001', code:'SOP-S-001', category:'Sales',    title:'Tiep nhan va xu ly don hang dai ly',    description:'Huong dan chi tiet tu buoc tiep nhan yeu cau dat hang tu dai ly, kiem tra ton kho, tao don hang tren he thong, den xac nhan va chuyen sang kho xuat.', steps:['Tiep nhan YC','Kiem tra ton kho','Tao don hang','Xac nhan gia','Chuyen kho xuat','Gui xac nhan KH'], owner:'Phong Sales',   version:'v2.3', required:true,  status:'active',       view_count:234, approver:'Truong phong Sales', last_reviewed_at:'2026-07-10T00:00:00Z', created_at:'2025-06-01T00:00:00Z', updated_at:'2026-07-10T00:00:00Z' },
+        { id:'SOP-S-002', code:'SOP-S-002', category:'Sales',    title:'Onboard dai ly moi',                    description:'Cac buoc chuan de tiep nhan dai ly moi: ky hop dong, cap tai khoan he thong, training co ban, thiet lap han muc cong no va theo doi 3 thang dau.', steps:['Ho so phap ly','Ky hop dong','Cap tai khoan','Training','Thiet lap han muc','Follow-up 3 thang'], owner:'Phong Sales',   version:'v1.5', required:true,  status:'active',       view_count:178, approver:'Giam doc Sales',    last_reviewed_at:'2026-07-05T00:00:00Z', created_at:'2025-08-01T00:00:00Z', updated_at:'2026-07-05T00:00:00Z' },
+        { id:'SOP-W-001', code:'SOP-W-001', category:'Kho',      title:'Nhap kho thanh pham tu xuong',          description:'Huong dan nhan hang tu xuong san xuat: kiem dem so luong, kiem tra chat luong be mat, gan ma QR, sap xep vi tri kho va cap nhat he thong WMS.', steps:['Nhan phieu xuat xuong','Kiem dem SL','Kiem tra QC so bo','Gan ma QR','Sap xep vi tri','Cap nhat WMS'], owner:'Phong Kho',     version:'v3.0', required:true,  status:'active',       view_count:312, approver:'Truong phong Kho',  last_reviewed_at:'2026-07-08T00:00:00Z', created_at:'2025-04-01T00:00:00Z', updated_at:'2026-07-08T00:00:00Z' },
+        { id:'SOP-HR-001',code:'SOP-HR-001',category:'Nhan su',  title:'Onboard nhan vien moi',                 description:'Tu ngay dau tien di lam den het thu viec: thu tuc hanh chinh, cap thiet bi, gioi thieu team, dao tao hoi nhap va danh gia cuoi thu viec.', steps:['Thu tuc hanh chinh','Cap thiet bi','Gioi thieu team','Dao tao SOP','Giao viec thuc te','Danh gia thu viec'], owner:'Phong HR',       version:'v2.1', required:true,  status:'active',       view_count:145, approver:'HR Manager',        last_reviewed_at:'2026-07-01T00:00:00Z', created_at:'2025-09-01T00:00:00Z', updated_at:'2026-07-01T00:00:00Z' },
+        { id:'SOP-F-001', code:'SOP-F-001', category:'Tai chinh',title:'Phe duyet chi phi phat sinh',           description:'Cac muc phe duyet chi phi: duoi 5 trieu (truong phong), 5-50 trieu (Giam doc), tren 50 trieu (CEO). Kem form chi tiet va han nop de xuat.', steps:['Dien form de xuat','Giai trinh ly do','Phe duyet cap 1','Phe duyet cap 2','Cap ngan sach','Bao cao quyet toan'], owner:'Phong Ke toan',  version:'v1.8', required:false, status:'needs_update', view_count:89,  approver:'CFO',               last_reviewed_at:'2026-06-01T00:00:00Z', created_at:'2025-11-01T00:00:00Z', updated_at:'2026-06-01T00:00:00Z' },
+        { id:'SOP-P-001', code:'SOP-P-001', category:'San xuat', title:'Mo lenh san xuat tu don hang',          description:'Khi don hang du dieu kien san xuat: tong hop don, kiem tra nguyen lieu, tao lenh SX tren MES, phan cong chuyen may va theo doi tien do.', steps:['Tong hop don','Kiem tra NL','Tao lenh SX','Phan cong chuyen','Theo doi tien do','Nghiem thu QC'], owner:'Phong San xuat', version:'v2.0', required:true,  status:'active',       view_count:267, approver:'Truong phong SX',  last_reviewed_at:'2026-07-09T00:00:00Z', created_at:'2025-05-01T00:00:00Z', updated_at:'2026-07-09T00:00:00Z' },
+    ]
+};
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function log(msg, type='info') {
+    const panel = document.getElementById('logPanel');
+    const now = new Date().toLocaleTimeString('vi-VN');
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `<span class="log-time">${now}</span><span class="log-msg ${type}">${msg}</span>`;
+    panel.appendChild(line);
+    panel.scrollTop = panel.scrollHeight;
+}
+function setStatus(msg, type='info') {
+    const b = document.getElementById('statusBanner');
+    b.className = `status-banner show ${type}`;
+    b.textContent = msg;
+}
+function setProgress(pct, label) {
+    document.getElementById('progressWrap').classList.add('show');
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = Math.round(pct) + '%';
+    if (label) document.getElementById('progressLabel').textContent = label;
+}
+function clearLog() {
+    document.getElementById('logPanel').innerHTML = '';
+    log('Log cleared.', 'info');
+}
+function markDocs(listId, ids, type='seeded') {
+    const list = document.getElementById(listId);
+    if (!list) return;
+    list.querySelectorAll('.doc-item').forEach((el, i) => {
+        if (i < ids) el.classList.add(type);
+    });
+}
+
+// ── Auth ───────────────────────────────────────────────────────────────────────
+async function doLogin() {
+    const email = document.getElementById('emailInput').value.trim();
+    const pass  = document.getElementById('passInput').value;
+    if (!email || !pass) { log('⚠ Nhap email va password.', 'warn'); return; }
+    try {
+        log(`🔐 Dang dang nhap: ${email}`, 'info');
+        await auth.signInWithEmailAndPassword(email, pass);
+        log('✅ Dang nhap thanh cong!', 'ok');
+        setStatus('✅ Đã đăng nhập — sẵn sàng seed', 'success');
+        document.getElementById('authCard').style.opacity = '.5';
+        await runSeed();
+    } catch(e) {
+        log(`❌ Loi dang nhap: ${e.message}`, 'err');
+        setStatus('❌ Lỗi đăng nhập: ' + e.message, 'error');
+    }
+}
+
+// ── Main Seed ─────────────────────────────────────────────────────────────────
+async function runSeed() {
+    const btn = document.getElementById('seedBtn');
+    btn.disabled = true;
+
+    const collections  = Object.keys(SEED_DATA);
+    const totalDocs    = Object.values(SEED_DATA).reduce((s,a) => s + a.length, 0);
+    let   seeded       = 0;
+    let   errors       = 0;
+    const listMap      = { 'ai/predictions/items':'docListP', 'ai/models/items':'docListM', 'academy/khoa_hoc/items':'docListC', 'academy/sop/items':'docListS' };
+
+    log(`▶ Bat dau seed ${totalDocs} docs vao ${collections.length} collections...`, 'info');
+    setStatus('⏳ Đang seed...', 'info');
+
+    for (const collPath of collections) {
+        const docs = SEED_DATA[collPath];
+        const parts = collPath.split('/');
+        log(`📂 Collection: ${collPath} (${docs.length} docs)`, 'info');
+        setProgress((seeded / totalDocs) * 100, `Seeding ${collPath}...`);
+
+        const batch = db.batch();
+        const docRefs = [];
+        docs.forEach(doc => {
+            let ref;
+            if (parts.length === 3) {
+                ref = db.collection(parts[0]).doc(parts[1]).collection(parts[2]).doc(doc.id);
+            } else {
+                ref = db.collection(parts[0]).doc(doc.id);
+            }
+            const {id, ...data} = doc;
+            batch.set(ref, { ...data, _seeded_at: firebase.firestore.FieldValue.serverTimestamp(), _seeded_by: 'antigravity', _module: parts[0] });
+            docRefs.push({ id, ref });
+        });
+
+        try {
+            await batch.commit();
+            docs.forEach(d => log(`  ✅ ${d.id}`, 'ok'));
+            seeded += docs.length;
+            const listId = listMap[collPath];
+            if (listId) markDocs(listId, docs.length, 'seeded');
+        } catch(e) {
+            log(`  ❌ Loi batch: ${e.message}`, 'err');
+            errors += docs.length;
+        }
+
+        setProgress((seeded / totalDocs) * 100, `Seeded ${seeded}/${totalDocs}...`);
+    }
+
+    setProgress(100, 'Hoàn thành!');
+
+    // Summary
+    document.getElementById('summaryGrid').style.display = 'grid';
+    document.getElementById('sumTotal').textContent = seeded;
+    document.getElementById('sumAiP').textContent   = SEED_DATA['ai/predictions/items'].length;
+    document.getElementById('sumAiM').textContent   = SEED_DATA['ai/models/items'].length;
+    document.getElementById('sumAcad').textContent  = SEED_DATA['academy/khoa_hoc/items'].length + SEED_DATA['academy/sop/items'].length;
+
+    if (errors === 0) {
+        log(`🎉 Seed xong! ${seeded} docs thanh cong, 0 loi.`, 'ok');
+        setStatus(`✅ Seed xong! ${seeded} docs · 0 lỗi`, 'success');
+    } else {
+        log(`⚠ Seed xong voi ${errors} loi. Kiem tra Rules Firestore.`, 'warn');
+        setStatus(`⚠ ${seeded} seeded, ${errors} lỗi — kiểm tra Firestore Rules`, 'error');
+    }
+
+    btn.disabled = false;
+}
+
+// ── Verify ─────────────────────────────────────────────────────────────────────
+async function verifySeed() {
+    log('🔍 Kiem tra collections...', 'info');
+    const paths = [
+        ['ai','predictions','items'],
+        ['ai','models','items'],
+        ['academy','khoa_hoc','items'],
+        ['academy','sop','items'],
+    ];
+    for (const [col, doc, sub] of paths) {
+        try {
+            const snap = await db.collection(col).doc(doc).collection(sub).get();
+            log(`✅ ${col}/${doc}/items: ${snap.size} docs`, 'ok');
+        } catch(e) {
+            log(`❌ ${col}/${doc}/items: ${e.message}`, 'err');
+        }
+    }
+}
+
+// ── Delete ─────────────────────────────────────────────────────────────────────
+async function deleteSeed() {
+    if (!confirm('Xóa tất cả docs đã seed? Hành động này không thể hoàn tác!')) return;
+    log('⚠ Dang xoa docs da seed...', 'warn');
+    const paths = [
+        ['ai','predictions','items'],
+        ['ai','models','items'],
+        ['academy','khoa_hoc','items'],
+        ['academy','sop','items'],
+    ];
+    for (const [col, doc, sub] of paths) {
+        try {
+            const snap = await db.collection(col).doc(doc).collection(sub).where('_seeded_by','==','antigravity').get();
+            const batch = db.batch();
+            snap.docs.forEach(d => batch.delete(d.ref));
+            await batch.commit();
+            log(`🗑 Xoa ${snap.size} docs: ${col}/${doc}/${sub}`, 'warn');
+        } catch(e) {
+            log(`❌ Loi xoa: ${e.message}`, 'err');
+        }
+    }
+    log('✅ Xoa xong.', 'ok');
+}
+
+// Auth state
+auth.onAuthStateChanged(user => {
+    if (user) {
+        log(`👤 Da dang nhap: ${user.email}`, 'ok');
+        setStatus('✅ Đã đăng nhập — sẵn sàng seed', 'success');
+    } else {
+        log('ℹ Chua dang nhap — seed se thu khong co auth (tuy Rules Firestore)', 'warn');
+    }
+});
+</script>
+</body>
+</html>
