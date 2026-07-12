@@ -22,3 +22,14 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# Backend Node.js files (kept in tong-kho-si folder, not for website)
+firebase.js
+index.js
+minimax-client.js
+test-minimax.js
+zalo-api.js
+
+# Generator scripts
+generate_pages.*
+generate-pages.*

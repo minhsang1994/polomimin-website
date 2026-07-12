@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLOMIMIN HUB - Hệ sinh thái số</title>
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        body { background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #1E40AF 100%); min-height: 100vh; color: white; padding: 40px 20px; }
+        .hub-container { max-width: 1280px; margin: 0 auto; }
+        .hub-hero { text-align: center; padding: 60px 0 40px; }
+        .hub-hero h1 { font-size: 56px; font-weight: 900; margin-bottom: 16px; }
+        .hub-hero .gradient { background: linear-gradient(135deg, #5EEAD4, #14B8A6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hub-hero p { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 40px; }
+        .hub-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+        .hub-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; transition: all 0.3s; backdrop-filter: blur(10px); display: block; }
+        .hub-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+        .hub-card-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #5EEAD4, #14B8A6); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; margin-bottom: 16px; }
+        .hub-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; color: white; }
+        .hub-card p { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+        .hub-card-link { color: #5EEAD4; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .hub-stats { display: flex; gap: 40px; justify-content: center; margin: 40px 0; }
+        .hub-stat-num { font-size: 36px; font-weight: 900; }
+        .hub-stat-label { font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; }
+        @media (max-width: 968px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } .hub-stats { flex-wrap: wrap; } .hub-hero h1 { font-size: 36px; } }
+    </style>
+</head>
+<body>
+    <div class="hub-container">
+        <div class="hub-hero">
+            <h1><span class="gradient">POLOMIMIN</span> HUB</h1>
+            <p>Hệ sinh thái số toàn diện cho doanh nghiệp dệt may Việt Nam</p>
+            <div class="hub-stats">
+                <div><div class="hub-stat-num">7</div><div class="hub-stat-label">Modules</div></div>
+                <div><div class="hub-stat-num">40+</div><div class="hub-stat-label">Màn hình</div></div>
+                <div><div class="hub-stat-num">24/7</div><div class="hub-stat-label">Vận hành</div></div>
+                <div><div class="hub-stat-num">100%</div><div class="hub-stat-label">Made in VN</div></div>
+            </div>
+        </div>
+        <div class="hub-grid">
+            <a href="02-erp-dashboard.html" class="hub-card">
+                <div class="hub-card-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>ERP</h3>
+                <p>Quản lý doanh nghiệp tổng thể</p>
+                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="04-mes-dashboard.html" class="hub-card">
+                <div class="hub-card-icon"><i class="fas fa-industry"></i></div>
+                <h3>MES</h3>
+                <p>Quản lý sản xuất</p>
+                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="06-wms-dashboard.html" class="hub-card">
+                <div class="hub-card-icon"><i class="fas fa-warehouse"></i></div>
+                <h3>WMS</h3>
+                <p>Quản lý kho</p>
+                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="22-hr-dashboard.html" class="hub-card">
+                <div class="hub-card-icon"><i class="fas fa-user-tie"></i></div>
+                <h3>HRM</h3>
+                <p>Quản lý nhân sự</p>
+                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="22-sales-dashboard.html" class="hub-card">
+                <div class="hub-card-icon"><i class="fas fa-cash-register"></i></div>
+                <h3>Sales</h3>
+                <p>Bán hàng đa kênh</p>
+                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="25-ai-dashboard.html" class="hub-card">
+                <div class="hub-card-icon"><i class="fas fa-robot"></i></div>
+                <h3>AI Center</h3>
+                <p>Trí tuệ nhân tạo</p>
+                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="37-academy-dashboard.html" class="hub-card">
+                <div class="hub-card-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Academy</h3>
+                <p>Học viện nội bộ</p>
+                <span class="hub-card-link">Mở <i class="fas fa-arrow-right"></i></span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
