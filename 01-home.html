@@ -405,6 +405,39 @@
 
         /* divider */
         .section-divider { height: 1px; background: var(--gray-200); }
+
+        /* ====== MOBILE RESPONSIVE (Hub Home) ====== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 16px;
+                height: 56px;
+            }
+            .nav-logo { gap: 8px; }
+            .logo-text strong { font-size: 0.85rem; }
+            .logo-text small { font-size: 0.55rem; }
+            .nav-menu { display: none !important; }
+            .nav-actions { gap: 6px; }
+            .nav-actions .nav-icon-btn { width: 32px; height: 32px; font-size: 0.95rem; }
+            .btn-login { display: none !important; }
+            .topbar { font-size: 10px; padding: 5px 12px; }
+            .topbar span { display: inline; }
+            .hero { min-height: 70vh !important; }
+            .hero-slide, .hero-slide img, .hero-banner img, section img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            .section-title { font-size: 1.4rem !important; }
+            .section { padding: 40px 16px !important; }
+            .container, .grid, [class*="grid-"] {
+                max-width: 100% !important;
+                padding: 0 16px !important;
+            }
+            .product-card, .collection-card, [class*="card"] {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            footer { padding: 30px 16px 16px !important; }
+        }
     </style>
 </head>
 <body>
