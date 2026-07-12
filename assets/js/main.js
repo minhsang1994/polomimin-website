@@ -253,14 +253,24 @@ const MiminShell = (function () {
             });
         }
 
-        // Logout
+        // Logout — Firebase Auth signOut nếu có, fallback toast
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
+            logoutBtn.addEventListener('click', async () => {
                 if (typeof config.onLogout === 'function') {
                     config.onLogout();
                 } else {
-                    showToast('👋 Đăng xuất', 'warning', '⏻');
+                    showToast('👋 Đang đăng xuất...', 'warning', '⏻');
+                    // Firebase Auth logout (nếu SDK đã load)
+                    try {
+                        if (typeof firebase !== 'undefined' && firebase.auth) {
+                            await firebase.auth().signOut();
+                        }
+                    } catch(e) { /* silent */ }
+                    // Xóa session localStorage
+                    localStorage.removeItem('mimin-user');
+                    // Redirect về login
+                    setTimeout(() => { window.location.href = 'login.html'; }, 800);
                 }
             });
         }

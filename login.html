@@ -353,7 +353,42 @@
 <!-- Toast -->
 <div id="toast" style="position:fixed;bottom:24px;right:24px;padding:12px 20px;background:#1f2937;color:#fff;border-radius:10px;font-size:.82rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(80px);opacity:0;transition:all .3s;z-index:9999;pointer-events:none;max-width:320px;"></div>
 
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
 <script>
+// ── Firebase Config ──────────────────────────────────────────
+const firebaseConfig = {
+    apiKey:            "AIzaSyB8cIURDcIsDHjqibi7Irql7HECCmXm4j8",
+    authDomain:        "polomimin.firebaseapp.com",
+    projectId:         "polomimin",
+    storageBucket:     "polomimin.appspot.com",
+    messagingSenderId: "1046397136632",
+    appId:             "1:1046397136632:web:polomimin"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// ── Session: nếu đã login → redirect thẳng vào Hub ──────────
+auth.onAuthStateChanged(user => {
+    if (user) {
+        // Lưu thông tin user vào localStorage để các trang khác dùng
+        localStorage.setItem('mimin-user', JSON.stringify({
+            uid:      user.uid,
+            email:    user.email,
+            name:     user.displayName || user.email.split('@')[0],
+            initials: (user.displayName || user.email).slice(0,2).toUpperCase(),
+            role:     'User',
+            company:  'POLOMIMIN',
+            plan:     'Enterprise AI',
+            loginDate: new Date().toLocaleDateString('vi-VN')
+        }));
+        window.location.replace('01-home.html');
+    }
+});
+
+// ── Helper ───────────────────────────────────────────────────
 function fillDemo(email, pass) {
     document.getElementById('email').value = email;
     document.getElementById('password').value = pass;
@@ -372,52 +407,60 @@ function showToast(msg) {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { t.style.transform = 'translateY(80px)'; t.style.opacity = '0'; }, 2800);
 }
+function showAlert(msg, type) {
+    const a = document.getElementById('formAlert');
+    a.textContent = msg;
+    a.className = 'form-alert ' + type;
+}
+
+// ── Login Handler — Firebase Auth thật ──────────────────────
 async function handleLogin(e) {
     e.preventDefault();
     const email = document.getElementById('email').value.trim();
     const pass  = document.getElementById('password').value;
     const btn   = document.getElementById('loginBtn');
-    const alert = document.getElementById('formAlert');
 
     if (!email || !pass) {
         showAlert('⚠ Vui lòng nhập email và mật khẩu.', 'error'); return;
     }
 
     btn.classList.add('loading'); btn.disabled = true;
+    showAlert('', '');
 
-    // Demo login (no Firebase yet)
-    await new Promise(r => setTimeout(r, 1200));
-
-    const demoAccounts = ['sang@polomimin.vn','sales@polomimin.vn','ai@polomimin.vn'];
-    if (demoAccounts.includes(email) && pass === 'Demo@2026!') {
+    try {
+        // Firebase Auth
+        await auth.signInWithEmailAndPassword(email, pass);
+        // onAuthStateChanged sẽ tự redirect sau khi login thành công
         showAlert('✅ Đăng nhập thành công! Đang chuyển hướng...', 'success');
-        setTimeout(() => { window.location.href = '01-home.html'; }, 1000);
-    } else {
-        showAlert('❌ Email hoặc mật khẩu không đúng. Dùng tài khoản demo bên trên.', 'error');
+    } catch (err) {
         btn.classList.remove('loading'); btn.disabled = false;
+        // Map Firebase error codes → tiếng Việt
+        const msgs = {
+            'auth/user-not-found':      '❌ Tài khoản không tồn tại.',
+            'auth/wrong-password':      '❌ Mật khẩu không đúng.',
+            'auth/invalid-email':       '❌ Email không hợp lệ.',
+            'auth/too-many-requests':   '⚠ Quá nhiều lần thử. Vui lòng thử lại sau.',
+            'auth/user-disabled':       '⚠ Tài khoản đã bị khóa. Liên hệ admin.',
+            'auth/network-request-failed': '⚠ Lỗi mạng. Kiểm tra kết nối internet.',
+            'auth/invalid-credential':  '❌ Email hoặc mật khẩu không đúng.',
+        };
+        showAlert(msgs[err.code] || `❌ ${err.message}`, 'error');
+        console.error('Login error:', err.code, err.message);
     }
 }
-function showAlert(msg, type) {
-    const a = document.getElementById('formAlert');
-    a.textContent = msg;
-    a.className = 'form-alert ' + type;
-}
-// Theme toggle
+
+// ── Theme toggle ─────────────────────────────────────────────
 const themeBtn = document.getElementById('themeBtn');
+const savedTheme = localStorage.getItem('mimin-theme') || 'light';
+document.documentElement.dataset.theme = savedTheme;
+themeBtn.textContent = savedTheme === 'dark' ? '🌙' : '🌓';
 themeBtn.onclick = () => {
-    const cur = document.documentElement.dataset.theme;
-    document.documentElement.dataset.theme = cur === 'dark' ? 'light' : 'dark';
-    themeBtn.textContent = cur === 'dark' ? '🌓' : '🌙';
-};
-// Check saved theme
-if (localStorage.getItem('theme') === 'dark') {
-    document.documentElement.dataset.theme = 'dark';
-    themeBtn.textContent = '🌙';
-}
-document.getElementById('themeBtn').addEventListener('click', () => {
     const isDark = document.documentElement.dataset.theme === 'dark';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-});
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('mimin-theme', next);
+    themeBtn.textContent = next === 'dark' ? '🌙' : '🌓';
+};
 </script>
 </body>
 </html>
