@@ -1,24 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>POLOMIMIN - Đang chuyển hướng...</title>
     <meta http-equiv="refresh" content="0; url=01-home.html">
+    <title>POLOMIMIN ERP — Redirecting...</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #1E40AF 100%); color: white; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; }
-        .redirect-box { text-align: center; }
-        .spinner { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,0.2); border-top-color: #14B8A6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        a { color: #5EEAD4; }
+        body { margin:0; background:#0a1628; display:flex; align-items:center; justify-content:center; min-height:100vh; font-family:Inter,sans-serif; }
+        .splash { text-align:center; color:#fff; }
+        .logo { width:60px; height:60px; background:linear-gradient(135deg,#1d4ed8,#7c3aed); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:900; font-style:italic; margin:0 auto 16px; }
+        h1 { font-size:1.4rem; font-weight:800; margin:0 0 8px; }
+        p { font-size:.85rem; color:rgba(255,255,255,.5); margin:0 0 20px; }
+        a { color:#a78bfa; text-decoration:none; font-size:.8rem; }
+        a:hover { text-decoration:underline; }
     </style>
 </head>
 <body>
-    <div class="redirect-box">
-        <div class="spinner"></div>
-        <h1>POLOMIMIN HUB</h1>
-        <p>Đang chuyển hướng đến <a href="01-home.html">01-home.html</a>...</p>
+    <div class="splash">
+        <div class="logo">P</div>
+        <h1>POLOMIMIN ERP</h1>
+        <p>Đang chuyển hướng đến Hub chính...</p>
+        <a href="01-home.html">Nhấn vào đây nếu không tự chuyển</a>
     </div>
-    <script>window.location.replace('01-home.html');</script>
+    <script>
+        setTimeout(function() { window.location.href = '01-home.html'; }, 800);
+    </script>
 </body>
 </html>

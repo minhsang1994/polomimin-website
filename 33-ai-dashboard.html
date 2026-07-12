@@ -1,149 +1,223 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Center - POLOMIMIN AI Center</title>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · AI Center Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root {
+            --primary: #7C3AED; --primary-dark: #6D28D9; --primary-light: #A78BFA;
+            --primary-gradient: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+        }
+        .biz-page-header { background: linear-gradient(135deg, rgba(124,58,237,0.07), rgba(79,70,229,0.04)); }
+        .logo-icon { background: var(--primary-gradient) !important; }
+        /* AI pulse animation */
+        @keyframes ai-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.05)} }
+        .ai-live { display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:#A78BFA;font-weight:600; }
+        .ai-dot { width:7px;height:7px;border-radius:50%;background:#A78BFA;animation:ai-pulse 1.8s ease-in-out infinite; }
+        /* AI Module grid */
+        .ai-module-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px; }
+        .ai-module-card {
+            border-radius:14px; padding:22px; cursor:pointer;
+            background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(79,70,229,0.05));
+            border:1px solid rgba(124,58,237,0.18);
+            transition:transform 0.25s,box-shadow 0.25s;
+            position:relative;overflow:hidden;
+        }
+        .ai-module-card:hover { transform:translateY(-4px);box-shadow:0 12px 32px rgba(124,58,237,0.18); }
+        .ai-module-card::before {
+            content:''; position:absolute;top:-30px;right:-30px;
+            width:90px;height:90px;border-radius:50%;
+            background:radial-gradient(circle,rgba(124,58,237,0.15),transparent 70%);
+        }
+        .amc-icon { font-size:2rem;margin-bottom:12px;display:block; }
+        .amc-name { font-size:0.9rem;font-weight:700;color:var(--text-primary);margin-bottom:4px; }
+        .amc-desc { font-size:0.75rem;color:var(--text-light);margin-bottom:12px;line-height:1.5; }
+        .amc-stat { font-size:1.2rem;font-weight:800;color:#7C3AED; }
+        .amc-stat-label { font-size:0.68rem;color:var(--text-light); }
+        .amc-btn { display:inline-block;padding:5px 12px;border-radius:6px;font-size:0.72rem;font-weight:700;background:#7C3AED;color:#fff;margin-top:10px;transition:background 0.2s; }
+        .amc-btn:hover { background:#6D28D9; }
+        /* AI accuracy ring */
+        .accuracy-ring { display:flex;align-items:center;gap:16px; }
+        .ring-chart { position:relative;width:64px;height:64px; }
+        .ring-chart svg { transform:rotate(-90deg); }
+        .ring-val { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:800;color:var(--text-primary); }
+    </style>
 </head>
 <body>
-    <div class="app-shell">
-        <aside class="app-sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">P</div>
-                <div class="sidebar-logo-text">
-                    <h2>POLOMIMIN</h2>
-                    <p>AI Center</p>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon">P</div>
+            <div class="logo-text">POLOMIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar">HS</div>
+            <div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div>
+            <button class="logout-btn">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Hỏi AI bất cứ điều gì về POLOMIMIN..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><span class="current">🤖 AI Center</span></nav>
+
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">🤖 AI Center Dashboard
+                    <span class="ai-live"><span class="ai-dot"></span>AI đang hoạt động</span>
                 </div>
+                <div class="bph-subtitle">Trung tâm trí tuệ nhân tạo POLOMIMIN — Dự báo · Gợi ý · Tự động hóa</div>
             </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li class="sidebar-section">AI Center</li>
-                <li class="sidebar-nav-item"><a href="25-ai-dashboard.html" class="sidebar-nav-link"><i class="fas fa-robot"></i> Tổng quan</a></li>
-                <li class="sidebar-nav-item"><a href="35-ai-du-bao.html" class="sidebar-nav-link"><i class="fas fa-robot"></i> Dự báo</a></li>
-                <li class="sidebar-nav-item"><a href="36-ai-goi-y.html" class="sidebar-nav-link"><i class="fas fa-robot"></i> Gợi ý</a></li>
-                <li class="sidebar-section">Liên kết</li>
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-th-large"></i> Tất cả modules</a></li>
-                <li class="sidebar-nav-item"><a href="login.html" class="sidebar-nav-link"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
-            </ul>
-        </aside>
-        <main class="app-main">
-            <div class="app-topbar">
-                <div>
-                    <h1>AI Center</h1>
-                    <p>Hub trung tâm các ứng dụng AI</p>
-                </div>
-                <div class="topbar-actions">
-                    <button class="btn-icon"><i class="fas fa-search"></i></button>
-                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm mới</button>
-                </div>
+            <div class="bph-actions"><div class="biz-filters" id="dateFilters"></div></div>
+        </div>
+
+        <div class="biz-stat-grid" id="statGrid"></div>
+
+        <!-- AI Modules -->
+        <div class="biz-page-header" style="margin-top:20px">
+            <div><div class="bph-title" style="font-size:16px">🧩 Các Module AI</div><div class="bph-subtitle">Click để khám phá từng module</div></div>
+        </div>
+        <div class="ai-module-grid">
+            <div class="ai-module-card" onclick="location.href='35-ai-du-bao.html'">
+                <span class="amc-icon">📈</span>
+                <div class="amc-name">AI Dự Báo Doanh Thu</div>
+                <div class="amc-desc">Dự báo doanh thu 7–30 ngày với độ chính xác cao dựa trên lịch sử bán hàng và xu hướng thị trường.</div>
+                <div class="amc-stat">94.2%<span class="amc-stat-label"> chính xác</span></div>
+                <a class="amc-btn" href="35-ai-du-bao.html">Xem dự báo →</a>
             </div>
-            <div class="module-header" style="background: linear-gradient(135deg, #7C3AED, #6D28D9);">
-                <div class="module-header-left">
-                    <div class="module-header-icon"><i class="fas fa-robot"></i></div>
-                    <div>
-                        <h1>AI Center - AI Center</h1>
-                        <p>Trí tuệ nhân tạo</p>
-                    </div>
-                </div>
-                <button class="btn" style="background: rgba(255,255,255,0.2); color: white;"><i class="fas fa-download"></i> Xuất báo cáo</button>
+            <div class="ai-module-card" onclick="location.href='36-ai-goi-y.html'">
+                <span class="amc-icon">💡</span>
+                <div class="amc-name">AI Gợi Ý Sản Phẩm</div>
+                <div class="amc-desc">Gợi ý sản phẩm phù hợp cho từng khách hàng/đại lý dựa trên hành vi mua hàng và phân tích hàng tồn.</div>
+                <div class="amc-stat">1,248<span class="amc-stat-label"> gợi ý/ngày</span></div>
+                <a class="amc-btn" href="36-ai-goi-y.html">Xem gợi ý →</a>
             </div>
-            <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #7C3AED20; color: #7C3AED;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Model đang chạy</div>
-                <div class="kpi-value">12</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +2</div>
+            <div class="ai-module-card" onclick="">
+                <span class="amc-icon">🔄</span>
+                <div class="amc-name">AI Tự Động Hóa</div>
+                <div class="amc-desc">Tự động tạo đơn nhập hàng khi tồn kho xuống dưới ngưỡng, tối ưu lịch sản xuất MES theo nhu cầu thực.</div>
+                <div class="amc-stat">34<span class="amc-stat-label"> tác vụ/ngày</span></div>
+                <a class="amc-btn" href="#">Khám phá →</a>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #10B98120; color: #10B981;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Dự báo chính xác</div>
-                <div class="kpi-value">94.2%</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +1.8%</div>
+            <div class="ai-module-card" onclick="">
+                <span class="amc-icon">📊</span>
+                <div class="amc-name">AI Phân Tích Khách Hàng</div>
+                <div class="amc-desc">Phân tích RFM, phân khúc khách hàng VIP, dự báo khách hàng có nguy cơ rời bỏ để kịp thời chăm sóc.</div>
+                <div class="amc-stat">1,256<span class="amc-stat-label"> KH phân tích</span></div>
+                <a class="amc-btn" href="#">Phân tích →</a>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #3B82F620; color: #3B82F6;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">API calls/ngày</div>
-                <div class="kpi-value">45.2K</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +12%</div>
+            <div class="ai-module-card" onclick="">
+                <span class="amc-icon">🎨</span>
+                <div class="amc-name">AI Tạo Hình Ảnh</div>
+                <div class="amc-desc">Sinh ảnh sản phẩm, banner quảng cáo, lookbook thời trang POLOMIMIN bằng AI Generative Image.</div>
+                <div class="amc-stat">480<span class="amc-stat-label"> ảnh/tháng</span></div>
+                <a class="amc-btn" href="#">Tạo ngay →</a>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #F59E0B20; color: #F59E0B;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Cost AI/ngày</div>
-                <div class="kpi-value">128K</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> -8%</div>
+            <div class="ai-module-card" onclick="">
+                <span class="amc-icon">💬</span>
+                <div class="amc-name">AI Chat Nội Bộ</div>
+                <div class="amc-desc">Chatbot nội bộ trả lời mọi câu hỏi về quy trình, SOP, chính sách doanh nghiệp và tra cứu dữ liệu ERP.</div>
+                <div class="amc-stat">320<span class="amc-stat-label"> cuộc chat/ngày</span></div>
+                <a class="amc-btn" href="#">Mở chat →</a>
             </div>
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Hoạt động gần đây</div>
-                            <div class="card-subtitle">Cập nhật 5 phút trước</div>
-                        </div>
-                        <a href="#" class="btn btn-secondary">Xem tất cả</a>
-                    </div>
-                    <div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-plus"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đơn hàng mới #1533</div>
-                                <div class="list-item-subtitle">2 phút trước • 5,250,000đ</div>
-                            </div>
-                            <span class="badge badge-success">Mới</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-check"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đã xử lý #3085</div>
-                                <div class="list-item-subtitle">15 phút trước • POLOMIMIN HCM</div>
-                            </div>
-                            <span class="badge badge-info">Xong</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-exclamation"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cảnh báo tồn kho</div>
-                                <div class="list-item-subtitle">1 giờ trước • SKU POLO-001</div>
-                            </div>
-                            <span class="badge badge-warning">Cảnh báo</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-sync"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cập nhật trạng thái</div>
-                                <div class="list-item-subtitle">2 giờ trước • Lệnh SX #681</div>
-                            </div>
-                            <span class="badge badge-info">Cập nhật</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Danh sách mới nhất</div>
-                            <div class="card-subtitle">Top 5 bản ghi gần đây</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Mã</th><th>Tên</th><th>Trạng thái</th><th>Giá trị</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>TON6JW</td><td>POLOMIMIN Polo Basic</td><td><span class="badge badge-success">Hoạt động</span></td><td>295,000đ</td></tr>
-                            <tr><td>A164V2</td><td>POLOMIMIN Thun Cotton</td><td><span class="badge badge-success">Hoạt động</span></td><td>195,000đ</td></tr>
-                            <tr><td>UUVYPO</td><td>POLOMIMIN Sơ Mi Bamboo</td><td><span class="badge badge-warning">Sắp hết</span></td><td>395,000đ</td></tr>
-                            <tr><td>T7X09S</td><td>POLOMIMIN Quần Tây</td><td><span class="badge badge-success">Hoạt động</span></td><td>495,000đ</td></tr>
-                            <tr><td>TIGXW7</td><td>POLOMIMIN Bộ thể thao</td><td><span class="badge badge-info">Mới</span></td><td>595,000đ</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
-    </div>
+        </div>
+
+        <div class="biz-page-header" style="margin-top:8px">
+            <div><div class="bph-title" style="font-size:16px">🕰️ Nhật ký AI hoạt động</div><div class="bph-subtitle">Các tác vụ AI đã thực hiện gần đây</div></div>
+        </div>
+        <div class="data-table-wrap"><table class="data-table" id="activityTable"><thead><tr></tr></thead><tbody></tbody></table></div>
+        <div class="biz-empty" id="activityEmpty" style="display:none;"><div class="be-icon">🤖</div><h3>Chưa có tác vụ AI</h3><p>Nhật ký AI sẽ xuất hiện tại đây.</p></div>
+        <div class="pagination" id="activityPagination"></div>
+
+        <footer style="text-align:center;font-size:13px;color:var(--text-light);padding-top:24px;border-top:1px solid var(--border-color);margin-top:8px;">
+            POLOMIMIN Platform v1.0 · AI Center · © 2026 · MST: 0318507560
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn">
+        <span class="ai-icon">🧠</span><span>AI đang xử lý · <strong>6 tác vụ tự động</strong></span>
+    </button>
+    <button class="biz-fab stacked" id="quickAddBtn">+</button>
+    <div class="m-drawer-overlay"><div class="m-drawer"><button class="drawer-close">✕</button><div class="drawer-avatar">HS</div><div class="drawer-name">Hồ Minh Sang</div><div class="drawer-role">Founder &amp; CEO · POLOMIMIN</div><div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value">Enterprise AI</span></div><button class="drawer-btn">Quản lý tài khoản</button></div></div>
+    <div class="toast-container"></div>
+
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const USER={name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise AI',loginDate:'07/07/2026'};
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},
+            {section:'AI Center'},
+            {icon:'🤖',label:'AI Dashboard',href:'33-ai-dashboard.html',active:true},
+            {icon:'📈',label:'AI Dự Báo',href:'35-ai-du-bao.html'},
+            {icon:'💡',label:'AI Gợi Ý',href:'36-ai-goi-y.html'},
+            {section:'Academy'},
+            {icon:'🎓',label:'Academy Hub',href:'37-academy-dashboard.html'},
+            {icon:'📚',label:'Khóa học',href:'38-academy-khoa-hoc.html'},
+            {icon:'📋',label:'Quy trình SOP',href:'39-academy-sop.html'},
+            {section:'Modules khác'},
+            {icon:'💰',label:'Sales',href:'22-sales-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+        ];
+        const NOTIFICATIONS=[
+            {icon:'🤖',title:'AI dự báo: Polo Basic tăng 28% tuần tới',time:'Vừa xong'},
+            {icon:'⚡',title:'Tự động đặt thêm 500 vải Cotton - hoàn tất',time:'15 phút trước'},
+            {icon:'💡',title:'Gợi ý: Đại lý Minh Anh cần liên hệ tái đơn',time:'1 giờ trước'},
+        ];
+        const STATS=[
+            ['🤖','Model AI hoạt động','6/6','+1',true,'#7C3AED'],
+            ['📈','Độ chính xác dự báo','94.2%','+1.3%',true,'#4F46E5'],
+            ['⚡','Tác vụ tự động/ngày','34','+8',true,'#8B5CF6'],
+            ['💡','Gợi ý được áp dụng','82%','+5%',true,'#7C3AED'],
+            ['💬','Câu hỏi AI chat','320','+45',true,'#4F46E5'],
+            ['🎨','Ảnh AI tạo ra','480','+60',true,'#8B5CF6'],
+            ['💰','Doanh thu tăng nhờ AI','18%','+3%',true,'#7C3AED'],
+            ['⏱️','Tiết kiệm giờ/tuần','24h','+4h',true,'#4F46E5'],
+        ];
+        const ACTIVITY=[
+            {id:1,type:'Dự báo',ref:'AI-F-001',entity:'Dự báo doanh thu tuần tới',amount:'1.8 tỷ',status:'Hoàn tất',color:'green',time:'5 phút trước'},
+            {id:2,type:'Tự động',ref:'AI-A-034',entity:'Tạo đơn nhập 500m vải Cotton',amount:'45,000,000',status:'Đang chạy',color:'amber',time:'12 phút trước'},
+            {id:3,type:'Gợi ý',ref:'AI-R-248',entity:'Gợi ý sản phẩm cho 48 KH VIP',amount:'—',status:'Hoàn tất',color:'green',time:'25 phút trước'},
+            {id:4,type:'Phân tích',ref:'AI-C-119',entity:'Phân tích RFM 1,256 khách hàng',amount:'—',status:'Hoàn tất',color:'green',time:'1 giờ trước'},
+            {id:5,type:'Hình ảnh',ref:'AI-I-080',entity:'Sinh 24 ảnh banner Polo Summer',amount:'—',status:'Hoàn tất',color:'green',time:'2 giờ trước'},
+            {id:6,type:'Chat',ref:'AI-CH-320',entity:'Xử lý 320 câu hỏi nội bộ',amount:'—',status:'Hoàn tất',color:'blue',time:'3 giờ trước'},
+            {id:7,type:'Cảnh báo',ref:'AI-W-012',entity:'Cảnh báo tồn kho Áo Thun XL',amount:'—',status:'Cảnh báo',color:'red',time:'4 giờ trước'},
+            {id:8,type:'Tối ưu',ref:'AI-O-007',entity:'Tối ưu lịch sản xuất MES',amount:'—',status:'Hoàn tất',color:'green',time:'5 giờ trước'},
+        ];
+        let currentPage=1;const PAGE_SIZE=5;
+        function renderActivity(){
+            const pageRows=MiminBiz.paginateRows(ACTIVITY,currentPage,PAGE_SIZE);
+            MiminBiz.renderTable({container:document.querySelector('#activityTable'),emptyEl:'activityEmpty',columns:[
+                {key:'type',label:'Loại AI',render:r=>`<span class="cell-primary">${r.type}</span>`},
+                {key:'ref',label:'Mã',render:r=>r.ref},
+                {key:'entity',label:'Tác vụ',cls:'wrap',render:r=>r.entity},
+                {key:'amount',label:'Giá trị',cls:'num',render:r=>r.amount==='—'?'—':r.amount+' đ'},
+                {key:'status',label:'Trạng thái',render:r=>`<span class="status-badge ${r.color}">${r.status}</span>`},
+                {key:'time',label:'Thời gian',render:r=>`<span class="cell-sub">${r.time}</span>`}
+            ],rows:pageRows,onRowClick:row=>{MiminBiz.openModal({title:`${row.type} · ${row.ref}`,subtitle:row.entity,rows:[{label:'Giá trị',value:row.amount==='—'?'—':row.amount+' đ'},{label:'Trạng thái',value:row.status},{label:'Thời gian',value:row.time}],actions:[{label:'Đóng',type:'secondary'},{label:'Xem chi tiết',type:'primary',onClick:()=>MiminShell.showToast(`↗ ${row.ref}`,'info','🤖')}]})}});
+            MiminBiz.renderPagination({container:'activityPagination',total:ACTIVITY.length,pageSize:PAGE_SIZE,page:currentPage,onChange:p=>{currentPage=p;renderActivity();}});
+        }
+        function renderDateFilters(){const opts=['Hôm nay','Tuần này','Tháng này','Quý này'];const c=document.getElementById('dateFilters');opts.forEach((l,i)=>{const b=document.createElement('button');b.className='filter-btn'+(i===0?' active':'');b.textContent=l;b.onclick=()=>{c.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');};c.appendChild(b);});}
+        document.getElementById('quickAddBtn').onclick=()=>{MiminBiz.openModal({title:'+ Chạy AI mới',subtitle:'Chọn tác vụ AI muốn thực hiện',bodyHtml:`<div style="display:flex;flex-direction:column;gap:8px;"><a href="35-ai-du-bao.html" class="btn-biz-outline" style="justify-content:flex-start;">📈 Chạy dự báo doanh thu</a><a href="36-ai-goi-y.html" class="btn-biz-outline" style="justify-content:flex-start;">💡 Tạo gợi ý sản phẩm</a><a href="#" class="btn-biz-outline" style="justify-content:flex-start;">🎨 Sinh ảnh AI</a></div>`,actions:[{label:'Đóng',type:'secondary'}]});};
+        MiminShell.init({user:USER,navItems:NAV_ITEMS,notifications:NOTIFICATIONS,aiFloatMessage:'🧠 AI Center đang hoạt động:\n1. Dự báo doanh thu tuần tới: 1.8 tỷ\n2. 34 tác vụ tự động hóa đang chạy\n3. 48 khách hàng cần chăm sóc lại',onNavClick:(item,el)=>{if(item.href&&item.href!=='#')return;document.querySelectorAll('.m-sidebar-nav a').forEach(a=>a.classList.remove('active'));el.classList.add('active');MiminShell.showToast(`🚧 ${item.label} đang xây dựng`,'info',item.icon);}});
+        renderDateFilters();MiminBiz.renderStatCards(STATS);renderActivity();
+    })();
+    </script>
 </body>
 </html>

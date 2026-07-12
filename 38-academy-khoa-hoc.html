@@ -1,149 +1,127 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khóa học - POLOMIMIN Academy</title>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>POLOMIMIN · Khóa Học Academy</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="assets/css/business-layout.css"/>
+    <style>
+        :root{--primary:#0891B2;--primary-dark:#0E7490;--primary-light:#22D3EE;--primary-gradient:linear-gradient(135deg,#0891B2 0%,#0E7490 100%);}
+        .biz-page-header{background:linear-gradient(135deg,rgba(8,145,178,.07),rgba(14,116,144,.04));}
+        .logo-icon{background:linear-gradient(135deg,#0891B2,#0E7490)!important;}
+        .course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+        .course-card{background:var(--bg-surface);border:1px solid var(--border-color);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .22s,box-shadow .22s;}
+        .course-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(8,145,178,.16);}
+        .cc-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;position:relative;overflow:hidden;}
+        .cc-thumb img{width:100%;height:100%;object-fit:cover;}
+        .cc-badge{position:absolute;top:10px;left:12px;padding:3px 10px;border-radius:99px;font-size:.62rem;font-weight:700;backdrop-filter:blur(4px);}
+        .cc-badge.required{background:rgba(239,68,68,.85);color:#fff;}
+        .cc-badge.new{background:rgba(124,58,237,.85);color:#fff;}
+        .cc-badge.popular{background:rgba(234,88,12,.85);color:#fff;}
+        .cc-badge.done{background:rgba(16,185,129,.85);color:#fff;}
+        .cc-body{padding:14px 16px 16px;}
+        .cc-cat{font-size:.63rem;color:var(--primary);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+        .cc-title{font-size:.9rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;line-height:1.4;}
+        .cc-desc{font-size:.74rem;color:var(--text-light);line-height:1.5;margin-bottom:10px;}
+        .cc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+        .cc-tag{padding:2px 8px;border-radius:99px;font-size:.62rem;font-weight:600;background:var(--bg-hover);color:var(--text-secondary);}
+        .cc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border-color);}
+        .cc-meta{font-size:.7rem;color:var(--text-light);}
+        .cc-enroll{padding:6px 14px;border-radius:7px;background:var(--primary-gradient);color:#fff;border:none;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;}
+        .cc-enroll:hover{opacity:.88;}
+        .cc-progress-bar{height:4px;background:var(--bg-hover);border-radius:99px;overflow:hidden;margin-bottom:8px;}
+        .cc-progress-fill{height:100%;border-radius:99px;background:var(--primary-gradient);}
+    </style>
 </head>
 <body>
-    <div class="app-shell">
-        <aside class="app-sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">P</div>
-                <div class="sidebar-logo-text">
-                    <h2>POLOMIMIN</h2>
-                    <p>Academy</p>
-                </div>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li class="sidebar-section">Academy</li>
-                <li class="sidebar-nav-item"><a href="37-academy-dashboard.html" class="sidebar-nav-link"><i class="fas fa-graduation-cap"></i> Tổng quan</a></li>
-                <li class="sidebar-nav-item"><a href="38-academy-khoa-hoc.html" class="sidebar-nav-link"><i class="fas fa-graduation-cap"></i> Khóa học</a></li>
-                <li class="sidebar-nav-item"><a href="39-academy-sop.html" class="sidebar-nav-link"><i class="fas fa-graduation-cap"></i> SOP</a></li>
-                <li class="sidebar-section">Liên kết</li>
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-th-large"></i> Tất cả modules</a></li>
-                <li class="sidebar-nav-item"><a href="login.html" class="sidebar-nav-link"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
-            </ul>
-        </aside>
-        <main class="app-main">
-            <div class="app-topbar">
-                <div>
-                    <h1>Khóa học</h1>
-                    <p>Khóa học AI, SOP, kỹ năng</p>
-                </div>
-                <div class="topbar-actions">
-                    <button class="btn-icon"><i class="fas fa-search"></i></button>
-                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm mới</button>
-                </div>
-            </div>
-            <div class="module-header" style="background: linear-gradient(135deg, #0891B2, #0E7490);">
-                <div class="module-header-left">
-                    <div class="module-header-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <div>
-                        <h1>Academy - Khóa học</h1>
-                        <p>Học viện nội bộ</p>
-                    </div>
-                </div>
-                <button class="btn" style="background: rgba(255,255,255,0.2); color: white;"><i class="fas fa-download"></i> Xuất báo cáo</button>
-            </div>
-            <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #0891B220; color: #0891B2;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Học viên active</div>
-                <div class="kpi-value">324</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +18</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #10B98120; color: #10B981;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Khóa học</div>
-                <div class="kpi-value">24</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +2</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #F59E0B20; color: #F59E0B;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Giờ học tháng</div>
-                <div class="kpi-value">1,250h</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +15%</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #8B5CF620; color: #8B5CF6;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Hoàn thành SOP</div>
-                <div class="kpi-value">89%</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +4%</div>
-            </div>
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Hoạt động gần đây</div>
-                            <div class="card-subtitle">Cập nhật 5 phút trước</div>
-                        </div>
-                        <a href="#" class="btn btn-secondary">Xem tất cả</a>
-                    </div>
-                    <div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-plus"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đơn hàng mới #7605</div>
-                                <div class="list-item-subtitle">2 phút trước • 5,250,000đ</div>
-                            </div>
-                            <span class="badge badge-success">Mới</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-check"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đã xử lý #1218</div>
-                                <div class="list-item-subtitle">15 phút trước • POLOMIMIN HCM</div>
-                            </div>
-                            <span class="badge badge-info">Xong</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-exclamation"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cảnh báo tồn kho</div>
-                                <div class="list-item-subtitle">1 giờ trước • SKU POLO-001</div>
-                            </div>
-                            <span class="badge badge-warning">Cảnh báo</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-sync"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cập nhật trạng thái</div>
-                                <div class="list-item-subtitle">2 giờ trước • Lệnh SX #869</div>
-                            </div>
-                            <span class="badge badge-info">Cập nhật</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Danh sách mới nhất</div>
-                            <div class="card-subtitle">Top 5 bản ghi gần đây</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Mã</th><th>Tên</th><th>Trạng thái</th><th>Giá trị</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>8ZLMS9</td><td>POLOMIMIN Polo Basic</td><td><span class="badge badge-success">Hoạt động</span></td><td>295,000đ</td></tr>
-                            <tr><td>XA2BND</td><td>POLOMIMIN Thun Cotton</td><td><span class="badge badge-success">Hoạt động</span></td><td>195,000đ</td></tr>
-                            <tr><td>MOJEGP</td><td>POLOMIMIN Sơ Mi Bamboo</td><td><span class="badge badge-warning">Sắp hết</span></td><td>395,000đ</td></tr>
-                            <tr><td>6OB4YX</td><td>POLOMIMIN Quần Tây</td><td><span class="badge badge-success">Hoạt động</span></td><td>495,000đ</td></tr>
-                            <tr><td>D13NTZ</td><td>POLOMIMIN Bộ thể thao</td><td><span class="badge badge-info">Mới</span></td><td>595,000đ</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
+<aside class="m-sidebar" id="sidebar">
+    <div class="m-sidebar-brand"><div class="logo-icon">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+    <ul class="m-sidebar-nav" id="navMenu"></ul>
+    <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+</aside>
+<main class="m-main">
+    <header class="m-header">
+        <button class="menu-toggle">☰</button>
+        <div class="search-box"><span class="search-icon">🔍</span><input type="text" id="courseSearch" placeholder="Tìm khóa học..."><span class="shortcut">⌘K</span></div>
+        <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+    </header>
+    <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="37-academy-dashboard.html">🎓 Academy</a><span class="separator">›</span><span class="current">📚 Khóa Học</span></nav>
+
+    <div class="biz-page-header">
+        <div><div class="bph-title">📚 Thư Viện Khóa Học</div><div class="bph-subtitle">24 khóa học · 89 học viên đang học · Cập nhật liên tục</div></div>
+        <div class="bph-actions">
+            <button class="btn-biz-primary" onclick="MiminShell.showToast('📚 Mở form tạo khóa học','info','📚')">+ Tạo khóa học</button>
+            <div class="biz-filters" id="catFilters"></div>
+        </div>
     </div>
-    <script src="assets/js/main.js"></script>
-</body>
-</html>
+
+    <div class="biz-toolbar">
+        <div class="search-wrapper"><span class="icon">🔍</span><input type="text" placeholder="Tìm theo tên, danh mục, giảng viên..." /></div>
+        <div class="biz-view-toggle"><button class="active" title="Grid">▦</button><button title="List">☰</button></div>
+    </div>
+
+    <div class="course-grid" id="courseGrid"></div>
+
+    <footer style="text-align:center;font-size:13px;color:var(--text-light);padding-top:24px;border-top:1px solid var(--border-color);margin-top:24px">POLOMIMIN Academy v1.0 · © 2026</footer>
+</main>
+<button class="m-ai-float"><span class="ai-icon">🧠</span><span>AI gợi ý · <strong>3 khóa học phù hợp</strong></span></button>
+<button class="biz-fab stacked" id="quickAddBtn">+</button>
+<div class="m-drawer-overlay"><div class="m-drawer"><button class="drawer-close">✕</button><div class="drawer-avatar">HS</div><div class="drawer-name">Hồ Minh Sang</div><div class="drawer-role">Founder &amp; CEO · POLOMIMIN</div><button class="drawer-btn">Quản lý tài khoản</button></div></div>
+<div class="toast-container"></div>
+<script src="assets/js/main.js"></script><script src="assets/js/business-layout.js"></script>
+<script>
+(function(){
+    'use strict';
+    const USER={name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise AI',loginDate:'07/07/2026'};
+    const NAV_ITEMS=[
+        {icon:'🏠',label:'Hub chính',href:'01-home.html'},
+        {section:'AI Center'},{icon:'🤖',label:'AI Dashboard',href:'33-ai-dashboard.html'},{icon:'📈',label:'AI Dự Báo',href:'35-ai-du-bao.html'},{icon:'💡',label:'AI Gợi Ý',href:'36-ai-goi-y.html'},
+        {section:'Academy'},{icon:'🎓',label:'Academy Hub',href:'37-academy-dashboard.html'},{icon:'📚',label:'Khóa học',href:'38-academy-khoa-hoc.html',active:true},{icon:'📋',label:'Quy trình SOP',href:'39-academy-sop.html'},
+        {section:'Modules khác'},{icon:'💰',label:'Sales',href:'22-sales-dashboard.html'},{icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},{icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+    ];
+    const COURSES=[
+        {id:1,cat:'Sales',icon:'🛒',title:'Kỹ năng bán hàng đại lý cao cấp',desc:'Học cách tiếp cận, thuyết phục và chăm sóc đại lý bán lẻ. Bao gồm role-play, case study thực tế từ POLOMIMIN.',tags:['Bán hàng','Đại lý','Giao tiếp'],lessons:12,hours:'8h',students:124,progress:68,badge:'popular',badgeText:'🔥 Phổ biến',bg:'linear-gradient(135deg,#0891B2,#0369A1)',emoji:'🛒'},
+        {id:2,cat:'AI & Công nghệ',icon:'🤖',title:'Làm chủ AI trong quản lý doanh nghiệp',desc:'Hiểu và sử dụng các công cụ AI: ChatGPT, POLOMIMIN AI Center, dự báo tự động trong công việc hàng ngày.',tags:['AI','ChatGPT','Dự báo'],lessons:18,hours:'12h',students:38,progress:0,badge:'new',badgeText:'✨ Mới',bg:'linear-gradient(135deg,#7C3AED,#4F46E5)',emoji:'🤖'},
+        {id:3,cat:'Vận hành',icon:'📋',title:'Nắm vững SOP vận hành POLOMIMIN',desc:'Toàn bộ quy trình bắt buộc: từ nhập đơn, xử lý đến giao hàng. Bài kiểm tra cuối kỳ để cấp chứng chỉ.',tags:['SOP','Quy trình','Bắt buộc'],lessons:8,hours:'6h',students:89,progress:100,badge:'done',badgeText:'✅ Hoàn thành',bg:'linear-gradient(135deg,#16A34A,#15803D)',emoji:'📋'},
+        {id:4,cat:'Marketing',icon:'📣',title:'Digital Marketing cho thời trang',desc:'Content, Facebook Ads, TikTok Shop, Shopee Mall — chiến lược bán hàng đa kênh thực chiến cho POLOMIMIN.',tags:['Facebook Ads','TikTok','Shopee'],lessons:14,hours:'10h',students:56,progress:34,badge:'popular',badgeText:'🔥 Phổ biến',bg:'linear-gradient(135deg,#EA580C,#DC2626)',emoji:'📣'},
+        {id:5,cat:'Sản xuất',icon:'⚙️',title:'Hiểu quy trình sản xuất dệt may',desc:'Từ cắt vải, may, QC đến đóng gói. Giúp sales và kho hiểu rõ hơn về năng lực sản xuất của nhà máy.',tags:['MES','Sản xuất','QC'],lessons:10,hours:'7h',students:45,progress:0,badge:'required',badgeText:'⚡ Khuyến nghị',bg:'linear-gradient(135deg,#2563EB,#1E40AF)',emoji:'⚙️'},
+        {id:6,cat:'Tài chính',icon:'💰',title:'Quản lý dòng tiền & công nợ',desc:'Phân tích báo cáo tài chính, theo dõi công nợ đại lý, dự báo dòng tiền — kỹ năng thiết yếu cho team sales.',tags:['Tài chính','Công nợ','Báo cáo'],lessons:9,hours:'6h 30p',students:62,progress:55,badge:'popular',badgeText:'🔥 Phổ biến',bg:'linear-gradient(135deg,#0891B2,#7C3AED)',emoji:'💰'},
+    ];
+    const NOTIFICATIONS=[{icon:'📚',title:'Khóa AI mới: "Làm chủ AI trong DN"',time:'Hôm nay'},{icon:'✅',title:'Bạn hoàn thành SOP Vận hành — 100%',time:'Hôm qua'}];
+
+    function renderCourses(){
+        const grid=document.getElementById('courseGrid');
+        grid.innerHTML='';
+        COURSES.forEach(c=>{
+            const div=document.createElement('div');
+            div.className='course-card';
+            div.innerHTML=`
+                <div class="cc-thumb" style="background:${c.bg}">
+                    <span>${c.emoji}</span>
+                    <span class="cc-badge ${c.badge}">${c.badgeText}</span>
+                </div>
+                <div class="cc-body">
+                    <div class="cc-cat">${c.cat}</div>
+                    <div class="cc-title">${c.title}</div>
+                    <div class="cc-desc">${c.desc}</div>
+                    <div class="cc-tags">${c.tags.map(t=>`<span class="cc-tag">${t}</span>`).join('')}</div>
+                    ${c.progress>0?`<div class="cc-progress-bar"><div class="cc-progress-fill" style="width:${c.progress}%"></div></div>`:''}
+                    <div class="cc-footer">
+                        <div class="cc-meta">⏱ ${c.hours} · ${c.lessons} bài · 👥 ${c.students}</div>
+                        <button class="cc-enroll" onclick="MiminShell.showToast('🎓 Đang mở khóa học...','info','📚')">${c.progress===100?'Xem lại':'Học ngay'} →</button>
+                    </div>
+                </div>`;
+            div.addEventListener('click',()=>MiminBiz.openModal({title:`📚 ${c.title}`,subtitle:c.cat+' · '+c.hours+' · '+c.lessons+' bài học',rows:[{label:'Học viên',value:c.students+' người'},{label:'Tiến độ của bạn',value:c.progress+'%'},{label:'Danh mục',value:c.cat}],actions:[{label:'Đóng',type:'secondary'},{label:'Bắt đầu học',type:'primary',onClick:()=>MiminShell.showToast('🎓 Mở khóa học: '+c.title,'success','📚')}]}));
+            grid.appendChild(div);
+        });
+    }
+    function renderFilters(){const cats=['Tất cả','Sales','AI & Công nghệ','Vận hành','Marketing','Sản xuất'];const c=document.getElementById('catFilters');cats.forEach((l,i)=>{const b=document.createElement('button');b.className='filter-btn'+(i===0?' active':'');b.textContent=l;b.onclick=()=>{c.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');};c.appendChild(b);});}
+    document.getElementById('quickAddBtn').onclick=()=>MiminBiz.openModal({title:'+ Tạo khóa học',subtitle:'Điền thông tin khóa học mới',bodyHtml:`<div style="display:flex;flex-direction:column;gap:8px"><a href="#" class="btn-biz-outline" style="justify-content:flex-start">📝 Tạo khóa học từ đầu</a><a href="#" class="btn-biz-outline" style="justify-content:flex-start">📋 Nhập từ SOP có sẵn</a><a href="#" class="btn-biz-outline" style="justify-content:flex-start">🤖 AI tự tạo nội dung</a></div>`,actions:[{label:'Đóng',type:'secondary'}]});
+    MiminShell.init({user:USER,navItems:NAV_ITEMS,notifications:NOTIFICATIONS,aiFloatMessage:'🧠 Academy AI:\n1. Bạn nên hoàn thành khóa "Kỹ năng bán hàng" trước 20/07\n2. Khóa AI mới rất phù hợp với vai trò Founder\n3. 3 nhân viên cần nhắc hoàn thành SOP bắt buộc',onNavClick:(item,el)=>{if(item.href&&item.href!=='#')return;MiminShell.showToast(`🚧 ${item.label}`,'info',item.icon);}});
+    renderFilters();renderCourses();
+})();
+</script>
+</body></html>
