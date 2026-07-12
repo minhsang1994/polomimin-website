@@ -1,0 +1,756 @@
+/* ==========================================================================
+   MIMIN Platform — AI Agent Page Layout (shared by all Agent pages 48+)
+   Hero, KPI grid, 5-tab shell, Dashboard(hub grid / mini-panels), Chat,
+   Tasks, Knowledge, History, responsive rules.
+
+   Each page still sets its own accent via a tiny inline <style>:
+     :root { --agent-color: #HEX; --agent-color-light: #HEX; }
+   Established for pages 42-47 (duplicated inline there — not retrofitted,
+   those files are already completed). From 48 onward, pages link this file
+   instead of repeating the block.
+   ========================================================================== */
+
+:root {
+    --agent-color: var(--primary);
+    --agent-color-light: var(--primary-light);
+}
+
+/* ====== AGENT HERO ====== */
+.agent-hero {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+}
+.agent-hero .agent-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--agent-color) 0%, var(--agent-color-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: white;
+    flex-shrink: 0;
+}
+.agent-hero .agent-info {
+    flex: 1;
+    min-width: 200px;
+}
+.agent-hero .agent-name {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.agent-hero .agent-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: var(--radius-full);
+    background: #D1FAE5;
+    color: #065F46;
+}
+[data-theme="dark"] .agent-hero .agent-status {
+    background: #064E3B;
+    color: #6EE7B7;
+}
+.agent-hero .agent-role {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+.agent-hero .agent-hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.btn-agent-primary {
+    padding: 10px 22px;
+    background: linear-gradient(135deg, var(--agent-color) 0%, var(--agent-color-light) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: 'Inter', sans-serif;
+}
+.btn-agent-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.btn-agent-outline {
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+.btn-agent-outline:hover {
+    background: var(--bg-hover);
+}
+
+/* ====== KPI GRID ====== */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+.kpi-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: cardIn 0.35s ease both;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.kpi-card .kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.kpi-card .kpi-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--bg-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+.kpi-card .kpi-change {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+}
+.kpi-card .kpi-change.up {
+    background: #D1FAE5;
+    color: #065F46;
+}
+[data-theme="dark"] .kpi-card .kpi-change.up {
+    background: #064E3B;
+    color: #6EE7B7;
+}
+.kpi-card .kpi-change.down {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+[data-theme="dark"] .kpi-card .kpi-change.down {
+    background: #4C1414;
+    color: #FCA5A5;
+}
+.kpi-card .kpi-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.kpi-card .kpi-label {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+/* ====== AGENT TABS (5 tabs: Dashboard/Chat/Tasks/Knowledge/History) ====== */
+.agent-tabs-wrap {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+.agent-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 4px 20px 0 20px;
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+.agent-tabs .tab-btn {
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.agent-tabs .tab-btn:hover {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+.agent-tabs .tab-btn.active {
+    color: var(--agent-color);
+    border-bottom-color: var(--agent-color);
+    font-weight: 600;
+}
+.tab-content {
+    display: none;
+    padding: 24px;
+    animation: fadeTab 0.3s ease;
+    min-height: 320px;
+}
+.tab-content.active {
+    display: block;
+}
+@keyframes fadeTab {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== DASHBOARD TAB: agent grid (hub pages) ====== */
+.agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+.agent-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+.agent-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--card-color, var(--primary));
+}
+.agent-card .ac-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--card-color, var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+.agent-card .ac-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.agent-card .ac-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    flex: 1;
+}
+.agent-card .ac-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+.agent-card .ac-open {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--card-color, var(--primary));
+}
+.agent-card.coming-soon {
+    opacity: 0.6;
+    cursor: default;
+}
+.agent-card.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-color);
+}
+.ac-badge-soon {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    background: var(--bg-hover);
+    color: var(--text-light);
+    align-self: flex-start;
+}
+
+/* ====== DASHBOARD TAB: mini panels (agent detail pages) ====== */
+.mini-panels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+.mini-panel {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+}
+.mini-panel h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.mini-panel .mp-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--border-color);
+    color: var(--text-secondary);
+}
+.mini-panel .mp-row:last-child {
+    border-bottom: none;
+}
+.mini-panel .mp-row strong {
+    color: var(--text-primary);
+}
+.mini-panel .mp-bar-track {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-hover);
+    border-radius: var(--radius-full);
+    margin-top: 4px;
+    overflow: hidden;
+}
+.mini-panel .mp-bar-fill {
+    height: 100%;
+    background: var(--agent-color);
+    border-radius: var(--radius-full);
+}
+
+/* ====== CHAT TAB ====== */
+.chat-shell {
+    display: flex;
+    flex-direction: column;
+    height: 460px;
+}
+.agent-picker {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+.agent-picker .picker-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.agent-picker .picker-chip.active {
+    background: var(--chip-color, var(--primary));
+    border-color: var(--chip-color, var(--primary));
+    color: white;
+}
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 4px 4px 12px;
+}
+.chat-message {
+    display: flex;
+    gap: 10px;
+    max-width: 78%;
+    animation: msgIn 0.25s ease;
+}
+@keyframes msgIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.chat-message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+.chat-message .msg-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: var(--agent-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.chat-message.user .msg-avatar {
+    background: var(--text-secondary);
+}
+.chat-message .msg-bubble {
+    background: var(--bg-input);
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+.chat-message.user .msg-bubble {
+    background: var(--agent-color);
+    color: white;
+}
+.chat-message .msg-time {
+    display: block;
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+.chat-message.user .msg-time {
+    color: rgba(255,255,255,0.7);
+}
+.typing-indicator {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    background: var(--bg-input);
+    border-radius: var(--radius-md);
+    width: fit-content;
+}
+.typing-indicator.active {
+    display: flex;
+}
+.typing-indicator .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-light);
+    animation: typingBounce 1.2s infinite;
+}
+.typing-indicator .dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-indicator .dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+    30% { transform: translateY(-4px); opacity: 1; }
+}
+.suggested-prompts {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+.prompt-chip {
+    padding: 7px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+.prompt-chip:hover {
+    background: var(--bg-hover);
+    border-color: var(--agent-color);
+    color: var(--agent-color);
+}
+.chat-input-area {
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    margin-top: 10px;
+}
+.chat-input-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 8px 10px;
+}
+.chat-input-wrapper:focus-within {
+    border-color: var(--agent-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+}
+.chat-input-wrapper textarea {
+    flex: 1;
+    border: none;
+    background: transparent;
+    resize: none;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    max-height: 100px;
+    padding: 6px 4px;
+}
+.send-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--agent-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+.send-btn:hover {
+    transform: scale(1.06);
+}
+
+/* ====== TASKS TAB ====== */
+.task-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.task-toolbar .task-count {
+    font-size: 13px;
+    color: var(--text-light);
+}
+.task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.task-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    transition: background 0.2s ease;
+}
+.task-list li:hover {
+    background: var(--bg-hover);
+}
+.task-list .checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--border-color);
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    transition: all 0.2s ease;
+}
+.task-list .checkbox.checked {
+    background: var(--agent-color);
+    border-color: var(--agent-color);
+}
+.task-list .checkbox.checked::after {
+    content: '✓';
+}
+.task-list .task-text {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+.task-list .task-text.done {
+    text-decoration: line-through;
+    color: var(--text-light);
+}
+.task-list .task-due {
+    font-size: 12px;
+    color: var(--text-light);
+}
+.task-list .task-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+}
+.task-tag.urgent { background: #FEE2E2; color: #991B1B; }
+.task-tag.normal { background: #DBEAFE; color: #1E40AF; }
+.task-tag.low { background: #F1F5F9; color: #475569; }
+[data-theme="dark"] .task-tag.urgent { background: #4C1414; color: #FCA5A5; }
+[data-theme="dark"] .task-tag.normal { background: #1E3A5F; color: #93C5FD; }
+[data-theme="dark"] .task-tag.low { background: #1E293B; color: #94A3B8; }
+
+/* ====== KNOWLEDGE TAB ====== */
+.knowledge-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.knowledge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+}
+.doc-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.doc-card:hover {
+    border-color: var(--agent-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+.doc-card .doc-icon {
+    font-size: 30px;
+}
+.doc-card .doc-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.doc-card .doc-meta {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 2px;
+}
+
+/* ====== HISTORY TAB ====== */
+.mini-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.mini-history-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+.mini-history-item:last-child {
+    border-bottom: none;
+}
+.mini-history-item .mh-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-md);
+    background: var(--bg-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.mini-history-item .mh-content {
+    flex: 1;
+    min-width: 0;
+}
+.mini-history-item .mh-title {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+.mini-history-item .mh-time {
+    font-size: 12px;
+    color: var(--text-light);
+}
+.history-viewall {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--agent-color);
+    text-decoration: none;
+    border-top: 1px solid var(--border-color);
+}
+.history-viewall:hover {
+    background: var(--bg-hover);
+}
+
+/* ====== EMPTY STATE ====== */
+.mini-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 900px) {
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .agent-hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .tab-content {
+        padding: 16px;
+    }
+    .chat-shell {
+        height: 400px;
+    }
+    .chat-message {
+        max-width: 92%;
+    }
+}
+@media (max-width: 480px) {
+    .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .kpi-card .kpi-value {
+        font-size: 20px;
+    }
+}

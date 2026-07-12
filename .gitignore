@@ -34,3 +34,4 @@ zalo-api.js
 generate_pages.*
 generate-pages.*
 copy_reference.cjs
+copy_assets.cjs
