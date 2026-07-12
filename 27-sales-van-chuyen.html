@@ -1,154 +1,520 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vận chuyển - POLOMIMIN Sales</title>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Vận chuyển</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root {
+            --primary: #DC2626;
+            --primary-dark: #B91C1C;
+            --primary-light: #EF4444;
+            --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+            --teal: #14B8A6;
+            --teal-light: #5EEAD4;
+        }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+
+        .ship-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .ship-tile { background: var(--surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; }
+        .ship-tile-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .ship-tile-title { font-size: 13px; color: var(--text-light); font-weight: 500; }
+        .ship-tile-emoji { font-size: 22px; }
+        .ship-tile-num { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .ship-tile-meta { font-size: 12px; color: var(--text-light); }
+        .ship-tile-meta strong { color: var(--primary); }
+
+        .ship-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+        .ship-tab { padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 999px; font-size: 13px; cursor: pointer; background: var(--surface); color: var(--text); font-weight: 500; }
+        .ship-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .ship-tab .count { background: rgba(255,255,255,0.2); padding: 1px 8px; border-radius: 10px; font-size: 11px; margin-left: 6px; }
+        .ship-tab:not(.active) .count { background: var(--bg); color: var(--text-light); }
+
+        .ship-row { display: grid; grid-template-columns: 130px 130px 2fr 1.2fr 1fr 1fr 1fr 90px; align-items: center; gap: 12px; padding: 14px 12px; border-bottom: 1px solid var(--border-color); font-size: 14px; }
+        .ship-row.head { background: var(--bg); font-weight: 600; color: var(--text-light); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .ship-code { font-family: monospace; font-size: 12px; font-weight: 600; }
+        .ship-dh { font-size: 12px; color: var(--text-light); }
+        .ship-customer { font-weight: 600; }
+        .ship-customer small { display: block; color: var(--text-light); font-weight: 400; font-size: 12px; }
+        .ship-carrier { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+        .ship-carrier.ghn { background: rgba(245, 158, 11, 0.1); color: #F59E0B; }
+        .ship-carrier.ghtk { background: rgba(239, 68, 68, 0.1); color: #EF4444; }
+        .ship-carrier.viettel { background: rgba(20, 184, 166, 0.1); color: #14B8A6; }
+        .ship-carrier.jt { background: rgba(220, 38, 38, 0.1); color: #DC2626; }
+        .ship-carrier.ninja { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
+        .ship-carrier.best { background: rgba(59, 130, 246, 0.1); color: #3B82F6; }
+
+        .ship-eta { font-size: 13px; }
+        .ship-eta strong { display: block; color: var(--text); }
+        .ship-eta span { color: var(--text-light); font-size: 11px; }
+
+        .ship-action { display: flex; gap: 4px; }
+        .ship-icon-btn { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--surface); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .ship-icon-btn:hover { background: var(--bg); }
+
+        .carrier-stat { display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid var(--border-color); }
+        .carrier-stat:last-child { border-bottom: 0; }
+        .carrier-logo { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .carrier-info { flex: 1; }
+        .carrier-info strong { display: block; font-size: 14px; }
+        .carrier-info span { font-size: 12px; color: var(--text-light); }
+        .carrier-volume { text-align: right; font-size: 12px; }
+        .carrier-volume strong { display: block; color: var(--text); font-size: 16px; }
+
+        .timeline-item { display: flex; gap: 12px; padding: 12px 0; position: relative; }
+        .timeline-item:not(:last-child)::before { content: ''; position: absolute; left: 11px; top: 32px; bottom: -12px; width: 2px; background: var(--border-color); }
+        .timeline-dot { width: 24px; height: 24px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; z-index: 1; }
+        .timeline-item.active .timeline-dot { background: var(--primary); border-color: var(--primary); color: white; }
+        .timeline-item.done .timeline-dot { background: #10B981; border-color: #10B981; color: white; }
+        .timeline-content { flex: 1; }
+        .timeline-content strong { display: block; font-size: 14px; margin-bottom: 2px; }
+        .timeline-content span { font-size: 12px; color: var(--text-light); }
+    </style>
 </head>
+
 <body>
-    <div class="app-shell">
-        <aside class="app-sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">P</div>
-                <div class="sidebar-logo-text">
-                    <h2>POLOMIMIN</h2>
-                    <p>Sales</p>
-                </div>
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div>
+            <div class="logo-text">POLOMIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li class="sidebar-section">Sales</li>
-                <li class="sidebar-nav-item"><a href="22-sales-dashboard.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Tổng quan</a></li>
-                <li class="sidebar-nav-item"><a href="23-sales-don-hang.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Đơn hàng</a></li>
-                <li class="sidebar-nav-item"><a href="24-sales-khach-hang.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Khách hàng</a></li>
-                <li class="sidebar-nav-item"><a href="25-sales-san-pham.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Sản phẩm</a></li>
-                <li class="sidebar-nav-item"><a href="26-sales-kho-thanh-pham.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Kho TP</a></li>
-                <li class="sidebar-nav-item"><a href="27-sales-van-chuyen.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Vận chuyển</a></li>
-                <li class="sidebar-nav-item"><a href="28-sales-thanh-toan.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Thanh toán</a></li>
-                <li class="sidebar-nav-item"><a href="29-sales-kenh-ban.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Kênh bán</a></li>
-                <li class="sidebar-section">Liên kết</li>
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-th-large"></i> Tất cả modules</a></li>
-                <li class="sidebar-nav-item"><a href="login.html" class="sidebar-nav-link"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
-            </ul>
-        </aside>
-        <main class="app-main">
-            <div class="app-topbar">
-                <div>
-                    <h1>Vận chuyển</h1>
-                    <p>Theo dõi đơn vận chuyển</p>
-                </div>
-                <div class="topbar-actions">
-                    <button class="btn-icon"><i class="fas fa-search"></i></button>
-                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm mới</button>
-                </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main" id="mainContent">
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm mã vận đơn, đơn hàng, SĐT..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
             </div>
-            <div class="module-header" style="background: linear-gradient(135deg, #DC2626, #B91C1C);">
-                <div class="module-header-left">
-                    <div class="module-header-icon"><i class="fas fa-cash-register"></i></div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+            </div>
+        </header>
+
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="01-home.html">🏠 Hub</a>
+            <span class="separator">›</span>
+            <a href="22-sales-dashboard.html">💰 Sales</a>
+            <span class="separator">›</span>
+            <span class="current">🚚 Vận chuyển</span>
+        </nav>
+
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">🚚 Vận chuyển & Giao nhận</div>
+                <div class="bph-subtitle">Theo dõi 6 đơn vị vận chuyển trên toàn quốc</div>
+            </div>
+            <div class="bph-actions">
+                <button class="btn-biz-outline" id="btnReconcile">💰 Đối soát phí VC</button>
+                <button class="btn-biz-primary" id="btnCreate">📦 Tạo vận đơn</button>
+            </div>
+        </div>
+
+        <div class="ship-grid">
+            <div class="ship-tile">
+                <div class="ship-tile-head"><span class="ship-tile-title">Đang vận chuyển</span><span class="ship-tile-emoji">🚚</span></div>
+                <div class="ship-tile-num">47</div>
+                <div class="ship-tile-meta">Đơn · <strong>+12 hôm nay</strong></div>
+            </div>
+            <div class="ship-tile">
+                <div class="ship-tile-head"><span class="ship-tile-title">Giao hôm nay</span><span class="ship-tile-emoji">📬</span></div>
+                <div class="ship-tile-num" style="color:#10B981;">28</div>
+                <div class="ship-tile-meta">Dự kiến · <strong>ETA: 18:00</strong></div>
+            </div>
+            <div class="ship-tile">
+                <div class="ship-tile-head"><span class="ship-tile-title">Đã giao tháng này</span><span class="ship-tile-emoji">✅</span></div>
+                <div class="ship-tile-num">1,142</div>
+                <div class="ship-tile-meta">Đơn · <strong>+18% tháng</strong></div>
+            </div>
+            <div class="ship-tile">
+                <div class="ship-tile-head"><span class="ship-tile-title">Tỷ lệ giao thành công</span><span class="ship-tile-emoji">🎯</span></div>
+                <div class="ship-tile-num">97.8%</div>
+                <div class="ship-tile-meta">Mục tiêu 95% · <strong>Đạt</strong></div>
+            </div>
+            <div class="ship-tile">
+                <div class="ship-tile-head"><span class="ship-tile-title">Sự cố vận chuyển</span><span class="ship-tile-emoji">⚠️</span></div>
+                <div class="ship-tile-num" style="color:#F59E0B;">5</div>
+                <div class="ship-tile-meta">Đang xử lý · <strong>2 hoàn hàng</strong></div>
+            </div>
+        </div>
+
+        <div class="biz-stat-grid" id="statGrid"></div>
+
+        <div class="grid-2" style="display:grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 24px;">
+            <div>
+                <div class="biz-page-header" style="margin-bottom: 16px;">
                     <div>
-                        <h1>Sales - Vận chuyển</h1>
-                        <p>Quản lý bán hàng</p>
+                        <div class="bph-title" style="font-size:18px;">📦 Vận đơn gần đây</div>
+                        <div class="bph-subtitle">Cập nhật real-time từ 6 ĐVVC</div>
                     </div>
                 </div>
-                <button class="btn" style="background: rgba(255,255,255,0.2); color: white;"><i class="fas fa-download"></i> Xuất báo cáo</button>
-            </div>
-            <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #DC262620; color: #DC2626;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Doanh số tháng</div>
-                <div class="kpi-value">8.2 tỷ</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +22%</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #F59E0B20; color: #F59E0B;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Đơn hàng</div>
-                <div class="kpi-value">1,420</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +15%</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #10B98120; color: #10B981;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Đại lý active</div>
-                <div class="kpi-value">385</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +8</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #8B5CF620; color: #8B5CF6;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Công nợ</div>
-                <div class="kpi-value">2.1 tỷ</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> -5%</div>
-            </div>
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Hoạt động gần đây</div>
-                            <div class="card-subtitle">Cập nhật 5 phút trước</div>
-                        </div>
-                        <a href="#" class="btn btn-secondary">Xem tất cả</a>
+
+                <div class="ship-tabs">
+                    <button class="ship-tab active" data-status="all">Tất cả <span class="count">47</span></button>
+                    <button class="ship-tab" data-status="pickup">Chờ lấy <span class="count">8</span></button>
+                    <button class="ship-tab" data-status="transit">Đang giao <span class="count">22</span></button>
+                    <button class="ship-tab" data-status="delivered">Đã giao <span class="count">15</span></button>
+                    <button class="ship-tab" data-status="issue">Sự cố <span class="count">2</span></button>
+                </div>
+
+                <div class="card" style="padding: 0;">
+                    <div class="ship-row head">
+                        <div>Mã VC</div>
+                        <div>Đơn hàng</div>
+                        <div>Khách hàng</div>
+                        <div>ĐVVC</div>
+                        <div>Tuyến</div>
+                        <div>ETA</div>
+                        <div>Phí</div>
+                        <div></div>
                     </div>
+                    <div id="shipList"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="biz-page-header" style="margin-bottom: 16px;">
                     <div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-plus"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đơn hàng mới #3621</div>
-                                <div class="list-item-subtitle">2 phút trước • 5,250,000đ</div>
-                            </div>
-                            <span class="badge badge-success">Mới</span>
+                        <div class="bph-title" style="font-size:18px;">🏆 Hiệu suất ĐVVC</div>
+                        <div class="bph-subtitle">Tháng này</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 16px;">
+                    <div class="carrier-stat">
+                        <div class="carrier-logo" style="background: rgba(245, 158, 11, 0.15);">🟠</div>
+                        <div class="carrier-info">
+                            <strong>GHN Express</strong>
+                            <span>Giao hàng nhanh · Toàn quốc</span>
                         </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-check"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đã xử lý #6959</div>
-                                <div class="list-item-subtitle">15 phút trước • POLOMIMIN HCM</div>
-                            </div>
-                            <span class="badge badge-info">Xong</span>
+                        <div class="carrier-volume">
+                            <strong>485</strong>
+                            <span>đơn · 98.2%</span>
                         </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-exclamation"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cảnh báo tồn kho</div>
-                                <div class="list-item-subtitle">1 giờ trước • SKU POLO-001</div>
-                            </div>
-                            <span class="badge badge-warning">Cảnh báo</span>
+                    </div>
+                    <div class="carrier-stat">
+                        <div class="carrier-logo" style="background: rgba(239, 68, 68, 0.15);">🔴</div>
+                        <div class="carrier-info">
+                            <strong>GHTK</strong>
+                            <span>Giao hàng tiết kiệm</span>
                         </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-sync"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cập nhật trạng thái</div>
-                                <div class="list-item-subtitle">2 giờ trước • Lệnh SX #533</div>
-                            </div>
-                            <span class="badge badge-info">Cập nhật</span>
+                        <div class="carrier-volume">
+                            <strong>312</strong>
+                            <span>đơn · 96.5%</span>
+                        </div>
+                    </div>
+                    <div class="carrier-stat">
+                        <div class="carrier-logo" style="background: rgba(20, 184, 166, 0.15);">🟢</div>
+                        <div class="carrier-info">
+                            <strong>Viettel Post</strong>
+                            <span>Bưu chính quốc gia</span>
+                        </div>
+                        <div class="carrier-volume">
+                            <strong>198</strong>
+                            <span>đơn · 99.1%</span>
+                        </div>
+                    </div>
+                    <div class="carrier-stat">
+                        <div class="carrier-logo" style="background: rgba(220, 38, 38, 0.15);">🔴</div>
+                        <div class="carrier-info">
+                            <strong>J&amp;T Express</strong>
+                            <span>Cross-border</span>
+                        </div>
+                        <div class="carrier-volume">
+                            <strong>87</strong>
+                            <span>đơn · 95.4%</span>
+                        </div>
+                    </div>
+                    <div class="carrier-stat">
+                        <div class="carrier-logo" style="background: rgba(139, 92, 246, 0.15);">🟣</div>
+                        <div class="carrier-info">
+                            <strong>Ninja Van</strong>
+                            <span>Last-mile</span>
+                        </div>
+                        <div class="carrier-volume">
+                            <strong>42</strong>
+                            <span>đơn · 97.6%</span>
+                        </div>
+                    </div>
+                    <div class="carrier-stat">
+                        <div class="carrier-logo" style="background: rgba(59, 130, 246, 0.15);">🔵</div>
+                        <div class="carrier-info">
+                            <strong>Best Express</strong>
+                            <span>Giá rẻ · Tỉnh</span>
+                        </div>
+                        <div class="carrier-volume">
+                            <strong>18</strong>
+                            <span>đơn · 94.4%</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="biz-page-header" style="margin-bottom: 16px;">
+                    <div>
+                        <div class="bph-title" style="font-size:18px;">📍 Tracking đơn #VC-0298</div>
+                        <div class="bph-subtitle">GHN Express · HCM → Hà Nội</div>
+                    </div>
+                </div>
+
                 <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Danh sách mới nhất</div>
-                            <div class="card-subtitle">Top 5 bản ghi gần đây</div>
+                    <div class="timeline-item done">
+                        <div class="timeline-dot">✓</div>
+                        <div class="timeline-content">
+                            <strong>Đã tạo vận đơn</strong>
+                            <span>07/07/2026 09:30 · POLOMIMIN HCM</span>
                         </div>
                     </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Mã</th><th>Tên</th><th>Trạng thái</th><th>Giá trị</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>TIU0AE</td><td>POLOMIMIN Polo Basic</td><td><span class="badge badge-success">Hoạt động</span></td><td>295,000đ</td></tr>
-                            <tr><td>0A63VU</td><td>POLOMIMIN Thun Cotton</td><td><span class="badge badge-success">Hoạt động</span></td><td>195,000đ</td></tr>
-                            <tr><td>MVU0K0</td><td>POLOMIMIN Sơ Mi Bamboo</td><td><span class="badge badge-warning">Sắp hết</span></td><td>395,000đ</td></tr>
-                            <tr><td>46DQG5</td><td>POLOMIMIN Quần Tây</td><td><span class="badge badge-success">Hoạt động</span></td><td>495,000đ</td></tr>
-                            <tr><td>WW29OC</td><td>POLOMIMIN Bộ thể thao</td><td><span class="badge badge-info">Mới</span></td><td>595,000đ</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="timeline-item done">
+                        <div class="timeline-dot">✓</div>
+                        <div class="timeline-content">
+                            <strong>Shipper lấy hàng thành công</strong>
+                            <span>07/07/2026 10:45 · Nguyễn Văn A (GHN)</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item done">
+                        <div class="timeline-dot">✓</div>
+                        <div class="timeline-content">
+                            <strong>Đã rời kho HCM</strong>
+                            <span>07/07/2026 14:20 · Hub GHN Bình Tân</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-dot">●</div>
+                        <div class="timeline-content">
+                            <strong>Đang giao tại Hà Nội</strong>
+                            <span>08/07/2026 11:15 · Đang đến quận Cầu Giấy</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">○</div>
+                        <div class="timeline-content">
+                            <strong>Dự kiến giao hàng</strong>
+                            <span>08/07/2026 14:00 - 17:00 · ETA</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </main>
+        </div>
+
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
+            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI: <strong>2 vận đơn chậm ETA, cần liên hệ ĐVVC</strong></span>
+    </button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tạo vận đơn" title="Tạo vận đơn nhanh">+</button>
+
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
+            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
     </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+
+            const NAV_ITEMS = [
+                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
+                { section: 'Bán hàng' },
+                { icon: '💰', label: 'Sales Dashboard', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: '📋', label: 'Đơn hàng', href: '23-sales-don-hang.html', active: false, badge: '12' },
+                { icon: '👥', label: 'Khách hàng', href: '24-sales-khach-hang.html', active: false, badge: '' },
+                { icon: '👕', label: 'Sản phẩm', href: '25-sales-san-pham.html', active: false, badge: '' },
+                { icon: '📦', label: 'Kho thành phẩm', href: '26-sales-kho-thanh-pham.html', active: false, badge: '' },
+                { icon: '🚚', label: 'Vận chuyển', href: '27-sales-van-chuyen.html', active: true, badge: '5' },
+                { icon: '💳', label: 'Thanh toán', href: '28-sales-thanh-toan.html', active: false, badge: '' },
+                { icon: '🌐', label: 'Kênh bán', href: '29-sales-kenh-ban.html', active: false, badge: '' },
+                { section: 'Modules khác' },
+                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: '📦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: '🤖', label: 'AI Center', href: '25-ai-dashboard.html', active: false, badge: '' },
+                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '🚚', title: 'VC-0298 đang giao tại Hà Nội — ETA 14:00', time: '5 phút trước' },
+                { icon: '⚠️', title: 'VC-0295 chậm ETA 2h — cần liên hệ GHN', time: '20 phút trước' },
+                { icon: '✅', title: 'VC-0289 đã giao thành công — COD 8.5tr', time: '1 giờ trước' },
+                { icon: '🔄', title: 'Đối soát phí VC tháng 6 — chênh 250k', time: '3 giờ trước' }
+            ];
+
+            const STATS = [
+                { icon: '🚚', label: 'VC hôm nay', value: '47', change: '+12', up: true },
+                { icon: '⏱️', label: 'Thời gian TB', value: '2.3 ngày', change: '-0.4 ngày', up: true },
+                { icon: '💰', label: 'COD tháng', value: '4.2 tỷ', change: '+18%', up: true },
+                { icon: '📦', label: 'Tổng kiện', value: '3,485', change: '+425', up: true }
+            ];
+
+            const SHIPMENTS = [
+                { id: 'VC-0298', code: 'VC-0298', dh: 'SO-4517', customer: 'Đại lý Bắc Ninh', phone: '0912 345 678', carrier: 'GHN', route: 'HCM → Hà Nội', eta: '08/07 14:00', fee: '85,000', status: 'transit', statusLabel: 'Đang giao', cls: 'amber' },
+                { id: 'VC-0297', code: 'VC-0297', dh: 'SO-4521', customer: 'Đại lý Anh Tuấn', phone: '0987 654 321', carrier: 'GHTK', route: 'HCM → Hải Phòng', eta: '09/07 12:00', fee: '95,000', status: 'transit', statusLabel: 'Đang giao', cls: 'amber' },
+                { id: 'VC-0296', code: 'VC-0296', dh: 'SO-4520', customer: 'Nguyễn Văn A', phone: '0901 234 567', carrier: 'Viettel', route: 'HCM → Đà Nẵng', eta: '08/07 17:00', fee: '72,000', status: 'transit', statusLabel: 'Đang giao', cls: 'amber' },
+                { id: 'VC-0295', code: 'VC-0295', dh: 'SO-4519', customer: 'Shopee POLOMIMIN', phone: '—', carrier: 'GHN', route: 'HCM → HCM', eta: '08/07 16:00 (trễ)', fee: '32,000', status: 'issue', statusLabel: 'Chậm ETA', cls: 'red' },
+                { id: 'VC-0294', code: 'VC-0294', dh: 'SO-4518', customer: 'Cửa hàng TTV', phone: '0938 111 222', carrier: 'J&T', route: 'HCM → Cần Thơ', eta: '07/07 18:00', fee: '48,000', status: 'delivered', statusLabel: 'Đã giao', cls: 'green' },
+                { id: 'VC-0293', code: 'VC-0293', dh: 'SO-4516', customer: 'Khách lẻ Zalo', phone: '0976 333 444', carrier: 'Ninja', route: 'HCM → Bình Dương', eta: '07/07 15:00', fee: '28,000', status: 'delivered', statusLabel: 'Đã giao', cls: 'green' },
+                { id: 'VC-0292', code: 'VC-0292', dh: 'SO-4515', customer: 'Cty Hoàng Gia', phone: '028 3838 9999', carrier: 'Best', route: 'HCM → HCM', eta: '09/07 10:00', fee: '35,000', status: 'pickup', statusLabel: 'Chờ lấy', cls: 'blue' },
+                { id: 'VC-0291', code: 'VC-0291', dh: 'SO-4514', customer: 'Đại lý Miền Tây', phone: '0292 222 333', carrier: 'GHTK', route: 'HCM → Cần Thơ', eta: '08/07 12:00', fee: '52,000', status: 'transit', statusLabel: 'Đang giao', cls: 'amber' }
+            ];
+
+            function renderShipments(filter) {
+                const list = document.getElementById('shipList');
+                const filtered = filter && filter !== 'all' ? SHIPMENTS.filter(s => s.status === filter) : SHIPMENTS;
+                list.innerHTML = filtered.map(item => {
+                    const carrierMap = { GHN: { label: 'GHN', cls: 'ghn', icon: '🟠' }, GHTK: { label: 'GHTK', cls: 'ghtk', icon: '🔴' }, Viettel: { label: 'Viettel', cls: 'viettel', icon: '🟢' }, 'J&T': { label: 'J&T', cls: 'jt', icon: '🔴' }, Ninja: { label: 'Ninja', cls: 'ninja', icon: '🟣' }, Best: { label: 'Best', cls: 'best', icon: '🔵' } };
+                    const c = carrierMap[item.carrier] || carrierMap.GHN;
+                    return `
+                        <div class="ship-row" data-id="${item.id}">
+                            <div><span class="ship-code">${item.code}</span></div>
+                            <div class="ship-dh">${item.dh}</div>
+                            <div class="ship-customer">${item.customer}<small>${item.phone}</small></div>
+                            <div><span class="ship-carrier ${c.cls}">${c.icon} ${c.label}</span></div>
+                            <div style="font-size:12px;">${item.route}</div>
+                            <div class="ship-eta"><strong>${item.eta.split(' ')[0]}</strong><span>${item.eta.split(' ').slice(1).join(' ')}</span></div>
+                            <div style="font-weight:600; text-align:right;">${item.fee}đ</div>
+                            <div><span class="status-badge ${item.cls}">${item.statusLabel}</span></div>
+                        </div>
+                    `;
+                }).join('');
+
+                list.querySelectorAll('.ship-row').forEach(row => {
+                    row.style.cursor = 'pointer';
+                    row.addEventListener('click', () => {
+                        const id = row.getAttribute('data-id');
+                        const item = SHIPMENTS.find(s => s.id === id);
+                        MiminBiz.openModal({
+                            title: `🚚 Vận đơn ${item.code}`,
+                            subtitle: `${item.carrier} · ${item.route}`,
+                            rows: [
+                                { label: 'Đơn hàng', value: item.dh },
+                                { label: 'Khách hàng', value: item.customer + ' · ' + item.phone },
+                                { label: 'Tuyến', value: item.route },
+                                { label: 'ETA', value: item.eta },
+                                { label: 'Phí VC', value: item.fee + ' đ' },
+                                { label: 'Trạng thái', value: item.statusLabel }
+                            ],
+                            actions: [
+                                { label: 'Đóng', type: 'secondary' },
+                                { label: '🖨 In bill', type: 'secondary', onClick: () => MiminShell.showToast('🖨 Đã gửi lệnh in bill', 'info', '🖨') },
+                                { label: '📞 Gọi shipper', type: 'primary', onClick: () => MiminShell.showToast(`📞 Đang kết nối shipper cho ${item.code}`, 'info', '📞') }
+                            ]
+                        });
+                    });
+                });
+            }
+
+            document.querySelectorAll('.ship-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.ship-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderShipments(tab.getAttribute('data-status'));
+                });
+            });
+
+            document.getElementById('btnCreate').addEventListener('click', () => {
+                MiminBiz.openModal({
+                    title: '📦 Tạo vận đơn mới',
+                    subtitle: 'Chọn đơn hàng và ĐVVC',
+                    bodyHtml: `
+                        <div style="display:flex;flex-direction:column;gap:12px;">
+                            <div><label class="form-label">Đơn hàng</label><select class="form-input"><option>SO-4521 - Đại lý Anh Tuấn</option><option>SO-4520 - Nguyễn Văn A</option><option>SO-4519 - Shopee POLOMIMIN</option></select></div>
+                            <div><label class="form-label">ĐVVC</label><select class="form-input"><option>🟠 GHN Express (98.2% giao thành công)</option><option>🔴 GHTK (96.5%)</option><option>🟢 Viettel Post (99.1%)</option><option>🔴 J&T Express (95.4%)</option></select></div>
+                            <div><label class="form-label">Loại dịch vụ</label><select class="form-input"><option>Tiêu chuẩn (2-3 ngày)</option><option>Nhanh (1-2 ngày)</option><option>Hỏa tốc (trong ngày)</option></select></div>
+                            <div><label class="form-label">COD</label><input class="form-input" value="0" type="number" /></div>
+                            <div><label class="form-label">Ghi chú</label><textarea class="form-input" rows="2" placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi giao..."></textarea></div>
+                        </div>
+                    `,
+                    actions: [
+                        { label: 'Hủy', type: 'secondary' },
+                        { label: '✅ Tạo vận đơn', type: 'primary', onClick: () => MiminShell.showToast('✅ Đã tạo vận đơn mới', 'success', '🚚') }
+                    ]
+                });
+            });
+
+            document.getElementById('btnReconcile').addEventListener('click', () => {
+                MiminShell.showToast('💰 Đang đối soát phí VC tháng 6...', 'info', '💰');
+            });
+
+            document.getElementById('quickAddBtn').addEventListener('click', () => {
+                MiminBiz.openModal({
+                    title: '+ Vận chuyển',
+                    subtitle: 'Tác vụ nhanh',
+                    bodyHtml: `
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">📦 Tạo vận đơn mới</button>
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">🖨 In nhiều bill</button>
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">💰 Đối soát phí VC</button>
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">📊 Báo cáo vận chuyển</button>
+                        </div>
+                    `,
+                    actions: [{ label: 'Đóng', type: 'secondary' }]
+                });
+            });
+
+            MiminShell.init({
+                user: USER,
+                navItems: NAV_ITEMS,
+                notifications: NOTIFICATIONS,
+                aiFloatMessage: '🧠 AI Vận chuyển:\n1. 2 vận đơn chậm ETA (VC-0295, VC-0291) — cần liên hệ ĐVVC\n2. GHN đang có tỷ lệ giao thành công cao nhất (98.2%)\n3. Đề xuất chuyển tuyến Bắc Ninh sang Viettel (rẻ hơn 30%)\n4. COD tháng này đạt 4.2 tỷ — cần đối soát với 6 ĐVVC\n5. 3 vùng nên mở thêm ĐVVC: Tây Nguyên, Tây Ninh, Hà Giang',
+                onNavClick: (item, el) => {
+                    if (item.href && item.href !== '#') return;
+                    document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                }
+            });
+
+            MiminBiz.renderStatCards(STATS);
+            renderShipments('all');
+            console.log('✅ POLOMIMIN Vận chuyển initialized.');
+        })();
+    </script>
 </body>
 </html>

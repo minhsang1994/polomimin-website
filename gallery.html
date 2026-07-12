@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLOMIMIN ERP - Hệ thống quản lý doanh nghiệp AI</title>
+    <meta name="description" content="POLOMIMIN ERP - Giải pháp quản lý doanh nghiệp toàn diện với AI cho ngành thời trang dệt may">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #050d1f;
+            --navy2: #0a1628;
+            --teal: #0ef0d4;
+            --teal2: #00c9b1;
+            --blue: #1a6fff;
+            --purple: #7c3aed;
+            --text: #e8f4ff;
+            --muted: #7da4c7;
+            --border: rgba(14, 240, 212, 0.15);
+            --card-bg: rgba(10, 30, 60, 0.6);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--navy);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========= NAVBAR ========= */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(5, 13, 31, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(14, 240, 212, 0.1);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--teal), var(--blue));
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; color: #fff; font-size: 14px;
+        }
+
+        .logo-text { line-height: 1; }
+        .logo-text strong { font-size: 1rem; font-weight: 800; color: #fff; display: block; }
+        .logo-text span { font-size: 0.65rem; color: var(--teal); letter-spacing: 0.1em; }
+
+        .nav-links { display: flex; gap: 4px; align-items: center; }
+        .nav-links a {
+            color: var(--muted); text-decoration: none; font-size: 0.875rem;
+            padding: 6px 14px; border-radius: 8px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,0.07); }
+
+        .nav-right { display: flex; align-items: center; gap: 14px; }
+        .nav-right button {
+            cursor: pointer; border: none; font-family: 'Inter', sans-serif; font-size: 0.875rem;
+        }
+        .btn-login {
+            background: linear-gradient(135deg, var(--teal), var(--blue));
+            color: #fff; padding: 8px 20px; border-radius: 8px; font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn-login:hover { opacity: 0.85; }
+
+        /* ========= HERO ========= */
+        .hero {
+            min-height: 100vh;
+            padding-top: 64px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Cosmic background */
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 60% 40%, rgba(14,240,212,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 80% at 80% 60%, rgba(26,111,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 100% 100% at 50% 0%, rgba(10,22,40,1) 0%, #050d1f 100%);
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(1px 1px at 50% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+                radial-gradient(2px 2px at 35% 20%, rgba(14,240,212,0.8) 0%, transparent 100%),
+                radial-gradient(2px 2px at 70% 80%, rgba(26,111,255,0.7) 0%, transparent 100%);
+        }
+
+        /* Glow orbs */
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.25;
+            animation: pulse 6s ease-in-out infinite alternate;
+        }
+        .orb-1 { width: 500px; height: 500px; background: var(--teal); top: -100px; right: 100px; animation-delay: 0s; }
+        .orb-2 { width: 300px; height: 300px; background: var(--blue); bottom: 100px; right: 200px; animation-delay: -2s; }
+        .orb-3 { width: 200px; height: 200px; background: var(--purple); top: 200px; left: 50px; animation-delay: -4s; }
+
+        @keyframes pulse { from { opacity: 0.15; transform: scale(1); } to { opacity: 0.3; transform: scale(1.1); } }
+
+        .hero-inner {
+            position: relative; z-index: 1;
+            max-width: 1280px; margin: 0 auto; padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-label {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(14,240,212,0.1); border: 1px solid rgba(14,240,212,0.3);
+            color: var(--teal); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+            padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
+        }
+        .hero-label span { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 4vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        .hero-title .line1 { color: #c8deff; }
+        .hero-title .line2 {
+            background: linear-gradient(90deg, var(--teal) 0%, #60a5fa 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .hero-sub {
+            color: var(--muted); font-size: 1rem; line-height: 1.7; margin: 20px 0 30px;
+            max-width: 520px;
+        }
+
+        .hero-features {
+            display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 36px;
+        }
+        .feat-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--muted); }
+        .feat-icon { font-size: 1.2rem; }
+
+        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--teal), var(--blue));
+            color: #fff; padding: 13px 28px; border-radius: 10px;
+            font-weight: 700; font-size: 0.95rem; cursor: pointer; border: none;
+            font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            box-shadow: 0 0 30px rgba(14,240,212,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 40px rgba(14,240,212,0.4); }
+        .btn-secondary {
+            background: rgba(255,255,255,0.06); color: #fff;
+            padding: 13px 28px; border-radius: 10px;
+            font-weight: 600; font-size: 0.95rem; cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.15);
+            font-family: 'Inter', sans-serif;
+            display: flex; align-items: center; gap: 8px;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* Hero right side cards */
+        .hero-side { display: flex; flex-direction: column; gap: 16px; }
+        .side-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            backdrop-filter: blur(16px);
+            transition: border-color 0.3s;
+        }
+        .side-card:hover { border-color: rgba(14,240,212,0.4); }
+        .side-card-icon { font-size: 2rem; margin-bottom: 8px; }
+        .side-card-title { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .side-card-text { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+        .side-card-stat { font-size: 1.8rem; font-weight: 900; color: var(--teal); }
+        .side-card-stat-sub { font-size: 0.78rem; color: var(--muted); }
+        .side-card-link { color: var(--teal); font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+        .side-card-link:hover { opacity: 0.8; }
+
+        /* ========= FEATURE CARDS ========= */
+        .features-section {
+            max-width: 1280px; margin: 0 auto; padding: 0 40px 80px;
+            position: relative; z-index: 1;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+        }
+
+        .feat-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 22px 18px;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .feat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(14,240,212,0.3);
+            box-shadow: 0 8px 30px rgba(14,240,212,0.1);
+        }
+        .feat-num { font-size: 0.7rem; font-weight: 700; color: var(--teal); margin-bottom: 12px; letter-spacing: 0.08em; opacity: 0.7; }
+        .feat-card-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; margin-bottom: 12px;
+        }
+        .feat-card-title { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+        .feat-card-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+        .feat-arrow {
+            width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 14px; color: var(--teal); font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .feat-card:hover .feat-arrow { background: rgba(14,240,212,0.15); }
+
+        /* ========= BOTTOM SECTION ========= */
+        .bottom-section {
+            max-width: 1280px; margin: 0 auto; padding: 0 40px 80px;
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+        }
+
+        .section-panel {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+        }
+
+        .panel-title {
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+            color: var(--teal); margin-bottom: 16px; text-transform: uppercase;
+        }
+
+        .eco-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+        .eco-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px; padding: 12px 10px;
+            text-align: center; cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .eco-item:hover { border-color: rgba(14,240,212,0.3); }
+        .eco-icon { font-size: 1.3rem; margin-bottom: 4px; }
+        .eco-name { font-size: 0.7rem; font-weight: 700; color: #fff; }
+        .eco-sub { font-size: 0.65rem; color: var(--muted); }
+
+        .app-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+        .app-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px; padding: 10px 6px; text-align: center; cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .app-item:hover { border-color: rgba(14,240,212,0.3); }
+        .app-icon { font-size: 1.2rem; margin-bottom: 4px; }
+        .app-name { font-size: 0.68rem; font-weight: 700; color: #fff; }
+        .app-tag { font-size: 0.6rem; color: var(--teal); margin-top: 2px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+        .stat-item { text-align: center; padding: 12px; }
+        .stat-num {
+            font-size: 1.6rem; font-weight: 900;
+            background: linear-gradient(135deg, var(--teal), #60a5fa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+        .bottom-features { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+        .bottom-feat { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--muted); }
+        .bottom-feat-dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; flex-shrink: 0; }
+
+        /* ========= GALLERY SECTION ========= */
+        .gallery-section {
+            max-width: 1280px; margin: 0 auto; padding: 0 40px 80px;
+        }
+
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 28px;
+        }
+        .section-header h2 {
+            font-size: 1.5rem; font-weight: 800; color: #fff;
+        }
+        .section-header h2 span { color: var(--teal); }
+        .section-sep { flex: 1; height: 1px; background: var(--border); margin: 0 20px; }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .g-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px; overflow: hidden;
+            backdrop-filter: blur(12px);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .g-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(14,240,212,0.35);
+            box-shadow: 0 12px 40px rgba(14,240,212,0.12);
+        }
+
+        .g-card-img {
+            width: 100%; height: 220px; object-fit: cover;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: linear-gradient(135deg, #0a1628 0%, #0f2245 100%);
+            display: block;
+        }
+
+        .g-placeholder {
+            height: 220px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 8px;
+            background: repeating-linear-gradient(45deg, rgba(14,240,212,0.02), rgba(14,240,212,0.02) 10px, rgba(26,111,255,0.02) 10px, rgba(26,111,255,0.02) 20px);
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .g-placeholder-icon { font-size: 2.5rem; opacity: 0.4; }
+        .g-placeholder-text { font-size: 0.8rem; color: var(--muted); }
+
+        .g-card-body { padding: 18px 20px; }
+        .g-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+        .g-card-title { font-size: 1rem; font-weight: 700; color: #fff; }
+        .g-badge {
+            display: inline-block; padding: 3px 10px;
+            border-radius: 20px; font-size: 0.72rem; font-weight: 600;
+            flex-shrink: 0;
+        }
+        .badge-hot { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+        .badge-main { background: rgba(14,240,212,0.1); color: var(--teal); border: 1px solid rgba(14,240,212,0.2); }
+        .badge-other { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid rgba(255,255,255,0.08); }
+        .g-card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+        /* Lightbox */
+        .lightbox { display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.88); backdrop-filter:blur(8px); align-items:center; justify-content:center; }
+        .lightbox.open { display:flex; }
+        .lightbox img { max-width:90vw; max-height:85vh; border-radius:12px; box-shadow:0 0 80px rgba(14,240,212,0.2); }
+        .lightbox-close { position:absolute; top:24px; right:32px; font-size:2rem; color:#fff; cursor:pointer; opacity:0.7; transition:opacity 0.2s; }
+        .lightbox-close:hover { opacity:1; }
+
+        /* Responsive */
+        @media(max-width:1100px) {
+            .features-grid { grid-template-columns: repeat(3,1fr); }
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-side { display: none; }
+        }
+        @media(max-width:768px) {
+            .features-grid { grid-template-columns: repeat(2,1fr); }
+            .bottom-section { grid-template-columns: 1fr; }
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <a href="index.html" class="nav-logo">
+        <div class="logo-icon">P</div>
+        <div class="logo-text">
+            <strong>POLOMIMIN</strong>
+            <span>AI & BUSINESS SYSTEM</span>
+        </div>
+    </a>
+    <div class="nav-links">
+        <a href="01-home.html">Trang chủ</a>
+        <a href="25-sales-san-pham.html">Sản phẩm</a>
+        <a href="33-ai-dashboard.html">Giải pháp AI</a>
+        <a href="37-academy-dashboard.html">Khóa học</a>
+        <a href="gallery.html" class="active">Ứng dụng</a>
+        <a href="#">Bảng giá</a>
+        <a href="#">Liên hệ</a>
+    </div>
+    <div class="nav-right">
+        <button class="btn-login" onclick="window.location='login.html'">Đăng nhập</button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hero-label">
+                <span></span>
+                HỆ THỐNG QUẢN LÝ DOANH NGHIỆP
+            </div>
+            <h1 class="hero-title">
+                <span class="line1">VẬN HÀNH CHUỖI CUNG ỨNG</span>
+                <span class="line2">THỜI TRANG VỚI AI</span>
+            </h1>
+            <p class="hero-sub">
+                Giải pháp ERP toàn diện giúp doanh nghiệp dệt may – thời trang quản lý đơn hàng, sản xuất, kho bãi & nhân sự tự động, tiết kiệm 80% thời gian và bứt phá doanh thu.
+            </p>
+            <div class="hero-features">
+                <div class="feat-item"><span class="feat-icon">⚡</span>Tự động hóa toàn diện</div>
+                <div class="feat-item"><span class="feat-icon">🤖</span>AI thông minh</div>
+                <div class="feat-item"><span class="feat-icon">📈</span>Tăng trưởng bền vững</div>
+            </div>
+            <div class="hero-btns">
+                <a href="02-erp-dashboard.html" class="btn-primary">🚀 Khám phá hệ thống →</a>
+                <a href="gallery.html" class="btn-secondary">▶ Xem demo</a>
+            </div>
+        </div>
+
+        <div class="hero-side">
+            <div class="side-card">
+                <div class="side-card-icon">🧠</div>
+                <div class="side-card-title">Ứng dụng AI cá nhân hóa</div>
+                <div class="side-card-text">Tối ưu hóa quy trình, học tập và khám phá tiềm năng vô hạn của doanh nghiệp.</div>
+                <a href="33-ai-dashboard.html" class="side-card-link">Tìm hiểu thêm →</a>
+            </div>
+            <div class="side-card">
+                <div class="side-card-stat">1000+</div>
+                <div class="side-card-stat-sub">Màn hình & tính năng ERP</div>
+                <div class="side-card-text">Bao phủ toàn bộ nghiệp vụ: Sales, MES, WMS, HR, AI và Academy</div>
+                <a href="#gallery" class="side-card-link">Xem ngay →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURE CARDS (6 modules) -->
+<section class="features-section">
+    <div class="features-grid">
+        <div class="feat-card" onclick="window.location='02-erp-dashboard.html'">
+            <div class="feat-num">01</div>
+            <div class="feat-card-icon" style="background:rgba(59,130,246,0.15)">🏢</div>
+            <div class="feat-card-title">ERP<br>Doanh nghiệp</div>
+            <div class="feat-card-desc">Quản lý đơn hàng, khách hàng, sản phẩm và thanh toán toàn diện.</div>
+            <div class="feat-arrow">→</div>
+        </div>
+        <div class="feat-card" onclick="window.location='22-sales-dashboard.html'">
+            <div class="feat-num">02</div>
+            <div class="feat-card-icon" style="background:rgba(14,240,212,0.15)">💰</div>
+            <div class="feat-card-title">Sales<br>Bán hàng</div>
+            <div class="feat-card-desc">Xử lý đơn hàng, theo dõi vận chuyển, quản lý doanh số và kênh bán.</div>
+            <div class="feat-arrow">→</div>
+        </div>
+        <div class="feat-card" onclick="window.location='04-mes-dashboard.html'">
+            <div class="feat-num">03</div>
+            <div class="feat-card-icon" style="background:rgba(124,58,237,0.15)">🏭</div>
+            <div class="feat-card-title">MES<br>Sản xuất</div>
+            <div class="feat-card-desc">Lập kế hoạch, lệnh sản xuất, giám sát chuyền may và kiểm soát chất lượng.</div>
+            <div class="feat-arrow">→</div>
+        </div>
+        <div class="feat-card" onclick="window.location='16-wms-dashboard.html'">
+            <div class="feat-num">04</div>
+            <div class="feat-card-icon" style="background:rgba(245,158,11,0.15)">📦</div>
+            <div class="feat-card-title">WMS<br>Kho bãi</div>
+            <div class="feat-card-desc">Nhập xuất kho, kiểm kê, điều chuyển nguyên vật liệu và thành phẩm.</div>
+            <div class="feat-arrow">→</div>
+        </div>
+        <div class="feat-card" onclick="window.location='30-hr-dashboard.html'">
+            <div class="feat-num">05</div>
+            <div class="feat-card-icon" style="background:rgba(239,68,68,0.15)">👥</div>
+            <div class="feat-card-title">HRM<br>Nhân sự</div>
+            <div class="feat-card-desc">Hồ sơ nhân viên, chấm công, tính lương và phê duyệt nghỉ phép.</div>
+            <div class="feat-arrow">→</div>
+        </div>
+        <div class="feat-card" onclick="window.location='33-ai-dashboard.html'">
+            <div class="feat-num">06</div>
+            <div class="feat-card-icon" style="background:rgba(14,240,212,0.15)">🤖</div>
+            <div class="feat-card-title">AI<br>Thông minh</div>
+            <div class="feat-card-desc">Dự báo nhu cầu, gợi ý AI bán hàng và tự động hóa quy trình nghiệp vụ.</div>
+            <div class="feat-arrow">→</div>
+        </div>
+    </div>
+</section>
+
+<!-- BOTTOM 3-COLUMN SECTION -->
+<section class="bottom-section">
+    <!-- Hệ sinh thái -->
+    <div class="section-panel">
+        <div class="panel-title">HỆ SINH THÁI POLOMIMIN</div>
+        <div class="eco-grid">
+            <div class="eco-item" onclick="window.location='02-erp-dashboard.html'">
+                <div class="eco-icon">🏢</div>
+                <div class="eco-name">ERP</div>
+                <div class="eco-sub">Doanh nghiệp</div>
+            </div>
+            <div class="eco-item" onclick="window.location='04-mes-dashboard.html'">
+                <div class="eco-icon">🏭</div>
+                <div class="eco-name">MES</div>
+                <div class="eco-sub">Sản xuất</div>
+            </div>
+            <div class="eco-item" onclick="window.location='16-wms-dashboard.html'">
+                <div class="eco-icon">📦</div>
+                <div class="eco-name">WMS</div>
+                <div class="eco-sub">Kho bãi</div>
+            </div>
+            <div class="eco-item">
+                <div class="eco-icon">📊</div>
+                <div class="eco-name">CRM</div>
+                <div class="eco-sub">Khách hàng</div>
+            </div>
+            <div class="eco-item" onclick="window.location='30-hr-dashboard.html'">
+                <div class="eco-icon">👥</div>
+                <div class="eco-name">HRM</div>
+                <div class="eco-sub">Nhân sự</div>
+            </div>
+            <div class="eco-item">
+                <div class="eco-icon">📱</div>
+                <div class="eco-name">APP</div>
+                <div class="eco-sub">Di động</div>
+            </div>
+        </div>
+        <div class="bottom-features" style="margin-top:16px">
+            <div class="bottom-feat"><div class="bottom-feat-dot"></div>Quản lý đơn hàng tự động</div>
+            <div class="bottom-feat"><div class="bottom-feat-dot"></div>Tích hợp AI toàn bộ quy trình</div>
+        </div>
+    </div>
+
+    <!-- Kho ứng dụng AI -->
+    <div class="section-panel">
+        <div class="panel-title">KHO ỨNG DỤNG AI</div>
+        <div class="app-grid">
+            <div class="app-item">
+                <div class="app-icon">💬</div>
+                <div class="app-name">AI Chat</div>
+                <div class="app-tag">Trợ lý</div>
+            </div>
+            <div class="app-item">
+                <div class="app-icon">🎙️</div>
+                <div class="app-name">AI Voice</div>
+                <div class="app-tag">Giọng nói</div>
+            </div>
+            <div class="app-item">
+                <div class="app-icon">✍️</div>
+                <div class="app-name">AI Content</div>
+                <div class="app-tag">Tạo nội dung</div>
+            </div>
+            <div class="app-item">
+                <div class="app-icon">⚙️</div>
+                <div class="app-name">AI Auto</div>
+                <div class="app-tag">Tự động hóa</div>
+            </div>
+        </div>
+        <div style="margin-top:14px">
+            <div class="bottom-features">
+                <div class="bottom-feat"><div class="bottom-feat-dot"></div>Tiết kiệm 80% thời gian xử lý</div>
+                <div class="bottom-feat"><div class="bottom-feat-dot"></div>Nội dung chất lượng, chuẩn SEO</div>
+                <div class="bottom-feat"><div class="bottom-feat-dot"></div>Bảo mật cao, an toàn dữ liệu</div>
+                <div class="bottom-feat"><div class="bottom-feat-dot"></div>Hỗ trợ 24/7 bằng tiếng Việt</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thống kê -->
+    <div class="section-panel">
+        <div class="panel-title">THỐNG KÊ ẤN TƯỢNG</div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-num">10.000+</div>
+                <div class="stat-label">Sản phẩm quản lý</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">500+</div>
+                <div class="stat-label">Màn hình chức năng</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">6</div>
+                <div class="stat-label">Module chính</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">99%</div>
+                <div class="stat-label">Uptime hệ thống</div>
+            </div>
+        </div>
+        <div class="bottom-features" style="margin-top:14px">
+            <div class="bottom-feat"><div class="bottom-feat-dot"></div>Dễ sử dụng, giao diện Việt hóa</div>
+            <div class="bottom-feat"><div class="bottom-feat-dot"></div>Hỗ trợ 24/7, không cần kỹ thuật</div>
+        </div>
+    </div>
+</section>
+
+<!-- GALLERY SECTION -->
+<section class="gallery-section" id="gallery">
+    <div class="section-header">
+        <h2>Module <span>Bán Hàng</span> – Màn hình ưu tiên demo</h2>
+        <div class="section-sep"></div>
+    </div>
+
+    <div class="gallery-grid">
+        <div class="g-card" onclick="openLightbox('assets/images/sales_order_create.png')">
+            <img src="assets/images/sales_order_create.png" alt="Tạo đơn hàng mới" class="g-card-img" onerror="replacePlaceholder(this,'📝','Ảnh đang tạo...')">
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Tạo đơn hàng mới</div>
+                    <span class="g-badge badge-hot">🔥 Quan trọng</span>
+                </div>
+                <div class="g-card-desc">Form chọn khách hàng, thêm sản phẩm, áp giá chiết khấu và ghi chú. Tối ưu thao tác nhanh.</div>
+            </div>
+        </div>
+
+        <div class="g-card" onclick="openLightbox('assets/images/sales_order_detail.png')">
+            <img src="assets/images/sales_order_detail.png" alt="Chi tiết đơn hàng" class="g-card-img" onerror="replacePlaceholder(this,'📋','Ảnh đang tạo...')">
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Chi tiết đơn hàng</div>
+                    <span class="g-badge badge-hot">🔥 Quan trọng</span>
+                </div>
+                <div class="g-card-desc">Xem toàn bộ thông tin đơn với 4 tab: Thông tin, Hàng hóa, Vận chuyển, Lịch sử.</div>
+            </div>
+        </div>
+
+        <div class="g-card" onclick="openLightbox('assets/images/sales_order_deliver.png')">
+            <img src="assets/images/sales_order_deliver.png" alt="Xác nhận giao hàng" class="g-card-img" onerror="replacePlaceholder(this,'🚚','Ảnh đang tạo...')">
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Xác nhận đã giao hàng</div>
+                    <span class="g-badge badge-hot">🔥 Quan trọng</span>
+                </div>
+                <div class="g-card-desc">Cập nhật trạng thái hoàn thành và ghi nhận công nợ / thanh toán.</div>
+            </div>
+        </div>
+
+        <div class="g-card" onclick="openLightbox('assets/images/sales_order_cancel.png')">
+            <img src="assets/images/sales_order_cancel.png" alt="Hủy đơn / Trả hàng" class="g-card-img" onerror="replacePlaceholder(this,'❌','Ảnh đang tạo...')">
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Hủy đơn / Trả hàng</div>
+                    <span class="g-badge badge-hot">🔥 Quan trọng</span>
+                </div>
+                <div class="g-card-desc">Form hủy đơn với lý do, nhập tiền hoàn lại và xử lý tồn kho nhập lại.</div>
+            </div>
+        </div>
+
+        <div class="g-card" onclick="openLightbox('assets/images/sales_report_receivable.png')">
+            <img src="assets/images/sales_report_receivable.png" alt="Báo cáo công nợ" class="g-card-img" onerror="replacePlaceholder(this,'📊','Ảnh đang tạo...')">
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Báo cáo công nợ – Đối soát</div>
+                    <span class="g-badge badge-hot">🔥 Quan trọng</span>
+                </div>
+                <div class="g-card-desc">Chi tiết khách hàng nợ, số tiền, quá hạn bao lâu với biểu đồ trực quan.</div>
+            </div>
+        </div>
+
+        <!-- Placeholder cards đang chờ -->
+        <div class="g-card">
+            <div class="g-placeholder">
+                <div class="g-placeholder-icon">✅</div>
+                <div class="g-placeholder-text">Đang tạo ảnh...</div>
+            </div>
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Xác nhận đơn hàng</div>
+                    <span class="g-badge badge-other">Đang xử lý</span>
+                </div>
+                <div class="g-card-desc">Popup/modal bấm nút "Duyệt" để chốt đơn hàng.</div>
+            </div>
+        </div>
+
+        <div class="g-card">
+            <div class="g-placeholder">
+                <div class="g-placeholder-icon">📤</div>
+                <div class="g-placeholder-text">Đang tạo ảnh...</div>
+            </div>
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Lấy hàng / Đóng gói</div>
+                    <span class="g-badge badge-other">Đang xử lý</span>
+                </div>
+                <div class="g-card-desc">Xác nhận lấy hàng từ kho thành phẩm, chọn kho xuất.</div>
+            </div>
+        </div>
+
+        <div class="g-card">
+            <div class="g-placeholder">
+                <div class="g-placeholder-icon">🎁</div>
+                <div class="g-placeholder-text">Đang tạo ảnh...</div>
+            </div>
+            <div class="g-card-body">
+                <div class="g-card-top">
+                    <div class="g-card-title">Bảng giá & Khuyến mãi</div>
+                    <span class="g-badge badge-other">Đang xử lý</span>
+                </div>
+                <div class="g-card-desc">Quản lý mã giảm giá, chiết khấu theo nhóm khách hàng.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+    <img id="lightbox-img" src="" alt="Preview">
+</div>
+
+<script>
+    function openLightbox(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+    function replacePlaceholder(img, icon, text) {
+        const ph = document.createElement('div');
+        ph.className = 'g-placeholder';
+        ph.innerHTML = `<div class="g-placeholder-icon">${icon}</div><div class="g-placeholder-text">${text}</div>`;
+        img.parentNode.replaceChild(ph, img);
+    }
+</script>
+</body>
+</html>

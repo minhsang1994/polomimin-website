@@ -1,154 +1,435 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kho thành phẩm - POLOMIMIN Sales</title>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Kho thành phẩm</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root {
+            --primary: #DC2626;
+            --primary-dark: #B91C1C;
+            --primary-light: #EF4444;
+            --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+            --teal: #14B8A6;
+            --teal-light: #5EEAD4;
+        }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+
+        .warehouse-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .wh-tile { background: var(--surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; }
+        .wh-tile-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .wh-tile-title { font-size: 13px; color: var(--text-light); font-weight: 500; }
+        .wh-tile-emoji { font-size: 22px; }
+        .wh-tile-num { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .wh-tile-meta { font-size: 12px; color: var(--text-light); }
+        .wh-tile-meta strong { color: var(--primary); }
+        .wh-stock-bar { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+        .wh-stock-bar > div { height: 100%; border-radius: 3px; transition: width 0.6s; }
+        .wh-stock-bar.green > div { background: #10B981; }
+        .wh-stock-bar.amber > div { background: #F59E0B; }
+        .wh-stock-bar.red > div { background: #EF4444; }
+
+        .warehouse-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; }
+        .wh-search { flex: 1; min-width: 220px; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; background: var(--surface); color: var(--text); }
+        .wh-cat-chip { padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 999px; font-size: 13px; cursor: pointer; background: var(--surface); color: var(--text); }
+        .wh-cat-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .inventory-row { display: grid; grid-template-columns: 110px 2fr 1fr 1fr 1fr 1fr 1fr; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid var(--border-color); font-size: 14px; }
+        .inventory-row.head { background: var(--bg); font-weight: 600; color: var(--text-light); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .inv-sku { font-family: monospace; font-size: 12px; color: var(--text-light); background: var(--bg); padding: 2px 6px; border-radius: 4px; }
+        .inv-name { font-weight: 600; color: var(--text); }
+        .inv-name small { display: block; color: var(--text-light); font-weight: 400; font-size: 12px; }
+        .inv-qty { font-weight: 700; font-size: 16px; text-align: right; }
+        .inv-qty.high { color: #10B981; }
+        .inv-qty.med { color: #F59E0B; }
+        .inv-qty.low { color: #EF4444; }
+        .inv-bar { background: var(--bg); height: 4px; border-radius: 2px; overflow: hidden; }
+        .inv-bar > div { height: 100%; border-radius: 2px; }
+
+        .alert-row { display: flex; align-items: center; gap: 12px; padding: 12px; border-left: 3px solid #F59E0B; background: rgba(245, 158, 11, 0.05); border-radius: 6px; margin-bottom: 8px; }
+        .alert-row.danger { border-left-color: #EF4444; background: rgba(239, 68, 68, 0.05); }
+        .alert-row .alert-emoji { font-size: 22px; }
+        .alert-row .alert-content { flex: 1; font-size: 13px; }
+        .alert-row .alert-content strong { display: block; color: var(--text); margin-bottom: 2px; }
+        .alert-row .alert-content span { color: var(--text-light); font-size: 12px; }
+    </style>
 </head>
+
 <body>
-    <div class="app-shell">
-        <aside class="app-sidebar">
-            <div class="sidebar-logo">
-                <div class="sidebar-logo-icon">P</div>
-                <div class="sidebar-logo-text">
-                    <h2>POLOMIMIN</h2>
-                    <p>Sales</p>
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div>
+            <div class="logo-text">POLOMIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main" id="mainContent">
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm SKU, tên sản phẩm..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+            </div>
+        </header>
+
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="01-home.html">🏠 Hub</a>
+            <span class="separator">›</span>
+            <a href="22-sales-dashboard.html">💰 Sales</a>
+            <span class="separator">›</span>
+            <span class="current">📦 Kho thành phẩm</span>
+        </nav>
+
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">📦 Kho thành phẩm</div>
+                <div class="bph-subtitle">Quản lý tồn kho, sẵn sàng xuất bán</div>
+            </div>
+            <div class="bph-actions">
+                <button class="btn-biz-outline" id="btnInventory">📋 Kiểm kê</button>
+                <button class="btn-biz-primary" id="btnImport">📥 Nhập kho</button>
+            </div>
+        </div>
+
+        <div class="warehouse-grid">
+            <div class="wh-tile">
+                <div class="wh-tile-head"><span class="wh-tile-title">Tổng tồn kho</span><span class="wh-tile-emoji">📦</span></div>
+                <div class="wh-tile-num">42,580</div>
+                <div class="wh-tile-meta">Sản phẩm · <strong>+1,250 tuần này</strong></div>
+            </div>
+            <div class="wh-tile">
+                <div class="wh-tile-head"><span class="wh-tile-title">SKU có hàng</span><span class="wh-tile-emoji">✅</span></div>
+                <div class="wh-tile-num">385</div>
+                <div class="wh-tile-meta">/ 412 SKU tổng · <strong>93.4%</strong></div>
+            </div>
+            <div class="wh-tile">
+                <div class="wh-tile-head"><span class="wh-tile-title">Sắp hết hàng</span><span class="wh-tile-emoji">⚠️</span></div>
+                <div class="wh-tile-num" style="color:#F59E0B;">27</div>
+                <div class="wh-tile-meta">Cần nhập thêm · <strong>&lt; 50 cái</strong></div>
+            </div>
+            <div class="wh-tile">
+                <div class="wh-tile-head"><span class="wh-tile-title">Đã đặt trước</span><span class="wh-tile-emoji">📝</span></div>
+                <div class="wh-tile-num" style="color:#8B5CF6;">3,420</div>
+                <div class="wh-tile-meta">Sản phẩm · <strong>62 đơn chờ</strong></div>
+            </div>
+            <div class="wh-tile">
+                <div class="wh-tile-head"><span class="wh-tile-title">Giá trị tồn kho</span><span class="wh-tile-emoji">💎</span></div>
+                <div class="wh-tile-num">12.4 tỷ</div>
+                <div class="wh-tile-meta">Vốn lưu động · <strong>+8% tháng</strong></div>
+            </div>
+        </div>
+
+        <div class="warehouse-filters">
+            <input type="text" class="wh-search" id="skuSearch" placeholder="🔍 Tìm SKU, tên sản phẩm..." />
+            <button class="wh-cat-chip active" data-cat="all">Tất cả (412)</button>
+            <button class="wh-cat-chip" data-cat="polo">Polo (85)</button>
+            <button class="wh-cat-chip" data-cat="thun">Áo thun (62)</button>
+            <button class="wh-cat-chip" data-cat="somi">Sơ mi (48)</button>
+            <button class="wh-cat-chip" data-cat="short">Quần short (54)</button>
+            <button class="wh-cat-chip" data-cat="thethao">Bộ thể thao (76)</button>
+            <button class="wh-cat-chip" data-cat="dongphuc">Đồng phục (87)</button>
+        </div>
+
+        <div class="card" style="padding: 0; margin-bottom: 24px;">
+            <div class="inventory-row head">
+                <div>SKU</div>
+                <div>Sản phẩm</div>
+                <div>Tồn kho</div>
+                <div>Đã đặt</div>
+                <div>Khả dụng</div>
+                <div>Giá bán sỉ</div>
+                <div>Trạng thái</div>
+            </div>
+            <div id="inventoryList"></div>
+        </div>
+
+        <div class="biz-page-header" style="margin-top: 24px;">
+            <div>
+                <div class="bph-title" style="font-size:18px;">⚠️ Cảnh báo tồn kho</div>
+                <div class="bph-subtitle">Sản phẩm cần nhập thêm hoặc kiểm tra</div>
+            </div>
+            <div class="bph-actions">
+                <button class="btn-biz-outline" id="btnExportAlert">📤 Gửi cảnh báo MIMIN</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="alert-row">
+                <div class="alert-emoji">🔴</div>
+                <div class="alert-content">
+                    <strong>POLO-001 (Trắng/M) — Còn 12 cái</strong>
+                    <span>Ngưỡng cảnh báo: 50 · Mức độ: Cao · 5 đơn đang chờ</span>
                 </div>
+                <button class="btn-biz-outline">📥 Đặt SX</button>
             </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li class="sidebar-section">Sales</li>
-                <li class="sidebar-nav-item"><a href="22-sales-dashboard.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Tổng quan</a></li>
-                <li class="sidebar-nav-item"><a href="23-sales-don-hang.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Đơn hàng</a></li>
-                <li class="sidebar-nav-item"><a href="24-sales-khach-hang.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Khách hàng</a></li>
-                <li class="sidebar-nav-item"><a href="25-sales-san-pham.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Sản phẩm</a></li>
-                <li class="sidebar-nav-item"><a href="26-sales-kho-thanh-pham.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Kho TP</a></li>
-                <li class="sidebar-nav-item"><a href="27-sales-van-chuyen.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Vận chuyển</a></li>
-                <li class="sidebar-nav-item"><a href="28-sales-thanh-toan.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Thanh toán</a></li>
-                <li class="sidebar-nav-item"><a href="29-sales-kenh-ban.html" class="sidebar-nav-link"><i class="fas fa-cash-register"></i> Kênh bán</a></li>
-                <li class="sidebar-section">Liên kết</li>
-                <li class="sidebar-nav-item"><a href="01-home.html" class="sidebar-nav-link"><i class="fas fa-th-large"></i> Tất cả modules</a></li>
-                <li class="sidebar-nav-item"><a href="login.html" class="sidebar-nav-link"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a></li>
-            </ul>
-        </aside>
-        <main class="app-main">
-            <div class="app-topbar">
-                <div>
-                    <h1>Kho thành phẩm</h1>
-                    <p>Hàng sẵn sàng xuất</p>
+            <div class="alert-row">
+                <div class="alert-emoji">🔴</div>
+                <div class="alert-content">
+                    <strong>THUN-COT-003 (Xanh/L) — Còn 8 cái</strong>
+                    <span>Ngưỡng cảnh báo: 60 · 3 đại lý đang đợi nhập</span>
                 </div>
-                <div class="topbar-actions">
-                    <button class="btn-icon"><i class="fas fa-search"></i></button>
-                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Thêm mới</button>
+                <button class="btn-biz-outline">📥 Đặt SX</button>
+            </div>
+            <div class="alert-row">
+                <div class="alert-emoji">🟡</div>
+                <div class="alert-content">
+                    <strong>SOMI-BAM-002 (Be/XL) — Còn 35 cái</strong>
+                    <span>Ngưỡng cảnh báo: 40 · Bán chạy tuần này +180%</span>
                 </div>
+                <button class="btn-biz-outline">📥 Đặt SX</button>
             </div>
-            <div class="module-header" style="background: linear-gradient(135deg, #DC2626, #B91C1C);">
-                <div class="module-header-left">
-                    <div class="module-header-icon"><i class="fas fa-cash-register"></i></div>
-                    <div>
-                        <h1>Sales - Kho thành phẩm</h1>
-                        <p>Quản lý bán hàng</p>
-                    </div>
+            <div class="alert-row">
+                <div class="alert-emoji">🟡</div>
+                <div class="alert-content">
+                    <strong>SHORT-KAKI-005 (Đen/29) — Còn 42 cái</strong>
+                    <span>Ngưỡng cảnh báo: 50 · Mùa cao điểm sắp tới</span>
                 </div>
-                <button class="btn" style="background: rgba(255,255,255,0.2); color: white;"><i class="fas fa-download"></i> Xuất báo cáo</button>
+                <button class="btn-biz-outline">📥 Đặt SX</button>
             </div>
-            <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #DC262620; color: #DC2626;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Doanh số tháng</div>
-                <div class="kpi-value">8.2 tỷ</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +22%</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #F59E0B20; color: #F59E0B;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Đơn hàng</div>
-                <div class="kpi-value">1,420</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +15%</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #10B98120; color: #10B981;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Đại lý active</div>
-                <div class="kpi-value">385</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> +8</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon" style="background: #8B5CF620; color: #8B5CF6;"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-label">Công nợ</div>
-                <div class="kpi-value">2.1 tỷ</div>
-                <div class="kpi-change up"><i class="fas fa-arrow-up"></i> -5%</div>
-            </div>
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Hoạt động gần đây</div>
-                            <div class="card-subtitle">Cập nhật 5 phút trước</div>
-                        </div>
-                        <a href="#" class="btn btn-secondary">Xem tất cả</a>
-                    </div>
-                    <div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-plus"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đơn hàng mới #1810</div>
-                                <div class="list-item-subtitle">2 phút trước • 5,250,000đ</div>
-                            </div>
-                            <span class="badge badge-success">Mới</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-check"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Đã xử lý #9360</div>
-                                <div class="list-item-subtitle">15 phút trước • POLOMIMIN HCM</div>
-                            </div>
-                            <span class="badge badge-info">Xong</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-exclamation"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cảnh báo tồn kho</div>
-                                <div class="list-item-subtitle">1 giờ trước • SKU POLO-001</div>
-                            </div>
-                            <span class="badge badge-warning">Cảnh báo</span>
-                        </div>
-                        <div class="list-item">
-                            <div class="list-item-icon"><i class="fas fa-sync"></i></div>
-                            <div class="list-item-content">
-                                <div class="list-item-title">Cập nhật trạng thái</div>
-                                <div class="list-item-subtitle">2 giờ trước • Lệnh SX #502</div>
-                            </div>
-                            <span class="badge badge-info">Cập nhật</span>
-                        </div>
-                    </div>
+            <div class="alert-row danger">
+                <div class="alert-emoji">🛑</div>
+                <div class="alert-content">
+                    <strong>ĐỒNG-PHUC-CTY-X (Size 28) — Hết hàng</strong>
+                    <span>Đơn đặt 250 cái đang pending · Khách VIP chờ 2 tuần</span>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Danh sách mới nhất</div>
-                            <div class="card-subtitle">Top 5 bản ghi gần đây</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Mã</th><th>Tên</th><th>Trạng thái</th><th>Giá trị</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>VKTYAI</td><td>POLOMIMIN Polo Basic</td><td><span class="badge badge-success">Hoạt động</span></td><td>295,000đ</td></tr>
-                            <tr><td>E7HHGV</td><td>POLOMIMIN Thun Cotton</td><td><span class="badge badge-success">Hoạt động</span></td><td>195,000đ</td></tr>
-                            <tr><td>BX1N8U</td><td>POLOMIMIN Sơ Mi Bamboo</td><td><span class="badge badge-warning">Sắp hết</span></td><td>395,000đ</td></tr>
-                            <tr><td>96WPK5</td><td>POLOMIMIN Quần Tây</td><td><span class="badge badge-success">Hoạt động</span></td><td>495,000đ</td></tr>
-                            <tr><td>DU2BI2</td><td>POLOMIMIN Bộ thể thao</td><td><span class="badge badge-info">Mới</span></td><td>595,000đ</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <button class="btn-biz-primary">🚨 Ưu tiên SX</button>
             </div>
-        </main>
+        </div>
+
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">
+            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI: <strong>5 SKU sắp hết, cần đặt SX gấp</strong></span>
+    </button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Nhập kho nhanh" title="Nhập kho nhanh">+</button>
+
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
+            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
     </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+
+            const NAV_ITEMS = [
+                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
+                { section: 'Bán hàng' },
+                { icon: '💰', label: 'Sales Dashboard', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: '📋', label: 'Đơn hàng', href: '23-sales-don-hang.html', active: false, badge: '12' },
+                { icon: '👥', label: 'Khách hàng', href: '24-sales-khach-hang.html', active: false, badge: '' },
+                { icon: '👕', label: 'Sản phẩm', href: '25-sales-san-pham.html', active: false, badge: '' },
+                { icon: '📦', label: 'Kho thành phẩm', href: '26-sales-kho-thanh-pham.html', active: true, badge: '' },
+                { icon: '🚚', label: 'Vận chuyển', href: '27-sales-van-chuyen.html', active: false, badge: '5' },
+                { icon: '💳', label: 'Thanh toán', href: '28-sales-thanh-toan.html', active: false, badge: '' },
+                { icon: '🌐', label: 'Kênh bán', href: '29-sales-kenh-ban.html', active: false, badge: '' },
+                { section: 'Modules khác' },
+                { icon: '📊', label: 'ERP', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: '📦', label: 'WMS', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: '👨‍💼', label: 'HRM', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { icon: '🤖', label: 'AI Center', href: '25-ai-dashboard.html', active: false, badge: '' },
+                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '⚠️', title: '5 SKU sắp hết hàng — Cần đặt SX gấp', time: '10 phút trước' },
+                { icon: '📦', title: 'Lô nhập kho NK-234 đã về — 1,250 sản phẩm', time: '1 giờ trước' },
+                { icon: '🔴', title: 'POLO-001 (Trắng/M) chỉ còn 12 cái', time: '2 giờ trước' },
+                { icon: '🚨', title: 'Đơn đồng phục 250 cái cần ưu tiên', time: '3 giờ trước' }
+            ];
+
+            const INVENTORY = [
+                { sku: 'POLO-001', name: 'POLOMIMIN Polo Basic', cat: 'polo', stock: 850, reserved: 120, price: '295,000', status: 'Sẵn sàng', cls: 'green' },
+                { sku: 'POLO-001W', name: 'POLOMIMIN Polo Trắng', cat: 'polo', stock: 12, reserved: 50, price: '295,000', status: 'Sắp hết', cls: 'red' },
+                { sku: 'THUN-COT-003', name: 'POLOMIMIN Thun Cotton', cat: 'thun', stock: 8, reserved: 35, price: '195,000', status: 'Sắp hết', cls: 'red' },
+                { sku: 'SOMI-BAM-002', name: 'POLOMIMIN Sơ Mi Bamboo', cat: 'somi', stock: 35, reserved: 22, price: '395,000', status: 'Sắp hết', cls: 'amber' },
+                { sku: 'QUAN-TAY-004', name: 'POLOMIMIN Quần Tây', cat: 'short', stock: 420, reserved: 45, price: '495,000', status: 'Sẵn sàng', cls: 'green' },
+                { sku: 'BONG-TAY-005', name: 'POLOMIMIN Bộ thể thao', cat: 'thethao', stock: 680, reserved: 95, price: '595,000', status: 'Sẵn sàng', cls: 'green' },
+                { sku: 'DONG-PHUC-CTY-X', name: 'Đồng phục Cty X (Custom)', cat: 'dongphuc', stock: 0, reserved: 250, price: '350,000', status: 'Hết hàng', cls: 'red' },
+                { sku: 'SHORT-KAKI-005', name: 'POLOMIMIN Short Kaki', cat: 'short', stock: 42, reserved: 18, price: '275,000', status: 'Sắp hết', cls: 'amber' },
+                { sku: 'POLO-CO-006', name: 'POLOMIMIN Polo Coolmax', cat: 'polo', stock: 320, reserved: 60, price: '345,000', status: 'Sẵn sàng', cls: 'green' },
+                { sku: 'THUN-PRO-007', name: 'POLOMIMIN Thun Premium', cat: 'thun', stock: 180, reserved: 25, price: '245,000', status: 'Sẵn sàng', cls: 'green' }
+            ];
+
+            function getStockClass(stock) {
+                if (stock === 0) return { cls: 'low', color: '#EF4444', label: 'Hết' };
+                if (stock < 50) return { cls: 'low', color: '#EF4444', label: 'Thấp' };
+                if (stock < 200) return { cls: 'med', color: '#F59E0B', label: 'Vừa' };
+                return { cls: 'high', color: '#10B981', label: 'Cao' };
+            }
+
+            function renderInventory(filter) {
+                const list = document.getElementById('inventoryList');
+                const filtered = filter && filter !== 'all' ? INVENTORY.filter(i => i.cat === filter) : INVENTORY;
+                list.innerHTML = filtered.map(item => {
+                    const stockInfo = getStockClass(item.stock);
+                    const available = item.stock - item.reserved;
+                    const availInfo = getStockClass(available);
+                    const max = Math.max(...INVENTORY.map(i => i.stock));
+                    const stockPct = Math.min(100, (item.stock / max) * 100);
+                    return `
+                        <div class="inventory-row" data-sku="${item.sku}">
+                            <div><span class="inv-sku">${item.sku}</span></div>
+                            <div class="inv-name">${item.name}<small>${item.cat.toUpperCase()}</small></div>
+                            <div class="inv-qty ${stockInfo.cls}">${item.stock.toLocaleString()}<div class="inv-bar"><div style="width:${stockPct}%; background:${stockInfo.color};"></div></div></div>
+                            <div style="color:#8B5CF6; font-weight:600; text-align:right;">${item.reserved.toLocaleString()}</div>
+                            <div class="inv-qty ${availInfo.cls}">${available.toLocaleString()}</div>
+                            <div style="font-weight:600; text-align:right;">${item.price}đ</div>
+                            <div><span class="status-badge ${item.cls}">${item.status}</span></div>
+                        </div>
+                    `;
+                }).join('');
+
+                list.querySelectorAll('.inventory-row').forEach(row => {
+                    row.style.cursor = 'pointer';
+                    row.addEventListener('click', () => {
+                        const sku = row.getAttribute('data-sku');
+                        const item = INVENTORY.find(i => i.sku === sku);
+                        MiminBiz.openModal({
+                            title: `📦 ${item.name}`,
+                            subtitle: `SKU: ${item.sku}`,
+                            rows: [
+                                { label: 'Danh mục', value: item.cat.toUpperCase() },
+                                { label: 'Tồn kho', value: item.stock.toLocaleString() + ' cái' },
+                                { label: 'Đã đặt trước', value: item.reserved.toLocaleString() + ' cái' },
+                                { label: 'Khả dụng', value: (item.stock - item.reserved).toLocaleString() + ' cái' },
+                                { label: 'Giá bán sỉ', value: item.price + ' đ' },
+                                { label: 'Trạng thái', value: item.status }
+                            ],
+                            actions: [
+                                { label: 'Đóng', type: 'secondary' },
+                                { label: '📥 Đặt SX thêm', type: 'primary', onClick: () => MiminShell.showToast(`📥 Đã tạo yêu cầu SX cho ${item.sku}`, 'success', '✅') }
+                            ]
+                        });
+                    });
+                });
+            }
+
+            document.querySelectorAll('.wh-cat-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('.wh-cat-chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    renderInventory(chip.getAttribute('data-cat'));
+                });
+            });
+
+            document.getElementById('skuSearch').addEventListener('input', (e) => {
+                const q = e.target.value.toLowerCase();
+                document.querySelectorAll('.inventory-row').forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(q) ? 'grid' : 'none';
+                });
+            });
+
+            document.getElementById('btnImport').addEventListener('click', () => {
+                MiminBiz.openModal({
+                    title: '📥 Nhập kho thành phẩm',
+                    subtitle: 'Tạo phiếu nhập mới',
+                    bodyHtml: `
+                        <div style="display:flex;flex-direction:column;gap:12px;">
+                            <div><label class="form-label">Mã lô hàng</label><input class="form-input" value="NK-${Math.floor(Math.random() * 900 + 100)}" /></div>
+                            <div><label class="form-label">Nguồn nhập</label><select class="form-input"><option>SX nội bộ (Lệnh SX)</option><option>Nhập từ NCC</option><option>Trả hàng từ khách</option></select></div>
+                            <div><label class="form-label">Sản phẩm</label><select class="form-input"><option>POLOMIMIN Polo Basic (POLO-001)</option><option>POLOMIMIN Thun Cotton (THUN-COT-003)</option></select></div>
+                            <div><label class="form-label">Số lượng</label><input class="form-input" type="number" value="500" /></div>
+                        </div>
+                    `,
+                    actions: [
+                        { label: 'Hủy', type: 'secondary' },
+                        { label: '✅ Xác nhận nhập', type: 'primary', onClick: () => MiminShell.showToast('✅ Đã tạo phiếu nhập kho thành công', 'success', '📦') }
+                    ]
+                });
+            });
+
+            document.getElementById('btnInventory').addEventListener('click', () => {
+                MiminShell.showToast('📋 Đang tạo bảng kiểm kê...', 'info', '📋');
+            });
+
+            document.getElementById('btnExportAlert').addEventListener('click', () => {
+                MiminShell.showToast('📤 Đã gửi cảnh báo qua MIMIN cho 5 SKU sắp hết', 'success', '✅');
+            });
+
+            document.getElementById('quickAddBtn').addEventListener('click', () => {
+                MiminBiz.openModal({
+                    title: '+ Kho thành phẩm',
+                    subtitle: 'Tác vụ nhanh',
+                    bodyHtml: `
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">📥 Nhập kho mới</button>
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">📋 Tạo phiếu kiểm kê</button>
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">📤 Xuất kho cho đơn</button>
+                            <button class="btn-biz-outline" style="justify-content:flex-start;">⚠️ Xem cảnh báo tồn</button>
+                        </div>
+                    `,
+                    actions: [{ label: 'Đóng', type: 'secondary' }]
+                });
+            });
+
+            MiminShell.init({
+                user: USER,
+                navItems: NAV_ITEMS,
+                notifications: NOTIFICATIONS,
+                aiFloatMessage: '🧠 AI Phân tích tồn kho:\n1. 5 SKU sắp hết — cần đặt SX gấp\n2. POLO-001W chỉ còn 12 cái — ưu tiên cao\n3. Đồng phục CTY-X hết hàng — đơn 250 cái pending\n4. Dự báo: Bộ thể thao tăng mạnh tuần tới +45%\n5. Đề xuất: Chuyển 200 áo Polo size L từ chi nhánh Cần Thơ',
+                onNavClick: (item, el) => {
+                    if (item.href && item.href !== '#') return;
+                    document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                }
+            });
+
+            renderInventory('all');
+            console.log('✅ POLOMIMIN Kho thành phẩm initialized.');
+        })();
+    </script>
 </body>
 </html>
