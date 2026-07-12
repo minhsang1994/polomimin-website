@@ -62,12 +62,24 @@ const MiminShell = (function () {
         if (!container) return;
         container.innerHTML = '';
         navItems.forEach(item => {
+            // ── Section divider label ──────────────────────────────────
+            if (item.section && !item.icon && !item.label) {
+                const li = document.createElement('li');
+                li.className = 'nav-section-label';
+                li.style.cssText = 'padding:14px 14px 4px;font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-light);pointer-events:none;user-select:none;';
+                li.textContent = item.section;
+                container.appendChild(li);
+                return;
+            }
+            // ── Skip malformed items (no icon AND no label) ────────────
+            if (!item.icon && !item.label) return;
+
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.className = item.active ? 'active' : '';
             a.innerHTML = `
-                <span class="nav-icon">${item.icon}</span>
-                ${item.label}
+                <span class="nav-icon">${item.icon || ''}</span>
+                ${item.label || ''}
                 ${item.badge ? `<span class="nav-badge">${item.badge}</span>` : ''}
             `;
             a.href = item.href || '#';
@@ -78,6 +90,7 @@ const MiminShell = (function () {
                     onNavClick(item, a);
                 } else {
                     document.querySelectorAll('.m-sidebar-nav a').forEach(el => el.classList.remove('active'));
+
                     a.classList.add('active');
                     showToast(`🚀 Điều hướng đến: ${item.label}`, 'info', '🧭');
                 }
