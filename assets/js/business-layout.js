@@ -24,16 +24,26 @@ const MiminBiz = (function () {
         if (!grid) return;
         grid.innerHTML = '';
         cards.forEach((c, i) => {
+            // Support both object {icon,label,value,change,up} AND array [icon,label,value,change,isUp,color]
+            const isArr = Array.isArray(c);
+            const icon   = isArr ? c[0] : c.icon;
+            const label  = isArr ? c[1] : c.label;
+            const value  = isArr ? c[2] : c.value;
+            const change = isArr ? c[3] : c.change;
+            const up     = isArr ? c[4] : c.up;
+            const color  = isArr ? c[5] : (c.color || null);
+
             const card = document.createElement('div');
             card.className = 'biz-stat-card';
             card.style.animationDelay = `${i * 0.05}s`;
+            if (color) card.style.setProperty('--stat-accent', color);
             card.innerHTML = `
                 <div class="bsc-top">
-                    <div class="bsc-icon">${c.icon}</div>
-                    ${c.change ? `<span class="bsc-change ${c.up ? 'up' : 'down'}">${c.up ? '▲' : '▼'} ${c.change}</span>` : ''}
+                    <div class="bsc-icon">${icon || ''}</div>
+                    ${change ? `<span class="bsc-change ${up ? 'up' : 'down'}">${up ? '▲' : '▼'} ${change}</span>` : ''}
                 </div>
-                <div class="bsc-value">${c.value}</div>
-                <div class="bsc-label">${c.label}</div>
+                <div class="bsc-value">${value || ''}</div>
+                <div class="bsc-label">${label || ''}</div>
             `;
             grid.appendChild(card);
         });
