@@ -1,16 +1,16 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POLOMIMIN Â· Kiá»ƒm tra cháº¥t lÆ°á»£ng</title>
+    <title>POLOMIMIN · Kiểm tra chất lượng</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="assets/css/main.css?v=2" />
+    <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/factory-layout.css" />
     <style>
         :root {
@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Äiá»u hÆ°á»›ng chÃ­nh">
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
         <div class="m-sidebar-brand">
             <div class="logo-icon" aria-hidden="true" style="background: linear-gradient(135deg, #2563EB, #1E40AF);">P</div>
             <div class="logo-text">POLOMIMIN<span>.</span></div>
@@ -39,47 +39,47 @@
         <div class="m-sidebar-footer">
             <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
             <div class="user-info">
-                <div class="name" id="sidebarUserName">Há»“ Minh Sang</div>
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
                 <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
             </div>
-            <button class="logout-btn" id="logoutBtn" title="ÄÄƒng xuáº¥t" aria-label="ÄÄƒng xuáº¥t">â»</button>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
         </div>
     </aside>
 
     <main class="m-main" id="mainContent">
         <header class="m-header" role="banner">
-            <button class="menu-toggle" id="menuToggle" aria-label="Má»Ÿ menu Ä‘iá»u hÆ°á»›ng" aria-expanded="false">â˜°</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
             <div class="search-box" role="search">
-                <span class="search-icon" aria-hidden="true">ðŸ”</span>
-                <input type="text" id="globalSearch" placeholder="TÃ¬m kiáº¿m trong POLOMIMIN..." aria-label="TÃ¬m kiáº¿m" />
-                <span class="shortcut" aria-hidden="true">âŒ˜K</span>
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm trong POLOMIMIN..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
             </div>
             <div class="actions">
-                <button class="action-btn" id="themeToggle" title="Chuyá»ƒn Ä‘á»•i theme" aria-label="Chuyá»ƒn Ä‘á»•i giao diá»‡n sÃ¡ng/tá»‘i">ðŸŒ“</button>
-                <button class="action-btn" id="notifBtn" title="ThÃ´ng bÃ¡o" aria-label="Má»Ÿ thÃ´ng bÃ¡o">ðŸ””<span class="dot" aria-hidden="true"></span></button>
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
                 <div class="divider" aria-hidden="true"></div>
-                <div class="user-avatar" id="headerAvatar" title="Há»“ Minh Sang" role="button" tabindex="0" aria-label="Má»Ÿ há»“ sÆ¡">HS</div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
             </div>
         </header>
 
-        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="ThÃ´ng bÃ¡o">
-            <div class="head"><span>ThÃ´ng bÃ¡o má»›i</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c</span></div>
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
             <div class="list" id="notifList"></div>
-            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem táº¥t cáº£ thÃ´ng bÃ¡o â†’</div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
         </div>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="01-home.html">ðŸ  Hub</a>
-            <span class="separator">â€º</span>
-            <a href="04-mes-dashboard.html">ðŸ­ MES</a>
-            <span class="separator">â€º</span>
-            <span class="current">ðŸ” Kiá»ƒm tra cháº¥t lÆ°á»£ng</span>
+            <a href="01-home.html">🏠 Hub</a>
+            <span class="separator">›</span>
+            <a href="04-mes-dashboard.html">🏭 MES</a>
+            <span class="separator">›</span>
+            <span class="current">🔍 Kiểm tra chất lượng</span>
         </nav>
 
         <div class="fac-page-header">
             <div>
-                <div class="fph-title">ðŸ” Kiá»ƒm tra cháº¥t lÆ°á»£ng (QC)</div>
-                <div class="fph-subtitle">Theo dÃµi cÃ¡c lÃ´ kiá»ƒm QC, tá»· lá»‡ Ä‘áº¡t vÃ  lá»—i phÃ¡t hiá»‡n</div>
+                <div class="fph-title">🔍 Kiểm tra chất lượng (QC)</div>
+                <div class="fph-subtitle">Theo dõi các lô kiểm QC, tỷ lệ đạt và lỗi phát hiện</div>
             </div>
             <div class="fph-actions">
                 <div class="fac-filters" id="statusFilters"></div>
@@ -90,8 +90,8 @@
 
         <div class="fac-page-header" style="margin-top: 24px;">
             <div>
-                <div class="fph-title" style="font-size:18px;">ðŸ” Danh sÃ¡ch lÃ´ QC</div>
-                <div class="fph-subtitle">Báº¥m vÃ o lÃ´ Ä‘á»ƒ xem chi tiáº¿t lá»—i phÃ¡t hiá»‡n</div>
+                <div class="fph-title" style="font-size:18px;">🔍 Danh sách lô QC</div>
+                <div class="fph-subtitle">Bấm vào lô để xem chi tiết lỗi phát hiện</div>
             </div>
         </div>
 
@@ -102,90 +102,90 @@
             </table>
         </div>
         <div class="fac-empty" id="qcEmpty">
-            <div class="fe-icon">ðŸ“­</div>
-            <h3>ChÆ°a cÃ³ lÃ´ QC nÃ o</h3>
-            <p>LÃ´ kiá»ƒm tra cháº¥t lÆ°á»£ng sáº½ xuáº¥t hiá»‡n táº¡i Ä‘Ã¢y khi cÃ³ dá»¯ liá»‡u tháº­t.</p>
+            <div class="fe-icon">📭</div>
+            <h3>Chưa có lô QC nào</h3>
+            <p>Lô kiểm tra chất lượng sẽ xuất hiện tại đây khi có dữ liệu thật.</p>
         </div>
         <div class="fac-pagination" id="qcPagination"></div>
 
         <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
-            POLOMIMIN Platform v1.0 Â· Dá»‡t May GiÃ u Sang Â· Â© 2026 Â· MST: 0318507560
+            POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560
         </footer>
     </main>
 
-    <button class="m-ai-float" id="aiFloatBtn" aria-label="Má»Ÿ AI trá»£ giÃºp">
-        <span class="ai-icon" aria-hidden="true">ðŸ§ </span>
-        <span>AI Gá»£i Ã½ hÃ´m nay Â· <strong>1 viá»‡c cáº§n xá»­ lÃ½</strong></span>
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI Gợi ý hôm nay · <strong>1 việc cần xử lý</strong></span>
     </button>
-    <button class="fac-fab stacked" id="quickAddBtn" aria-label="Táº¡o má»›i nhanh" title="Táº¡o má»›i nhanh">+</button>
+    <button class="fac-fab stacked" id="quickAddBtn" aria-label="Tạo mới nhanh" title="Tạo mới nhanh">+</button>
 
-    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Há»“ sÆ¡ ngÆ°á»i dÃ¹ng">
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
         <div class="m-drawer">
-            <button class="drawer-close" id="drawerClose" aria-label="ÄÃ³ng há»“ sÆ¡">âœ•</button>
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
             <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">HS</div>
-            <div class="drawer-name" id="drawerName">Há»“ Minh Sang</div>
-            <div class="drawer-role" id="drawerRole">Founder &amp; CEO Â· POLOMIMIN</div>
-            <div class="drawer-info"><span class="label">CÃ´ng ty</span><span class="value" id="drawerCompany">Dá»‡t May GiÃ u Sang</span></div>
-            <div class="drawer-info"><span class="label">GÃ³i dá»‹ch vá»¥</span><span class="value" id="drawerPlan">Enterprise</span></div>
-            <div class="drawer-info"><span class="label">NgÃ y Ä‘Äƒng nháº­p</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
-            <div class="drawer-info"><span class="label">Vai trÃ²</span><span class="value">Super Admin</span></div>
-            <button class="drawer-btn" id="manageAccountBtn">Quáº£n lÃ½ tÃ i khoáº£n</button>
+            <div class="drawer-name" id="drawerName">Hồ Minh Sang</div>
+            <div class="drawer-role" id="drawerRole">Founder &amp; CEO · POLOMIMIN</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value" id="drawerCompany">Dệt May Giàu Sang</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">07/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
     <script src="assets/js/main.js?v=2"></script>
-    <script src="assets/js/factory-layout.js"></script>
+    <script src="assets/js/factory-layout.js?v=2"></script>
     <script>
         (function () {
             'use strict';
 
-            const USER = { name: 'Há»“ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dá»‡t May GiÃ u Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
+            const USER = { name: 'Hồ Minh Sang', initials: 'HS', role: 'Founder & CEO', company: 'Dệt May Giàu Sang', plan: 'Enterprise', loginDate: '07/07/2026' };
 
             const NAV_ITEMS = [
-                { icon: 'ðŸ ', label: 'Hub chÃ­nh', href: '01-home.html', active: false, badge: '' },
-                { icon: 'ðŸ“Š', label: 'ERP Dashboard', href: '02-erp-dashboard.html', active: false, badge: '' },
-                { section: 'Sáº£n xuáº¥t (MES)' },
-                { icon: 'ðŸ­', label: 'Tá»•ng quan MES', href: '04-mes-dashboard.html', active: false, badge: '' },
-                { icon: 'ðŸ“Ÿ', label: 'Dashboard váº­n hÃ nh', href: '08-mes-dashboard.html', active: false, badge: '' },
-                { icon: 'ðŸ—“ï¸', label: 'Káº¿ hoáº¡ch sáº£n xuáº¥t', href: '09-mes-ke-hoach.html', active: false, badge: '' },
-                { icon: 'ðŸ“‹', label: 'Lá»‡nh sáº£n xuáº¥t', href: '05-mes-lenh-sx.html', active: false, badge: '' },
-                { icon: 'ðŸ“„', label: 'Lá»‡nh SX chi tiáº¿t', href: '10-mes-lenh-sx.html', active: false, badge: '' },
-                { icon: 'âœ‚ï¸', label: 'Lá»‡nh cáº¯t', href: '11-mes-lenh-cat.html', active: false, badge: '' },
-                { icon: 'ðŸ§µ', label: 'MÃ¡y may', href: '12-mes-may.html', active: false, badge: '' },
-                { icon: 'ðŸ”', label: 'Kiá»ƒm tra cháº¥t lÆ°á»£ng', href: '13-mes-qc.html', active: true, badge: '' },
-                { icon: 'ðŸª¡', label: 'HoÃ n thiá»‡n', href: '14-mes-hoan-thien.html', active: false, badge: '' },
-                { icon: 'ðŸ“¦', label: 'ÄÃ³ng gÃ³i', href: '15-mes-dong-goi.html', active: false, badge: '' },
-                { section: 'Kho & NhÃ¢n sá»±' },
-                { icon: 'ðŸ“¦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
-                { icon: 'ðŸ‘¨â€ðŸ’¼', label: 'HRM Dashboard', href: '22-hr-dashboard.html', active: false, badge: '' },
-                { section: 'BÃ¡n hÃ ng & AI' },
-                { icon: 'ðŸ’°', label: 'Sales Dashboard', href: '22-sales-dashboard.html', active: false, badge: '' },
-                { icon: 'ðŸ¤–', label: 'AI Center', href: '25-ai-dashboard.html', active: false, badge: '' },
-                { icon: 'ðŸŽ“', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
+                { icon: '🏠', label: 'Hub chính', href: '01-home.html', active: false, badge: '' },
+                { icon: '📊', label: 'ERP Dashboard', href: '02-erp-dashboard.html', active: false, badge: '' },
+                { section: 'Sản xuất (MES)' },
+                { icon: '🏭', label: 'Tổng quan MES', href: '04-mes-dashboard.html', active: false, badge: '' },
+                { icon: '📟', label: 'Dashboard vận hành', href: '08-mes-dashboard.html', active: false, badge: '' },
+                { icon: '🗓️', label: 'Kế hoạch sản xuất', href: '09-mes-ke-hoach.html', active: false, badge: '' },
+                { icon: '📋', label: 'Lệnh sản xuất', href: '05-mes-lenh-sx.html', active: false, badge: '' },
+                { icon: '📄', label: 'Lệnh SX chi tiết', href: '10-mes-lenh-sx.html', active: false, badge: '' },
+                { icon: '✂️', label: 'Lệnh cắt', href: '11-mes-lenh-cat.html', active: false, badge: '' },
+                { icon: '🧵', label: 'Máy may', href: '12-mes-may.html', active: false, badge: '' },
+                { icon: '🔍', label: 'Kiểm tra chất lượng', href: '13-mes-qc.html', active: true, badge: '' },
+                { icon: '🪡', label: 'Hoàn thiện', href: '14-mes-hoan-thien.html', active: false, badge: '' },
+                { icon: '📦', label: 'Đóng gói', href: '15-mes-dong-goi.html', active: false, badge: '' },
+                { section: 'Kho & Nhân sự' },
+                { icon: '📦', label: 'WMS Dashboard', href: '06-wms-dashboard.html', active: false, badge: '' },
+                { icon: '👨‍💼', label: 'HRM Dashboard', href: '22-hr-dashboard.html', active: false, badge: '' },
+                { section: 'Bán hàng & AI' },
+                { icon: '💰', label: 'Sales Dashboard', href: '22-sales-dashboard.html', active: false, badge: '' },
+                { icon: '🤖', label: 'AI Center', href: '25-ai-dashboard.html', active: false, badge: '' },
+                { icon: '🎓', label: 'Academy', href: '37-academy-dashboard.html', active: false, badge: '' },
             ];
 
             const NOTIFICATIONS = [
-                { icon: 'ðŸ”', title: 'QC phÃ¡t hiá»‡n lá»—i tÄƒng á»Ÿ lÃ´ LSX-0219', time: '3 giá» trÆ°á»›c' }
+                { icon: '🔍', title: 'QC phát hiện lỗi tăng ở lô LSX-0219', time: '3 giờ trước' }
             ];
 
             const STATS = [
-                { icon: 'ðŸ”', label: 'LÃ´ QC hÃ´m nay', value: '11', change: '+3', up: true },
-                { icon: 'âœ…', label: 'Tá»· lá»‡ Ä‘áº¡t trung bÃ¬nh', value: '96.2%', change: '+0.8%', up: true },
-                { icon: 'âš ï¸', label: 'Lá»—i phÃ¡t hiá»‡n', value: '47', change: '-6', up: true },
-                { icon: 'ðŸ”', label: 'LÃ´ chá» tÃ¡i kiá»ƒm', value: '3', change: '+1', up: false }
+                { icon: '🔍', label: 'Lô QC hôm nay', value: '11', change: '+3', up: true },
+                { icon: '✅', label: 'Tỷ lệ đạt trung bình', value: '96.2%', change: '+0.8%', up: true },
+                { icon: '⚠️', label: 'Lỗi phát hiện', value: '47', change: '-6', up: true },
+                { icon: '🔁', label: 'Lô chờ tái kiểm', value: '3', change: '+1', up: false }
             ];
 
             const QC_LOTS = [
-                { id: 'QC-0187', product: 'Ão Thun Cotton Â· LÃ´ B', qtyChecked: '1,500', errors: '18', rate: '98.8%', inspector: 'Trá»‹nh Thá»‹ Nga', status: 'Lá»—i', color: 'red' },
-                { id: 'QC-0186', product: 'Ão Polo Basic Â· LÃ´ A', qtyChecked: '1,200', errors: '4', rate: '99.7%', inspector: 'Trá»‹nh Thá»‹ Nga', status: 'Äáº¡t', color: 'green' },
-                { id: 'QC-0185', product: 'Quáº§n Short Kaki', qtyChecked: '900', errors: '9', rate: '99.0%', inspector: 'Äá»— Thá»‹ Háº±ng', status: 'Äáº¡t', color: 'green' },
-                { id: 'QC-0184', product: 'Bá»™ Thá»ƒ Thao Â· LÃ´ 3', qtyChecked: '620', errors: '31', rate: '95.0%', inspector: 'Trá»‹nh Thá»‹ Nga', status: 'TÃ¡i kiá»ƒm', color: 'amber' },
-                { id: 'QC-0183', product: 'Ão SÆ¡ Mi Bamboo', qtyChecked: '1,100', errors: '6', rate: '99.5%', inspector: 'Äá»— Thá»‹ Háº±ng', status: 'Äáº¡t', color: 'green' },
-                { id: 'QC-0182', product: 'Äá»“ng Phá»¥c CÃ´ng Ty ABC', qtyChecked: '1,600', errors: '12', rate: '99.3%', inspector: 'Trá»‹nh Thá»‹ Nga', status: 'Äáº¡t', color: 'green' },
-                { id: 'QC-0181', product: 'Ão Thun Cotton', qtyChecked: '2,000', errors: '52', rate: '97.4%', inspector: 'Äá»— Thá»‹ Háº±ng', status: 'TÃ¡i kiá»ƒm', color: 'amber' },
-                { id: 'QC-0180', product: 'Quáº§n Short Kaki', qtyChecked: '1,500', errors: '10', rate: '99.3%', inspector: 'Trá»‹nh Thá»‹ Nga', status: 'Äáº¡t', color: 'green' }
+                { id: 'QC-0187', product: 'Áo Thun Cotton · Lô B', qtyChecked: '1,500', errors: '18', rate: '98.8%', inspector: 'Trịnh Thị Nga', status: 'Lỗi', color: 'red' },
+                { id: 'QC-0186', product: 'Áo Polo Basic · Lô A', qtyChecked: '1,200', errors: '4', rate: '99.7%', inspector: 'Trịnh Thị Nga', status: 'Đạt', color: 'green' },
+                { id: 'QC-0185', product: 'Quần Short Kaki', qtyChecked: '900', errors: '9', rate: '99.0%', inspector: 'Đỗ Thị Hằng', status: 'Đạt', color: 'green' },
+                { id: 'QC-0184', product: 'Bộ Thể Thao · Lô 3', qtyChecked: '620', errors: '31', rate: '95.0%', inspector: 'Trịnh Thị Nga', status: 'Tái kiểm', color: 'amber' },
+                { id: 'QC-0183', product: 'Áo Sơ Mi Bamboo', qtyChecked: '1,100', errors: '6', rate: '99.5%', inspector: 'Đỗ Thị Hằng', status: 'Đạt', color: 'green' },
+                { id: 'QC-0182', product: 'Đồng Phục Công Ty ABC', qtyChecked: '1,600', errors: '12', rate: '99.3%', inspector: 'Trịnh Thị Nga', status: 'Đạt', color: 'green' },
+                { id: 'QC-0181', product: 'Áo Thun Cotton', qtyChecked: '2,000', errors: '52', rate: '97.4%', inspector: 'Đỗ Thị Hằng', status: 'Tái kiểm', color: 'amber' },
+                { id: 'QC-0180', product: 'Quần Short Kaki', qtyChecked: '1,500', errors: '10', rate: '99.3%', inspector: 'Trịnh Thị Nga', status: 'Đạt', color: 'green' }
             ];
 
             let currentPage = 1;
@@ -197,28 +197,28 @@
                     container: document.querySelector('#qcTable'),
                     emptyEl: 'qcEmpty',
                     columns: [
-                        { key: 'id', label: 'MÃ£ lÃ´', render: r => `<span class="cell-primary">${r.id}</span>` },
-                        { key: 'product', label: 'Sáº£n pháº©m', cls: 'wrap', render: r => r.product },
-                        { key: 'qtyChecked', label: 'SL kiá»ƒm', cls: 'num', render: r => r.qtyChecked },
-                        { key: 'errors', label: 'Lá»—i', cls: 'num', render: r => r.errors },
-                        { key: 'rate', label: 'Tá»· lá»‡ Ä‘áº¡t', cls: 'num', render: r => r.rate },
-                        { key: 'inspector', label: 'NgÆ°á»i kiá»ƒm', render: r => `<span class="cell-sub">${r.inspector}</span>` },
-                        { key: 'status', label: 'Tráº¡ng thÃ¡i', render: r => `<span class="fac-badge ${r.color}">${r.status}</span>` }
+                        { key: 'id', label: 'Mã lô', render: r => `<span class="cell-primary">${r.id}</span>` },
+                        { key: 'product', label: 'Sản phẩm', cls: 'wrap', render: r => r.product },
+                        { key: 'qtyChecked', label: 'SL kiểm', cls: 'num', render: r => r.qtyChecked },
+                        { key: 'errors', label: 'Lỗi', cls: 'num', render: r => r.errors },
+                        { key: 'rate', label: 'Tỷ lệ đạt', cls: 'num', render: r => r.rate },
+                        { key: 'inspector', label: 'Người kiểm', render: r => `<span class="cell-sub">${r.inspector}</span>` },
+                        { key: 'status', label: 'Trạng thái', render: r => `<span class="fac-badge ${r.color}">${r.status}</span>` }
                     ],
                     rows: pageRows,
                     onRowClick: (row) => {
                         MiminFac.openModal({
-                            title: `${row.id} Â· ${row.product}`,
-                            subtitle: `NgÆ°á»i kiá»ƒm: ${row.inspector}`,
+                            title: `${row.id} · ${row.product}`,
+                            subtitle: `Người kiểm: ${row.inspector}`,
                             rows: [
-                                { label: 'Sá»‘ lÆ°á»£ng kiá»ƒm', value: row.qtyChecked },
-                                { label: 'Sá»‘ lá»—i phÃ¡t hiá»‡n', value: row.errors },
-                                { label: 'Tá»· lá»‡ Ä‘áº¡t', value: row.rate },
-                                { label: 'Tráº¡ng thÃ¡i', value: row.status }
+                                { label: 'Số lượng kiểm', value: row.qtyChecked },
+                                { label: 'Số lỗi phát hiện', value: row.errors },
+                                { label: 'Tỷ lệ đạt', value: row.rate },
+                                { label: 'Trạng thái', value: row.status }
                             ],
                             actions: [
-                                { label: 'ÄÃ³ng', type: 'secondary' },
-                                { label: 'Má»Ÿ lá»‡nh SX liÃªn káº¿t', type: 'primary', onClick: () => { window.location.href = '10-mes-lenh-sx.html'; } }
+                                { label: 'Đóng', type: 'secondary' },
+                                { label: 'Mở lệnh SX liên kết', type: 'primary', onClick: () => { window.location.href = '10-mes-lenh-sx.html'; } }
                             ]
                         });
                     }
@@ -233,7 +233,7 @@
             }
 
             function renderStatusFilters() {
-                const options = ['Táº¥t cáº£', 'Äáº¡t', 'TÃ¡i kiá»ƒm', 'Lá»—i'];
+                const options = ['Tất cả', 'Đạt', 'Tái kiểm', 'Lỗi'];
                 const container = document.getElementById('statusFilters');
                 options.forEach((label, i) => {
                     const btn = document.createElement('button');
@@ -242,7 +242,7 @@
                     btn.addEventListener('click', () => {
                         container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
-                        MiminShell.showToast(`ðŸ”Ž Lá»c theo: ${label}`, 'info', 'ðŸ”Ž');
+                        MiminShell.showToast(`🔎 Lọc theo: ${label}`, 'info', '🔎');
                     });
                     container.appendChild(btn);
                 });
@@ -250,14 +250,14 @@
 
             document.getElementById('quickAddBtn').addEventListener('click', () => {
                 MiminFac.openModal({
-                    title: '+ Táº¡o lÃ´ kiá»ƒm QC má»›i',
-                    subtitle: 'Nháº­p thÃ´ng tin lÃ´ cáº§n kiá»ƒm tra',
+                    title: '+ Tạo lô kiểm QC mới',
+                    subtitle: 'Nhập thông tin lô cần kiểm tra',
                     bodyHtml: `
                         <div class="qc-links">
-                            <a href="14-mes-hoan-thien.html">ðŸª¡ Chuyá»ƒn lÃ´ Ä‘áº¡t sang HoÃ n thiá»‡n <span>â€º</span></a>
+                            <a href="14-mes-hoan-thien.html">🪡 Chuyển lô đạt sang Hoàn thiện <span>›</span></a>
                         </div>
                     `,
-                    actions: [{ label: 'ÄÃ³ng', type: 'secondary' }]
+                    actions: [{ label: 'Đóng', type: 'secondary' }]
                 });
             });
 
@@ -265,12 +265,12 @@
                 user: USER,
                 navItems: NAV_ITEMS,
                 notifications: NOTIFICATIONS,
-                aiFloatMessage: 'ðŸ§  AI Gá»£i Ã½ hÃ´m nay (MES):\n1. QC phÃ¡t hiá»‡n lá»—i tÄƒng á»Ÿ lÃ´ LSX-0219 (QC-0187), Ä‘á» xuáº¥t kiá»ƒm tra láº¡i mÃ¡y MM-014',
+                aiFloatMessage: '🧠 AI Gợi ý hôm nay (MES):\n1. QC phát hiện lỗi tăng ở lô LSX-0219 (QC-0187), đề xuất kiểm tra lại máy MM-014',
                 onNavClick: (item, el) => {
                     if (item.href && item.href !== '#') return;
                     document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
                     el.classList.add('active');
-                    MiminShell.showToast(`ðŸš§ ${item.label} Ä‘ang Ä‘Æ°á»£c xÃ¢y dá»±ng`, 'info', item.icon);
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
                 }
             });
 
@@ -278,7 +278,7 @@
             MiminFac.renderStatCards(STATS);
             renderQc();
 
-            console.log('âœ… POLOMIMIN Kiá»ƒm tra cháº¥t lÆ°á»£ng (Factory OS) initialized.');
+            console.log('✅ POLOMIMIN Kiểm tra chất lượng (Factory OS) initialized.');
         })();
     </script>
 </body>
