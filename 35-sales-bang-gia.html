@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Bảng giá & Chiết khấu</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+        .price-table { background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 16px; }
+        .price-table h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .price-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-color); }
+        .price-grid:last-child { border-bottom: none; }
+        .price-grid.header { font-weight: 700; color: var(--text-light); font-size: 12px; text-transform: uppercase; }
+        .price-cell { font-size: 13px; }
+        .price-cell.highlight { font-weight: 700; color: var(--primary); }
+    </style>
+</head>
+<body>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+    </aside>
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm sản phẩm xem giá..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><span class="current">💰 Bảng giá</span></nav>
+        <div class="biz-page-header"><div><div class="bph-title">💰 Bảng giá & Chiết khấu theo nhóm KH</div><div class="bph-subtitle">Quản lý giá bán, chiết khấu VIP, sỉ, lẻ, đại lý theo từng dòng sản phẩm</div></div></div>
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Bảng giá active</div><div class="kpi-value">5</div><div class="kpi-change up">+1</div></div>
+            <div class="kpi-card"><div class="kpi-label">SP có giá sỉ</div><div class="kpi-value">385</div><div class="kpi-change up">100%</div></div>
+            <div class="kpi-card"><div class="kpi-label">CK cao nhất</div><div class="kpi-value">25%</div><div class="kpi-change up">VIP Diamond</div></div>
+            <div class="kpi-card"><div class="kpi-label">CK trung bình</div><div class="kpi-value">12%</div><div class="kpi-change up">+2%</div></div>
+        </div>
+        <div class="price-table">
+            <h3>👕 Áo Polo - POLO-001 (Áo Polo Basic Premium)</h3>
+            <div class="price-grid header">
+                <div>Nhóm KH</div><div>Giá bán lẻ</div><div>CK %</div><div>Giá sau CK</div><div>Điều kiện</div>
+            </div>
+            <div class="price-grid">
+                <div class="price-cell">👤 Khách lẻ (mặc định)</div>
+                <div class="price-cell">295,000đ</div>
+                <div class="price-cell">0%</div>
+                <div class="price-cell highlight">295,000đ</div>
+                <div class="price-cell">Mọi đơn</div>
+            </div>
+            <div class="price-grid">
+                <div class="price-cell">🛍️ Cửa hàng nhỏ</div>
+                <div class="price-cell">295,000đ</div>
+                <div class="price-cell">8%</div>
+                <div class="price-cell highlight">271,400đ</div>
+                <div class="price-cell">≥ 50 cái/lần</div>
+            </div>
+            <div class="price-grid">
+                <div class="price-cell">🏪 Đại lý</div>
+                <div class="price-cell">295,000đ</div>
+                <div class="price-cell">15%</div>
+                <div class="price-cell highlight">250,750đ</div>
+                <div class="price-cell">≥ 200 cái/lần</div>
+            </div>
+            <div class="price-grid">
+                <div class="price-cell">⭐ VIP Gold</div>
+                <div class="price-cell">295,000đ</div>
+                <div class="price-cell">18%</div>
+                <div class="price-cell highlight">241,900đ</div>
+                <div class="price-cell">DT ≥ 100tr/năm</div>
+            </div>
+            <div class="price-grid">
+                <div class="price-cell">💎 VIP Diamond</div>
+                <div class="price-cell">295,000đ</div>
+                <div class="price-cell">25%</div>
+                <div class="price-cell highlight">221,250đ</div>
+                <div class="price-cell">DT ≥ 500tr/năm</div>
+            </div>
+        </div>
+        <div class="price-table">
+            <h3>👔 Áo Sơ Mi - SOMI-008 (Áo Sơ Mi Bamboo)</h3>
+            <div class="price-grid header">
+                <div>Nhóm KH</div><div>Giá bán lẻ</div><div>CK %</div><div>Giá sau CK</div><div>Điều kiện</div>
+            </div>
+            <div class="price-grid"><div>👤 Khách lẻ</div><div>395,000đ</div><div>0%</div><div class="highlight">395,000đ</div><div>Mọi đơn</div></div>
+            <div class="price-grid"><div>🛍️ Cửa hàng</div><div>395,000đ</div><div>10%</div><div class="highlight">355,500đ</div><div>≥ 30 cái</div></div>
+            <div class="price-grid"><div>🏪 Đại lý</div><div>395,000đ</div><div>18%</div><div class="highlight">323,900đ</div><div>≥ 150 cái</div></div>
+            <div class="price-grid"><div>⭐ VIP Gold</div><div>395,000đ</div><div>20%</div><div class="highlight">316,000đ</div><div>DT ≥ 100tr/năm</div></div>
+            <div class="price-grid"><div>💎 VIP Diamond</div><div>395,000đ</div><div>25%</div><div class="highlight">296,250đ</div><div>DT ≥ 500tr/năm</div></div>
+        </div>
+        <div class="price-table">
+            <h3>👖 Quần Tây - QUAN-022 (Quần Tây Slimfit 2026)</h3>
+            <div class="price-grid header">
+                <div>Nhóm KH</div><div>Giá bán lẻ</div><div>CK %</div><div>Giá sau CK</div><div>Điều kiện</div>
+            </div>
+            <div class="price-grid"><div>👤 Khách lẻ</div><div>495,000đ</div><div>0%</div><div class="highlight">495,000đ</div><div>Mọi đơn</div></div>
+            <div class="price-grid"><div>🛍️ Cửa hàng</div><div>495,000đ</div><div>8%</div><div class="highlight">455,400đ</div><div>≥ 50 cái</div></div>
+            <div class="price-grid"><div>🏪 Đại lý</div><div>495,000đ</div><div>15%</div><div class="highlight">420,750đ</div><div>≥ 200 cái</div></div>
+            <div class="price-grid"><div>⭐ VIP Gold</div><div>495,000đ</div><div>18%</div><div class="highlight">405,900đ</div><div>DT ≥ 100tr/năm</div></div>
+            <div class="price-grid"><div>💎 VIP Diamond</div><div>495,000đ</div><div>25%</div><div class="highlight">371,250đ</div><div>DT ≥ 500tr/năm</div></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">🎯 Chính sách CK theo số lượng (áp dụng mọi SP)</div></div></div>
+            <table class="data-table">
+                <thead><tr><th>Bậc số lượng</th><th>CK tự động</th><th>Áp dụng</th><th>Ghi chú</th></tr></thead>
+                <tbody>
+                    <tr><td>1-9 cái</td><td>0%</td><td>Giá lẻ</td><td>Không CK</td></tr>
+                    <tr><td>10-49 cái</td><td>5%</td><td>Tất cả KH</td><td>Tự động áp dụng khi tạo đơn</td></tr>
+                    <tr><td>50-99 cái</td><td>10%</td><td>Tất cả KH</td><td>Tự động áp dụng</td></tr>
+                    <tr><td>100-499 cái</td><td>15%</td><td>Tất cả KH</td><td>Cần Sales Manager duyệt</td></tr>
+                    <tr><td>500-999 cái</td><td>20%</td><td>Đại lý/VIP</td><td>Cần CEO duyệt</td></tr>
+                    <tr><td>≥ 1000 cái</td><td>25%</td><td>VIP Diamond</td><td>Hợp đồng riêng</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">💰 So sánh giá giữa các kênh bán</div><div class="card-subtitle">POLO-001 hiện tại trên từng kênh</div></div></div>
+            <table class="data-table">
+                <thead><tr><th>Kênh bán</th><th>Giá niêm yết</th><th>Khuyến mãi</th><th>Giá bán thực</th><th>Chênh lệch</th></tr></thead>
+                <tbody>
+                    <tr><td>🏪 Cửa hàng POLOMIMIN</td><td>295,000đ</td><td>—</td><td>295,000đ</td><td>Gốc</td></tr>
+                    <tr><td>🌐 Website polomimin.shop</td><td>295,000đ</td><td>—</td><td>295,000đ</td><td>0đ</td></tr>
+                    <tr><td>🛒 Shopee POLOMIMIN Official</td><td>325,000đ</td><td>-10% (cuối tuần)</td><td>292,500đ</td><td>-2,500đ</td></tr>
+                    <tr><td>📱 TikTok Shop</td><td>325,000đ</td><td>-15% (live)</td><td>276,250đ</td><td>-18,750đ ⚠️</td></tr>
+                    <tr><td>📘 Facebook Shop</td><td>295,000đ</td><td>—</td><td>295,000đ</td><td>0đ</td></tr>
+                    <tr><td>💬 Zalo OA POLOMIMIN</td><td>295,000đ</td><td>-5% (VIP)</td><td>280,250đ</td><td>-14,750đ</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026</footer>
+    </main>
+    <div class="toast-container"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},{section:'Bán hàng'},
+            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
+            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',badge:'12'},
+            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
+            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html'},
+            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
+            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
+            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html'},
+            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
+            {section:'Modules khác'},
+            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
+            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
+        ];
+        MiminShell.init({user:{name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'},navItems:NAV_ITEMS,notifications:[],aiFloatMessage:'💡 Bảng giá tự động áp dụng theo nhóm KH và số lượng',onNavClick:(item,el)=>{if(item.href)return;}});
+    })();
+    </script>
+</body>
+</html>

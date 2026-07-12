@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Tạo đơn hàng</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+        .form-section { background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; }
+        .form-section h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; }
+        .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
+        .form-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+        .form-row.full { grid-template-columns: 1fr; }
+        .product-row { display: grid; grid-template-columns: 80px 1fr 100px 100px 120px 40px; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); margin-bottom: 8px; }
+        .product-img { width: 60px; height: 60px; background: var(--bg-section); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .order-summary { background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%); border: 1px solid #DC2626; border-radius: var(--radius-md); padding: 20px; }
+        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; }
+        .summary-row.total { border-top: 2px solid #DC2626; padding-top: 12px; margin-top: 8px; font-size: 18px; font-weight: 800; color: #DC2626; }
+        @media (max-width: 768px) { .form-row, .form-row-3 { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+    </aside>
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm KH, sản phẩm..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><a href="23-sales-don-hang.html">📋 Đơn hàng</a><span class="separator">›</span><span class="current">➕ Tạo đơn</span></nav>
+        <div class="biz-page-header"><div><div class="bph-title">➕ Tạo đơn hàng mới</div><div class="bph-subtitle">Tạo đơn cho khách sỉ, lẻ, đại lý - Hỗ trợ đa kênh</div></div></div>
+        <div class="kpi-grid" id="statGrid"></div>
+        <div class="form-section">
+            <h3>👤 Thông tin khách hàng</h3>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Loại khách hàng *</label><select class="form-select"><option>Khách lẻ</option><option>Đại lý</option><option>Cửa hàng</option><option>Khách VIP</option></select></div>
+                <div class="form-group"><label class="form-label">Kênh bán *</label><select class="form-select"><option>Trực tiếp</option><option>Zalo OA</option><option>Shopee</option><option>Website</option><option>Facebook</option><option>TikTok Shop</option></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Khách hàng *</label><select class="form-select"><option>-- Chọn khách hàng --</option><option>Đại lý Anh Tuấn - Hà Nội (VIP)</option><option>Đại lý Miền Tây (VIP)</option><option>Cửa hàng Việt Fashion</option><option>Đại lý Bắc Ninh</option><option>Đại lý Cần Thơ</option><option>+ Thêm khách mới</option></select></div>
+                <div class="form-group"><label class="form-label">Số điện thoại</label><input type="text" class="form-input" placeholder="VD: 0987xxx"></div>
+            </div>
+            <div class="form-row full">
+                <div class="form-group"><label class="form-label">Địa chỉ giao hàng *</label><input type="text" class="form-input" placeholder="Số nhà, đường, phường, quận, tỉnh..." value=""></div>
+            </div>
+            <div class="form-row-3">
+                <div class="form-group"><label class="form-label">Người nhận</label><input type="text" class="form-input" value=""></div>
+                <div class="form-group"><label class="form-label">Ngày giao dự kiến *</label><input type="date" class="form-input" value="2026-07-15"></div>
+                <div class="form-group"><label class="form-label">Ghi chú đơn</label><input type="text" class="form-input" placeholder="VD: Giao giờ HC, gọi trước khi giao..."></div>
+            </div>
+        </div>
+        <div class="form-section">
+            <h3>👕 Sản phẩm trong đơn</h3>
+            <div id="productList">
+                <div class="product-row">
+                    <div class="product-img">👕</div>
+                    <div><strong>Áo Polo Basic Premium</strong><br><small style="color: var(--text-light);">POLO-001 · 295,000đ</small></div>
+                    <div><input type="number" class="form-input" value="50" min="1"></div>
+                    <div><input type="number" class="form-input" value="5" min="0" max="100" placeholder="% CK"></div>
+                    <div style="text-align: right; font-weight: 700; color: var(--primary);">14,012,500đ</div>
+                    <button class="btn-icon" style="background: #FEE2E2; color: #991B1B;">×</button>
+                </div>
+                <div class="product-row">
+                    <div class="product-img">👔</div>
+                    <div><strong>Áo Sơ Mi Bamboo</strong><br><small style="color: var(--text-light);">SOMI-008 · 395,000đ</small></div>
+                    <div><input type="number" class="form-input" value="30" min="1"></div>
+                    <div><input type="number" class="form-input" value="10" min="0" max="100" placeholder="% CK"></div>
+                    <div style="text-align: right; font-weight: 700; color: var(--primary);">10,665,000đ</div>
+                    <button class="btn-icon" style="background: #FEE2E2; color: #991B1B;">×</button>
+                </div>
+            </div>
+            <button class="btn btn-secondary" style="margin-top: 8px;"><i class="fas fa-plus"></i> Thêm sản phẩm</button>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-section">
+                <h3>🚚 Vận chuyển & Thanh toán</h3>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Đơn vị vận chuyển</label><select class="form-select"><option>GHN Express</option><option>GHTK</option><option>Viettel Post</option><option>POLOMIMIN tự giao</option><option>Khách tự nhận</option></select></div>
+                    <div class="form-group"><label class="form-label">Phí ship (VNĐ)</label><input type="number" class="form-input" value="35000"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Hình thức thanh toán</label><select class="form-select"><option>COD - Thu hộ</option><option>Chuyển khoản trước</option><option>VNPay/Momo</option><option>Công nợ (Đại lý VIP)</option><option>Trả góp 0%</option></select></div>
+                    <div class="form-group"><label class="form-label">Hạn thanh toán</label><input type="date" class="form-input" value="2026-07-25"></div>
+                </div>
+            </div>
+            <div class="order-summary">
+                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--primary);">📊 Tổng đơn hàng</h3>
+                <div class="summary-row"><span style="color: var(--text-secondary);">Tạm tính (2 SP)</span><span>24,790,000đ</span></div>
+                <div class="summary-row"><span style="color: var(--text-secondary);">Chiết khấu</span><span style="color: #10B981;">-112,500đ</span></div>
+                <div class="summary-row"><span style="color: var(--text-secondary);">Phí vận chuyển</span><span>35,000đ</span></div>
+                <div class="summary-row"><span style="color: var(--text-secondary);">VAT (10%)</span><span>2,476,750đ</span></div>
+                <div class="summary-row total"><span>TỔNG CỘNG</span><span>27,189,250đ</span></div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 16px; justify-content: flex-end;">
+            <button class="btn btn-secondary">Hủy</button>
+            <button class="btn btn-secondary">Lưu nháp</button>
+            <button class="btn btn-primary" style="background: var(--primary-gradient);"><i class="fas fa-check"></i> Tạo đơn hàng</button>
+        </div>
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · MST: 0318507560</footer>
+    </main>
+    <div class="toast-container"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},{section:'Bán hàng'},
+            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
+            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',active:true,badge:'12'},
+            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
+            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html'},
+            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
+            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
+            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html'},
+            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
+            {section:'Modules khác'},
+            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
+            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
+        ];
+        const STATS=[
+            ['📋','Đơn hôm nay','47','+12',true,'#DC2626'],
+            ['💰','Giá trị TB/đơn','5.8tr','+8%',true,'#10B981'],
+            ['⏱️','Thời gian TB','8 phút','-15%',true,'#3B82F6'],
+            ['📈','Tỷ lệ duyệt','94%','+2%',true,'#7C3AED']
+        ];
+        MiminShell.init({user:{name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'},navItems:NAV_ITEMS,notifications:[],aiFloatMessage:'💡 Tạo đơn nhanh - chọn KH từ CRM hoặc thêm mới',onNavClick:(item,el)=>{if(item.href)return;}});
+        MiminBiz.renderStatCards(STATS);
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Chi tiết đơn #SO-4521</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+        .info-card { background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 16px; }
+        .info-card h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .info-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+        .info-row .label { color: var(--text-light); }
+        .info-row .value { color: var(--text-primary); font-weight: 600; }
+        .timeline { position: relative; padding-left: 28px; }
+        .timeline::before { content: ''; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--border-color); }
+        .tl-item { position: relative; padding-bottom: 18px; }
+        .tl-item::before { content: ''; position: absolute; left: -28px; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: white; border: 3px solid var(--primary); }
+        .tl-item.done::before { background: #10B981; border-color: #10B981; }
+        .tl-item.current::before { background: var(--primary); border-color: var(--primary); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); } }
+        .tl-title { font-size: 13px; font-weight: 700; }
+        .tl-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+        .tl-time { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+    </aside>
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm đơn hàng..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><a href="23-sales-don-hang.html">📋 Đơn hàng</a><span class="separator">›</span><span class="current">📄 #SO-4521</span></nav>
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">📄 Đơn hàng #SO-4521</div>
+                <div class="bph-subtitle">Đại lý Anh Tuấn - Hà Nội · Tạo lúc 09:32 12/07/2026 · Trạng thái: <span class="status-badge amber">Đã duyệt</span></div>
+            </div>
+            <div class="bph-actions">
+                <button class="btn btn-secondary"><i class="fas fa-print"></i> In đơn</button>
+                <button class="btn btn-secondary"><i class="fas fa-envelope"></i> Gửi email</button>
+                <button class="btn btn-primary" style="background: var(--primary-gradient);"><i class="fas fa-arrow-right"></i> Cập nhật trạng thái</button>
+            </div>
+        </div>
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Tổng tiền</div><div class="kpi-value">120,000,000đ</div><div class="kpi-change up"><i class="fas fa-arrow-up"></i> Đơn VIP</div></div>
+            <div class="kpi-card"><div class="kpi-label">Còn phải thu</div><div class="kpi-value">120,000,000đ</div><div class="kpi-change down"><i class="fas fa-clock"></i> Chờ CK</div></div>
+            <div class="kpi-card"><div class="kpi-label">Số SP</div><div class="kpi-value">3 loại</div><div class="kpi-change up">+200 cái</div></div>
+            <div class="kpi-card"><div class="kpi-label">Lợi nhuận ước tính</div><div class="kpi-value">32tr</div><div class="kpi-change up">+27%</div></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="info-card">
+                <h3>👤 Thông tin khách hàng</h3>
+                <div class="info-row"><span class="label">Tên khách</span><span class="value">Đại lý Anh Tuấn - Hà Nội</span></div>
+                <div class="info-row"><span class="label">Mã KH</span><span class="value">KH-1289 ⭐ VIP</span></div>
+                <div class="info-row"><span class="label">SĐT</span><span class="value">0987 123 456</span></div>
+                <div class="info-row"><span class="label">Email</span><span class="value">anhtuan.hn@gmail.com</span></div>
+                <div class="info-row"><span class="label">Địa chỉ</span><span class="value">123 Trần Phú, Ba Đình, Hà Nội</span></div>
+                <div class="info-row"><span class="label">Công nợ hiện tại</span><span class="value" style="color: #EF4444;">0đ (đã thanh toán đủ)</span></div>
+            </div>
+            <div class="info-card">
+                <h3>🚚 Thông tin giao hàng & Thanh toán</h3>
+                <div class="info-row"><span class="label">Người nhận</span><span class="value">Anh Tuấn</span></div>
+                <div class="info-row"><span class="label">SĐT nhận</span><span class="value">0987 123 456</span></div>
+                <div class="info-row"><span class="label">Địa chỉ giao</span><span class="value">123 Trần Phú, Ba Đình, Hà Nội</span></div>
+                <div class="info-row"><span class="label">Ngày giao dự kiến</span><span class="value">15/07/2026</span></div>
+                <div class="info-row"><span class="label">Vận chuyển</span><span class="value">GHN Express</span></div>
+                <div class="info-row"><span class="label">Thanh toán</span><span class="value">Chuyển khoản trước (đã CK)</span></div>
+                <div class="info-row"><span class="label">Trạng thái TT</span><span class="value" style="color: #10B981;">✅ Đã thanh toán 100%</span></div>
+            </div>
+        </div>
+        <div class="info-card">
+            <h3>👕 Sản phẩm trong đơn (3 loại)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr><th>SKU</th><th>Sản phẩm</th><th>SL</th><th>Đơn giá</th><th>CK</th><th>Thành tiền</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>POLO-001</td><td>Áo Polo Basic Premium (M, Đen)</td><td>100</td><td>295,000đ</td><td>10%</td><td><strong>26,550,000đ</strong></td></tr>
+                    <tr><td>SOMI-008</td><td>Áo Sơ Mi Bamboo (L, Trắng)</td><td>50</td><td>395,000đ</td><td>10%</td><td><strong>17,775,000đ</strong></td></tr>
+                    <tr><td>QUAN-022</td><td>Quần Tây Slimfit 2026 (32, Xám)</td><td>200</td><td>495,000đ</td><td>15%</td><td><strong>84,150,000đ</strong></td></tr>
+                </tbody>
+                <tfoot>
+                    <tr style="background: #FEF2F2; font-weight: 700;">
+                        <td colspan="5" style="text-align: right; padding: 12px;">TỔNG CỘNG:</td>
+                        <td style="padding: 12px; color: #DC2626; font-size: 16px;">120,000,000đ</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="info-card">
+            <h3>📅 Lịch sử trạng thái</h3>
+            <div class="timeline">
+                <div class="tl-item done">
+                    <div class="tl-title">✅ Đơn được tạo</div>
+                    <div class="tl-desc">Hồ Minh Sang tạo đơn từ Dashboard Sales</div>
+                    <div class="tl-time">09:32 12/07/2026</div>
+                </div>
+                <div class="tl-item done">
+                    <div class="tl-title">✅ Đã duyệt đơn</div>
+                    <div class="tl-desc">Hồ Minh Sang duyệt · Áp dụng CK VIP 10-15%</div>
+                    <div class="tl-time">10:15 12/07/2026</div>
+                </div>
+                <div class="tl-item current">
+                    <div class="tl-title">⏳ Chờ xuất kho</div>
+                    <div class="tl-desc">Đã chuyển yêu cầu xuất kho sang WMS</div>
+                    <div class="tl-time">10:30 12/07/2026 - Hiện tại</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-title">📦 Xuất kho & Đóng gói</div>
+                    <div class="tl-desc">Sẽ cập nhật khi WMS xuất kho</div>
+                    <div class="tl-time">Dự kiến 13/07/2026</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-title">🚚 Đang giao hàng</div>
+                    <div class="tl-desc">GHN Express - Tracking sẽ có sau khi pickup</div>
+                    <div class="tl-time">Dự kiến 14/07/2026</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-title">📦 Hoàn thành</div>
+                    <div class="tl-desc">KH nhận hàng, xác nhận, đóng đơn</div>
+                    <div class="tl-time">Dự kiến 15/07/2026</div>
+                </div>
+            </div>
+        </div>
+        <div class="info-card">
+            <h3>🎬 Hành động nhanh</h3>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-primary" style="background: var(--primary-gradient);"><i class="fas fa-check"></i> Duyệt & chuyển xuất kho</button>
+                <button class="btn btn-secondary"><i class="fas fa-edit"></i> Sửa đơn</button>
+                <button class="btn btn-secondary"><i class="fas fa-print"></i> In vận đơn</button>
+                <button class="btn btn-secondary"><i class="fas fa-envelope"></i> Gửi KH</button>
+                <a href="33-sales-huy-don.html" class="btn" style="background: #FEE2E2; color: #991B1B;"><i class="fas fa-times-circle"></i> Hủy đơn</a>
+                <a href="34-sales-tra-hang.html" class="btn" style="background: #FED7AA; color: #9A3412;"><i class="fas fa-undo"></i> Trả hàng</a>
+            </div>
+        </div>
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026</footer>
+    </main>
+    <div class="toast-container"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},{section:'Bán hàng'},
+            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
+            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',active:true,badge:'12'},
+            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
+            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html'},
+            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
+            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
+            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html'},
+            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
+            {section:'Modules khác'},
+            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
+            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
+        ];
+        MiminShell.init({user:{name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'},navItems:NAV_ITEMS,notifications:[],aiFloatMessage:'💡 Đơn #SO-4521 - Đã duyệt, chờ xuất kho',onNavClick:(item,el)=>{if(item.href)return;}});
+    })();
+    </script>
+</body>
+</html>

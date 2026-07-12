@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Đối soát thanh toán</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+    </style>
+</head>
+<body>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+    </aside>
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm giao dịch đối soát..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><a href="28-sales-thanh-toan.html">💳 Thanh toán</a><span class="separator">›</span><span class="current">🔄 Đối soát</span></nav>
+        <div class="biz-page-header"><div><div class="bph-title">🔄 Đối soát thanh toán ngân hàng</div><div class="bph-subtitle">Đối chiếu sao kê ngân hàng với giao dịch hệ thống - Tự động hoặc thủ công</div></div></div>
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">GD chờ đối soát</div><div class="kpi-value">2</div><div class="kpi-change up">Cần xử lý</div></div>
+            <div class="kpi-card"><div class="kpi-label">Đã khớp tháng</div><div class="kpi-value">186</div><div class="kpi-value" style="font-size: 14px; color: #10B981;">96% tự động</div></div>
+            <div class="kpi-card"><div class="kpi-label">Lệch cần xử lý</div><div class="kpi-value">3</div><div class="kpi-change down">⚠️ Cảnh báo</div></div>
+            <div class="kpi-card"><div class="kpi-label">Tổng đã khớp</div><div class="kpi-value">5.4 tỷ</div><div class="kpi-change up">+15%</div></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">🔄 Giao dịch chờ đối soát (2)</div><div class="card-subtitle">Cần xác nhận khớp với sao kê ngân hàng</div></div><button class="btn btn-primary" style="background: var(--primary-gradient);"><i class="fas fa-sync"></i> Tự động đối soát</button></div>
+            <table class="data-table">
+                <thead><tr><th>GD hệ thống</th><th>Khách</th><th>Số tiền</th><th>Ngân hàng</th><th>Mã GD NH</th><th>Thời gian</th><th>Trạng thái</th><th>Hành động</th></tr></thead>
+                <tbody>
+                    <tr style="background: #FEF3C7;">
+                        <td>#PM-0885<br><small style="color: #94A3B8;">12/07 09:15</small></td>
+                        <td>Đại lý Miền Tây</td>
+                        <td><strong>85,000,000đ</strong></td>
+                        <td>VCB</td>
+                        <td><code>VCB-789456123</code></td>
+                        <td>12/07 09:32</td>
+                        <td><span class="status-badge amber">⏳ Chờ khớp</span></td>
+                        <td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 10px;">✓ Khớp</button> <button class="btn-biz-outline" style="font-size: 12px; padding: 4px 10px;">✗ Lệch</button></td>
+                    </tr>
+                    <tr style="background: #FEF3C7;">
+                        <td>#PM-0884<br><small style="color: #94A3B8;">12/07 08:45</small></td>
+                        <td>Nguyễn Văn A (Website)</td>
+                        <td>850,000đ</td>
+                        <td>VNPay</td>
+                        <td><code>VNP-456789123</code></td>
+                        <td>12/07 08:50</td>
+                        <td><span class="status-badge amber">⏳ Chờ khớp</span></td>
+                        <td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 10px;">✓ Khớp</button> <button class="btn-biz-outline" style="font-size: 12px; padding: 4px 10px;">✗ Lệch</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">⚠️ Giao dịch lệch cần xử lý (3)</div><div class="card-subtitle">Số tiền hoặc mã GD không khớp với sao kê</div></div></div>
+            <table class="data-table">
+                <thead><tr><th>GD hệ thống</th><th>Khách</th><th>Hệ thống</th><th>Ngân hàng</th><th>Chênh lệch</th><th>Nguyên nhân</th><th>Hành động</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>#PM-0880</td>
+                        <td>Cty Hoàng Gia</td>
+                        <td>15,000,000đ</td>
+                        <td>14,850,000đ</td>
+                        <td style="color: #DC2626; font-weight: 700;">-150,000đ (phí NH)</td>
+                        <td>Phí chuyển khoản</td>
+                        <td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 10px;">⚙ Ghi nhận phí</button></td>
+                    </tr>
+                    <tr>
+                        <td>#PM-0879</td>
+                        <td>Shopee POLOMIMIN</td>
+                        <td>3,200,000đ</td>
+                        <td>3,000,000đ</td>
+                        <td style="color: #DC2626; font-weight: 700;">-200,000đ (phí sàn)</td>
+                        <td>Phí sàn TMĐT 6.25%</td>
+                        <td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 10px;">⚙ Ghi nhận phí</button></td>
+                    </tr>
+                    <tr>
+                        <td>#PM-0875</td>
+                        <td>Khách lẻ lạ</td>
+                        <td>450,000đ</td>
+                        <td>0đ</td>
+                        <td style="color: #DC2626; font-weight: 700;">-450,000đ (chưa nhận)</td>
+                        <td>CK ngoài hệ thống - cần xác minh</td>
+                        <td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 10px;">🔍 Xác minh</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">✅ Giao dịch đã khớp gần đây (5)</div></div></div>
+            <table class="data-table">
+                <thead><tr><th>GD</th><th>Khách</th><th>Số tiền</th><th>Ngân hàng</th><th>Thời gian khớp</th><th>Phương thức</th></tr></thead>
+                <tbody>
+                    <tr><td>#PM-0882</td><td>Đại lý Bắc Ninh</td><td>156,000,000đ</td><td>VCB</td><td>12/07 06:20</td><td><span class="status-badge green">🤖 Tự động</span></td></tr>
+                    <tr><td>#PM-0881</td><td>Trần Văn C (Momo)</td><td>450,000đ</td><td>Momo</td><td>11/07 18:45</td><td><span class="status-badge green">🤖 Tự động</span></td></tr>
+                    <tr><td>#PM-0878</td><td>Đại lý Đà Nẵng</td><td>210,000,000đ</td><td>Techcombank</td><td>10/07 14:10</td><td><span class="status-badge blue">👤 Thủ công</span></td></tr>
+                    <tr><td>#PM-0877</td><td>Đại lý Hải Phòng</td><td>78,000,000đ</td><td>VCB</td><td>09/07 11:30</td><td><span class="status-badge green">🤖 Tự động</span></td></tr>
+                    <tr><td>#PM-0876</td><td>Chuỗi Co.op HCM</td><td>325,000,000đ</td><td>BIDV</td><td>08/07 16:20</td><td><span class="status-badge green">🤖 Tự động</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">📊 Đối soát sao kê ngân hàng hôm nay (12/07/2026)</div><div class="card-subtitle">Tự động đối chiếu với API ngân hàng</div></div></div>
+            <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">📥 Tiền vào (GD có)</h4>
+                    <div style="background: #F0FDF4; padding: 12px; border-radius: 8px;">
+                        <div class="info-row"><span>VCB ****1234</span><span><strong>1,250,500,000đ</strong></span></div>
+                        <div class="info-row"><span>Techcombank ****5678</span><span>685,000,000đ</span></div>
+                        <div class="info-row"><span>BIDV ****9012</span><span>425,000,000đ</span></div>
+                        <div class="info-row"><span>Momo (Merchant)</span><span>15,200,000đ</span></div>
+                        <div class="info-row" style="border-top: 2px solid #10B981; padding-top: 8px; margin-top: 8px;"><span><strong>Tổng vào</strong></span><span style="color: #10B981;"><strong>2,375,700,000đ</strong></span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">📤 Tiền ra (Chi phí)</h4>
+                    <div style="background: #FEF2F2; padding: 12px; border-radius: 8px;">
+                        <div class="info-row"><span>Phí sàn Shopee/TikTok</span><span>185,000,000đ</span></div>
+                        <div class="info-row"><span>Phí vận chuyển GHN/GHTK</span><span>125,000,000đ</span></div>
+                        <div class="info-row"><span>Phí NH (VAT + phí)</span><span>18,500,000đ</span></div>
+                        <div class="info-row"><span>Hoàn tiền KH (trả hàng)</span><span>8,500,000đ</span></div>
+                        <div class="info-row" style="border-top: 2px solid #DC2626; padding-top: 8px; margin-top: 8px;"><span><strong>Tổng ra</strong></span><span style="color: #DC2626;"><strong>337,000,000đ</strong></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-row" style="border-top: 2px solid var(--primary); padding-top: 12px; margin-top: 12px; font-size: 16px; font-weight: 800;">
+                <span>💰 RÒNG HÔM NAY:</span>
+                <span style="color: #10B981;">+2,038,700,000đ</span>
+            </div>
+        </div>
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026</footer>
+    </main>
+    <div class="toast-container"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},{section:'Bán hàng'},
+            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
+            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',badge:'12'},
+            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
+            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html'},
+            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
+            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
+            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html',active:true},
+            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
+            {section:'Modules khác'},
+            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
+            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
+        ];
+        MiminShell.init({user:{name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'},navItems:NAV_ITEMS,notifications:[],aiFloatMessage:'🔄 Auto-đối soát 96% GD khớp tự động, 4% cần xử lý thủ công',onNavClick:(item,el)=>{if(item.href)return;}});
+    })();
+    </script>
+</body>
+</html>

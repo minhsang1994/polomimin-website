@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Báo cáo doanh số</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+        .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 200px; padding: 16px 0; border-bottom: 1px solid var(--border-color); }
+        .bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .bar-fill { width: 100%; max-width: 40px; background: linear-gradient(180deg, #DC2626 0%, #B91C1C 100%); border-radius: 6px 6px 0 0; }
+        .bar-label { font-size: 11px; color: var(--text-light); }
+        .bar-value { font-size: 11px; color: var(--text-primary); font-weight: 700; }
+    </style>
+</head>
+<body>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+    </aside>
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm báo cáo..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><span class="current">📈 Báo cáo</span></nav>
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">📈 Báo cáo doanh số POLOMIMIN</div>
+                <div class="bph-subtitle">Tổng quan kinh doanh tháng 07/2026 - Doanh thu, đơn hàng, khách hàng, sản phẩm</div>
+            </div>
+            <div class="bph-actions">
+                <button class="btn btn-secondary"><i class="fas fa-download"></i> Xuất PDF</button>
+                <button class="btn btn-secondary"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+                <button class="btn btn-primary" style="background: var(--primary-gradient);"><i class="fas fa-envelope"></i> Gửi email</button>
+            </div>
+        </div>
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Doanh thu tháng 7</div><div class="kpi-value">8.2 tỷ</div><div class="kpi-change up"><i class="fas fa-arrow-up"></i> +22%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Lợi nhuận gộp</div><div class="kpi-value">2.8 tỷ</div><div class="kpi-change up">+27% (35%)</div></div>
+            <div class="kpi-card"><div class="kpi-label">Đơn hàng</div><div class="kpi-value">1,420</div><div class="kpi-change up">+15%</div></div>
+            <div class="kpi-card"><div class="kpi-label">KH mới</div><div class="kpi-value">78</div><div class="kpi-change up">+15%</div></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">📊 Doanh thu 7 ngày gần nhất (06-12/07/2026)</div><div class="card-subtitle">Theo dõi doanh thu hàng ngày</div></div><div class="biz-filters"><button class="filter-btn">Tuần</button><button class="filter-btn active">7 ngày</button><button class="filter-btn">Tháng</button><button class="filter-btn">Quý</button></div></div>
+            <div class="bar-chart">
+                <div class="bar"><div class="bar-fill" style="height: 55%;"></div><div class="bar-value">920tr</div><div class="bar-label">T2 06/07</div></div>
+                <div class="bar"><div class="bar-fill" style="height: 70%;"></div><div class="bar-value">1.15tỷ</div><div class="bar-label">T3 07/07</div></div>
+                <div class="bar"><div class="bar-fill" style="height: 85%;"></div><div class="bar-value">1.42tỷ</div><div class="bar-label">T4 08/07</div></div>
+                <div class="bar"><div class="bar-fill" style="height: 95%;"></div><div class="bar-value">1.58tỷ</div><div class="bar-label">T5 09/07</div></div>
+                <div class="bar"><div class="bar-fill" style="height: 80%;"></div><div class="bar-value">1.35tỷ</div><div class="bar-label">T6 10/07</div></div>
+                <div class="bar"><div class="bar-fill" style="height: 100%;"></div><div class="bar-value">1.65tỷ</div><div class="bar-label">T7 11/07</div></div>
+                <div class="bar"><div class="bar-fill" style="height: 92%; background: linear-gradient(180deg, #14B8A6 0%, #0F9488 100%);"></div><div class="bar-value">1.18tỷ</div><div class="bar-label">CN 12/07</div></div>
+            </div>
+            <div class="info-row" style="margin-top: 16px;"><span><strong>Tổng 7 ngày</strong></span><span style="color: var(--primary); font-size: 18px; font-weight: 800;">9.23 tỷ</span></div>
+            <div class="info-row"><span>TB ngày</span><span>1.32 tỷ/ngày</span></div>
+            <div class="info-row"><span>So với tuần trước</span><span style="color: #10B981;">+18% ↑</span></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">🔥 Top 10 sản phẩm bán chạy tháng 7</div><div class="card-subtitle">Sắp xếp theo doanh thu</div></div></div>
+            <table class="data-table">
+                <thead><tr><th>#</th><th>SKU</th><th>Sản phẩm</th><th>SL bán</th><th>Doanh thu</th><th>Tăng trưởng</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>POLO-001</td><td>Áo Polo Basic Premium</td><td>1,250</td><td>368,750,000đ</td><td><span class="status-badge green">+35%</span></td></tr>
+                    <tr><td>2</td><td>THUN-015</td><td>Áo Thun Cotton Compact</td><td>2,180</td><td>425,100,000đ</td><td><span class="status-badge green">+28%</span></td></tr>
+                    <tr><td>3</td><td>SOMI-008</td><td>Áo Sơ Mi Bamboo</td><td>820</td><td>323,900,000đ</td><td><span class="status-badge green">+18%</span></td></tr>
+                    <tr><td>4</td><td>QUAN-022</td><td>Quần Tây Slimfit 2026</td><td>650</td><td>321,750,000đ</td><td><span class="status-badge green">+42%</span></td></tr>
+                    <tr><td>5</td><td>BTS-012</td><td>Bộ Thể Thao Nam Premium</td><td>540</td><td>321,300,000đ</td><td><span class="status-badge green">+25%</span></td></tr>
+                    <tr><td>6</td><td>POLO-002</td><td>Áo Polo Slimfit</td><td>920</td><td>317,400,000đ</td><td><span class="status-badge green">+12%</span></td></tr>
+                    <tr><td>7</td><td>SHORT-007</td><td>Quần Short Kaki</td><td>1,580</td><td>308,100,000đ</td><td><span class="status-badge amber">+5%</span></td></tr>
+                    <tr><td>8</td><td>POLO-005</td><td>Polo Sport Edition 2026</td><td>780</td><td>300,300,000đ</td><td><span class="status-badge green">+18%</span></td></tr>
+                    <tr><td>9</td><td>SOMI-009</td><td>Sơ Mi Trắng Premium</td><td>680</td><td>289,000,000đ</td><td><span class="status-badge red">-8%</span></td></tr>
+                    <tr><td>10</td><td>BTS-013</td><td>Bộ Thể Thao Nữ</td><td>450</td><td>222,750,000đ</td><td><span class="status-badge green">+52%</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">⭐ Top 10 khách hàng VIP (doanh thu tháng)</div></div></div>
+            <table class="data-table">
+                <thead><tr><th>#</th><th>KH</th><th>Nhóm</th><th>Số đơn</th><th>Doanh thu</th><th>ARPU</th><th>Tăng trưởng</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Đại lý Anh Tuấn - Hà Nội</td><td>💎 VIP Diamond</td><td>8</td><td>1,250,000,000đ</td><td>156,250,000đ</td><td><span class="status-badge green">+45%</span></td></tr>
+                    <tr><td>2</td><td>Cty May Hoàng Gia</td><td>💎 VIP Diamond</td><td>3</td><td>850,000,000đ</td><td>283,000,000đ</td><td><span class="status-badge green">+88%</span></td></tr>
+                    <tr><td>3</td><td>Đại lý Miền Tây</td><td>💎 VIP Diamond</td><td>12</td><td>720,000,000đ</td><td>60,000,000đ</td><td><span class="status-badge green">+22%</span></td></tr>
+                    <tr><td>4</td><td>Đại lý Bắc Ninh</td><td>⭐ VIP Gold</td><td>6</td><td>520,000,000đ</td><td>86,700,000đ</td><td><span class="status-badge green">+15%</span></td></tr>
+                    <tr><td>5</td><td>Chuỗi Co.op Sài Gòn</td><td>⭐ VIP Gold</td><td>4</td><td>485,000,000đ</td><td>121,250,000đ</td><td><span class="status-badge green">+62%</span></td></tr>
+                    <tr><td>6</td><td>Đại lý Đà Nẵng</td><td>⭐ VIP Gold</td><td>5</td><td>420,000,000đ</td><td>84,000,000đ</td><td><span class="status-badge green">+8%</span></td></tr>
+                    <tr><td>7</td><td>Shopee POLOMIMIN Official</td><td>🌐 Sàn TMĐT</td><td>1,420</td><td>385,000,000đ</td><td>271,000đ</td><td><span class="status-badge green">+35%</span></td></tr>
+                    <tr><td>8</td><td>TikTok Shop POLOMIMIN</td><td>🌐 Sàn TMĐT</td><td>680</td><td>285,000,000đ</td><td>419,000đ</td><td><span class="status-badge green">+125%</span></td></tr>
+                    <tr><td>9</td><td>Đại lý Cần Thơ</td><td>🏪 Đại lý</td><td>3</td><td>220,000,000đ</td><td>73,300,000đ</td><td><span class="status-badge red">-15%</span></td></tr>
+                    <tr><td>10</td><td>Cửa hàng Việt Fashion</td><td>🛍️ Cửa hàng</td><td>8</td><td>180,000,000đ</td><td>22,500,000đ</td><td><span class="status-badge amber">+3%</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">📊 Doanh thu theo kênh bán</div><div class="card-subtitle">Phân bổ doanh thu tháng 7</div></div></div>
+            <div class="grid-4">
+                <div class="kpi-card"><div class="kpi-icon" style="background: #DBEAFE; color: #1E40AF;">🏪</div><div class="kpi-label">Đại lý/Cửa hàng</div><div class="kpi-value" style="font-size: 22px;">4.8 tỷ</div><div class="kpi-change up">58% DT</div></div>
+                <div class="kpi-card"><div class="kpi-icon" style="background: #FED7AA; color: #EA580C;">🛒</div><div class="kpi-label">Shopee</div><div class="kpi-value" style="font-size: 22px;">1.2 tỷ</div><div class="kpi-change up">15% DT</div></div>
+                <div class="kpi-card"><div class="kpi-icon" style="background: #FEF3C7; color: #F59E0B;">📱</div><div class="kpi-label">TikTok Shop</div><div class="kpi-value" style="font-size: 22px;">0.8 tỷ</div><div class="kpi-change up">10% DT</div></div>
+                <div class="kpi-card"><div class="kpi-icon" style="background: #D1FAE5; color: #10B981;">🌐</div><div class="kpi-label">Website + Zalo OA</div><div class="kpi-value" style="font-size: 22px;">1.4 tỷ</div><div class="kpi-change up">17% DT</div></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">📊 Báo cáo tổng hợp tháng 7/2026</div></div></div>
+            <div class="grid-2">
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">💰 Doanh thu</h4>
+                    <div class="info-row"><span>Doanh thu thuần</span><span><strong>8,200,000,000đ</strong></span></div>
+                    <div class="info-row"><span>Giảm giá/CK</span><span style="color: #DC2626;">-980,000,000đ</span></div>
+                    <div class="info-row"><span>Phí vận chuyển thu</span><span style="color: #10B981;">+125,000,000đ</span></div>
+                    <div class="info-row"><span>Trả hàng/hoàn</span><span style="color: #DC2626;">-8,500,000đ</span></div>
+                    <div class="info-row" style="border-top: 2px solid var(--primary); padding-top: 8px; margin-top: 8px;"><span><strong>Doanh thu ròng</strong></span><span style="color: var(--primary);"><strong>7,336,500,000đ</strong></span></div>
+                </div>
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">💸 Chi phí</h4>
+                    <div class="info-row"><span>Nguyên vật liệu</span><span>3,800,000,000đ</span></div>
+                    <div class="info-row"><span>Nhân công SX</span><span>1,200,000,000đ</span></div>
+                    <div class="info-row"><span>Vận chuyển</span><span>185,000,000đ</span></div>
+                    <div class="info-row"><span>Marketing</span><span>120,000,000đ</span></div>
+                    <div class="info-row" style="border-top: 2px solid #DC2626; padding-top: 8px; margin-top: 8px;"><span><strong>Tổng chi phí</strong></span><span style="color: #DC2626;"><strong>5,305,000,000đ</strong></span></div>
+                </div>
+            </div>
+            <div style="margin-top: 16px; padding: 16px; background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%); border: 2px solid #DC2626; border-radius: 12px; text-align: center;">
+                <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 8px;">📊 LỢI NHUẬN RÒNG THÁNG 7</div>
+                <div style="font-size: 36px; font-weight: 900; color: #DC2626;">2,031,500,000đ</div>
+                <div style="font-size: 13px; color: #10B981; margin-top: 8px;">↑ +27% so với tháng 6 (1.6 tỷ)</div>
+                <div style="font-size: 13px; color: var(--text-secondary);">Biên lợi nhuận: 27.7% (tăng từ 24.2%)</div>
+            </div>
+        </div>
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026 · Báo cáo tự động cập nhật lúc 23:59 hàng ngày</footer>
+    </main>
+    <div class="toast-container"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},{section:'Bán hàng'},
+            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
+            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',badge:'12'},
+            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
+            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html'},
+            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
+            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
+            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html'},
+            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
+            {section:'Modules khác'},
+            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
+            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
+        ];
+        MiminShell.init({user:{name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'},navItems:NAV_ITEMS,notifications:[],aiFloatMessage:'📊 Báo cáo tháng 7 - DT 8.2 tỷ (+22%), LN 2 tỷ (+27%)',onNavClick:(item,el)=>{if(item.href)return;}});
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Cập nhật trạng thái đơn</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+        .workflow { background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 32px; }
+        .wf-step { display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; position: relative; }
+        .wf-step:not(:last-child)::after { content: ''; position: absolute; left: 24px; top: 60px; bottom: -10px; width: 2px; background: var(--border-color); }
+        .wf-step.done:not(:last-child)::after { background: #10B981; }
+        .wf-circle { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-section); color: var(--text-light); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; flex-shrink: 0; border: 3px solid var(--border-color); }
+        .wf-step.done .wf-circle { background: #10B981; color: white; border-color: #10B981; }
+        .wf-step.current .wf-circle { background: var(--primary); color: white; border-color: var(--primary); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); } }
+        .wf-content { flex: 1; }
+        .wf-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .wf-step.done .wf-title { color: #10B981; }
+        .wf-step.current .wf-title { color: var(--primary); }
+        .wf-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+        .wf-time { font-size: 12px; color: var(--text-light); margin-bottom: 8px; }
+        .wf-actions { display: flex; gap: 8px; }
+    </style>
+</head>
+<body>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+    </aside>
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm đơn cần cập nhật..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><a href="23-sales-don-hang.html">📋 Đơn hàng</a><span class="separator">›</span><span class="current">🔄 Cập nhật trạng thái</span></nav>
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">🔄 Cập nhật trạng thái đơn hàng</div>
+                <div class="bph-subtitle">Workflow: Mới → Duyệt → Xuất kho → Đóng gói → Giao hàng → Hoàn thành</div>
+            </div>
+            <div class="bph-actions">
+                <select class="form-select" style="width: 280px;">
+                    <option>#SO-4521 - Đại lý Anh Tuấn - 120tr (Đã duyệt)</option>
+                    <option>#SO-4520 - Nguyễn Văn A - 850K (Mới)</option>
+                    <option>#SO-4519 - POLOMIMIN Shopee - 3.2tr (Đang giao)</option>
+                    <option>#SO-4518 - Việt Fashion - 78tr (Đã duyệt)</option>
+                </select>
+            </div>
+        </div>
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Đơn đang xử lý</div><div class="kpi-value">28</div><div class="kpi-change up">+12%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Đã xử lý hôm nay</div><div class="kpi-value">52</div><div class="kpi-change up">+18</div></div>
+            <div class="kpi-card"><div class="kpi-label">TB thời gian xử lý</div><div class="kpi-value">2.4h</div><div class="kpi-change up">-15%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Tỷ lệ đúng hẹn</div><div class="kpi-value">94%</div><div class="kpi-change up">+3%</div></div>
+        </div>
+        <div class="workflow">
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 24px;">📦 Workflow đơn #SO-4521</h3>
+            <div class="wf-step done">
+                <div class="wf-circle">✓</div>
+                <div class="wf-content">
+                    <div class="wf-title">1. Đơn được tạo</div>
+                    <div class="wf-desc">Hồ Minh Sang tạo đơn từ Dashboard Sales cho Đại lý Anh Tuấn</div>
+                    <div class="wf-time">🕐 09:32 12/07/2026 · Người tạo: Hồ Minh Sang</div>
+                </div>
+            </div>
+            <div class="wf-step done">
+                <div class="wf-circle">✓</div>
+                <div class="wf-content">
+                    <div class="wf-title">2. Đã duyệt đơn</div>
+                    <div class="wf-desc">Đơn được duyệt với áp dụng chiết khấu VIP 10-15%</div>
+                    <div class="wf-time">🕐 10:15 12/07/2026 · Đã gửi yêu cầu xuất kho WMS</div>
+                    <div class="wf-actions"><span class="status-badge green">✅ Hoàn thành</span></div>
+                </div>
+            </div>
+            <div class="wf-step current">
+                <div class="wf-circle">3</div>
+                <div class="wf-content">
+                    <div class="wf-title">3. Chờ xuất kho (ĐANG XỬ LÝ)</div>
+                    <div class="wf-desc">WMS cần xuất kho 350 sản phẩm: 100 Polo + 50 Sơ mi + 200 Quần</div>
+                    <div class="wf-time">🕐 Bắt đầu 10:30 12/07/2026 · Liên hệ WMS: 06-wms-dashboard.html</div>
+                    <div class="wf-actions">
+                        <button class="btn btn-primary" style="background: var(--primary-gradient);"><i class="fas fa-box"></i> Đánh dấu đã xuất kho</button>
+                        <button class="btn btn-secondary"><i class="fas fa-eye"></i> Xem phiếu xuất</button>
+                    </div>
+                </div>
+            </div>
+            <div class="wf-step">
+                <div class="wf-circle">4</div>
+                <div class="wf-content">
+                    <div class="wf-title">4. Đóng gói & Ghi nhãn</div>
+                    <div class="wf-desc">Đóng gói theo tiêu chuẩn POLOMIMIN, dán nhãn vận chuyển</div>
+                    <div class="wf-time">📅 Dự kiến: 13/07/2026 · Ước tính: 4 giờ</div>
+                    <div class="wf-actions">
+                        <button class="btn btn-secondary" disabled>Chờ xuất kho xong</button>
+                    </div>
+                </div>
+            </div>
+            <div class="wf-step">
+                <div class="wf-circle">5</div>
+                <div class="wf-content">
+                    <div class="wf-title">5. Đang giao hàng (GHN)</div>
+                    <div class="wf-desc">GHN Express nhận hàng, tracking sẽ tự động cập nhật</div>
+                    <div class="wf-time">📅 Dự kiến pickup: 14/07/2026 · ETA giao: 15/07/2026</div>
+                    <div class="wf-actions">
+                        <button class="btn btn-secondary" disabled>Chờ đóng gói xong</button>
+                    </div>
+                </div>
+            </div>
+            <div class="wf-step">
+                <div class="wf-circle">6</div>
+                <div class="wf-content">
+                    <div class="wf-title">6. Hoàn thành đơn hàng</div>
+                    <div class="wf-desc">KH nhận hàng, xác nhận OK, đóng đơn, đánh giá</div>
+                    <div class="wf-time">📅 Dự kiến: 15/07/2026</div>
+                    <div class="wf-actions">
+                        <button class="btn btn-secondary" disabled>Chờ giao hàng xong</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 16px;">
+            <div class="card-header">
+                <div><div class="card-title">📊 Đơn hàng chờ xử lý (28)</div><div class="card-subtitle">Cập nhật trạng thái nhanh</div></div>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Mã</th><th>Khách</th><th>Trạng thái hiện</th><th>Đang chờ</th><th>Hành động</th></tr></thead>
+                <tbody>
+                    <tr><td>#SO-4521</td><td>Anh Tuấn - HN</td><td><span class="status-badge amber">Chờ xuất kho</span></td><td>2h 15m</td><td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 12px;">Cập nhật</button></td></tr>
+                    <tr><td>#SO-4517</td><td>Bắc Ninh</td><td><span class="status-badge amber">Chờ duyệt</span></td><td>5h 40m</td><td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 12px;">Duyệt</button></td></tr>
+                    <tr><td>#SO-4515</td><td>TikTok Shop</td><td><span class="status-badge blue">Đang giao</span></td><td>1h 20m</td><td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 12px;">Tracking</button></td></tr>
+                    <tr><td>#SO-4514</td><td>Cần Thơ</td><td><span class="status-badge red">Đã hủy</span></td><td>—</td><td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 12px;">Chi tiết</button></td></tr>
+                    <tr><td>#RT-0034</td><td>Khách lẻ</td><td><span class="status-badge amber">Trả hàng chờ</span></td><td>6h 10m</td><td><button class="btn-biz-outline" style="font-size: 12px; padding: 4px 12px;">Xử lý</button></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026</footer>
+    </main>
+    <div class="toast-container"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},{section:'Bán hàng'},
+            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
+            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',active:true,badge:'12'},
+            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
+            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html'},
+            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
+            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
+            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html'},
+            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
+            {section:'Modules khác'},
+            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
+            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
+        ];
+        MiminShell.init({user:{name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'},navItems:NAV_ITEMS,notifications:[],aiFloatMessage:'💡 Workflow đơn hàng - Click nút "Đánh dấu đã xuất kho" để chuyển bước',onNavClick:(item,el)=>{if(item.href)return;}});
+    })();
+    </script>
+</body>
+</html>

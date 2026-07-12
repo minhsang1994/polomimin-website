@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLOMIMIN · Hủy đơn hàng</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/business-layout.css" />
+    <style>
+        :root { --primary: #DC2626; --primary-dark: #B91C1C; --primary-light: #EF4444; --primary-gradient: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); --teal: #14B8A6; }
+        .biz-page-header { background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(20, 184, 166, 0.05)); }
+        .cancel-section { background: #FEF2F2; border: 2px solid #DC2626; border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; }
+        .cancel-section h3 { color: #DC2626; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    </style>
+</head>
+<body>
+    <aside class="m-sidebar" id="sidebar">
+        <div class="m-sidebar-brand"><div class="logo-icon" style="background: linear-gradient(135deg, #DC2626, #14B8A6);">P</div><div class="logo-text">POLOMIMIN<span>.</span></div></div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer"><div class="avatar">HS</div><div class="user-info"><div class="name">Hồ Minh Sang</div><div class="role">Founder &amp; CEO</div></div><button class="logout-btn">⏻</button></div>
+    </aside>
+    <main class="m-main">
+        <header class="m-header">
+            <button class="menu-toggle">☰</button>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" placeholder="Tìm đơn cần hủy..."><span class="shortcut">⌘K</span></div>
+            <div class="actions"><button class="action-btn">🌓</button><button class="action-btn">🔔<span class="dot"></span></button><div class="divider"></div><div class="user-avatar">HS</div></div>
+        </header>
+        <nav class="breadcrumb"><a href="01-home.html">🏠 Hub</a><span class="separator">›</span><a href="22-sales-dashboard.html">💰 Sales</a><span class="separator">›</span><a href="23-sales-don-hang.html">📋 Đơn hàng</a><span class="separator">›</span><span class="current">❌ Hủy đơn</span></nav>
+        <div class="biz-page-header"><div><div class="bph-title">❌ Hủy đơn hàng</div><div class="bph-subtitle">Hủy đơn có lý do, xử lý hoàn tiền nếu đã thanh toán</div></div></div>
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Đơn đã hủy tháng</div><div class="kpi-value">12</div><div class="kpi-change up">-5</div></div>
+            <div class="kpi-card"><div class="kpi-label">Tỷ lệ hủy</div><div class="kpi-value">0.85%</div><div class="kpi-change up">-0.3%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Giá trị hoàn</div><div class="kpi-value">385tr</div><div class="kpi-change down">+12%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Lý do phổ biến</div><div class="kpi-value" style="font-size: 16px;">KH đổi ý</div><div class="kpi-change up">42%</div></div>
+        </div>
+        <div class="cancel-section">
+            <h3>❌ Hủy đơn hàng #SO-4514</h3>
+            <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                <div class="form-row">
+                    <div><strong>Khách hàng:</strong> Đại lý Cần Thơ</div>
+                    <div><strong>Giá trị:</strong> 92,000,000đ</div>
+                    <div><strong>Trạng thái:</strong> <span class="status-badge amber">Đã duyệt - Chờ xuất kho</span></div>
+                    <div><strong>Thanh toán:</strong> <span class="status-badge green">Đã CK 100%</span></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Mã đơn cần hủy *</label><input type="text" class="form-input" value="SO-4514" readonly></div>
+                <div class="form-group"><label class="form-label">Người yêu cầu hủy *</label><select class="form-select"><option>Khách hàng yêu cầu</option><option selected>Hồ Minh Sang (CEO) quyết định</option><option>Hết hàng không thể giao</option><option>Sai giá / sai sản phẩm</option></select></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Lý do hủy *</label>
+                <select class="form-select" style="margin-bottom: 12px;">
+                    <option>Khách hàng đổi ý / không cần nữa</option>
+                    <option selected>Hết hàng - không đủ tồn kho</option>
+                    <option>Sai giá / nhầm sản phẩm</option>
+                    <option>KH không thanh toán đúng hẹn</option>
+                    <option>Sự cố vận chuyển (giao thất bại)</option>
+                    <option>Lý do khác (ghi rõ bên dưới)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Ghi chú chi tiết *</label>
+                <textarea class="form-textarea" rows="3" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;" placeholder="VD: KH hết hàng size L doanh số tháng 7 tăng cao...">Đại lý Cần Thơ báo hết hàng size L, ưu tiên chuyển sang đợt 2 (15/07) hoặc đổi size M. KH đồng ý HỦY đơn này và chờ đợt 2.</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Xử lý tồn kho *</label>
+                <select class="form-select">
+                    <option>Hoàn trả vào kho (còn nguyên seal)</option>
+                    <option selected>Để nguyên trạng - chờ xuất đơn mới</option>
+                    <option>Xuất bán đơn khác</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Xử lý tiền (KH đã CK 100%) *</label>
+                <select class="form-select">
+                    <option selected>Hoàn 100% qua chuyển khoản (1-3 ngày)</option>
+                    <option>Giữ làm credit cho đơn tiếp theo</option>
+                    <option>Hoàn 95% (trừ phí xử lý 5%)</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header"><div><div class="card-title">📊 Lịch sử hủy đơn gần đây (12 đơn tháng này)</div><div class="card-subtitle">Theo dõi lý do và giá trị hoàn</div></div></div>
+            <table class="data-table">
+                <thead><tr><th>Mã</th><th>Khách</th><th>Giá trị</th><th>Lý do</th><th>Ngày hủy</th><th>Trạng thái hoàn</th></tr></thead>
+                <tbody>
+                    <tr><td>#SO-4514</td><td>Cần Thơ</td><td>92,000,000đ</td><td>Hết hàng size L</td><td>12/07 09:15</td><td><span class="status-badge amber">Chờ duyệt</span></td></tr>
+                    <tr><td>#SO-4502</td><td>Khách lẻ Q3</td><td>1,250,000đ</td><td>KH đổi ý</td><td>10/07 16:20</td><td><span class="status-badge green">Đã hoàn 100%</span></td></tr>
+                    <tr><td>#SO-4498</td><td>Hà Nội Shop</td><td>4,800,000đ</td><td>Sai size</td><td>09/07 11:45</td><td><span class="status-badge green">Đã hoàn 100%</span></td></tr>
+                    <tr><td>#SO-4485</td><td>Miền Tây</td><td>15,600,000đ</td><td>KH chưa thanh toán</td><td>08/07 14:00</td><td><span class="status-badge red">Hủy + Blacklist</span></td></tr>
+                    <tr><td>#SO-4472</td><td>Đà Nẵng</td><td>3,200,000đ</td><td>Giao thất bại x3</td><td>07/07 09:30</td><td><span class="status-badge amber">Đang hoàn tiền</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 16px; justify-content: flex-end;">
+            <a href="23-sales-don-hang.html" class="btn btn-secondary">← Quay lại</a>
+            <button class="btn" style="background: #FEE2E2; color: #991B1B;"><i class="fas fa-times"></i> Hủy đơn này</button>
+            <button class="btn btn-primary" style="background: var(--primary-gradient);"><i class="fas fa-check"></i> Xác nhận hủy & hoàn tiền</button>
+        </div>
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 24px;">POLOMIMIN Platform v1.0 · Dệt May Giàu Sang · © 2026</footer>
+    </main>
+    <div class="toast-container"></div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/business-layout.js"></script>
+    <script>
+    (function(){
+        'use strict';
+        const NAV_ITEMS=[
+            {icon:'🏠',label:'Hub chính',href:'01-home.html'},{section:'Bán hàng'},
+            {icon:'💰',label:'Sales Dashboard',href:'22-sales-dashboard.html'},
+            {icon:'📋',label:'Đơn hàng',href:'23-sales-don-hang.html',active:true,badge:'12'},
+            {icon:'👥',label:'Khách hàng',href:'24-sales-khach-hang.html'},
+            {icon:'👕',label:'Sản phẩm',href:'25-sales-san-pham.html'},
+            {icon:'📦',label:'Kho thành phẩm',href:'26-sales-kho-thanh-pham.html'},
+            {icon:'🚚',label:'Vận chuyển',href:'27-sales-van-chuyen.html',badge:'5'},
+            {icon:'💳',label:'Thanh toán',href:'28-sales-thanh-toan.html'},
+            {icon:'🌐',label:'Kênh bán',href:'29-sales-kenh-ban.html'},
+            {section:'Modules khác'},
+            {icon:'📊',label:'ERP',href:'02-erp-dashboard.html'},
+            {icon:'⚙️',label:'MES',href:'04-mes-dashboard.html'},
+            {icon:'📦',label:'WMS',href:'06-wms-dashboard.html'},
+            {icon:'👨‍💼',label:'HRM',href:'22-hr-dashboard.html'},
+            {icon:'🤖',label:'AI Center',href:'25-ai-dashboard.html'},
+            {icon:'🎓',label:'Academy',href:'37-academy-dashboard.html'},
+        ];
+        MiminShell.init({user:{name:'Hồ Minh Sang',initials:'HS',role:'Founder & CEO',company:'Dệt May Giàu Sang',plan:'Enterprise',loginDate:'07/07/2026'},navItems:NAV_ITEMS,notifications:[],aiFloatMessage:'⚠️ Hủy đơn cần xác nhận - Đã CK thì phải hoàn tiền',onNavClick:(item,el)=>{if(item.href)return;}});
+    })();
+    </script>
+</body>
+</html>
