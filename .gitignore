@@ -33,3 +33,4 @@ zalo-api.js
 # Generator scripts
 generate_pages.*
 generate-pages.*
+copy_reference.cjs

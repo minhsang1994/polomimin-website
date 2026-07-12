@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN · AI Dashboard</title>
+
+    <!-- ========================================== -->
+    <!-- 1. FONT: Inter (Google Fonts)             -->
+    <!-- ========================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+
+    <!-- ========================================== -->
+    <!-- 4. CUSTOM CSS (Design Tokens)             -->
+    <!-- ========================================== -->
+    <style>
+        /* ====== CSS VARIABLES ====== */
+        :root {
+            /* Brand */
+            --primary: #1E3A8A;
+            --primary-dark: #172554;
+            --primary-light: #3B82F6;
+            --primary-gradient: linear-gradient(135deg, #1E3A8A 0%, #0D9488 100%);
+            --teal: #14B8A6;
+            --teal-light: #5EEAD4;
+            --orange: #F97316;
+            --orange-light: #FDBA74;
+
+            /* Backgrounds */
+            --bg-body: #F1F5F9;
+            --bg-surface: #FFFFFF;
+            --bg-sidebar: #FFFFFF;
+            --bg-input: #F8FAFC;
+            --bg-hover: #F1F5F9;
+            --bg-glass: rgba(255, 255, 255, 0.60);
+            --bg-glass-dark: rgba(15, 23, 42, 0.80);
+
+            /* Text */
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-light: #94A3B8;
+            --text-white: #FFFFFF;
+
+            /* Borders */
+            --border-color: #E2E8F0;
+
+            /* Shadows - Apple/Linear/Notion style */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.10);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.04);
+
+            /* Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+
+            /* Layout */
+            --sidebar-width: 280px;
+            --header-height: 72px;
+            --header-bg: rgba(255, 255, 255, 0.72);
+
+            /* Transitions */
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ====== DARK MODE ====== */
+        [data-theme="dark"] {
+            --bg-body: #0F172A;
+            --bg-surface: #1E293B;
+            --bg-sidebar: #0F172A;
+            --bg-input: #1E293B;
+            --bg-hover: #1E293B;
+            --bg-glass: rgba(30, 41, 59, 0.80);
+            --bg-glass-dark: rgba(15, 23, 42, 0.95);
+
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-light: #64748B;
+
+            --border-color: #1E293B;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.6);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+            --header-bg: rgba(15, 23, 42, 0.85);
+        }
+
+        /* ====== RESET & BASE ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ====== SCROLLBAR ====== */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: var(--radius-full);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-light);
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* ====== SIDEBAR ====== */
+        .m-sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            border-right: 1px solid var(--border-color);
+            transition: var(--transition);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 100;
+        }
+
+        .m-sidebar-brand {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            min-height: var(--header-height);
+        }
+        .m-sidebar-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        .m-sidebar-brand .logo-text {
+            color: var(--text-primary);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .m-sidebar-brand .logo-text span {
+            color: var(--teal);
+        }
+
+        .m-sidebar-nav {
+            flex: 1;
+            padding: var(--spacing-md) var(--spacing-sm);
+            list-style: none;
+        }
+        .m-sidebar-nav li {
+            margin-bottom: var(--spacing-xs);
+        }
+        .m-sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .m-sidebar-nav a:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .m-sidebar-nav a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+        }
+        .m-sidebar-nav a .nav-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .m-sidebar-nav a .nav-badge {
+            margin-left: auto;
+            background: var(--bg-hover);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .m-sidebar-nav a.active .nav-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .m-sidebar-footer {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        .m-sidebar-footer .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .m-sidebar-footer .user-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .m-sidebar-footer .user-info .name {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .user-info .role {
+            color: var(--text-light);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .logout-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 18px;
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        .m-sidebar-footer .logout-btn:hover {
+            background: var(--bg-hover);
+            color: #EF4444;
+        }
+
+        /* ====== HEADER ====== */
+        .m-header {
+            height: var(--header-height);
+            background: var(--header-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-xl);
+            gap: var(--spacing-lg);
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: background 0.3s ease;
+        }
+
+        .m-header .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .m-header .search-box {
+            flex: 1;
+            max-width: 560px;
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            border-radius: var(--radius-full);
+            padding: 0 var(--spacing-lg);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .m-header .search-box:focus-within {
+            border-color: var(--primary-light);
+            background: var(--bg-surface);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+        }
+        .m-header .search-box input {
+            border: none;
+            background: transparent;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            color: var(--text-primary);
+        }
+        .m-header .search-box input::placeholder {
+            color: var(--text-light);
+        }
+        .m-header .search-box .search-icon {
+            color: var(--text-light);
+            font-size: 18px;
+            margin-right: var(--spacing-md);
+        }
+        .m-header .search-box .shortcut {
+            font-size: 11px;
+            color: var(--text-light);
+            background: var(--bg-hover);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+        }
+
+        .m-header .actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-left: auto;
+        }
+        .m-header .actions .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--text-secondary);
+        }
+        .m-header .actions .action-btn:hover {
+            background: var(--bg-hover);
+            color: var(--primary);
+        }
+        .m-header .actions .action-btn .dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: #EF4444;
+            border-radius: var(--radius-full);
+            border: 2px solid var(--bg-surface);
+        }
+        [data-theme="dark"] .m-header .actions .action-btn .dot {
+            border-color: var(--bg-surface);
+        }
+        .m-header .actions .divider {
+            width: 1px;
+            height: 30px;
+            background: var(--border-color);
+        }
+        .m-header .actions .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+        .m-header .actions .user-avatar:hover {
+            border-color: var(--teal);
+            transform: scale(1.05);
+        }
+
+        /* ====== NOTIFICATION POPOVER ====== */
+        .notif-popover {
+            position: absolute;
+            top: calc(var(--header-height) + 8px);
+            right: 80px;
+            width: 360px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            max-height: 400px;
+            overflow: hidden;
+            z-index: 200;
+            animation: fadeIn 0.2s ease;
+        }
+        .notif-popover.open {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .notif-popover .head {
+            padding: 16px 24px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-primary);
+        }
+        .notif-popover .head .mark-read {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .notif-popover .head .mark-read:hover {
+            color: var(--teal);
+        }
+        .notif-popover .list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .notif-popover .list .item {
+            padding: 8px 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .notif-popover .list .item:hover {
+            background: var(--bg-hover);
+        }
+        .notif-popover .list .item .icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .notif-popover .list .item .content {
+            flex: 1;
+            min-width: 0;
+        }
+        .notif-popover .list .item .content .title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .notif-popover .list .item .content .time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        .notif-popover .foot {
+            padding: 8px 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 13px;
+            color: var(--teal);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .notif-popover .foot:hover {
+            background: var(--bg-hover);
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .m-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            background: var(--bg-body);
+            padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+            gap: var(--spacing-xl);
+            transition: background 0.3s ease;
+        }
+
+        /* ====== BREADCRUMB ====== */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 14px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+        .breadcrumb a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .breadcrumb a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        .breadcrumb .separator {
+            color: var(--text-light);
+        }
+        .breadcrumb .current {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ====== PAGE HEADER ====== */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        .page-header .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+        }
+        .page-header .page-title .title-icon {
+            margin-right: var(--spacing-sm);
+        }
+        .page-header .page-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+        .page-header .page-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* ====== BUTTONS ====== */
+        .btn-primary {
+            padding: 10px 24px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(30, 58, 138, 0.25);
+        }
+
+        .btn-secondary {
+            padding: 10px 24px;
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-body);
+            border-color: var(--text-light);
+        }
+
+        .btn-ghost {
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-ghost:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* ====== STATS GRID ====== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-md);
+        }
+        .stat-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        .stat-card .stat-icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+        .stat-card .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .stat-card .stat-change {
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: var(--spacing-xs);
+            display: inline-block;
+            padding: 0 8px;
+            border-radius: var(--radius-full);
+        }
+        .stat-card .stat-change.up {
+            color: #10B981;
+            background: #D1FAE5;
+        }
+        .stat-card .stat-change.down {
+            color: #EF4444;
+            background: #FEE2E2;
+        }
+        .stat-card .stat-change.neutral {
+            color: var(--text-light);
+            background: var(--bg-hover);
+        }
+        [data-theme="dark"] .stat-card .stat-change.up {
+            background: #064E3B;
+        }
+        [data-theme="dark"] .stat-card .stat-change.down {
+            background: #450A0A;
+        }
+        [data-theme="dark"] .stat-card .stat-change.neutral {
+            background: #1E293B;
+        }
+
+        /* ====== GRID LAYOUT ====== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-lg);
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        /* ====== CARDS ====== */
+        .card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        .card .card-header .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .card .card-header .card-action {
+            font-size: 13px;
+            color: var(--primary-light);
+            cursor: pointer;
+            font-weight: 500;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+        .card .card-header .card-action:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* ====== AGENT CARDS ====== */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: var(--spacing-md);
+        }
+        .agent-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+        .agent-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--agent-color, var(--primary));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .agent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .agent-card:hover::after {
+            opacity: 1;
+        }
+        .agent-card .agent-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+        .agent-card .agent-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .agent-card .agent-status {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+        .agent-card .agent-status .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+        .agent-card .agent-status .status-dot.online {
+            background: #10B981;
+        }
+        .agent-card .agent-status .status-dot.offline {
+            background: #EF4444;
+        }
+        .agent-card .agent-status .status-dot.idle {
+            background: #F59E0B;
+        }
+
+        /* ====== MOST USED LIST ====== */
+        .most-used-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .most-used-item:last-child {
+            border-bottom: none;
+        }
+        .most-used-item .mu-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .most-used-item .mu-info {
+            flex: 1;
+        }
+        .most-used-item .mu-info .mu-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .most-used-item .mu-info .mu-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .most-used-item .mu-stats {
+            text-align: right;
+        }
+        .most-used-item .mu-stats .mu-count {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .most-used-item .mu-stats .mu-label {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        /* ====== SHORTCUTS ====== */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: var(--spacing-sm);
+        }
+        .shortcut-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .shortcut-item:hover {
+            border-color: var(--primary-light);
+            background: var(--bg-hover);
+            transform: translateY(-2px);
+        }
+        .shortcut-item .sc-icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+        .shortcut-item .sc-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .shortcut-item .sc-key {
+            font-size: 10px;
+            color: var(--text-light);
+            margin-top: 2px;
+            background: var(--bg-hover);
+            padding: 0 6px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* ====== TOAST ====== */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 100%;
+            max-width: 480px;
+            padding: 0 16px;
+        }
+        .toast {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            pointer-events: auto;
+            animation: toastIn 0.4s ease forwards;
+            width: 100%;
+        }
+        .toast.error {
+            border-left: 4px solid #EF4444;
+        }
+        .toast.success {
+            border-left: 4px solid #10B981;
+        }
+        .toast.info {
+            border-left: 4px solid var(--primary-light);
+        }
+        .toast.hide {
+            animation: toastOut 0.3s ease forwards;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+        }
+
+        /* ====== DRAWER ====== */
+        .m-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.30);
+            backdrop-filter: blur(4px);
+            z-index: 400;
+            display: none;
+            justify-content: flex-end;
+        }
+        [data-theme="dark"] .m-drawer-overlay {
+            background: rgba(0, 0, 0, 0.50);
+        }
+        .m-drawer-overlay.open {
+            display: flex;
+        }
+        .m-drawer {
+            width: 420px;
+            background: var(--bg-surface);
+            height: 100%;
+            padding: 32px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideIn 0.3s ease;
+            border-left: 1px solid var(--border-color);
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .m-drawer .drawer-close {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            float: right;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .m-drawer .drawer-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+        .m-drawer .drawer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: 700;
+            margin: 20px auto;
+        }
+        .m-drawer .drawer-name {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .m-drawer .drawer-role {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .m-drawer .drawer-info {
+            background: var(--bg-input);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+        .m-drawer .drawer-info .label {
+            font-size: 13px;
+        }
+        .m-drawer .drawer-info .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .m-drawer .drawer-btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .m-drawer .drawer-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 1024px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 0px;
+            }
+            .m-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 280px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .m-sidebar.open {
+                transform: translateX(0);
+            }
+            .m-header .menu-toggle {
+                display: block;
+            }
+            .m-header {
+                padding: 0 16px;
+                gap: var(--spacing-sm);
+            }
+            .m-header .search-box {
+                max-width: 140px;
+            }
+            .m-header .search-box .shortcut {
+                display: none;
+            }
+            .m-main {
+                padding: 16px;
+                gap: 16px;
+            }
+            .page-header .page-title {
+                font-size: 22px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .grid-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .agent-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            .shortcuts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+            .notif-popover {
+                right: 12px;
+                width: 320px;
+            }
+            .m-drawer {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .page-header .page-actions {
+                width: 100%;
+            }
+            .page-header .page-actions button {
+                flex: 1;
+                text-align: center;
+                justify-content: center;
+            }
+            .agent-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+            .agent-card .agent-icon {
+                font-size: 24px;
+            }
+            .agent-card .agent-name {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- SIDEBAR                                    -->
+    <!-- ========================================== -->
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true">M</div>
+            <div class="logo-text">MIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu">
+            <!-- Render by JS -->
+        </ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT                               -->
+    <!-- ========================================== -->
+    <main class="m-main" id="mainContent">
+
+        <!-- Header -->
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm AI Agent, công cụ..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">
+                    🔔
+                    <span class="dot" aria-hidden="true"></span>
+                </button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+            </div>
+        </header>
+
+        <!-- Notification Popover -->
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head">
+                <span>Thông báo mới</span>
+                <span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span>
+            </div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <!-- ====== AI DASHBOARD CONTENT ====== -->
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="current">🧠 AI Dashboard</span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">
+                    <span class="title-icon">🧠</span> AI Dashboard
+                </h1>
+                <p class="page-subtitle">Tổng quan về hệ sinh thái AI của MIMIN Platform</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn-secondary" id="exportReportBtn">📊 Xuất báo cáo</button>
+                <button class="btn-primary" id="newAgentBtn">➕ Tạo Agent mới</button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <span class="stat-icon">🤖</span>
+                <div class="stat-number">12</div>
+                <div class="stat-label">AI Agents đang hoạt động</div>
+                <span class="stat-change up">↑ 3 mới</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🪙</span>
+                <div class="stat-number">45.2K</div>
+                <div class="stat-label">Token đã sử dụng</div>
+                <span class="stat-change up">↑ 12% so với tháng trước</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">💰</span>
+                <div class="stat-number">$2,847</div>
+                <div class="stat-label">Chi phí AI tháng này</div>
+                <span class="stat-change down">↓ 8% so với tháng trước</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⚡</span>
+                <div class="stat-number">1.2M</div>
+                <div class="stat-label">Lượt gọi API</div>
+                <span class="stat-change up">↑ 23.5%</span>
+            </div>
+        </div>
+
+        <!-- Grid: Top Agents + Most Used -->
+        <div class="grid-2">
+
+            <!-- Active Agents -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🤖 AI Agents đang hoạt động</span>
+                    <button class="card-action" id="viewAllAgents">Xem tất cả →</button>
+                </div>
+                <div class="agent-grid" id="agentGrid">
+                    <div class="agent-card" style="--agent-color: #8B5CF6;">
+                        <span class="agent-icon">🧠</span>
+                        <div class="agent-name">CEO Agent</div>
+                        <div class="agent-status"><span class="status-dot online"></span>Online</div>
+                    </div>
+                    <div class="agent-card" style="--agent-color: #F59E0B;">
+                        <span class="agent-icon">📢</span>
+                        <div class="agent-name">Marketing</div>
+                        <div class="agent-status"><span class="status-dot online"></span>Online</div>
+                    </div>
+                    <div class="agent-card" style="--agent-color: #10B981;">
+                        <span class="agent-icon">💰</span>
+                        <div class="agent-name">Finance</div>
+                        <div class="agent-status"><span class="status-dot online"></span>Online</div>
+                    </div>
+                    <div class="agent-card" style="--agent-color: #3B82F6;">
+                        <span class="agent-icon">💻</span>
+                        <div class="agent-name">Developer</div>
+                        <div class="agent-status"><span class="status-dot idle"></span>Idle</div>
+                    </div>
+                    <div class="agent-card" style="--agent-color: #EC4899;">
+                        <span class="agent-icon">🎨</span>
+                        <div class="agent-name">Designer</div>
+                        <div class="agent-status"><span class="status-dot online"></span>Online</div>
+                    </div>
+                    <div class="agent-card" style="--agent-color: #6366F1;">
+                        <span class="agent-icon">📊</span>
+                        <div class="agent-name">Data Analyst</div>
+                        <div class="agent-status"><span class="status-dot idle"></span>Idle</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Most Used AI -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🔥 AI được dùng nhiều nhất</span>
+                    <button class="card-action" id="viewMostUsed">Xem chi tiết →</button>
+                </div>
+                <div id="mostUsedList">
+                    <div class="most-used-item">
+                        <span class="mu-icon">🧠</span>
+                        <div class="mu-info">
+                            <div class="mu-name">CEO Agent</div>
+                            <div class="mu-desc">Chiến lược &amp; Quyết định</div>
+                        </div>
+                        <div class="mu-stats">
+                            <div class="mu-count">2,847</div>
+                            <div class="mu-label">lượt dùng</div>
+                        </div>
+                    </div>
+                    <div class="most-used-item">
+                        <span class="mu-icon">📢</span>
+                        <div class="mu-info">
+                            <div class="mu-name">Marketing Agent</div>
+                            <div class="mu-desc">Content &amp; Campaign</div>
+                        </div>
+                        <div class="mu-stats">
+                            <div class="mu-count">1,923</div>
+                            <div class="mu-label">lượt dùng</div>
+                        </div>
+                    </div>
+                    <div class="most-used-item">
+                        <span class="mu-icon">💰</span>
+                        <div class="mu-info">
+                            <div class="mu-name">Finance Agent</div>
+                            <div class="mu-desc">Phân tích tài chính</div>
+                        </div>
+                        <div class="mu-stats">
+                            <div class="mu-count">1,456</div>
+                            <div class="mu-label">lượt dùng</div>
+                        </div>
+                    </div>
+                    <div class="most-used-item">
+                        <span class="mu-icon">💻</span>
+                        <div class="mu-info">
+                            <div class="mu-name">Developer Agent</div>
+                            <div class="mu-desc">Code &amp; Debug</div>
+                        </div>
+                        <div class="mu-stats">
+                            <div class="mu-count">1,234</div>
+                            <div class="mu-label">lượt dùng</div>
+                        </div>
+                    </div>
+                    <div class="most-used-item">
+                        <span class="mu-icon">🎨</span>
+                        <div class="mu-info">
+                            <div class="mu-name">Designer Agent</div>
+                            <div class="mu-desc">UI/UX &amp; Image</div>
+                        </div>
+                        <div class="mu-stats">
+                            <div class="mu-count">987</div>
+                            <div class="mu-label">lượt dùng</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Grid: Usage History + Token + Cost -->
+        <div class="grid-3">
+
+            <!-- Usage History -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📋 Lịch sử sử dụng</span>
+                    <button class="card-action" id="viewHistory">Xem tất cả →</button>
+                </div>
+                <div style="font-size:14px;color:var(--text-secondary);line-height:2;">
+                    <div>🧠 CEO Agent · <span style="color:var(--text-light);">10 phút trước</span></div>
+                    <div>📢 Marketing Agent · <span style="color:var(--text-light);">25 phút trước</span></div>
+                    <div>💰 Finance Agent · <span style="color:var(--text-light);">1 giờ trước</span></div>
+                    <div>💻 Developer Agent · <span style="color:var(--text-light);">2 giờ trước</span></div>
+                    <div>🎨 Designer Agent · <span style="color:var(--text-light);">3 giờ trước</span></div>
+                </div>
+            </div>
+
+            <!-- Token Usage -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">🪙 Token sử dụng</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;justify-content:space-between;font-size:14px;">
+                        <span style="color:var(--text-secondary);">Đã dùng</span>
+                        <span style="font-weight:700;">45.2K</span>
+                    </div>
+                    <div style="height:8px;background:var(--bg-hover);border-radius:var(--radius-full);overflow:hidden;">
+                        <div style="height:100%;width:65%;background:var(--primary-gradient);border-radius:var(--radius-full);transition:width 0.6s ease;"></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);">
+                        <span>Còn lại: 24.8K</span>
+                        <span>65% đã dùng</span>
+                    </div>
+                    <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
+                        <span style="font-size:12px;color:var(--text-secondary);">📅 Hạn: 31/07/2026</span>
+                        <button class="btn-primary" style="padding:4px 16px;font-size:12px;">➕ Mua thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Cost -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">💰 Chi phí AI</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;justify-content:space-between;font-size:14px;">
+                        <span style="color:var(--text-secondary);">Tháng này</span>
+                        <span style="font-weight:700;">$2,847</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:14px;">
+                        <span style="color:var(--text-secondary);">Tháng trước</span>
+                        <span style="font-weight:700;color:var(--text-secondary);">$3,094</span>
+                    </div>
+                    <div style="padding:8px 12px;background:#D1FAE5;border-radius:var(--radius-md);font-size:13px;color:#065F46;margin-top:4px;">
+                        💡 Tiết kiệm 8% so với tháng trước
+                    </div>
+                    <div style="display:flex;gap:8px;margin-top:4px;">
+                        <span style="font-size:12px;color:var(--text-light);">💳 Thanh toán: 15/07</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- AI Shortcuts -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">⌨️ Phím tắt AI</span>
+                <span style="font-size:12px;color:var(--text-light);">Nhấn Ctrl/Cmd + phím</span>
+            </div>
+            <div class="shortcuts-grid">
+                <div class="shortcut-item" data-shortcut="K">
+                    <span class="sc-icon">🔍</span>
+                    <span class="sc-label">Tìm kiếm</span>
+                    <span class="sc-key">⌘K</span>
+                </div>
+                <div class="shortcut-item" data-shortcut="N">
+                    <span class="sc-icon">➕</span>
+                    <span class="sc-label">Agent mới</span>
+                    <span class="sc-key">⌘N</span>
+                </div>
+                <div class="shortcut-item" data-shortcut="H">
+                    <span class="sc-icon">📋</span>
+                    <span class="sc-label">Lịch sử</span>
+                    <span class="sc-key">⌘H</span>
+                </div>
+                <div class="shortcut-item" data-shortcut="D">
+                    <span class="sc-icon">🌓</span>
+                    <span class="sc-label">Dark Mode</span>
+                    <span class="sc-key">⌘D</span>
+                </div>
+                <div class="shortcut-item" data-shortcut="C">
+                    <span class="sc-icon">💬</span>
+                    <span class="sc-label">Chat AI</span>
+                    <span class="sc-key">⌘C</span>
+                </div>
+                <div class="shortcut-item" data-shortcut="S">
+                    <span class="sc-icon">⚙️</span>
+                    <span class="sc-label">Cài đặt</span>
+                    <span class="sc-key">⌘,</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: var(--spacing-lg); border-top:1px solid var(--border-color); margin-top: var(--spacing-sm);">
+            MIMIN Platform v1.0 · AI Dashboard · © 2026
+        </footer>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- DRAWER (User Profile)                      -->
+    <!-- ========================================== -->
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" aria-hidden="true">HS</div>
+            <div class="drawer-name">Hồ Minh Sang</div>
+            <div class="drawer-role">Founder &amp; CEO · MIMIN Group</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value">MIMIN JSC</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value">Enterprise AI</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value">06/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TOAST CONTAINER                            -->
+    <!-- ========================================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT ENGINE                          -->
+    <!-- ========================================== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ====== DATA ======
+            const USER = {
+                name: 'Hồ Minh Sang',
+                initials: 'HS',
+                role: 'Founder & CEO',
+                company: 'MIMIN JSC',
+                plan: 'Enterprise AI',
+                loginDate: '06/07/2026'
+            };
+
+            const NAV_ITEMS = [
+                { icon: '🧠', label: 'AI Dashboard', active: true, badge: '' },
+                { icon: '💬', label: 'AI Chat', active: false, badge: '' },
+                { icon: '📚', label: 'Prompt Library', active: false, badge: '12' },
+                { icon: '📄', label: 'AI Document', active: false, badge: '' },
+                { icon: '💻', label: 'AI Code', active: false, badge: '' },
+                { icon: '🏗️', label: 'HTML Builder', active: false, badge: 'New' },
+                { icon: '🗄️', label: 'AI Database', active: false, badge: '' },
+                { icon: '🎬', label: 'AI Media', active: false, badge: '' },
+                { icon: '📢', label: 'AI Marketing', active: false, badge: '' },
+                { icon: '📊', label: 'AI Sales', active: false, badge: '' },
+                { icon: '💼', label: 'AI Business', active: false, badge: '' },
+                { icon: '⚙️', label: 'AI Workflow', active: false, badge: '' },
+                { icon: '🛒', label: 'AI Marketplace', active: false, badge: '' },
+                { icon: '📋', label: 'AI History', active: false, badge: '3' },
+                { icon: '⚙️', label: 'AI Settings', active: false, badge: '' }
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '🤖', title: 'CEO Agent vừa hoàn thành báo cáo chiến lược', time: '5 phút trước' },
+                { icon: '🪙', title: 'Token đã dùng 45.2K, còn 24.8K', time: '15 phút trước' },
+                { icon: '📊', title: 'Lượt gọi API tăng 23.5% trong tuần này', time: '1 giờ trước' },
+                { icon: '💰', title: 'Chi phí AI tháng này: $2,847', time: '3 giờ trước' },
+                { icon: '🎨', title: 'Designer Agent đã tạo 12 mẫu thiết kế mới', time: 'Hôm qua' }
+            ];
+
+            // ====== THEME ======
+            const THEME_KEY = 'mimin-theme';
+
+            function getTheme() {
+                return localStorage.getItem(THEME_KEY) || 'light';
+            }
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem(THEME_KEY, theme);
+                document.getElementById('themeToggle').textContent = theme === 'light' ? '🌓' : '☀️';
+            }
+
+            function toggleTheme() {
+                const current = getTheme();
+                setTheme(current === 'light' ? 'dark' : 'light');
+            }
+
+            // ====== TOAST ======
+            function showToast(message, type = 'info', icon = '💡') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('hide');
+                    setTimeout(() => toast.remove(), 350);
+                }, 3000);
+            }
+
+            // ====== RENDER ======
+            function renderNav() {
+                const container = document.getElementById('navMenu');
+                container.innerHTML = '';
+                NAV_ITEMS.forEach(item => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.className = item.active ? 'active' : '';
+                    a.innerHTML = `
+                        <span class="nav-icon">${item.icon}</span>
+                        ${item.label}
+                        ${item.badge ? `<span class="nav-badge">${item.badge}</span>` : ''}
+                    `;
+                    a.href = '#';
+                    a.setAttribute('role', 'menuitem');
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        document.querySelectorAll('.m-sidebar-nav a').forEach(el => el.classList.remove(
+                        'active'));
+                        a.classList.add('active');
+                        showToast(`🚀 Điều hướng đến: ${item.label}`, 'info', '🧭');
+                    });
+                    li.appendChild(a);
+                    container.appendChild(li);
+                });
+            }
+
+            function renderNotifications() {
+                const container = document.getElementById('notifList');
+                container.innerHTML = '';
+                NOTIFICATIONS.slice(0, 5).forEach(notif => {
+                    const div = document.createElement('div');
+                    div.className = 'item';
+                    div.innerHTML = `
+                        <span class="icon">${notif.icon}</span>
+                        <div class="content">
+                            <div class="title">${notif.title}</div>
+                            <div class="time">${notif.time}</div>
+                        </div>
+                    `;
+                    div.addEventListener('click', () => {
+                        showToast(`📬 ${notif.title}`, 'info', '🔔');
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            function updateUserUI() {
+                document.getElementById('sidebarAvatar').textContent = USER.initials;
+                document.getElementById('sidebarUserName').textContent = USER.name;
+                document.getElementById('sidebarUserRole').textContent = USER.role;
+                document.getElementById('headerAvatar').textContent = USER.initials;
+            }
+
+            // ====== INTERACTIONS ======
+            // Notification
+            const notifBtn = document.getElementById('notifBtn');
+            const notifPopover = document.getElementById('notifPopover');
+            notifBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifPopover.classList.toggle('open');
+                notifBtn.setAttribute('aria-expanded', notifPopover.classList.contains('open'));
+            });
+            document.addEventListener('click', () => {
+                notifPopover.classList.remove('open');
+                notifBtn.setAttribute('aria-expanded', 'false');
+            });
+            notifPopover.addEventListener('click', (e) => e.stopPropagation());
+
+            document.getElementById('markAllRead').addEventListener('click', (e) => {
+                e.stopPropagation();
+                showToast('✅ Đã đánh dấu tất cả đã đọc', 'success', '📬');
+                notifPopover.classList.remove('open');
+            });
+            document.getElementById('viewAllNotifs').addEventListener('click', () => {
+                notifPopover.classList.remove('open');
+                showToast('📋 Xem tất cả thông báo', 'info', '📬');
+            });
+
+            // Drawer
+            const headerAvatar = document.getElementById('headerAvatar');
+            const drawerOverlay = document.getElementById('drawerOverlay');
+            const drawerClose = document.getElementById('drawerClose');
+            headerAvatar.addEventListener('click', () => drawerOverlay.classList.add('open'));
+            headerAvatar.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    drawerOverlay.classList.add('open');
+                }
+            });
+            drawerClose.addEventListener('click', () => drawerOverlay.classList.remove('open'));
+            drawerOverlay.addEventListener('click', (e) => {
+                if (e.target === drawerOverlay) drawerOverlay.classList.remove('open');
+            });
+            document.getElementById('manageAccountBtn').addEventListener('click', () => {
+                showToast('🔐 Quản lý tài khoản', 'info', '⚙️');
+                drawerOverlay.classList.remove('open');
+            });
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                showToast('👋 Đăng xuất', 'warning', '⏻');
+            });
+
+            // Theme
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // Dashboard actions
+            document.getElementById('viewAllAgents').addEventListener('click', () => {
+                showToast('🤖 Xem tất cả AI Agents', 'info', '🤖');
+            });
+
+            document.getElementById('viewMostUsed').addEventListener('click', () => {
+                showToast('🔥 Xem chi tiết AI được dùng nhiều nhất', 'info', '🔥');
+            });
+
+            document.getElementById('viewHistory').addEventListener('click', () => {
+                showToast('📋 Xem lịch sử sử dụng', 'info', '📋');
+            });
+
+            document.getElementById('newAgentBtn').addEventListener('click', () => {
+                showToast('➕ Tạo AI Agent mới', 'info', '➕');
+            });
+
+            document.getElementById('exportReportBtn').addEventListener('click', () => {
+                showToast('📊 Đang xuất báo cáo AI...', 'info', '📊');
+                setTimeout(() => {
+                    showToast('✅ Đã xuất báo cáo thành công!', 'success', '✅');
+                }, 1500);
+            });
+
+            // Shortcuts
+            document.querySelectorAll('.shortcut-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const label = this.querySelector('.sc-label').textContent;
+                    showToast(`⌨️ Phím tắt: ${label}`, 'info', '⌨️');
+                });
+            });
+
+            // Agent cards
+            document.querySelectorAll('.agent-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const name = this.querySelector('.agent-name').textContent;
+                    showToast(`🤖 Mở Agent: ${name}`, 'info', '🤖');
+                });
+            });
+
+            // Mobile Menu
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            menuToggle.addEventListener('click', () => {
+                const isOpen = sidebar.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    const isSidebar = sidebar.contains(e.target);
+                    const isToggle = menuToggle.contains(e.target);
+                    if (!isSidebar && !isToggle) {
+                        sidebar.classList.remove('open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Global Search
+            document.getElementById('globalSearch').addEventListener('input', function(e) {
+                const query = this.value.trim();
+                if (query.length > 0) {
+                    console.log(`🔍 Tìm kiếm: ${query}`);
+                }
+            });
+
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    const searchInput = document.querySelector('.m-header .search-box input');
+                    if (searchInput) {
+                        searchInput.focus();
+                        searchInput.select();
+                    }
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+                if (e.key === 'Escape') {
+                    notifPopover.classList.remove('open');
+                    notifBtn.setAttribute('aria-expanded', 'false');
+                    drawerOverlay.classList.remove('open');
+                    sidebar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // ====== INIT ======
+            setTheme(getTheme());
+            renderNav();
+            renderNotifications();
+            updateUserUI();
+
+            console.log('✅ MIMIN AI Dashboard (MIMIN HTML STANDARD v1.0) initialized.');
+        })();
+    </script>
+
+</body>
+</html>

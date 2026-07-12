@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN · Finance Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/business-layout.css" />
+</head>
+
+<body>
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true">M</div>
+            <div class="logo-text">MIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">TH</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Đặng Thu Hà</div>
+                <div class="role" id="sidebarUserRole">Kế toán trưởng</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main" id="mainContent">
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm mọi thứ..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Đặng Thu Hà" role="button" tabindex="0" aria-label="Mở hồ sơ">TH</div>
+            </div>
+        </header>
+
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="current">💰 Finance Dashboard</span>
+        </nav>
+
+        <div class="biz-page-header">
+            <div>
+                <div class="bph-title">💰 Finance & Accounting Dashboard</div>
+                <div class="bph-subtitle">Tổng quan tài chính toàn nền tảng MIMIN — doanh thu, chi phí, dòng tiền và lợi nhuận</div>
+            </div>
+            <div class="bph-actions">
+                <button class="btn-biz-outline" id="exportReportBtn">📤 Xuất báo cáo</button>
+                <button class="btn-biz-primary" id="newTxnBtn">➕ Giao dịch mới</button>
+            </div>
+        </div>
+
+        <div class="biz-stat-grid" id="statGrid"></div>
+
+        <div class="data-table-wrap" style="padding:20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+                <div style="font-size:15px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;">
+                    📊 Doanh thu 6 tháng gần nhất
+                    <span class="biz-tooltip-target" tabindex="0">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--bg-hover);color:var(--text-light);font-size:10px;font-weight:700;cursor:help;">i</span>
+                        <span class="biz-tooltip-box" role="tooltip">Doanh thu ghi nhận theo tháng, đã bao gồm VAT</span>
+                    </span>
+                </div>
+                <span class="status-badge green">+12% so với 6 tháng trước</span>
+            </div>
+            <div class="biz-bar-chart" id="revenueChart"></div>
+        </div>
+
+        <div class="biz-toolbar">
+            <div class="search-wrapper">
+                <span class="icon" aria-hidden="true">🔍</span>
+                <input type="text" id="txnSearch" placeholder="Tìm theo mã giao dịch, diễn giải..." aria-label="Tìm kiếm giao dịch" />
+            </div>
+            <div class="biz-filters" id="txnFilters"></div>
+        </div>
+
+        <div class="data-table-wrap">
+            <table class="data-table" id="txnTable">
+                <thead><tr></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="biz-empty" id="txnEmpty">
+            <div class="be-icon">💰</div>
+            <h3>Không tìm thấy giao dịch phù hợp</h3>
+            <p>Thử đổi từ khoá tìm kiếm hoặc bộ lọc loại giao dịch.</p>
+        </div>
+        <div class="pagination" id="txnPagination"></div>
+
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
+            MIMIN Platform v1.0 · Finance & Accounting OS · © 2026
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI Insight · <strong>Chi phí vận hành tăng 5% tháng này</strong></span>
+    </button>
+    <button class="biz-fab stacked" id="quickAddBtn" aria-label="Tạo giao dịch nhanh" title="Tạo giao dịch nhanh">+</button>
+
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">TH</div>
+            <div class="drawer-name" id="drawerName">Đặng Thu Hà</div>
+            <div class="drawer-role" id="drawerRole">Kế toán trưởng · MIMIN Finance</div>
+            <div class="drawer-info"><span class="label">Phòng ban</span><span class="value" id="drawerCompany">Tài chính - Kế toán</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">08/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Kế toán trưởng</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/business-layout.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const USER = { name: 'Đặng Thu Hà', initials: 'TH', role: 'Kế toán trưởng', company: 'Tài chính - Kế toán', plan: 'Enterprise', loginDate: '08/07/2026' };
+
+            const NAV_ITEMS = [
+                { icon: '💰', label: 'Finance Dashboard', href: '172_finance_dashboard.html', active: true, badge: '' },
+                { icon: '💵', label: 'Quản lý tiền mặt', href: '173_cash_management.html', active: false, badge: '' },
+                { icon: '🏦', label: 'Tài khoản ngân hàng', href: '174_bank_accounts.html', active: false, badge: '' },
+                { icon: '📥', label: 'Phải thu khách hàng', href: '175_accounts_receivable.html', active: false, badge: '' },
+                { icon: '📤', label: 'Phải trả nhà cung cấp', href: '176_accounts_payable.html', active: false, badge: '' },
+                { icon: '💸', label: 'Quản lý chi phí', href: '177_expense_management.html', active: false, badge: '' },
+                { icon: '💹', label: 'Quản lý thu nhập', href: '178_income_management.html', active: false, badge: '' },
+                { icon: '📊', label: 'Quản lý ngân sách', href: '179_budget_management.html', active: false, badge: '' },
+                { icon: '🧮', label: 'Kế toán chi phí', href: '180_cost_accounting.html', active: false, badge: '' },
+                { icon: '📈', label: 'Báo cáo lãi lỗ', href: '181_profit_loss.html', active: false, badge: '' },
+                { icon: '📋', label: 'Bảng cân đối kế toán', href: '182_balance_sheet.html', active: false, badge: '' },
+                { icon: '💧', label: 'Lưu chuyển tiền tệ', href: '183_cash_flow.html', active: false, badge: '' },
+                { icon: '🧾', label: 'Quản lý thuế', href: '184_tax_management.html', active: false, badge: '' },
+                { icon: '🧾', label: 'Quản lý VAT', href: '185_vat_management.html', active: false, badge: '' },
+                { icon: '📄', label: 'Quản lý hóa đơn', href: '186_invoice_management.html', active: false, badge: '' },
+                { icon: '💳', label: 'Quản lý thanh toán', href: '187_payment_management.html', active: false, badge: '' },
+                { icon: '🧻', label: 'Quản lý phiếu thu', href: '188_receipt_management.html', active: false, badge: '' },
+                { icon: '👛', label: 'Trả lương', href: '189_salary_payment.html', active: false, badge: '' },
+                { icon: '🏢', label: 'Tài sản cố định', href: '190_fixed_assets.html', active: false, badge: '' },
+                { icon: '📉', label: 'Khấu hao', href: '191_depreciation.html', active: false, badge: '' },
+                { icon: '📚', label: 'Sổ cái tổng hợp', href: '192_general_ledger.html', active: false, badge: '' },
+                { icon: '📝', label: 'Bút toán', href: '193_journal_entries.html', active: false, badge: '' },
+                { icon: '📊', label: 'Báo cáo tài chính', href: '194_financial_reports.html', active: false, badge: '' },
+                { icon: '🧠', label: 'AI Finance', href: '195_ai_finance.html', active: false, badge: '' },
+                { icon: '📈', label: 'Phân tích tài chính', href: '196_finance_analytics.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'Quy trình tài chính', href: '197_finance_workflow.html', active: false, badge: '' },
+                { icon: '🕰️', label: 'Lịch sử tài chính', href: '198_finance_history.html', active: false, badge: '' },
+                { icon: '🔐', label: 'Phân quyền tài chính', href: '199_finance_permissions.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'Cấu hình tài chính', href: '200_finance_settings.html', active: false, badge: '' },
+                { icon: '🏠', label: 'Trang chủ Finance OS', href: '201_finance_home.html', active: false, badge: '' }
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '💸', title: 'Chi phí vận hành tháng 7 tăng 5%', time: '30 phút trước' },
+                { icon: '📄', title: 'Hóa đơn INV-2026-0842 vừa được thanh toán', time: '1 giờ trước' },
+                { icon: '🏦', title: 'Tài khoản Vietcombank vừa nhận 450 triệu', time: '2 giờ trước' },
+                { icon: '📊', title: 'Báo cáo lãi lỗ Q2/2026 đã sẵn sàng', time: 'Hôm qua' },
+                { icon: '🧾', title: 'Tờ khai VAT tháng 6 đến hạn nộp trong 3 ngày', time: 'Hôm qua' }
+            ];
+
+            const STATS = [
+                { icon: '💰', label: 'Doanh thu tháng này', value: '2.4 tỷ ₫', change: '+12%', up: true },
+                { icon: '💸', label: 'Chi phí tháng này', value: '1.6 tỷ ₫', change: '+5%', up: true },
+                { icon: '📈', label: 'Lợi nhuận ròng', value: '800 triệu ₫', change: '+18%', up: true },
+                { icon: '🏦', label: 'Tiền mặt hiện có', value: '3.1 tỷ ₫', change: '-4%', up: false }
+            ];
+
+            const REVENUE_CHART = [
+                { label: 'T2', value: 1.9 },
+                { label: 'T3', value: 2.0 },
+                { label: 'T4', value: 2.1 },
+                { label: 'T5', value: 2.2 },
+                { label: 'T6', value: 2.15 },
+                { label: 'T7', value: 2.4 }
+            ];
+
+            const TRANSACTIONS = [
+                { id: 1, code: 'GD-3201', type: 'Thu', desc: 'Thanh toán hóa đơn INV-2026-0842', amount: '450,000,000', date: '08/07/2026', status: 'Hoàn tất', color: 'green' },
+                { id: 2, code: 'GD-3200', type: 'Chi', desc: 'Trả lương nhân viên tháng 7', amount: '620,000,000', date: '07/07/2026', status: 'Hoàn tất', color: 'green' },
+                { id: 3, code: 'GD-3199', type: 'Chi', desc: 'Thanh toán nhà cung cấp vải NCC-014', amount: '180,000,000', date: '06/07/2026', status: 'Hoàn tất', color: 'green' },
+                { id: 4, code: 'GD-3198', type: 'Thu', desc: 'Thu tiền khách hàng KH-Long An', amount: '95,000,000', date: '05/07/2026', status: 'Chờ đối soát', color: 'amber' },
+                { id: 5, code: 'GD-3197', type: 'Chi', desc: 'Chi phí vận hành nhà máy tháng 7', amount: '210,000,000', date: '04/07/2026', status: 'Hoàn tất', color: 'green' },
+                { id: 6, code: 'GD-3196', type: 'Thu', desc: 'Thanh toán đơn hàng Marketplace #MKT-118', amount: '32,000,000', date: '03/07/2026', status: 'Hoàn tất', color: 'green' },
+                { id: 7, code: 'GD-3195', type: 'Chi', desc: 'Nộp thuế GTGT tháng 6', amount: '145,000,000', date: '02/07/2026', status: 'Quá hạn', color: 'red' },
+                { id: 8, code: 'GD-3194', type: 'Thu', desc: 'Thu tiền khách hàng KH-Bình Dương', amount: '210,000,000', date: '01/07/2026', status: 'Hoàn tất', color: 'green' },
+                { id: 9, code: 'GD-3193', type: 'Chi', desc: 'Chi mua vật tư văn phòng', amount: '18,000,000', date: '30/06/2026', status: 'Hoàn tất', color: 'green' },
+                { id: 10, code: 'GD-3192', type: 'Chi', desc: 'Trả lãi vay ngân hàng BIDV', amount: '42,000,000', date: '29/06/2026', status: 'Chờ đối soát', color: 'amber' }
+            ];
+
+            let currentPage = 1;
+            let currentFilter = 'Tất cả';
+            let searchQuery = '';
+            const PAGE_SIZE = 6;
+
+            function getFiltered() {
+                let list = TRANSACTIONS;
+                if (currentFilter !== 'Tất cả') list = list.filter(t => t.type === currentFilter);
+                list = MiminBiz.filterRows(list, searchQuery, ['code', 'desc']);
+                return list;
+            }
+
+            function renderList() {
+                const filtered = getFiltered();
+                const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+                if (currentPage > totalPages) currentPage = totalPages;
+                const pageRows = MiminBiz.paginateRows(filtered, currentPage, PAGE_SIZE);
+
+                MiminBiz.renderTable({
+                    container: document.querySelector('#txnTable'),
+                    emptyEl: 'txnEmpty',
+                    columns: [
+                        { key: 'code', label: 'Mã GD', render: r => `<span class="cell-primary">${r.code}</span>` },
+                        { key: 'type', label: 'Loại', render: r => `<span class="status-badge ${r.type === 'Thu' ? 'blue' : 'purple'}">${r.type}</span>` },
+                        { key: 'desc', label: 'Diễn giải', cls: 'wrap', render: r => r.desc },
+                        { key: 'amount', label: 'Số tiền', cls: 'num', render: r => r.amount + ' ₫' },
+                        { key: 'date', label: 'Ngày', render: r => r.date },
+                        { key: 'status', label: 'Trạng thái', render: r => `<span class="status-badge ${r.color}">${r.status}</span>` }
+                    ],
+                    rows: pageRows,
+                    onRowClick: (row) => {
+                        MiminBiz.openModal({
+                            title: `💰 ${row.code}`,
+                            subtitle: row.desc,
+                            rows: [
+                                { label: 'Loại', value: row.type },
+                                { label: 'Số tiền', value: row.amount + ' ₫' },
+                                { label: 'Ngày', value: row.date },
+                                { label: 'Trạng thái', value: row.status }
+                            ],
+                            actions: [
+                                { label: 'Đóng', type: 'secondary' },
+                                { label: 'Xem sổ cái', type: 'primary', onClick: () => { MiminBiz.closeModal(); window.location.href = '192_general_ledger.html'; } }
+                            ]
+                        });
+                    }
+                });
+
+                MiminBiz.renderPagination({
+                    container: 'txnPagination', total: filtered.length, pageSize: PAGE_SIZE, page: currentPage,
+                    onChange: (p) => { currentPage = p; renderList(); }
+                });
+            }
+
+            function renderFilters() {
+                const options = ['Tất cả', 'Thu', 'Chi'];
+                const container = document.getElementById('txnFilters');
+                options.forEach(o => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn' + (o === currentFilter ? ' active' : '');
+                    btn.textContent = o;
+                    btn.addEventListener('click', () => {
+                        currentFilter = o;
+                        currentPage = 1;
+                        container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        renderList();
+                    });
+                    container.appendChild(btn);
+                });
+            }
+
+            document.getElementById('txnSearch').addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                currentPage = 1;
+                renderList();
+            });
+
+            document.getElementById('exportReportBtn').addEventListener('click', () => MiminShell.showToast('📤 Đang xuất báo cáo tài chính (demo)', 'info', '📤'));
+            document.getElementById('newTxnBtn').addEventListener('click', () => MiminShell.showToast('➕ Tạo giao dịch mới (demo)', 'info', '💰'));
+            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('➕ Tạo giao dịch nhanh (demo)', 'info', '💰'));
+
+            MiminShell.init({
+                user: USER,
+                navItems: NAV_ITEMS,
+                notifications: NOTIFICATIONS,
+                aiFloatMessage: '🧠 AI Insight:\n1. Chi phí vận hành tháng 7 tăng 5% so với tháng trước, chủ yếu do chi phí vật tư\n2. Tờ khai VAT tháng 6 đã quá hạn nộp, cần xử lý ngay để tránh phạt',
+                onNavClick: (item, el) => {
+                    if (item.href && item.href !== '#') return;
+                    document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                }
+            });
+
+            renderFilters();
+            MiminBiz.renderStatCards(STATS);
+            MiminBiz.renderBarChart({ container: 'revenueChart', data: REVENUE_CHART.map(d => ({ label: d.label, value: d.value })) });
+            renderList();
+
+            console.log('✅ MIMIN Finance Dashboard (MIMIN HTML STANDARD v1.0) initialized.');
+        })();
+    </script>
+</body>
+</html>

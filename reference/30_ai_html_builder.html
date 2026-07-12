@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN · AI Website Builder</title>
+
+    <!-- ========================================== -->
+    <!-- 1. FONT: Inter (Google Fonts)             -->
+    <!-- ========================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+
+    <!-- ========================================== -->
+    <!-- 3. CUSTOM CSS (Design Tokens)             -->
+    <!-- ========================================== -->
+    <style>
+        /* ====== CSS VARIABLES ====== */
+        :root {
+            --primary: #1E3A8A;
+            --primary-dark: #172554;
+            --primary-light: #3B82F6;
+            --primary-gradient: linear-gradient(135deg, #1E3A8A 0%, #0D9488 100%);
+            --teal: #14B8A6;
+            --teal-light: #5EEAD4;
+            --orange: #F97316;
+
+            --bg-body: #F1F5F9;
+            --bg-surface: #FFFFFF;
+            --bg-sidebar: #FFFFFF;
+            --bg-input: #F8FAFC;
+            --bg-hover: #F1F5F9;
+            --bg-glass: rgba(255, 255, 255, 0.60);
+
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-light: #94A3B8;
+            --text-white: #FFFFFF;
+
+            --border-color: #E2E8F0;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.10);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.04);
+
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+
+            --sidebar-width: 280px;
+            --header-height: 72px;
+            --builder-sidebar-width: 240px;
+            --header-bg: rgba(255, 255, 255, 0.72);
+
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ====== DARK MODE ====== */
+        [data-theme="dark"] {
+            --bg-body: #0F172A;
+            --bg-surface: #1E293B;
+            --bg-sidebar: #0F172A;
+            --bg-input: #1E293B;
+            --bg-hover: #1E293B;
+            --bg-glass: rgba(30, 41, 59, 0.80);
+
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-light: #64748B;
+
+            --border-color: #1E293B;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.6);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+            --header-bg: rgba(15, 23, 42, 0.85);
+        }
+
+        /* ====== RESET & BASE ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ====== SCROLLBAR ====== */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: var(--radius-full);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-light);
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* ====== SIDEBAR (main) ====== */
+        .m-sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            border-right: 1px solid var(--border-color);
+            transition: var(--transition);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 100;
+        }
+
+        .m-sidebar-brand {
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            min-height: var(--header-height);
+        }
+        .m-sidebar-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        .m-sidebar-brand .logo-text {
+            color: var(--text-primary);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .m-sidebar-brand .logo-text span {
+            color: var(--teal);
+        }
+
+        .m-sidebar-nav {
+            flex: 1;
+            padding: var(--spacing-md) var(--spacing-sm);
+            list-style: none;
+        }
+        .m-sidebar-nav li {
+            margin-bottom: var(--spacing-xs);
+        }
+        .m-sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .m-sidebar-nav a:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .m-sidebar-nav a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+        }
+        .m-sidebar-nav a .nav-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .m-sidebar-nav a .nav-badge {
+            margin-left: auto;
+            background: var(--bg-hover);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .m-sidebar-nav a.active .nav-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .m-sidebar-footer {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        .m-sidebar-footer .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .m-sidebar-footer .user-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .m-sidebar-footer .user-info .name {
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .user-info .role {
+            color: var(--text-light);
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-sidebar-footer .logout-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 18px;
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        .m-sidebar-footer .logout-btn:hover {
+            background: var(--bg-hover);
+            color: #EF4444;
+        }
+
+        /* ====== HEADER ====== */
+        .m-header {
+            height: var(--header-height);
+            background: var(--header-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-xl);
+            gap: var(--spacing-lg);
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: background 0.3s ease;
+        }
+
+        .m-header .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .m-header .search-box {
+            flex: 1;
+            max-width: 560px;
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            border-radius: var(--radius-full);
+            padding: 0 var(--spacing-lg);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .m-header .search-box:focus-within {
+            border-color: var(--primary-light);
+            background: var(--bg-surface);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+        }
+        .m-header .search-box input {
+            border: none;
+            background: transparent;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            color: var(--text-primary);
+        }
+        .m-header .search-box input::placeholder {
+            color: var(--text-light);
+        }
+        .m-header .search-box .search-icon {
+            color: var(--text-light);
+            font-size: 18px;
+            margin-right: var(--spacing-md);
+        }
+        .m-header .search-box .shortcut {
+            font-size: 11px;
+            color: var(--text-light);
+            background: var(--bg-hover);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+        }
+
+        .m-header .actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-left: auto;
+        }
+        .m-header .actions .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--text-secondary);
+        }
+        .m-header .actions .action-btn:hover {
+            background: var(--bg-hover);
+            color: var(--primary);
+        }
+        .m-header .actions .action-btn .dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: #EF4444;
+            border-radius: var(--radius-full);
+            border: 2px solid var(--bg-surface);
+        }
+        [data-theme="dark"] .m-header .actions .action-btn .dot {
+            border-color: var(--bg-surface);
+        }
+        .m-header .actions .divider {
+            width: 1px;
+            height: 30px;
+            background: var(--border-color);
+        }
+        .m-header .actions .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+        .m-header .actions .user-avatar:hover {
+            border-color: var(--teal);
+            transform: scale(1.05);
+        }
+
+        /* ====== NOTIFICATION POPOVER ====== */
+        .notif-popover {
+            position: absolute;
+            top: calc(var(--header-height) + 8px);
+            right: 80px;
+            width: 360px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: none;
+            flex-direction: column;
+            max-height: 400px;
+            overflow: hidden;
+            z-index: 200;
+            animation: fadeIn 0.2s ease;
+        }
+        .notif-popover.open {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .notif-popover .head {
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-primary);
+        }
+        .notif-popover .head .mark-read {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .notif-popover .head .mark-read:hover {
+            color: var(--teal);
+        }
+        .notif-popover .list {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-sm) 0;
+        }
+        .notif-popover .list .item {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .notif-popover .list .item:hover {
+            background: var(--bg-hover);
+        }
+        .notif-popover .list .item .icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .notif-popover .list .item .content {
+            flex: 1;
+            min-width: 0;
+        }
+        .notif-popover .list .item .content .title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .notif-popover .list .item .content .time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        .notif-popover .foot {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 13px;
+            color: var(--teal);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .notif-popover .foot:hover {
+            background: var(--bg-hover);
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .m-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg-body);
+            transition: background 0.3s ease;
+        }
+
+        /* ====== BREADCRUMB ====== */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 14px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            padding: var(--spacing-md) var(--spacing-xl) 0;
+            flex-shrink: 0;
+        }
+        .breadcrumb a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .breadcrumb a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        .breadcrumb .separator {
+            color: var(--text-light);
+        }
+        .breadcrumb .current {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ====== PAGE HEADER ====== */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-md);
+            flex-shrink: 0;
+        }
+        .page-header .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+        }
+        .page-header .page-title .title-icon {
+            margin-right: var(--spacing-sm);
+        }
+        .page-header .page-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* ====== BUTTONS ====== */
+        .btn-primary {
+            padding: 10px 24px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(30, 58, 138, 0.25);
+        }
+
+        .btn-secondary {
+            padding: 10px 24px;
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-body);
+            border-color: var(--text-light);
+        }
+
+        .btn-success {
+            padding: 10px 24px;
+            background: #10B981;
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .btn-success:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+        }
+
+        /* ====== BUILDER LAYOUT ====== */
+        .builder-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 0;
+            padding: 0 var(--spacing-xl) var(--spacing-xl);
+        }
+
+        /* ====== BUILDER SIDEBAR ====== */
+        .builder-sidebar {
+            width: var(--builder-sidebar-width);
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow-y: auto;
+            padding: var(--spacing-md);
+            gap: var(--spacing-sm);
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+        }
+        .builder-sidebar .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+        }
+        .builder-sidebar .component-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+        .builder-sidebar .component-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        .builder-sidebar .component-item .ci-icon {
+            font-size: 18px;
+        }
+        .builder-sidebar .component-item .ci-badge {
+            margin-left: auto;
+            font-size: 10px;
+            color: var(--text-light);
+            background: var(--bg-hover);
+            padding: 0 6px;
+            border-radius: var(--radius-full);
+        }
+
+        /* ====== CANVAS ====== */
+        .builder-canvas {
+            flex: 1;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .builder-canvas .canvas-toolbar {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-hover);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .builder-canvas .canvas-toolbar .device-btn {
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+        .builder-canvas .canvas-toolbar .device-btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--text-light);
+        }
+        .builder-canvas .canvas-toolbar .device-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .builder-canvas .canvas-preview {
+            flex: 1;
+            overflow: auto;
+            padding: var(--spacing-lg);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background: var(--bg-body);
+            position: relative;
+        }
+        .builder-canvas .canvas-preview .preview-frame {
+            width: 100%;
+            max-width: 1200px;
+            min-height: 400px;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-lg);
+            transition: all 0.3s ease;
+            color: #0F172A;
+            position: relative;
+        }
+        [data-theme="dark"] .builder-canvas .canvas-preview .preview-frame {
+            background: #1E293B;
+            color: #F1F5F9;
+        }
+        .builder-canvas .canvas-preview .preview-frame .empty-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: var(--text-light);
+            text-align: center;
+        }
+        .builder-canvas .canvas-preview .preview-frame .empty-placeholder .ep-icon {
+            font-size: 64px;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.3;
+        }
+        .builder-canvas .canvas-preview .preview-frame .empty-placeholder h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .builder-canvas .canvas-preview .preview-frame .empty-placeholder p {
+            font-size: 14px;
+            max-width: 360px;
+            margin-top: var(--spacing-xs);
+        }
+
+        .builder-canvas .canvas-preview .preview-frame .built-content {
+            display: none;
+        }
+        .builder-canvas .canvas-preview .preview-frame .built-content.visible {
+            display: block;
+        }
+
+        /* ====== PREVIEW TEMPLATES ====== */
+        .preview-frame .built-content .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .preview-frame .built-content .navbar .brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E3A8A;
+        }
+        .preview-frame .built-content .navbar .nav-links {
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+            color: #475569;
+        }
+        .preview-frame .built-content .navbar .nav-links a {
+            color: #475569;
+            text-decoration: none;
+        }
+        .preview-frame .built-content .hero {
+            padding: 48px 0 32px;
+            text-align: center;
+        }
+        .preview-frame .built-content .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 8px;
+        }
+        .preview-frame .built-content .hero p {
+            font-size: 18px;
+            color: #475569;
+            max-width: 500px;
+            margin: 0 auto 16px;
+        }
+        .preview-frame .built-content .hero .btn-hero {
+            padding: 10px 32px;
+            background: #1E3A8A;
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .preview-frame .built-content .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 24px 0;
+        }
+        .preview-frame .built-content .features .feature {
+            padding: 16px;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .preview-frame .built-content .features .feature .f-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .preview-frame .built-content .features .feature h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0F172A;
+        }
+        .preview-frame .built-content .features .feature p {
+            font-size: 13px;
+            color: #475569;
+        }
+        .preview-frame .built-content .footer {
+            text-align: center;
+            padding: 24px 0 0;
+            border-top: 1px solid #E2E8F0;
+            font-size: 13px;
+            color: #94A3B8;
+        }
+
+        /* ====== DRAWER ====== */
+        .m-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.30);
+            backdrop-filter: blur(4px);
+            z-index: 400;
+            display: none;
+            justify-content: flex-end;
+        }
+        [data-theme="dark"] .m-drawer-overlay {
+            background: rgba(0, 0, 0, 0.50);
+        }
+        .m-drawer-overlay.open {
+            display: flex;
+        }
+        .m-drawer {
+            width: 420px;
+            background: var(--bg-surface);
+            height: 100%;
+            padding: 32px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideIn 0.3s ease;
+            border-left: 1px solid var(--border-color);
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .m-drawer .drawer-close {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            float: right;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .m-drawer .drawer-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+        .m-drawer .drawer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: 700;
+            margin: 20px auto;
+        }
+        .m-drawer .drawer-name {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .m-drawer .drawer-role {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .m-drawer .drawer-info {
+            background: var(--bg-input);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+        .m-drawer .drawer-info .label {
+            font-size: 13px;
+        }
+        .m-drawer .drawer-info .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .m-drawer .drawer-btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .m-drawer .drawer-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        /* ====== TOAST ====== */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            width: 100%;
+            max-width: 480px;
+            padding: 0 16px;
+        }
+        .toast {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            pointer-events: auto;
+            animation: toastIn 0.4s ease forwards;
+            width: 100%;
+        }
+        .toast.error {
+            border-left: 4px solid #EF4444;
+        }
+        .toast.success {
+            border-left: 4px solid #10B981;
+        }
+        .toast.info {
+            border-left: 4px solid var(--primary-light);
+        }
+        .toast.hide {
+            animation: toastOut 0.3s ease forwards;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 1024px) {
+            .builder-sidebar {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 0px;
+                --builder-sidebar-width: 0px;
+            }
+            .m-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 280px;
+                box-shadow: var(--shadow-lg);
+                z-index: 150;
+            }
+            .m-sidebar.open {
+                transform: translateX(0);
+            }
+            .m-header .menu-toggle {
+                display: block;
+            }
+            .m-header {
+                padding: 0 16px;
+                gap: var(--spacing-sm);
+            }
+            .m-header .search-box {
+                max-width: 140px;
+            }
+            .m-header .search-box .shortcut {
+                display: none;
+            }
+
+            .builder-layout {
+                flex-direction: column;
+                padding: 0 var(--spacing-md) var(--spacing-md);
+                gap: var(--spacing-md);
+            }
+            .builder-sidebar {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                border-radius: var(--radius-md) var(--radius-md) 0 0;
+                padding: var(--spacing-sm) var(--spacing-md);
+                max-height: 120px;
+                overflow-y: auto;
+            }
+            .builder-sidebar .section-label {
+                display: none;
+            }
+            .builder-sidebar .component-item {
+                padding: 4px 12px;
+                font-size: 12px;
+            }
+            .builder-canvas {
+                border-radius: 0 0 var(--radius-md) var(--radius-md);
+            }
+            .builder-canvas .canvas-toolbar {
+                padding: var(--spacing-xs) var(--spacing-sm);
+            }
+            .builder-canvas .canvas-toolbar .device-btn {
+                font-size: 11px;
+                padding: 2px 10px;
+            }
+            .builder-canvas .canvas-preview {
+                padding: var(--spacing-sm);
+            }
+            .builder-canvas .canvas-preview .preview-frame {
+                padding: var(--spacing-md);
+                min-height: 300px;
+            }
+            .page-header {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+            .page-header .page-title {
+                font-size: 20px;
+            }
+            .breadcrumb {
+                padding: var(--spacing-sm) var(--spacing-md) 0;
+            }
+            .preview-frame .built-content .hero h1 {
+                font-size: 24px;
+            }
+            .preview-frame .built-content .features {
+                grid-template-columns: 1fr;
+            }
+            .preview-frame .built-content .navbar .nav-links {
+                display: none;
+            }
+            .notif-popover {
+                right: 12px;
+                width: 320px;
+            }
+            .m-drawer {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header .page-actions {
+                width: 100%;
+            }
+            .page-header .page-actions button {
+                flex: 1;
+                text-align: center;
+                justify-content: center;
+                font-size: 13px;
+                padding: 8px 16px;
+            }
+            .builder-sidebar .component-item {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            .builder-sidebar .component-item .ci-badge {
+                display: none;
+            }
+            .builder-canvas .canvas-toolbar .device-btn {
+                font-size: 10px;
+                padding: 2px 8px;
+            }
+            .preview-frame .built-content .hero h1 {
+                font-size: 20px;
+            }
+            .preview-frame .built-content .hero p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- SIDEBAR                                    -->
+    <!-- ========================================== -->
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true">M</div>
+            <div class="logo-text">MIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu">
+            <!-- Render by JS -->
+        </ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">HS</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Hồ Minh Sang</div>
+                <div class="role" id="sidebarUserRole">Founder &amp; CEO</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT                               -->
+    <!-- ========================================== -->
+    <main class="m-main" id="mainContent">
+
+        <!-- Header -->
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm template, component..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">
+                    🔔
+                    <span class="dot" aria-hidden="true"></span>
+                </button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Hồ Minh Sang" role="button" tabindex="0" aria-label="Mở hồ sơ">HS</div>
+            </div>
+        </header>
+
+        <!-- Notification Popover -->
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head">
+                <span>Thông báo mới</span>
+                <span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span>
+            </div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <!-- ====== AI HTML BUILDER CONTENT ====== -->
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="26_ai_dashboard.html">🧠 AI Dashboard</a>
+            <span class="separator">›</span>
+            <span class="current">🏗️ AI Website Builder</span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <span class="title-icon">🏗️</span> AI Website Builder
+            </h1>
+            <div class="page-actions">
+                <button class="btn-secondary" id="newProjectBtn">📁 Dự án mới</button>
+                <button class="btn-secondary" id="importHtmlBtn">📤 Import HTML</button>
+                <button class="btn-success" id="exportHtmlBtn">⬇️ Export HTML</button>
+            </div>
+        </div>
+
+        <!-- Builder Layout -->
+        <div class="builder-layout">
+
+            <!-- Builder Sidebar -->
+            <aside class="builder-sidebar" id="builderSidebar">
+                <div class="section-label">📦 Components</div>
+                <div class="component-item" data-component="navbar">
+                    <span class="ci-icon">📋</span> Navbar
+                    <span class="ci-badge">Header</span>
+                </div>
+                <div class="component-item" data-component="hero">
+                    <span class="ci-icon">🎯</span> Hero
+                    <span class="ci-badge">Banner</span>
+                </div>
+                <div class="component-item" data-component="features">
+                    <span class="ci-icon">⚡</span> Features
+                    <span class="ci-badge">Grid</span>
+                </div>
+                <div class="component-item" data-component="pricing">
+                    <span class="ci-icon">💰</span> Pricing
+                    <span class="ci-badge">Cards</span>
+                </div>
+                <div class="component-item" data-component="testimonials">
+                    <span class="ci-icon">💬</span> Testimonials
+                    <span class="ci-badge">Reviews</span>
+                </div>
+                <div class="component-item" data-component="footer">
+                    <span class="ci-icon">📌</span> Footer
+                    <span class="ci-badge">End</span>
+                </div>
+
+                <div class="section-label" style="margin-top:12px;">📄 Templates</div>
+                <div class="component-item" data-template="landing">
+                    <span class="ci-icon">🚀</span> Landing Page
+                    <span class="ci-badge">⭐</span>
+                </div>
+                <div class="component-item" data-template="dashboard">
+                    <span class="ci-icon">📊</span> Dashboard
+                    <span class="ci-badge">⭐</span>
+                </div>
+                <div class="component-item" data-template="blog">
+                    <span class="ci-icon">✍️</span> Blog
+                    <span class="ci-badge">New</span>
+                </div>
+                <div class="component-item" data-template="ecommerce">
+                    <span class="ci-icon">🛒</span> E-commerce
+                    <span class="ci-badge">Pro</span>
+                </div>
+            </aside>
+
+            <!-- Canvas -->
+            <div class="builder-canvas">
+                <!-- Canvas Toolbar -->
+                <div class="canvas-toolbar">
+                    <button class="device-btn active" data-device="desktop">🖥️ Desktop</button>
+                    <button class="device-btn" data-device="tablet">📱 Tablet</button>
+                    <button class="device-btn" data-device="mobile">📱 Mobile</button>
+                    <span style="margin-left:auto;font-size:12px;color:var(--text-light);">AI Generated · 12 components</span>
+                </div>
+
+                <!-- Canvas Preview -->
+                <div class="canvas-preview" id="canvasPreview">
+                    <div class="preview-frame" id="previewFrame">
+                        <!-- Empty State -->
+                        <div class="empty-placeholder" id="emptyPlaceholder">
+                            <span class="ep-icon">🏗️</span>
+                            <h3>Bắt đầu xây dựng website</h3>
+                            <p>Chọn một component từ bên trái hoặc chọn template để bắt đầu thiết kế.</p>
+                        </div>
+
+                        <!-- Built Content -->
+                        <div class="built-content" id="builtContent">
+                            <div class="navbar">
+                                <div class="brand">MIMIN</div>
+                                <div class="nav-links">
+                                    <a href="#">Trang chủ</a>
+                                    <a href="#">Giới thiệu</a>
+                                    <a href="#">Dịch vụ</a>
+                                    <a href="#">Liên hệ</a>
+                                </div>
+                            </div>
+                            <div class="hero">
+                                <h1>Xây dựng website với AI</h1>
+                                <p>Tạo website chuyên nghiệp chỉ với vài cú click. AI sẽ giúp bạn thiết kế và tạo mã nguồn.</p>
+                                <button class="btn-hero">Bắt đầu ngay</button>
+                            </div>
+                            <div class="features">
+                                <div class="feature">
+                                    <span class="f-icon">⚡</span>
+                                    <h4>Nhanh chóng</h4>
+                                    <p>Tạo website trong vài phút với AI.</p>
+                                </div>
+                                <div class="feature">
+                                    <span class="f-icon">🎨</span>
+                                    <h4>Thiết kế đẹp</h4>
+                                    <p>Giao diện hiện đại, responsive.</p>
+                                </div>
+                                <div class="feature">
+                                    <span class="f-icon">🔧</span>
+                                    <h4>Tùy chỉnh</h4>
+                                    <p>Dễ dàng chỉnh sửa mọi thành phần.</p>
+                                </div>
+                            </div>
+                            <div class="footer">
+                                © 2026 MIMIN Platform · Built with AI
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding: var(--spacing-sm) 0 var(--spacing-md); border-top:1px solid var(--border-color); background:var(--bg-body); flex-shrink:0;">
+            MIMIN Platform v1.0 · AI Website Builder · © 2026
+        </footer>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- DRAWER (User Profile)                      -->
+    <!-- ========================================== -->
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" aria-hidden="true">HS</div>
+            <div class="drawer-name">Hồ Minh Sang</div>
+            <div class="drawer-role">Founder &amp; CEO · MIMIN Group</div>
+            <div class="drawer-info"><span class="label">Công ty</span><span class="value">MIMIN JSC</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value">Enterprise AI</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value">06/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Super Admin</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TOAST CONTAINER                            -->
+    <!-- ========================================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT ENGINE                          -->
+    <!-- ========================================== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ====== DATA ======
+            const USER = {
+                name: 'Hồ Minh Sang',
+                initials: 'HS',
+                role: 'Founder & CEO',
+                company: 'MIMIN JSC',
+                plan: 'Enterprise AI',
+                loginDate: '06/07/2026'
+            };
+
+            const NAV_ITEMS = [
+                { icon: '🧠', label: 'AI Dashboard', active: false, badge: '' },
+                { icon: '💬', label: 'AI Assistant', active: false, badge: '' },
+                { icon: '📚', label: 'Prompt Library', active: false, badge: '12' },
+                { icon: '📄', label: 'AI Document', active: false, badge: '' },
+                { icon: '💻', label: 'AI Code', active: false, badge: '' },
+                { icon: '🏗️', label: 'HTML Builder', active: true, badge: 'New' },
+                { icon: '🗄️', label: 'AI Database', active: false, badge: '' },
+                { icon: '🎬', label: 'AI Media', active: false, badge: '' },
+                { icon: '📢', label: 'AI Marketing', active: false, badge: '' },
+                { icon: '📊', label: 'AI Sales', active: false, badge: '' },
+                { icon: '💼', label: 'AI Business', active: false, badge: '' },
+                { icon: '⚙️', label: 'AI Workflow', active: false, badge: '' },
+                { icon: '🛒', label: 'AI Marketplace', active: false, badge: '' },
+                { icon: '📋', label: 'AI History', active: false, badge: '3' },
+                { icon: '⚙️', label: 'AI Settings', active: false, badge: '' }
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '🏗️', title: 'HTML Builder: Landing page đã được tạo', time: '5 phút trước' },
+                { icon: '💻', title: 'AI đã tạo responsive cho website của bạn', time: '15 phút trước' },
+                { icon: '📤', title: 'Dự án "MIMIN Landing" đã được xuất', time: '1 giờ trước' },
+                { icon: '🎨', title: 'Template mới: E-commerce Pro đã có sẵn', time: '3 giờ trước' },
+                { icon: '📁', title: 'Dự án mới "Dashboard Analytics" đã được tạo', time: 'Hôm qua' }
+            ];
+
+            // ====== THEME ======
+            const THEME_KEY = 'mimin-theme';
+
+            function getTheme() {
+                return localStorage.getItem(THEME_KEY) || 'light';
+            }
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem(THEME_KEY, theme);
+                document.getElementById('themeToggle').textContent = theme === 'light' ? '🌓' : '☀️';
+            }
+
+            function toggleTheme() {
+                const current = getTheme();
+                setTheme(current === 'light' ? 'dark' : 'light');
+            }
+
+            // ====== TOAST ======
+            function showToast(message, type = 'info', icon = '💡') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('hide');
+                    setTimeout(() => toast.remove(), 350);
+                }, 3000);
+            }
+
+            // ====== RENDER ======
+            function renderNav() {
+                const container = document.getElementById('navMenu');
+                container.innerHTML = '';
+                NAV_ITEMS.forEach(item => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.className = item.active ? 'active' : '';
+                    a.innerHTML = `
+                        <span class="nav-icon">${item.icon}</span>
+                        ${item.label}
+                        ${item.badge ? `<span class="nav-badge">${item.badge}</span>` : ''}
+                    `;
+                    a.href = '#';
+                    a.setAttribute('role', 'menuitem');
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        document.querySelectorAll('.m-sidebar-nav a').forEach(el => el.classList.remove(
+                        'active'));
+                        a.classList.add('active');
+                        showToast(`🚀 Điều hướng đến: ${item.label}`, 'info', '🧭');
+                    });
+                    li.appendChild(a);
+                    container.appendChild(li);
+                });
+            }
+
+            function renderNotifications() {
+                const container = document.getElementById('notifList');
+                container.innerHTML = '';
+                NOTIFICATIONS.slice(0, 5).forEach(notif => {
+                    const div = document.createElement('div');
+                    div.className = 'item';
+                    div.innerHTML = `
+                        <span class="icon">${notif.icon}</span>
+                        <div class="content">
+                            <div class="title">${notif.title}</div>
+                            <div class="time">${notif.time}</div>
+                        </div>
+                    `;
+                    div.addEventListener('click', () => {
+                        showToast(`📬 ${notif.title}`, 'info', '🔔');
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            function updateUserUI() {
+                document.getElementById('sidebarAvatar').textContent = USER.initials;
+                document.getElementById('sidebarUserName').textContent = USER.name;
+                document.getElementById('sidebarUserRole').textContent = USER.role;
+                document.getElementById('headerAvatar').textContent = USER.initials;
+            }
+
+            // ====== BUILDER FUNCTIONS ======
+            const previewFrame = document.getElementById('previewFrame');
+            const emptyPlaceholder = document.getElementById('emptyPlaceholder');
+            const builtContent = document.getElementById('builtContent');
+
+            function showTemplate(template) {
+                emptyPlaceholder.style.display = 'none';
+                builtContent.classList.add('visible');
+
+                // Update content based on template
+                const templates = {
+                    landing: `
+                        <div class="navbar">
+                            <div class="brand">MIMIN</div>
+                            <div class="nav-links">
+                                <a href="#">Trang chủ</a>
+                                <a href="#">Giới thiệu</a>
+                                <a href="#">Dịch vụ</a>
+                                <a href="#">Liên hệ</a>
+                            </div>
+                        </div>
+                        <div class="hero">
+                            <h1>🚀 Xây dựng website với AI</h1>
+                            <p>Tạo website chuyên nghiệp chỉ với vài cú click. AI sẽ giúp bạn thiết kế và tạo mã nguồn.</p>
+                            <button class="btn-hero">Bắt đầu ngay</button>
+                        </div>
+                        <div class="features">
+                            <div class="feature"><span class="f-icon">⚡</span><h4>Nhanh chóng</h4><p>Tạo website trong vài phút với AI.</p></div>
+                            <div class="feature"><span class="f-icon">🎨</span><h4>Thiết kế đẹp</h4><p>Giao diện hiện đại, responsive.</p></div>
+                            <div class="feature"><span class="f-icon">🔧</span><h4>Tùy chỉnh</h4><p>Dễ dàng chỉnh sửa mọi thành phần.</p></div>
+                        </div>
+                        <div class="footer">© 2026 MIMIN Platform · Built with AI</div>
+                    `,
+                    dashboard: `
+                        <div class="navbar">
+                            <div class="brand">📊 Analytics</div>
+                            <div class="nav-links"><a href="#">Dashboard</a><a href="#">Reports</a><a href="#">Settings</a></div>
+                        </div>
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px 0;">
+                            <div style="background:#EFF6FF;border-radius:12px;padding:16px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#1E3A8A;">2.5B</div><div style="color:#475569;">Doanh thu</div></div>
+                            <div style="background:#D1FAE5;border-radius:12px;padding:16px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#065F46;">+12.3%</div><div style="color:#475569;">Tăng trưởng</div></div>
+                            <div style="background:#FEF3C7;border-radius:12px;padding:16px;text-align:center;"><div style="font-size:28px;font-weight:700;color:#92400E;">3.4K</div><div style="color:#475569;">Đơn hàng</div></div>
+                        </div>
+                        <div style="background:#F1F5F9;border-radius:12px;padding:24px;text-align:center;color:#475569;">📈 Biểu đồ doanh thu sẽ hiển thị tại đây</div>
+                        <div class="footer">© 2026 MIMIN · Dashboard</div>
+                    `,
+                    blog: `
+                        <div class="navbar">
+                            <div class="brand">✍️ Blog</div>
+                            <div class="nav-links"><a href="#">Trang chủ</a><a href="#">Bài viết</a><a href="#">About</a></div>
+                        </div>
+                        <div style="padding:24px 0;">
+                            <h2 style="font-size:28px;font-weight:700;color:#0F172A;">AI đang thay đổi thế giới</h2>
+                            <p style="color:#475569;margin:8px 0 16px;">Khám phá cách trí tuệ nhân tạo đang định hình tương lai.</p>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                                <div style="border:1px solid #E2E8F0;border-radius:12px;padding:16px;"><h4 style="font-weight:600;">Bài 1</h4><p style="color:#475569;font-size:14px;">Giới thiệu về AI và ứng dụng</p></div>
+                                <div style="border:1px solid #E2E8F0;border-radius:12px;padding:16px;"><h4 style="font-weight:600;">Bài 2</h4><p style="color:#475569;font-size:14px;">Machine Learning cơ bản</p></div>
+                            </div>
+                        </div>
+                        <div class="footer">© 2026 MIMIN · Blog</div>
+                    `,
+                    ecommerce: `
+                        <div class="navbar">
+                            <div class="brand">🛒 Shop</div>
+                            <div class="nav-links"><a href="#">Sản phẩm</a><a href="#">Giỏ hàng</a><a href="#">Liên hệ</a></div>
+                        </div>
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px 0;">
+                            <div style="border:1px solid #E2E8F0;border-radius:12px;padding:16px;text-align:center;"><span style="font-size:48px;">👕</span><h4 style="font-weight:600;margin:4px 0;">Áo thun</h4><p style="color:#1E3A8A;font-weight:700;">199.000đ</p></div>
+                            <div style="border:1px solid #E2E8F0;border-radius:12px;padding:16px;text-align:center;"><span style="font-size:48px;">👗</span><h4 style="font-weight:600;margin:4px 0;">Đầm</h4><p style="color:#1E3A8A;font-weight:700;">399.000đ</p></div>
+                            <div style="border:1px solid #E2E8F0;border-radius:12px;padding:16px;text-align:center;"><span style="font-size:48px;">👟</span><h4 style="font-weight:600;margin:4px 0;">Giày</h4><p style="color:#1E3A8A;font-weight:700;">499.000đ</p></div>
+                        </div>
+                        <div class="footer">© 2026 MIMIN · Shop</div>
+                    `
+                };
+
+                builtContent.innerHTML = templates[template] || templates.landing;
+                showToast(`📄 Đã tải template: ${template.charAt(0).toUpperCase() + template.slice(1)}`, 'success', '✅');
+            }
+
+            function addComponent(component) {
+                emptyPlaceholder.style.display = 'none';
+                builtContent.classList.add('visible');
+
+                // Find the hero section to insert after
+                const hero = builtContent.querySelector('.hero');
+                if (hero) {
+                    const components = {
+                        navbar: `
+                            <div class="navbar">
+                                <div class="brand">MIMIN</div>
+                                <div class="nav-links"><a href="#">Trang chủ</a><a href="#">Giới thiệu</a><a href="#">Liên hệ</a></div>
+                            </div>
+                        `,
+                        hero: `
+                            <div class="hero">
+                                <h1>🚀 Xây dựng với AI</h1>
+                                <p>Trải nghiệm tạo website siêu nhanh với AI.</p>
+                                <button class="btn-hero">Bắt đầu</button>
+                            </div>
+                        `,
+                        features: `
+                            <div class="features">
+                                <div class="feature"><span class="f-icon">⚡</span><h4>Nhanh</h4><p>Tạo nhanh chóng.</p></div>
+                                <div class="feature"><span class="f-icon">🎨</span><h4>Đẹp</h4><p>Thiết kế đẹp mắt.</p></div>
+                                <div class="feature"><span class="f-icon">🔧</span><h4>Dễ</h4><p>Tùy chỉnh dễ dàng.</p></div>
+                            </div>
+                        `,
+                        footer: `
+                            <div class="footer">© 2026 MIMIN · Built with AI</div>
+                        `
+                    };
+
+                    if (components[component]) {
+                        // Insert before footer or at end
+                        const footer = builtContent.querySelector('.footer');
+                        if (footer) {
+                            footer.insertAdjacentHTML('beforebegin', components[component]);
+                        } else {
+                            builtContent.insertAdjacentHTML('beforeend', components[component]);
+                        }
+                        showToast(`➕ Đã thêm component: ${component.charAt(0).toUpperCase() + component.slice(1)}`, 'info', '➕');
+                    }
+                } else {
+                    // If no content, show a basic structure
+                    builtContent.innerHTML = `
+                        <div class="navbar"><div class="brand">MIMIN</div><div class="nav-links"><a href="#">Trang chủ</a><a href="#">Giới thiệu</a></div></div>
+                        <div class="hero"><h1>🚀 Xin chào!</h1><p>Bắt đầu xây dựng với AI.</p><button class="btn-hero">Bắt đầu</button></div>
+                        <div class="footer">© 2026 MIMIN</div>
+                    `;
+                    showToast(`➕ Đã thêm component: ${component}`, 'info', '➕');
+                }
+
+                // Re-apply styles
+                builtContent.style.display = 'block';
+            }
+
+            // ====== INTERACTIONS ======
+            // Notification
+            const notifBtn = document.getElementById('notifBtn');
+            const notifPopover = document.getElementById('notifPopover');
+            notifBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifPopover.classList.toggle('open');
+                notifBtn.setAttribute('aria-expanded', notifPopover.classList.contains('open'));
+            });
+            document.addEventListener('click', () => {
+                notifPopover.classList.remove('open');
+                notifBtn.setAttribute('aria-expanded', 'false');
+            });
+            notifPopover.addEventListener('click', (e) => e.stopPropagation());
+
+            document.getElementById('markAllRead').addEventListener('click', (e) => {
+                e.stopPropagation();
+                showToast('✅ Đã đánh dấu tất cả đã đọc', 'success', '📬');
+                notifPopover.classList.remove('open');
+            });
+            document.getElementById('viewAllNotifs').addEventListener('click', () => {
+                notifPopover.classList.remove('open');
+                showToast('📋 Xem tất cả thông báo', 'info', '📬');
+            });
+
+            // Drawer
+            const headerAvatar = document.getElementById('headerAvatar');
+            const drawerOverlay = document.getElementById('drawerOverlay');
+            const drawerClose = document.getElementById('drawerClose');
+            headerAvatar.addEventListener('click', () => drawerOverlay.classList.add('open'));
+            headerAvatar.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    drawerOverlay.classList.add('open');
+                }
+            });
+            drawerClose.addEventListener('click', () => drawerOverlay.classList.remove('open'));
+            drawerOverlay.addEventListener('click', (e) => {
+                if (e.target === drawerOverlay) drawerOverlay.classList.remove('open');
+            });
+            document.getElementById('manageAccountBtn').addEventListener('click', () => {
+                showToast('🔐 Quản lý tài khoản', 'info', '⚙️');
+                drawerOverlay.classList.remove('open');
+            });
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                showToast('👋 Đăng xuất', 'warning', '⏻');
+            });
+
+            // Theme
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // Builder actions
+            document.getElementById('newProjectBtn').addEventListener('click', () => {
+                emptyPlaceholder.style.display = 'flex';
+                builtContent.classList.remove('visible');
+                builtContent.innerHTML = '';
+                showToast('📁 Đã tạo dự án mới', 'success', '📁');
+            });
+
+            document.getElementById('importHtmlBtn').addEventListener('click', () => {
+                showToast('📤 Mở hộp thoại import HTML', 'info', '📤');
+            });
+
+            document.getElementById('exportHtmlBtn').addEventListener('click', () => {
+                const btn = this;
+                showToast('⏳ Đang xuất HTML...', 'info', '⏳');
+                setTimeout(() => {
+                    showToast('✅ Đã xuất HTML thành công!', 'success', '✅');
+                }, 1500);
+            });
+
+            // Component items
+            document.querySelectorAll('.component-item[data-component]').forEach(item => {
+                item.addEventListener('click', function() {
+                    const component = this.dataset.component;
+                    addComponent(component);
+                });
+            });
+
+            // Template items
+            document.querySelectorAll('.component-item[data-template]').forEach(item => {
+                item.addEventListener('click', function() {
+                    const template = this.dataset.template;
+                    showTemplate(template);
+                });
+            });
+
+            // Device buttons
+            document.querySelectorAll('.device-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const device = this.dataset.device;
+                    const frame = document.getElementById('previewFrame');
+                    if (device === 'desktop') {
+                        frame.style.maxWidth = '1200px';
+                        frame.style.padding = '24px';
+                    } else if (device === 'tablet') {
+                        frame.style.maxWidth = '768px';
+                        frame.style.padding = '20px';
+                    } else if (device === 'mobile') {
+                        frame.style.maxWidth = '420px';
+                        frame.style.padding = '16px';
+                    }
+                    showToast(`📱 Đã chuyển sang ${device}`, 'info', '📱');
+                });
+            });
+
+            // Mobile Menu
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            menuToggle.addEventListener('click', () => {
+                const isOpen = sidebar.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    const isSidebar = sidebar.contains(e.target);
+                    const isToggle = menuToggle.contains(e.target);
+                    if (!isSidebar && !isToggle) {
+                        sidebar.classList.remove('open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Global Search
+            document.getElementById('globalSearch').addEventListener('input', function(e) {
+                const query = this.value.trim().toLowerCase();
+                const items = document.querySelectorAll('.component-item');
+                if (query.length > 0) {
+                    items.forEach(item => {
+                        const text = item.textContent.toLowerCase();
+                        if (text.includes(query)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                } else {
+                    items.forEach(item => item.style.display = '');
+                }
+            });
+
+            // Keyboard Shortcuts
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    const searchInput = document.querySelector('.m-header .search-box input');
+                    if (searchInput) {
+                        searchInput.focus();
+                        searchInput.select();
+                    }
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+                if (e.key === 'Escape') {
+                    notifPopover.classList.remove('open');
+                    notifBtn.setAttribute('aria-expanded', 'false');
+                    drawerOverlay.classList.remove('open');
+                    sidebar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // ====== INIT ======
+            setTheme(getTheme());
+            renderNav();
+            renderNotifications();
+            updateUserUI();
+
+            // Show default template
+            setTimeout(() => {
+                showTemplate('landing');
+            }, 500);
+
+            console.log('✅ MIMIN AI Website Builder (MIMIN HTML STANDARD v1.0) initialized.');
+        })();
+    </script>
+
+</body>
+</html>

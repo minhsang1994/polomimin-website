@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIMIN · Warehouse Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/warehouse-layout.css" />
+    <style>
+        .wh-columns { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: start; }
+        @media (max-width: 900px) { .wh-columns { grid-template-columns: 1fr; } }
+        .wh-panel { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-sm); }
+        .wh-panel h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+
+<body>
+    <aside class="m-sidebar" id="sidebar" role="navigation" aria-label="Điều hướng chính">
+        <div class="m-sidebar-brand">
+            <div class="logo-icon" aria-hidden="true">M</div>
+            <div class="logo-text">MIMIN<span>.</span></div>
+        </div>
+        <ul class="m-sidebar-nav" id="navMenu"></ul>
+        <div class="m-sidebar-footer">
+            <div class="avatar" id="sidebarAvatar" aria-hidden="true">LP</div>
+            <div class="user-info">
+                <div class="name" id="sidebarUserName">Lý Thị Phượng</div>
+                <div class="role" id="sidebarUserRole">Quản lý Kho</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Đăng xuất" aria-label="Đăng xuất">⏻</button>
+        </div>
+    </aside>
+
+    <main class="m-main" id="mainContent">
+        <header class="m-header" role="banner">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu điều hướng" aria-expanded="false">☰</button>
+            <div class="search-box" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="globalSearch" placeholder="Tìm kiếm mọi thứ..." aria-label="Tìm kiếm" />
+                <span class="shortcut" aria-hidden="true">⌘K</span>
+            </div>
+            <div class="actions">
+                <button class="action-btn" id="themeToggle" title="Chuyển đổi theme" aria-label="Chuyển đổi giao diện sáng/tối">🌓</button>
+                <button class="action-btn" id="notifBtn" title="Thông báo" aria-label="Mở thông báo">🔔<span class="dot" aria-hidden="true"></span></button>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="user-avatar" id="headerAvatar" title="Lý Thị Phượng" role="button" tabindex="0" aria-label="Mở hồ sơ">LP</div>
+            </div>
+        </header>
+
+        <div class="notif-popover" id="notifPopover" role="dialog" aria-label="Thông báo">
+            <div class="head"><span>Thông báo mới</span><span class="mark-read" id="markAllRead" role="button" tabindex="0">Đánh dấu đã đọc</span></div>
+            <div class="list" id="notifList"></div>
+            <div class="foot" id="viewAllNotifs" role="button" tabindex="0">Xem tất cả thông báo →</div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="current">🏬 Warehouse Dashboard</span>
+        </nav>
+
+        <div class="wh-page-header">
+            <div>
+                <div class="wph-title">🏬 Warehouse Dashboard</div>
+                <div class="wph-subtitle">Tổng quan tồn kho toàn hệ thống — liên kết trực tiếp với Business OS, Factory OS, AI Center và Marketplace</div>
+            </div>
+            <div class="wph-actions">
+                <div class="wh-filters" id="periodFilters"></div>
+            </div>
+        </div>
+
+        <div class="wh-stat-grid" id="statGrid"></div>
+
+        <div class="wh-page-header" style="margin-top:4px;">
+            <div class="wph-title" style="font-size:18px;">🔗 Kết nối hệ sinh thái MIMIN</div>
+        </div>
+        <div class="wh-cross-links" id="crossLinks"></div>
+
+        <div class="wh-columns" style="margin-top:16px;">
+            <div class="wh-panel">
+                <h3>📋 Biến động kho gần nhất</h3>
+                <div class="wh-table-wrap" style="box-shadow:none;border:none;">
+                    <table class="wh-table" id="movementTable">
+                        <thead><tr></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="wh-pagination" id="movementPagination"></div>
+            </div>
+            <div class="wh-panel">
+                <h3>🚨 Cảnh báo cần xử lý</h3>
+                <div class="wh-timeline" id="alertTimeline"></div>
+            </div>
+        </div>
+
+        <div class="wh-panel" style="margin-top:16px;">
+            <h3>📈 Nhập / Xuất kho 7 ngày gần nhất
+                <span class="wh-tooltip-target" tabindex="0" style="margin-left:4px;">
+                    <span class="wh-info-icon" aria-hidden="true">i</span>
+                    <span class="wh-tooltip-box" role="tooltip">Đơn vị: số phiếu nhập/xuất mỗi ngày</span>
+                </span>
+            </h3>
+            <div class="wh-bar-chart" id="movementChart"></div>
+        </div>
+
+        <footer style="text-align:center; font-size:13px; color:var(--text-light); padding-top: 24px; border-top:1px solid var(--border-color); margin-top: 8px;">
+            MIMIN Platform v1.0 · Smart Warehouse OS · © 2026
+        </footer>
+    </main>
+
+    <button class="m-ai-float" id="aiFloatBtn" aria-label="Mở AI trợ giúp">
+        <span class="ai-icon" aria-hidden="true">🧠</span>
+        <span>AI Insight · <strong>3 mã hàng sắp hết trong 3 ngày</strong></span>
+    </button>
+    <button class="wh-fab stacked" id="quickAddBtn" aria-label="Tạo phiếu nhanh" title="Tạo phiếu nhanh">+</button>
+
+    <div class="m-drawer-overlay" id="drawerOverlay" role="dialog" aria-modal="true" aria-label="Hồ sơ người dùng">
+        <div class="m-drawer">
+            <button class="drawer-close" id="drawerClose" aria-label="Đóng hồ sơ">✕</button>
+            <div class="drawer-avatar" id="drawerAvatar" aria-hidden="true">LP</div>
+            <div class="drawer-name" id="drawerName">Lý Thị Phượng</div>
+            <div class="drawer-role" id="drawerRole">Quản lý Kho · MIMIN Warehouse</div>
+            <div class="drawer-info"><span class="label">Kho</span><span class="value" id="drawerCompany">Kho Trung tâm - Bình Dương</span></div>
+            <div class="drawer-info"><span class="label">Gói dịch vụ</span><span class="value" id="drawerPlan">Enterprise</span></div>
+            <div class="drawer-info"><span class="label">Ngày đăng nhập</span><span class="value" id="drawerLoginDate">09/07/2026</span></div>
+            <div class="drawer-info"><span class="label">Vai trò</span><span class="value">Quản lý Kho</span></div>
+            <button class="drawer-btn" id="manageAccountBtn">Quản lý tài khoản</button>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/warehouse-layout.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const USER = { name: 'Lý Thị Phượng', initials: 'LP', role: 'Quản lý Kho', company: 'Kho Trung tâm - Bình Dương', plan: 'Enterprise', loginDate: '09/07/2026' };
+
+            const NAV_ITEMS = [
+                { icon: '🏬', label: 'Warehouse Dashboard', href: '142_warehouse_dashboard.html', active: true, badge: '' },
+                { icon: '🧶', label: 'Kho nguyên liệu', href: '143_material_inventory.html', active: false, badge: '' },
+                { icon: '🧵', label: 'Kho vải', href: '144_fabric_inventory.html', active: false, badge: '' },
+                { icon: '🔘', label: 'Kho phụ liệu', href: '145_accessories_inventory.html', active: false, badge: '' },
+                { icon: '📦', label: 'Kho thành phẩm', href: '146_finished_goods_inventory.html', active: false, badge: '' },
+                { icon: '📥', label: 'Nhập kho', href: '147_stock_in.html', active: false, badge: '' },
+                { icon: '📤', label: 'Xuất kho', href: '148_stock_out.html', active: false, badge: '' },
+                { icon: '🔄', label: 'Chuyển kho', href: '149_stock_transfer.html', active: false, badge: '' },
+                { icon: '⚖️', label: 'Điều chỉnh kho', href: '150_stock_adjustment.html', active: false, badge: '' },
+                { icon: '🔢', label: 'Kiểm kê', href: '151_cycle_count.html', active: false, badge: '' },
+                { icon: '🏷️', label: 'Barcode / QR', href: '152_barcode_center.html', active: false, badge: '' },
+                { icon: '📍', label: 'Quản lý vị trí', href: '153_location_management.html', active: false, badge: '' },
+                { icon: '🗂️', label: 'Batch / Lot / FIFO', href: '154_batch_management.html', active: false, badge: '' },
+                { icon: '🚨', label: 'Cảnh báo tồn kho', href: '155_inventory_alert.html', active: false, badge: '' },
+                { icon: '🧠', label: 'AI dự báo tồn kho', href: '156_inventory_forecast.html', active: false, badge: '' },
+                { icon: '📊', label: 'Báo cáo kho', href: '157_inventory_report.html', active: false, badge: '' },
+                { icon: '🚚', label: 'Nhập hàng NCC', href: '158_supplier_delivery.html', active: false, badge: '' },
+                { icon: '🗓️', label: 'Lịch giao hàng', href: '159_delivery_schedule.html', active: false, badge: '' },
+                { icon: '🧺', label: 'Picking', href: '160_picking.html', active: false, badge: '' },
+                { icon: '📦', label: 'Đóng gói', href: '161_packing_station.html', active: false, badge: '' },
+                { icon: '🚛', label: 'Xuất hàng', href: '162_shipping.html', active: false, badge: '' },
+                { icon: '↩️', label: 'Hàng trả', href: '163_return_goods.html', active: false, badge: '' },
+                { icon: '💥', label: 'Hàng lỗi', href: '164_damage_goods.html', active: false, badge: '' },
+                { icon: '⏳', label: 'Hàng hết hạn', href: '165_expired_goods.html', active: false, badge: '' },
+                { icon: '🕰️', label: 'Lịch sử kho', href: '166_stock_history.html', active: false, badge: '' },
+                { icon: '🧠', label: 'AI Inventory', href: '167_ai_inventory.html', active: false, badge: '' },
+                { icon: '📈', label: 'Phân tích kho', href: '168_inventory_analytics.html', active: false, badge: '' },
+                { icon: '🔐', label: 'Phân quyền kho', href: '169_inventory_permissions.html', active: false, badge: '' },
+                { icon: '⚙️', label: 'Cấu hình kho', href: '170_inventory_settings.html', active: false, badge: '' },
+                { icon: '🏠', label: 'Trang chủ Warehouse OS', href: '171_warehouse_home.html', active: false, badge: '' }
+            ];
+
+            const NOTIFICATIONS = [
+                { icon: '⚠️', title: '3 mã hàng sắp hết trong 3 ngày tới', time: '15 phút trước' },
+                { icon: '📥', title: 'Lô hàng từ NCC Vải Sài Gòn đã tới cổng kho', time: '1 giờ trước' }
+            ];
+
+            const STATS = [
+                { icon: '📦', label: 'Tổng tồn kho', value: '186,400 sp', change: '+4%', up: true },
+                { icon: '⚠️', label: 'Hàng sắp hết', value: '9 SKU', change: '', up: false },
+                { icon: '📥', label: 'Sắp nhập (7 ngày)', value: '12 phiếu', change: '+3', up: true },
+                { icon: '📤', label: 'Sắp xuất (7 ngày)', value: '18 phiếu', change: '+5', up: true }
+            ];
+
+            const CROSS_LINKS = [
+                { icon: '🏢', tag: 'Business OS', name: 'Đơn bán hàng liên quan', href: '80_sales_order.html', enabled: true },
+                { icon: '🏭', tag: 'Factory OS', name: 'Kho thành phẩm sản xuất', href: '119_finished_goods.html', enabled: true },
+                { icon: '🧠', tag: 'AI Center', name: 'Trung tâm AI (sắp ra mắt)', href: '#', enabled: false },
+                { icon: '🛒', tag: 'Marketplace', name: 'Marketplace (sắp ra mắt)', href: '#', enabled: false }
+            ];
+
+            const MOVEMENTS = [
+                { id: 1, code: 'GN-3301', type: 'Nhập kho', item: 'Vải Cotton 30/1', qty: '+500 m', warehouse: 'Kho vải', time: '10 phút trước', color: 'green' },
+                { id: 2, code: 'PX-2210', type: 'Xuất kho', item: 'Áo thun basic Cotton', qty: '-1,200 sp', warehouse: 'Kho thành phẩm', time: '30 phút trước', color: 'blue' },
+                { id: 3, code: 'CK-0088', type: 'Chuyển kho', item: 'Sợi Cotton 30/1', qty: '200 kg', warehouse: 'Kho NL → Kho vải', time: '1 giờ trước', color: 'purple' },
+                { id: 4, code: 'GN-3300', type: 'Nhập kho', item: 'Nút áo nhựa 15mm', qty: '+30,000 cái', warehouse: 'Kho phụ liệu', time: '2 giờ trước', color: 'green' },
+                { id: 5, code: 'DC-0021', type: 'Điều chỉnh', item: 'Vải Denim 14oz', qty: '-45 m', warehouse: 'Kho vải', time: '3 giờ trước', color: 'amber' },
+                { id: 6, code: 'PX-2209', type: 'Xuất kho', item: 'Quần jean slim fit', qty: '-800 sp', warehouse: 'Kho thành phẩm', time: '4 giờ trước', color: 'blue' }
+            ];
+
+            const ALERTS = [
+                { title: 'Sợi Cotton 30/1 sắp hết', desc: 'Tồn kho còn 180kg, đủ dùng 2 ngày', time: '15 phút trước', state: '' },
+                { title: 'Lô hàng NCC Vải Sài Gòn tới cổng kho', desc: 'Cần xác nhận nhập kho trong hôm nay', time: '1 giờ trước', state: '' },
+                { title: 'Vải Denim 14oz điều chỉnh giảm 45m', desc: 'Ghi nhận hao hụt khi kiểm kê định kỳ', time: '3 giờ trước', state: 'done' },
+                { title: 'Hoàn tất kiểm kê khu A1-A5', desc: 'Không phát hiện chênh lệch lớn', time: 'Hôm qua', state: 'done' }
+            ];
+
+            let movementPage = 1;
+            const PAGE_SIZE = 4;
+
+            function renderMovements() {
+                const pageRows = MiminWH.paginateRows(MOVEMENTS, movementPage, PAGE_SIZE);
+                MiminWH.renderTable({
+                    container: document.querySelector('#movementTable'),
+                    columns: [
+                        { key: 'code', label: 'Mã phiếu', render: r => `<span class="cell-primary">${r.code}</span>` },
+                        { key: 'type', label: 'Loại', render: r => `<span class="wh-badge ${r.color}">${r.type}</span>` },
+                        { key: 'item', label: 'Mặt hàng', cls: 'wrap', render: r => r.item },
+                        { key: 'qty', label: 'Số lượng', cls: 'num', render: r => r.qty },
+                        { key: 'time', label: 'Thời gian', cls: 'num', render: r => `<span class="cell-sub">${r.time}</span>` }
+                    ],
+                    rows: pageRows,
+                    onRowClick: (row) => {
+                        MiminWH.openModal({
+                            title: `📋 ${row.code}`,
+                            subtitle: row.item,
+                            rows: [
+                                { label: 'Loại', value: row.type },
+                                { label: 'Số lượng', value: row.qty },
+                                { label: 'Kho', value: row.warehouse },
+                                { label: 'Thời gian', value: row.time }
+                            ],
+                            actions: [{ label: 'Đóng', type: 'secondary' }]
+                        });
+                    }
+                });
+                MiminWH.renderPagination({
+                    container: 'movementPagination', total: MOVEMENTS.length, pageSize: PAGE_SIZE, page: movementPage,
+                    onChange: (p) => { movementPage = p; renderMovements(); }
+                });
+            }
+
+            function renderCrossLinks() {
+                const container = document.getElementById('crossLinks');
+                CROSS_LINKS.forEach(l => {
+                    const a = document.createElement('a');
+                    a.className = 'wh-cross-chip' + (l.enabled ? '' : ' disabled');
+                    a.href = l.enabled ? l.href : '#';
+                    a.innerHTML = `<span aria-hidden="true">${l.icon}</span><span><div class="cc-tag">${l.tag}</div>${l.name}</span>`;
+                    if (!l.enabled) {
+                        a.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            MiminShell.showToast(`🚧 ${l.tag} đang được xây dựng`, 'info', l.icon);
+                        });
+                    }
+                    container.appendChild(a);
+                });
+            }
+
+            function renderFilters() {
+                const options = ['Hôm nay', 'Tuần này', 'Tháng này'];
+                const container = document.getElementById('periodFilters');
+                options.forEach((o, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filter-btn' + (i === 1 ? ' active' : '');
+                    btn.textContent = o;
+                    btn.addEventListener('click', () => {
+                        container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        MiminShell.showToast(`📅 Xem theo: ${o}`, 'info', '📅');
+                    });
+                    container.appendChild(btn);
+                });
+            }
+
+            document.getElementById('quickAddBtn').addEventListener('click', () => MiminShell.showToast('➕ Tạo phiếu kho mới (demo)', 'info', '📦'));
+
+            MiminShell.init({
+                user: USER,
+                navItems: NAV_ITEMS,
+                notifications: NOTIFICATIONS,
+                aiFloatMessage: '🧠 AI Insight hôm nay:\n1. 3 mã hàng sẽ hết trong 3 ngày tới, cần đặt mua hoặc chuyển kho gấp\n2. Lô hàng NCC Vải Sài Gòn đang chờ xác nhận nhập kho tại cổng',
+                onNavClick: (item, el) => {
+                    if (item.href && item.href !== '#') return;
+                    document.querySelectorAll('.m-sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                    MiminShell.showToast(`🚧 ${item.label} đang được xây dựng`, 'info', item.icon);
+                }
+            });
+
+            renderFilters();
+            MiminWH.renderStatCards(STATS);
+            renderCrossLinks();
+            renderMovements();
+            MiminWH.renderTimeline({ container: 'alertTimeline', items: ALERTS });
+            MiminWH.renderBarChart({
+                container: 'movementChart',
+                data: [
+                    { label: 'T2', value: 24 }, { label: 'T3', value: 28 }, { label: 'T4', value: 22 },
+                    { label: 'T5', value: 31 }, { label: 'T6', value: 26 }, { label: 'T7', value: 18, color: 'amber' }, { label: 'CN', value: 9, color: 'amber' }
+                ]
+            });
+
+            console.log('✅ MIMIN Warehouse Dashboard (MIMIN HTML STANDARD v1.0) initialized.');
+        })();
+    </script>
+</body>
+</html>
