@@ -119,9 +119,6 @@
     const NAV_ITEMS=[
         {icon:'ðŸ ',label:'Hub chÃ­nh',href:'01-home.html'},
         {section:'AI Center'},
-        {icon:'ðŸ¤–',label:'AI Dashboard',href:'33-ai-dashboard.html'},
-        {icon:'ðŸ“ˆ',label:'AI Dá»± BÃ¡o',href:'35-ai-du-bao.html'},
-        {icon:'ðŸ’¡',label:'AI Gá»£i Ã',href:'36-ai-goi-y.html'},
         {section:'Academy'},
         {icon:'ðŸŽ“',label:'Academy Hub',href:'37-academy-dashboard.html',active:true},
         {icon:'ðŸ“š',label:'KhÃ³a há»c',href:'38-academy-khoa-hoc.html'},
@@ -129,22 +126,19 @@
         {section:'Modules khÃ¡c'},
         {icon:'ðŸ’°',label:'Sales',href:'22-sales-dashboard.html'},
         {icon:'âš™ï¸',label:'MES',href:'04-mes-dashboard.html'},
-        {icon:'ðŸ“¦',label:'WMS',href:'06-wms-dashboard.html'},
-    ];
+        {icon:'ðŸ“¦',label:'WMS',href:'06-wms-dashboard.html'} ];
     const NOTIFICATIONS=[{icon:'ðŸŽ“',title:'KhÃ³a há»c AI má»›i: "LÃ m chá»§ AI trong DN"',time:'HÃ´m nay'},{icon:'ðŸ†',title:'Báº¡n xáº¿p háº¡ng #4 trong thÃ¡ng nÃ y',time:'1 ngÃ y trÆ°á»›c'}];
     const STATS=[
         ['ðŸŽ“','KhÃ³a há»c','24','',true],['ðŸ‘¥','Há»c viÃªn','89','+12',true],
         ['âœ…','HoÃ n thÃ nh/thÃ¡ng','34','+8',true],['ðŸ“‹','SOP Ä‘ang hoáº¡t Ä‘á»™ng','18','',true],
         ['â­','Äiá»ƒm trung bÃ¬nh','4.8/5','+0.2',true],['ðŸ“œ','Chá»©ng chá»‰ cáº¥p','156','+24',true],
-        ['â±','Giá» há»c/tuáº§n','312h','+48h',true],['ðŸ†','KL há»c viÃªn top','7','',true],
-    ];
+        ['â±','Giá» há»c/tuáº§n','312h','+48h',true],['ðŸ†','KL há»c viÃªn top','7','',true] ];
     const ACTIVITY=[
         {id:1,type:'HoÃ n thÃ nh',ref:'AC-089',entity:'Nguyá»…n VÄƒn HÃ¹ng â€” Ká»¹ nÄƒng bÃ¡n hÃ ng',amount:'',status:'HoÃ n táº¥t',color:'green',time:'30 phÃºt trÆ°á»›c'},
         {id:2,type:'ÄÄƒng kÃ½',ref:'AC-088',entity:'Tráº§n Thá»‹ Mai â€” KhÃ³a AI & CÃ´ng nghá»‡',amount:'',status:'Äang há»c',color:'blue',time:'2 giá» trÆ°á»›c'},
         {id:3,type:'Kiá»ƒm tra',ref:'AC-087',entity:'LÃª Minh Tuáº¥n â€” SOP Váº­n hÃ nh â€” 9.5/10',amount:'',status:'Xuáº¥t sáº¯c',color:'green',time:'3 giá» trÆ°á»›c'},
         {id:4,type:'Chá»©ng chá»‰',ref:'AC-086',entity:'Pháº¡m Thu HÃ  â€” Sales Professional',amount:'',status:'Cáº¥p chá»©ng chá»‰',color:'purple',time:'1 ngÃ y trÆ°á»›c'},
-        {id:5,type:'ÄÄƒng kÃ½',ref:'AC-085',entity:'HoÃ ng VÄƒn Nam â€” Ká»¹ nÄƒng bÃ¡n hÃ ng',amount:'',status:'Äang há»c',color:'blue',time:'1 ngÃ y trÆ°á»›c'},
-    ];
+        {id:5,type:'ÄÄƒng kÃ½',ref:'AC-085',entity:'HoÃ ng VÄƒn Nam â€” Ká»¹ nÄƒng bÃ¡n hÃ ng',amount:'',status:'Äang há»c',color:'blue',time:'1 ngÃ y trÆ°á»›c'} ];
     let cp=1;const PS=5;
     function render(){const rows=MiminBiz.paginateRows(ACTIVITY,cp,PS);MiminBiz.renderTable({container:document.querySelector('#activityTable'),emptyEl:'activityEmpty',columns:[{key:'type',label:'Hoáº¡t Ä‘á»™ng',render:r=>`<span class="cell-primary">${r.type}</span>`},{key:'ref',label:'MÃ£',render:r=>r.ref},{key:'entity',label:'Chi tiáº¿t',cls:'wrap',render:r=>r.entity},{key:'status',label:'Káº¿t quáº£',render:r=>`<span class="status-badge ${r.color}">${r.status}</span>`},{key:'time',label:'Thá»i gian',render:r=>`<span class="cell-sub">${r.time}</span>`}],rows,onRowClick:row=>MiminBiz.openModal({title:`${row.type} Â· ${row.ref}`,subtitle:row.entity,rows:[{label:'Káº¿t quáº£',value:row.status},{label:'Thá»i gian',value:row.time}],actions:[{label:'ÄÃ³ng',type:'secondary'},{label:'Xem chi tiáº¿t',type:'primary'}]})});MiminBiz.renderPagination({container:'activityPagination',total:ACTIVITY.length,pageSize:PS,page:cp,onChange:p=>{cp=p;render();}});}
     function renderFilters(){const opts=['ThÃ¡ng nÃ y','QuÃ½ nÃ y','NÄƒm nay'];const c=document.getElementById('dateFilters');opts.forEach((l,i)=>{const b=document.createElement('button');b.className='filter-btn'+(i===0?' active':'');b.textContent=l;b.onclick=()=>{c.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');};c.appendChild(b);});}

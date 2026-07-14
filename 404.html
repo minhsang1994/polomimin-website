@@ -117,7 +117,6 @@
             <a class="nav-card" href="04-mes-dashboard.html"><span class="ic">⚙️</span><span class="lbl">MES</span><span class="sub">Sản xuất</span></a>
             <a class="nav-card" href="06-wms-dashboard.html"><span class="ic">📦</span><span class="lbl">WMS</span><span class="sub">Kho vận</span></a>
             <a class="nav-card" href="22-hr-dashboard.html"><span class="ic">👥</span><span class="lbl">HR</span><span class="sub">Nhân sự</span></a>
-            <a class="nav-card" href="33-ai-dashboard.html"><span class="ic">🤖</span><span class="lbl">AI Center</span><span class="sub">Dự báo & Gợi ý</span></a>
         </div>
 
         <div class="btn-row">
@@ -144,12 +143,10 @@ const PAGE_MAP = [
     { kw: ['mes','sản xuất','lệnh sx','kế hoạch'], url: '04-mes-dashboard.html' },
     { kw: ['wms','kho','nhập kho','xuất kho','kiểm kê'], url: '06-wms-dashboard.html' },
     { kw: ['hr','nhân sự','nhân viên','chấm công','lương'], url: '22-hr-dashboard.html' },
-    { kw: ['ai','dự báo','gợi ý','trí tuệ'], url: '33-ai-dashboard.html' },
     { kw: ['academy','khóa học','sop','quy trình','đào tạo'], url: '37-academy-dashboard.html' },
     { kw: ['login','đăng nhập'], url: 'login.html' },
     { kw: ['settings','cài đặt'], url: 'settings.html' },
-    { kw: ['gallery','bộ sưu tập','catalog'], url: 'gallery.html' },
-];
+    { kw: ['gallery','bộ sưu tập','catalog'], url: 'gallery.html' } ];
 function doSearch() {
     const q = document.getElementById('searchInp').value.toLowerCase().trim();
     if (!q) return;

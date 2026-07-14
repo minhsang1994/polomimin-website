@@ -36,6 +36,36 @@ generate-pages.*
 copy_reference.cjs
 copy_assets.cjs
 
+# Audit/fix/debug scripts (one-off, không thuộc project)
+audit-*.cjs
+check-*.cjs
+debug-*.cjs
+diff-*.cjs
+dump-*.cjs
+find-*.cjs
+fix-*.cjs
+inspect-*.cjs
+paren-*.cjs
+retest.cjs
+smoke-*.cjs
+test-*.cjs
+trace-*.cjs
+try-*.cjs
+verify-*.cjs
+console-*.cjs
+deep-*.cjs
+delete-*.cjs
+final-*.cjs
+get-*.cjs
+fb-emul.out.txt
+fb-emul.err.txt
+smoke-results/
+_live-*.html
+
+# Firebase cache & GitHub workflows
+.firebase/
+.github/
+
 # Firebase Admin SDK service account key (chứa private key - KHÔNG COMMIT)
 serviceAccountKey.json
 service-account*.json
