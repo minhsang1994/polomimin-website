@@ -111,7 +111,7 @@
                 {key:'amount',label:'Giá trị',cls:'num',render:r=>r.amount==='—'?'—':r.amount+' đ'},
                 {key:'status',label:'Trạng thái',render:r=>`<span class="status-badge ${r.color}">${r.status}</span>`},
                 {key:'time',label:'Thời gian',render:r=>`<span class="cell-sub">${r.time}</span>`}
-            ],rows:pageRows,onRowClick:row=>{MiminBiz.openModal({title:`${row.type} · ${row.ref}`,subtitle:row.entity,rows:[{label:'Giá trị',value:row.amount==='—'?'—':row.amount+' đ'},{label:'Trạng thái',value:row.status},{label:'Thời gian',value:row.time}],actions:[{label:'Đóng',type:'secondary'},{label:'Mở chi tiết',type:'primary',onClick:()=>MiminShell.showToast(`↗ ${row.ref}`,'info','↗')}])})}});
+            ],rows:pageRows,onRowClick:row=>{MiminBiz.openModal({title:`${row.type} · ${row.ref}`,subtitle:row.entity,rows:[{label:'Giá trị',value:row.amount==='—'?'—':row.amount+' đ'},{label:'Trạng thái',value:row.status},{label:'Thời gian',value:row.time}],actions:[{label:'Đóng',type:'secondary'},{label:'Mở chi tiết',type:'primary',onClick:()=>MiminShell.showToast(`↗ ${row.ref}`,'info','↗')}]})}});
             MiminBiz.renderPagination({container:'activityPagination',total:ACTIVITY.length,pageSize:PAGE_SIZE,page:currentPage,onChange:p=>{currentPage=p;renderActivity();}});
         }
         function renderDateFilters(){const opts=['Hôm nay','Tuần này','Tháng này','Quý này'];const c=document.getElementById('dateFilters');opts.forEach((l,i)=>{const b=document.createElement('button');b.className='filter-btn'+(i===2?' active':'');b.textContent=l;b.onclick=()=>{c.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');MiminShell.showToast(`📅 ${l}`,'info','📅');};c.appendChild(b);});}
